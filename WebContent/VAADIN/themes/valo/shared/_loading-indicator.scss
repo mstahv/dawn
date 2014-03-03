@@ -1,0 +1,110 @@
+// TODO make a fallback for IE 8 & 9
+
+@-webkit-keyframes v-rotate-360 {
+   to {-webkit-transform: rotate(360deg);}
+}
+@-moz-keyframes v-rotate-360 {
+   to {-moz-transform: rotate(360deg);}
+}
+@-o-keyframes v-rotate-360 {
+   to {-o-transform: rotate(360deg);}
+}
+@keyframes v-rotate-360 {
+   to {transform: rotate(360deg);}
+}
+
+
+@mixin v-valo-spinner ($size: 24px, $color: $v-primary-color, $speed: 500ms) {
+  height: $size;
+  width: $size;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: ceil($size/8) solid transparentize($color, .8);
+  border-top-color: transparentize($color, .15);
+  border-radius: 100%;
+  -webkit-animation: v-rotate-360 $speed infinite linear;
+  -moz-animation: v-rotate-360 $speed infinite linear;
+  -o-animation: v-rotate-360 $speed infinite linear;
+  animation: v-rotate-360 $speed infinite linear;
+  pointer-events: none;
+  @include transition(all ease-in-out 300ms);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@include keyframes(v-progress-start) {
+  0% { width: 0%; }
+  100% { width: 50%; }
+}
+
+@include keyframes(v-progress-delay) {
+  0% { width: 50%; }
+  100% { width: 90%; }
+}
+
+@include keyframes(v-progress-wait) {
+  0% { width: 90%; }
+  100% { width: 96%; }
+}
+
+@include keyframes(v-progress-wait-pulse) {
+  0% { opacity: 1; }
+  50% { opacity: .3; }
+  100% { opacity: 1; }
+}
+
+@mixin v-valo-loading-bar {
+  
+  .v-loading-indicator {
+    position: fixed !important;
+    z-index: 99999;
+    left: 0;
+    right: auto;
+    top: 0;
+    width: 50%;
+    opacity: 1;
+    height: ceil($v-unit-size/6);
+    background: font-color($v-app-background-color);
+    pointer-events: none;
+    
+    @include transition(opacity ease-in-out 300ms);
+    @include animation(v-progress-start 1200ms);
+    @include animation-fill-mode(forwards);
+    
+    &[style*="none"] {
+      display: block !important;
+      width: 100%;
+      opacity: 0;
+      @include transition-property(all);
+      @include animation(none);
+    }
+  }
+  
+  .v-loading-indicator-delay {
+    width: 50%;
+    @include transition-property(all);
+    @include animation(v-progress-delay 3.8s);
+    @include animation-fill-mode(forwards);
+  }
+  
+  .v-loading-indicator-wait {
+    width: 90%;
+    @include transition-property(all);
+    @include animation(v-progress-wait 5s, v-progress-wait-pulse 1s 4s infinite);
+    @include animation-fill-mode(forwards);
+  }
+  
+}

@@ -1,0 +1,5 @@
+@import "escalator";
+
+@mixin v-core-grid($primary-styleName : v-grid) {
+  @include v-core-escalator($primary-styleName);
+}

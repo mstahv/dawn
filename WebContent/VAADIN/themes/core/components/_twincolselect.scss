@@ -1,0 +1,19 @@
+@mixin v-core-twincolselect ($primary-stylename: v-select-twincol) {
+  
+  .#{$primary-stylename} {
+    width: auto !important;
+    
+    .v-button {
+      @extend %v-widget;
+    }
+  
+  }
+  
+  .#{$primary-stylename}-buttons {
+  	white-space: nowrap;
+    display: inline-block;
+    width: auto !important;
+    vertical-align: top;
+  }
+  
+}

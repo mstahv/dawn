@@ -1,0 +1,5 @@
+@mixin v-core-csslayout ($primary-stylename: v-csslayout){
+  .#{$primary-stylename} {
+    display: block;
+  }
+}

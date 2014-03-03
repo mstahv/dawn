@@ -1,0 +1,5 @@
+@mixin v-core-label ($primary-stylename: v-label) {
+  .#{$primary-stylename}-undef-w {
+    white-space: nowrap;
+  }
+}

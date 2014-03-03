@@ -1,0 +1,42 @@
+@mixin v-valo-orderedlayout {
+  
+  .v-verticallayout.v-margin-top,
+  .v-horizontallayout.v-margin-top {
+  	padding-top: $v-layout-margin-top;
+  }
+  
+  .v-verticallayout.v-margin-right,
+  .v-horizontallayout.v-margin-right {
+  	padding-right: $v-layout-margin-right;
+  }
+  
+  .v-verticallayout.v-margin-bottom,
+  .v-horizontallayout.v-margin-bottom {
+  	padding-bottom: $v-layout-margin-bottom;
+  }
+  
+  .v-verticallayout.v-margin-left,
+  .v-horizontallayout.v-margin-left {
+  	padding-left: $v-layout-margin-left;
+  }
+  
+  .v-spacing {
+  	width: $v-layout-spacing-horizontal;
+  	height: $v-layout-spacing-vertical;
+  }
+  
+}
+
+
+@mixin v-valo-horizontallayout--wrapping {
+    white-space: normal !important;
+    
+    & > .v-spacing + .v-slot,
+    & > .v-slot:first-child {
+      margin-bottom: $v-unit-size/2.5;
+    }
+    
+    & > .v-slot:first-child:last-child {
+      margin-bottom: 0;
+    } 
+}

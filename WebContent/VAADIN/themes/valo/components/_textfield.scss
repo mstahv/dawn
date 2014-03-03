@@ -1,0 +1,91 @@
+@function v-valo-textfield-background-color ($context-color) {
+  @return if( color-luminance($context-color) < $vaadin-luminance-threshold, darken($context-color, 5%), lighten($context-color, 10%));
+}
+
+
+@function v-valo-textfield-box-shadow (
+    $context-color: $v-app-background-color,
+    $emboss-depth: $v-emboss-depth
+  ) {
+  @if color-luminance($context-color) > $vaadin-luminance-threshold {
+    @return 0 0 0 2px rgba(0,0,0, (0.1-(color-luminance($context-color)/255*0.06)));
+  } @else {
+    @return 0 0 0 2px rgba(255,255,255, color-luminance($context-color)/255/3);
+  }
+}
+
+
+@mixin v-valo-textfield-style (
+    $context-color: $v-app-background-color,
+    $border-radius: $v-border-radius,
+    $emboss-depth: $v-emboss-depth
+  ) {
+  	
+  margin: 0;
+  padding: 0 ceil($v-unit-size/6);
+  height: $v-unit-size;
+  
+  border-radius: $border-radius;
+  border: 1px solid mix($context-color, scale-color($context-color, $lightness: -20%-$emboss-depth), 20%);
+  
+  background: v-valo-textfield-background-color($context-color);
+  font: inherit;
+  font-weight: 400;
+  line-height: 1;
+  color: inherit;
+  
+  box-shadow: v-valo-textfield-box-shadow($context-color: $context-color, $emboss-depth: $emboss-depth);
+  
+  @include transition(box-shadow 180ms, border 180ms);
+}
+
+
+@mixin v-valo-textfield-prompt-style ($context-color: $v-app-background-color) {
+  $bg: v-valo-textfield-background-color($context-color);
+  color: mix(font-color($context-color), $bg);
+}
+
+
+@mixin v-valo-textfield-focus-style ($context-color: $v-app-background-color) {
+  outline: none;
+  
+  $focus-color: $v-focus-color;
+  @if $focus-color == $context-color {
+    $focus-color: #fff;
+  }
+  
+  @if color-luminance($focus-color) + 50 < color-luminance($context-color) {
+    border-color: $focus-color;
+  }
+  
+  box-shadow: 0 0 0 2px transparentize($focus-color, .5);
+  
+  @include transition(none);
+}
+
+
+@mixin v-valo-textfield-readonly-style {
+  background: transparent;
+  box-shadow: none;
+}
+
+
+@mixin v-valo-textfield ($primary-stylename: v-textfield) {
+  
+  .#{$primary-stylename} {
+    @include v-valo-textfield-style;
+  }
+  
+  .#{$primary-stylename}-prompt {
+    @include v-valo-textfield-prompt-style;
+  }
+  
+  .#{$primary-stylename}-focus {
+    @include v-valo-textfield-focus-style;
+  }
+  
+  .#{$primary-stylename}-readonly {
+    @include v-valo-textfield-readonly-style;
+  }
+  
+}

@@ -1,0 +1,160 @@
+@import "blend-modes";
+
+// Returns the luminance of a color (0-255)
+// (perceived brightness, rather than absolute mathematical lightness value)
+//
+// "The luminance calculation is a weighted average of the color channels that approximates 
+// how humans perceive brightness, while lightness is just an average of the largest and 
+// smallest channels without regard to perception."
+//
+// Source for equation: http://en.wikipedia.org/wiki/Luminance_(relative)
+@function color-luminance ($color) {
+  @return 0.2126 * red($color) + 0.7152 * green($color) + 0.0722 * blue($color);
+}
+
+
+@function luminance-diff($color1, $color2) {
+  @return abs(color-luminance($color1) - color-luminance($color2));
+}
+
+@function saturation-diff($color1, $color2) {
+  @return abs(saturation($color1) - saturation($color2));
+}
+
+@function hue-diff($color1, $color2) {
+  @return abs(hue($color1) - hue($color2));
+}
+
+
+// Arbitrary luminance threshold after which colors should be adjusted either darker or lighter
+$vaadin-luminance-threshold: 150 !default;
+
+
+
+@function black($opacity: 1) {
+  @return transparentize(#000, 1 - $opacity);
+}
+
+@function white($opacity: 1) {
+  @return transparentize(#fff, 1 - $opacity);
+}
+
+
+
+@function is-dark-color($bg-color) {
+  $luminance: color-luminance($bg-color);
+  @if $luminance < $vaadin-luminance-threshold or (saturation($bg-color) > 80% and ($luminance < $vaadin-luminance-threshold + 20)) {
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+// Returns a text color with enough contrast for the given background color
+//
+@function font-color ($bg-color) {
+  @if $bg-color {
+    @if is-dark-color($bg-color) {
+      @return scale_color($bg-color, $lightness: 80%, $saturation: -60%);
+    } @else {
+      @return scale_color($bg-color, $lightness: -70%, $saturation: -50%);
+    }
+  }
+  @return null;
+}
+
+
+@function font-color-disabled ($bg-color) {
+  @if is-dark-color($bg-color) {
+    @return adjust-color($bg-color, $lightness: 20%, $saturation: -6%);
+  } @else {
+    @return adjust-color($bg-color, $lightness: -20%, $saturation: -6%);
+  }
+}
+
+
+@function font-color-light ($bg-color) {
+  @if is-dark-color($bg-color) {
+    @return adjust-color($bg-color, $lightness: 30%, $saturation: -3%);
+  } @else {
+    @return adjust-color($bg-color, $lightness: -30%, $saturation: -3%);
+  }
+}
+
+
+@function font-color-active ($bg-color) {
+  @return font-color(darken($bg-color, 5%));
+}
+
+
+@function color-variant ($color, $amount) {
+  @if color-luminance($color) > 170 {
+    @return adjust_color($color, $lightness: -$amount);
+  } @else {
+    @return adjust_color($color, $lightness: $amount);
+  }
+}
+
+
+@function header-color ($bg-color, $contrast: 1) {
+  $font-color: font-color($bg-color);
+  @if is-dark-color($bg-color) {
+    @return lighten($font-color, 30% * $contrast);
+  } @else {
+    @return darken($font-color, 20% * $contrast);
+  }
+}
+
+
+
+
+
+// Returns a sane background color for the given primary color
+//
+@function bg-color ($color) {
+  $bg-color: $color;
+  @if color-luminance($color) > 122 {
+    $bg-color: lighten($bg-color, 14%);
+  } @else {
+    $bg-color: darken($bg-color, 10%);
+  }
+  $bg-color: scale-color($bg-color, $saturation: -50%);
+  @return $bg-color;
+}
+
+
+
+
+// Returns a sane link color for the given primary color
+//
+@function link-color ($color) {
+  $link: $color;
+  @if color-luminance($color) > 122 {
+    $link: scale-color($link, $lightness: -50%);
+  } @else {
+    $link: scale-color($link, $lightness: 50%);
+  }
+  @if saturation($color) > 0 {
+    @return scale-color($link, $saturation: 5%);
+  } @else {
+    @return $link;
+  }
+}
+
+
+// Returns a sane selection color for the given primary color
+//
+@function selection-color ($color) {
+  $selection: $color;
+  @if color-luminance($color) > 122 {
+    $selection: scale-color($selection, $lightness: -50%);
+  } @else {
+    $selection: scale-color($selection, $lightness: 50%);
+  }
+  @if saturation($color) > 0 {
+    @return scale-color($selection, $saturation: 5%);
+  } @else {
+    @return $selection;
+  }
+}
+

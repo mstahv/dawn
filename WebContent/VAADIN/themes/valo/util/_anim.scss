@@ -1,0 +1,23 @@
+@include keyframes(v-veneer-anim-fade-in) {
+  0% {
+  	opacity: 0;
+  }
+}
+
+
+@include keyframes(v-veneer-anim-roll-down) {
+  0% {
+    @include transform(translateY(-100%));
+  }
+}
+
+
+
+@mixin v-veneer-anim-fade-in ($duration: 100ms){
+  @include animation(v-veneer-anim-fade-in $duration ease-out);
+}
+
+
+@mixin v-veneer-anim-roll-down ($duration: 200ms){
+  @include animation(v-veneer-anim-roll-down $duration ease-out);
+}

@@ -1,0 +1,61 @@
+@import "loading-indicator";
+
+
+@mixin v-valo-app-style {
+  font: $v-font-weight #{$v-font-size}/#{$v-line-height} $v-font-family;
+  color: $v-font-color;
+  background-color: $v-app-background-color;
+  
+  // Use Helvetica Neue for Mac instead of Helvetica, which has a slightly different baseline
+  @if $v-font-family == sans-serif {
+  	.v-mac & {
+        font-family: "Helvetica Neue", sans-serif;
+  	}
+  }
+}
+
+
+@mixin v-valo-global {
+  
+  //@if & != null {
+  //  &,
+  //  &.v-app-loading {
+  //    @include v-valo-app-style;
+  //  }
+  //} @else {
+    &.v-app,
+    &.v-app-loading {
+      @include v-valo-app-style;
+    }
+  //}
+  
+  @include v-valo-loading-bar;
+  
+  .v-scrollable:focus {
+    outline: none;
+  }
+  
+  .v-captiontext,
+  .v-icon,
+  .v-errorindicator,
+  .v-required-field-indicator {
+    vertical-align: middle;
+  }
+  
+  .v-caption {
+    font-size: .9em;
+    font-weight: $v-font-weight + 100;
+    padding-bottom: .3em;
+  }
+  
+  .v-errorindicator {
+    color: red;
+    font-weight: 600;
+    width: ceil($v-unit-size/2);
+    text-align: center;
+    
+    &:before {
+      content: "!";
+    }
+  }
+}

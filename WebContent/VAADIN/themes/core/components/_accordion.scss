@@ -1,0 +1,30 @@
+@mixin vaadin-core-accordion-bundle ($primary-stylename: v-accordion) {
+  
+  .#{$primary-stylename} {
+    @include vaadin-core-accordion-root;
+  }
+  
+  .#{$primary-stylename}-item {
+    @include vaadin-core-accordion-item;
+  }
+  
+  .#{$primary-stylename}-item-content {
+    @include vaadin-core-accordion-item-content;
+  }
+  
+}
+
+
+
+@mixin vaadin-core-accordion-root {
+  overflow: hidden;
+}
+
+@mixin vaadin-core-accordion-item {
+  position: relative;
+}
+
+@mixin vaadin-core-accordion-item-content {
+  position: absolute;
+  width: 100%;
+}

@@ -1,0 +1,44 @@
+@mixin v-valo-gradient($color, $style: $v-gradient-style, $depth: $v-gradient-depth, $avoid-extend: false, $fallback: $color) {
+  @if $color != null {
+    @if $depth <= 0 {
+      background: $fallback;
+    } @else {
+      @if $avoid-extend == false and contains($v-valo-gradient-colors, $color) and $depth == $v-gradient-depth {
+        @extend %v-valo-linear-gradient-#{$color}-#{floor($depth/1%)};
+      } @else {
+        
+        //@if color-luminance($color) > 200 {
+        //  $depth: min(100%, $depth * 2);
+        //}
+        //$start: blend-overlay(#fff, $color, $depth);
+        //$end: blend-overlay(#000, $color, $depth);
+        //$start: mix(lighten($color, $depth), $color);
+        //$end: mix(darken($color, $depth), $color);
+
+        $start: blend-overlay(transparentize(#fff, 1-$depth/100%), $color);
+        $end: blend-overlay(transparentize(#000, max(0, 1-$depth/100%)), $color);
+        $end: blend-multiply(transparentize(#000, max(0, 1-$depth/200%)), $end);
+
+        // TODO handle other styles than "linear"
+        @include linear-gradient(to top, $end, $start);
+      }
+    }
+  }
+}
+
+
+// Generate linear gradient placeholders for common colors to reduce duplication
+$v-valo-gradient-colors: 
+              $v-app-background-color !default;
+
+@each $color in $v-valo-gradient-colors {
+  // One placeholder from 1% to 100% (placeholders cost nothing, only if they are used)
+  @for $i from 1 through 100 {
+    %v-valo-linear-gradient-#{$color}-#{$i} {
+      @if $v-gradient-depth > 0 {
+      	$amt: $i * 1%;
+        @include v-valo-gradient($color: $color, $style: linear, $depth: $amt, $avoid-extend: true);
+      }
+    }
+  }
+}

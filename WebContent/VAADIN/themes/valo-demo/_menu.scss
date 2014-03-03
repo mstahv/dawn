@@ -1,0 +1,101 @@
+@mixin valo-styleguide-menu {
+  .valo-menu {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    min-width: 200px;
+    padding: 1em;
+
+    -webkit-transform: translatex(-96%);
+    transform: translatex(-96%);
+    transition: all 200ms 500ms;
+    opacity: .7;
+
+    &:hover {
+      -webkit-transform: translatex(0%);
+      transform: translatex(0%);
+      transition-delay: 0;
+      opacity: 1;
+      background: transparentize(#444, 0.2);
+
+      &:before {
+        opacity: 0;
+        transition-delay: 0;
+      }
+    }
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 10px;
+      right: 0;
+      -webkit-transform: translatex(100%);
+      transform: translatex(100%);
+      line-height: 2em;
+      transition: opacity 200ms 500ms;
+      width: 20px;
+      height: 3px;
+      background: #000;
+      box-shadow: 0 5px 0 #000, 0 10px 0 #000;
+    }
+
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      -webkit-transform: translatex(80%);
+      transform: translatex(80%);
+      width: 30px;
+      height: 30px;
+    }
+
+    .valo-menu-title {
+      content: "Valo Theme";
+      font-size: 18px;
+      display: block;
+    }
+
+    color: transparentize(#fff, .1);
+    background: transparentize(#444, 1);
+
+    font-family: "Helvetica Neue", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+
+    .valo-menu-enabled input {
+      margin-right: .5em;
+    }
+
+    .valo-menu-category,
+    .valo-menu-item {
+      display: block;
+    }
+
+    .valo-menu-category {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff;
+      margin-top: 1.3em;
+      margin-bottom: .2em;
+    }
+
+    .valo-menu-item {
+      a {
+        display: block;
+        text-decoration: none;
+        color: transparentize(#fff, .5);
+        transition: all 100ms;
+        &:hover {
+          color: #fff;
+        }
+      }
+      
+    }
+  }
+}

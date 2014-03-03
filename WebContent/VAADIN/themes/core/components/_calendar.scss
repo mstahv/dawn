@@ -1,0 +1,92 @@
+@mixin vaadin-core-calendar ($primary-stylename: v-calender) {
+  .#{$primary-stylename}-month-day-scrollable {
+    overflow-y: scroll;
+  }
+  
+  .#{$primary-stylename}-week-wrapper {
+    position: relative;
+  }
+  
+  .#{$primary-stylename}-current-time {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    overflow: hidden;
+    background: red;
+    z-index: 2;
+  }
+  
+  .#{$primary-stylename}-event-resizetop,
+  .#{$primary-stylename}-event-resizebottom {
+    position: absolute;
+    height: 5%;
+    min-height: 3px;
+    width: 100%;
+    z-index: 1;
+  }
+  
+  .#{$primary-stylename}-event-resizetop {
+    cursor: n-resize;
+    top: 0;
+  }
+
+  .#{$primary-stylename}-event-resizebottom {
+    cursor: s-resize;
+    bottom: 0;
+  }
+  
+  
+  // What a truckload of magic numbers!
+  // TODO Try to find out what these actually do, and how to make them dissappear
+  
+  .#{$primary-stylename}-month-sizedheight .#{$primary-stylename}-month-day {
+  	height: 100px;
+  }
+  
+  .#{$primary-stylename}-month-sizedwidth .#{$primary-stylename}-month-day {
+  	width: 100px;
+  }
+  
+  .#{$primary-stylename}-header-month-Hsized .#{$primary-stylename}-header-day {
+  	width: 101px;
+  }
+  
+  .#{$primary-stylename}-header-month-Hsized td:first-child {
+  	padding-left: 21px;
+  }
+  
+  .#{$primary-stylename}-header-day-Hsized {
+  	width: 200px;
+  }
+  
+  .#{$primary-stylename}-week-numbers-Vsized .#{$primary-stylename}-week-number {
+  	height: 100px;
+  	line-height: 100px;
+  }
+  
+  .#{$primary-stylename}-week-wrapper-Vsized {
+  	height: 400px;
+  	overflow-x: hidden !important;
+  }
+  
+  .#{$primary-stylename}-times-Vsized .#{$primary-stylename}-time {
+    height: 38px;
+  }
+  
+  .#{$primary-stylename}-times-Hsized .#{$primary-stylename}-time {
+  	width: 42px;
+  }
+  
+  .#{$primary-stylename}-day-times-Vsized .v-datecellslot,
+  .#{$primary-stylename}-day-times-Vsized .v-datecellslot-even {
+  	height: 18px;
+  }
+  
+  .#{$primary-stylename}-day-times-Hsized,
+  .#{$primary-stylename}-day-times-Hsized .v-datecellslot,
+  .#{$primary-stylename}-day-times-Hsized .v-datecellslot-even {
+  	width: 200px;
+  }
+  
+}

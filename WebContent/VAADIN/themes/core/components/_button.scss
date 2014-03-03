@@ -1,0 +1,11 @@
+@mixin v-core-button-style {
+  -webkit-touch-callout: none;
+  @extend %no-selection;
+}
+
+@mixin v-core-button ($primary-stylename: v-button) {
+  %v-core-button,
+  .#{$primary-stylename} {
+    @include v-core-button-style;
+  }
+}

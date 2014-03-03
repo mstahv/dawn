@@ -1,0 +1,54 @@
+// List of components to include in the theme compilation
+$v-included-components: 
+		absolutelayout,
+		accordion,
+		button,
+		calendar,
+		checkbox,
+		colorpicker,
+		combobox,
+		csslayout,
+		customcomponent,
+		customlayout,
+		datefield,
+		dragwrapper,
+		form,
+		formlayout,
+		grid,
+		gridlayout,
+		label,
+		link,
+		loginform,
+		menubar,
+		nativebutton,
+		nativeselect,
+		optiongroup,
+		orderedlayout,
+		panel,
+		popupview,
+		progressindicator,
+		slider,
+		splitpanel,
+		table,
+		tabsheet,
+		textfield,
+		textarea,
+		tree,
+		treetable,
+		twincolselect,
+		upload,
+		window !default;
+
+
+// Checks if a given component is included in the compilation
+//
+@function v-is-included ($component-name, $is-included: $v-included-components) {
+  @return contains($is-included, $component-name);
+}
+
+
+
+// This is needed to overcome issues with line-boxes (i.e. block elements 
+// with inline elements as children, whose height is less than the parent's line-height)
+// See: http://stackoverflow.com/questions/3003051/why-does-the-html5-doctype-mess-with-my-padding
+$v-line-height: 1.55 !default;

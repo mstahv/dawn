@@ -1,0 +1,40 @@
+@import "label";
+@import "button";
+@import "textfield";
+@import "orderedlayout";
+
+
+@mixin v-valo-components ($context-color: null) {
+  
+  $v-app-bg-color: null;
+  @if $context-color {
+    // Store temporarily
+    $v-app-bg-color: $v-app-background-color;
+    $v-app-background-color: $context-color;
+    
+    background-color: $context-color;
+    color: font-color($context-color);
+  }
+  
+  @if v-is-included(label) {
+    @include v-valo-label;
+  }
+  
+  @if v-is-included(button) {
+    @include v-valo-button;
+  }
+  
+  @if v-is-included(textfield) {
+    @include v-valo-textfield;
+  }
+  
+  @if v-is-included(orderedlayout) {
+    @include v-valo-orderedlayout;
+  }
+  
+  // Restore original value
+  @if $context-color {
+    $v-app-background-color: $v-app-bg-color;
+  }
+  
+}

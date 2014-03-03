@@ -1,0 +1,242 @@
+$v-button-border-radius: $v-border-radius !default;
+$v-button-font-weight: 400 !default;
+$v-button-cursor: pointer !default;
+
+
+
+@mixin v-valo-button ($primary-stylename: v-button) {
+  %v-valo-button,
+  .#{$primary-stylename} {
+    @include v-valo-button-style($clean: true);
+  }
+}
+
+
+
+@mixin v-valo-button-style (
+    $background-color: null,
+    $context-color: null,
+    $gradient-style: null,
+    $gradient-depth: null,
+    $emboss-style: null,
+    $emboss-depth: null,
+    $unit-size: null,
+    $border-radius: null,
+    $clean: false
+  ) {
+  
+
+  // Properties that usually don't vary from style to style
+  @if $clean {
+    cursor: $v-button-cursor;
+    font-weight: $v-button-font-weight;
+    position: relative;
+
+    // Generated element for :hover, :focus and :active styles
+    &:after {
+      content: "";
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      bottom: -1px;
+      left: -1px;
+      border-radius: inherit;
+      border: inherit;
+      border-width: 0;
+      @include transition(box-shadow 180ms, border 180ms);
+    }
+
+    &.v-disabled {
+      cursor: default;
+      @include opacity(.7);
+      
+      &:after {
+        display: none;
+      }
+    }
+
+    // Vertical centering of icon and caption, independent of the height of the button
+    @include vertical-align-guide($to-align: div, $pseudo-element: before);
+  }
+
+
+  // Set up variables that are used for actual values 
+  // (variables that might be needed even though not explicitly specified by caller)
+  $bg-color: $background-color or $v-app-background-color;
+  $ctx-color: $context-color or $v-app-background-color;
+  $grad-style: $gradient-style or $v-gradient-style;
+  $grad-depth: $gradient-depth or $v-gradient-depth;
+  $emb-style: $emboss-style or $v-emboss-style;
+  $emb-depth: $emboss-depth or $v-emboss-depth;
+  $unit-size: $unit-size or if($clean, $v-unit-size, $unit-size);
+  $border-radius: $border-radius or if($clean, $v-border-radius, $border-radius);
+
+
+  // Background gradient/color
+  @if($ctx-color == $bg-color){
+    @if(lightness($bg-color) < 60%) {
+      $bg-color: blend-overlay(transparentize(#fff, min(1, 0.85+($emb-depth+$grad-depth)/300%)), $bg-color);
+    } @else {
+      $bg-color: blend-multiply(transparentize(#000, min(1, 0.9+($emb-depth+$grad-depth)/300%)), $bg-color);
+    }
+  }
+
+
+  @if $border-radius {
+    border-radius: $border-radius;
+  }
+  
+  // Size
+  @if $unit-size {
+    height: $unit-size;
+    line-height: $unit-size - 2px; // minus borders
+
+    $padding-width: ceil($unit-size/2.2);
+    @if $border-radius {
+      // TODO this assumes border-radius is specified in pixels
+      $padding-width: $padding-width + ceil($border-radius/3);
+    }
+    padding: 0 $padding-width;
+  }
+
+
+  // The 'meat' of the mixin. 
+  // Only apply when atleast one of these parameters is specified
+  @if $clean or $background-color or $context-color or $emboss-style or $emboss-depth or $grad-style or $grad-depth {
+    color: font-color($bg-color);
+
+    // If the luminance, saturation or hue is very different between the context and the button color, 
+    // automatically increase the gradient depth to visually match it with other gradients
+    $luminance-diff: luminance-diff($bg-color, $ctx-color);
+    $saturation-diff: saturation-diff($bg-color, $ctx-color);
+    $hue-diff: hue-diff($bg-color, $ctx-color);
+
+    $grad-depth: $grad-depth + ($grad-depth/2 * $luminance-diff/255);
+    $grad-depth: $grad-depth + ($grad-depth/3 * $saturation-diff/100%);
+    $grad-depth: $grad-depth + ($grad-depth/3 * $hue-diff/360deg);
+    $grad-depth: min(100%, $grad-depth);
+
+    @include v-valo-gradient($bg-color, $depth: $grad-depth, $avoid-extend: true);
+
+
+    // Border color
+    $border-color: blend-darken(scale-color($ctx-color, $lightness: max(-20%, -$emb-depth), $saturation: -70%), transparentize(scale-color($bg-color, $lightness: max(-20%, -$emb-depth), $saturation: -25%), 1-$emb-depth/100%));
+    @if luminance-diff($ctx-color, $bg-color) < 20 {
+      $border-color: scale-color($ctx-color, $lightness: max(-20%, -$emb-depth), $saturation: -10%);
+    }
+    $border-color: scale-color($border-color, $saturation: -$emb-depth);
+    border: 1px solid $border-color;
+    @if $emb-style != none {
+      border-bottom-color: blend-multiply(transparentize(#000, max(0.9, 1-$emb-depth/100%)), $border-color);
+    }
+
+    // Emboss
+    box-shadow: v-valo-button-box-shadow($bg-color, $emboss-style: $emb-style, $emboss-depth: $emb-depth, $gradient-depth: $grad-depth);
+    text-shadow: v-valo-button-text-shadow($bg-color, $emboss-style: $emb-style, $emboss-depth: $emb-depth);
+  }
+  
+
+  @if $clean or $background-color or $context-color {
+    &:focus {
+      @include v-valo-button-focus-style($background-color: $bg-color, $context-color: $ctx-color, $clean: $clean);
+    }
+  }
+  
+  @if $clean or $background-color {
+    &:active,
+    &.v-pressed {
+      @include v-valo-button-active-style($background-color: $bg-color, $clean: $clean);
+    }
+  }
+  
+}
+
+
+@mixin v-valo-button-focus-style (
+    $background-color: $v-app-background-color,
+    $context-color: $v-app-background-color,
+    $clean: false
+  ) {
+
+  @if $clean {
+    outline: none;
+  }
+  
+  &:after {
+    $focus-color: $v-focus-color;
+
+    @if $focus-color == $context-color {
+      $focus-color: #fff;
+    } @else {
+      $luminance-diff: abs(color-luminance($context-color) - color-luminance($focus-color));
+      $saturation-diff: abs(color-luminance($context-color) - color-luminance($focus-color));
+      @if $luminance-diff < 50 or $saturation-diff < 20% {
+        $focus-color: #fff;
+      }
+    }
+    
+    @if color-luminance($focus-color) + 50 < color-luminance($background-color) {
+      border: 1px solid $focus-color;
+    } @else {
+      border: none;
+    }
+    
+    box-shadow: 0 0 0 2px transparentize($focus-color, .5);
+    
+    @if $clean {
+      @include transition(none);
+    }
+    
+  }
+}
+
+
+
+@mixin v-valo-button-active-style ($background-color: $v-app-background-color, $clean: false) {
+  &:after {
+    $bg: blend-multiply(black(.5), $background-color);
+    background: transparentize($bg, .9);
+    
+    .v-ie8 & {
+      background: $bg;
+
+      @if $clean {
+        -ms-filter: alpha(opacity=10);  
+      }
+    }
+  }
+}
+
+
+
+@function v-valo-button-box-shadow($background-color, $context-color: $v-app-background-color, $emboss-style: $v-emboss-style, $emboss-depth: $v-emboss-depth, $gradient-depth: $v-gradient-depth) {
+  @if $emboss-style == none {
+    @return none;
+
+  } @else if $emboss-style == sharp {
+    $bottom-color: blend-multiply(transparentize(#000, max(0, 1-($emboss-depth+$gradient-depth)/300%)), blend-overlay(transparentize(#000,1-(min(1,($emboss-depth+$gradient-depth)/200%))),$background-color));
+    @return inset 0 -2px 0 $bottom-color;
+
+  } @else if $emboss-style == soft {
+    $box-shadow-offset: round(sqrt($emboss-depth/25%));
+    $box-shadow-blur: floor(sqrt($emboss-depth/18%));
+    $box-shadow-spread: min(round(sqrt($emboss-depth/100%)), $box-shadow-offset - $box-shadow-blur);
+
+    $top-color: blend-overlay(transparentize(#fff,1-(min(1,$emboss-depth/100%+$gradient-depth/100%))),$background-color);
+    $bottom-color: blend-multiply(transparentize(#000, max(0, 1-$gradient-depth/100%)), blend-overlay(transparentize(#000,1-(min(1,$emboss-depth/100%+$gradient-depth/100%))),$background-color));
+
+    @return 0 round($emboss-depth/100%)+1px min(2,round($emboss-depth/15%))+px rgba(0,0,0,min($emboss-depth/200%,0.3)),
+                inset 0 $box-shadow-offset+px $box-shadow-blur+px $box-shadow-spread+px $top-color,
+                inset 0 (-$box-shadow-offset+px) $box-shadow-blur+px $box-shadow-spread+px transparentize($bottom-color, .8);
+  }
+}
+
+
+
+@function v-valo-button-text-shadow($background-color, $emboss-style: $v-emboss-style, $emboss-depth: $v-emboss-depth) {
+  @if is-dark-color($background-color) {
+    @return 0 -1px 0 transparentize(darken($background-color, $emboss-depth), 1-($emboss-depth/100%));
+  } @else {
+    @return 0 1px 0 transparentize(lighten($background-color, $emboss-depth), 1-($emboss-depth/100%));
+  } 
+}

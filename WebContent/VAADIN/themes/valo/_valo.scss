@@ -1,0 +1,25 @@
+// This will output the core styles automatically, no need to call any mixin (only included once per compilation)
+@import "../core/core";
+
+@import "shared/variables";
+
+@import "util/color";
+@import "util/anim";
+@import "util/gradient";
+@import "util/util";
+
+@import "fonts/fonts";
+
+@if contains($v-font-family, "Open Sans") {
+  @include font-open-sans($italic: false, $light: true, $book: true, $medium: true);
+}
+
+@import "shared/global";
+
+@import "components/all";
+
+
+@mixin v-valo {
+  @include v-valo-global;
+  @include v-valo-components;
+}
