@@ -16,10 +16,6 @@
     color: font-color($context-color);
   }
   
-  @if v-is-included(label) {
-    @include v-valo-label;
-  }
-  
   @if v-is-included(button) {
     @include v-valo-button;
   }
@@ -30,6 +26,10 @@
   
   @if v-is-included(orderedlayout) {
     @include v-valo-orderedlayout;
+  }
+  
+  @if v-is-included(label) {
+    @include v-valo-label;
   }
   
   // Restore original value

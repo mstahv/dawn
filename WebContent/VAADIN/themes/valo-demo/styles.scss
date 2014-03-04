@@ -3,14 +3,25 @@ $color1: $v-app-background-color;
 $color2: #606060;
 $color3: #37B1EF;
 $color4: #F45937;
-$color5: #E5F4CD;
+$color5: #c3efd7;
 $color6: #fe902a;
 
+$colors: ($color1, $color2, $color3, $color4, $color5);
 
 
 @import "../valo/valo";
+@import "addons";
 
 @import "menu";
+@import "variants";
+
+@include natural-page-scrolling;
+
+body {
+    // Fake height so that the browser scrollbar can be restored between reloads
+    min-height: 30000px;
+}
+
 
 
 // Pillow emboss effect for buttons
@@ -24,13 +35,6 @@ $color6: #fe902a;
 //}
 
 
-
-@include natural-page-scrolling;
-
-body {
-    // Fake height so that the browser scrollbar can be restored between reloads
-    min-height: 30000px;
-}
 
 .valo-demo {
   @include v-valo;
@@ -52,231 +56,6 @@ body {
     @include v-valo-horizontallayout--wrapping;
   }
   
-  .color1 {
-    .v-button-color2 {
-      @include v-valo-button-style($background-color: $color2);
-    }
-    
-    .v-button-color3 {
-      @include v-valo-button-style($background-color: $color3);
-    }
-    
-    .v-button-color4 {
-      @include v-valo-button-style($background-color: $color4);
-    }
-    
-    .v-button-color5 {
-      @include v-valo-button-style($background-color: $color5);
-    }
-    
-    .v-button-color6 {
-      @include v-valo-button-style($background-color: $color6, 
-                                   $emboss-style: soft, 
-                                   $emboss-depth: 30%, 
-                                   $gradient-depth: 13%, 
-                                   $border-radius: ceil($v-unit-size/2));
-      font-weight: 600;
-    }
-  
-    .v-button-focus {
-      @include v-valo-button-focus-style;
-    }
-  
-    .v-button-active {
-      @include v-valo-button-active-style;
-    }
-
-    .v-button-small {
-      @include v-valo-button-style($unit-size: ceil($v-unit-size*0.8));
-    }
-
-    .v-button-large {
-      @include v-valo-button-style($unit-size: ceil($v-unit-size*1.2));
-    }
-  }
-
-  .color2 {
-    @include v-valo-components($context-color: $color2);
-    
-    .v-button-color2 {
-      @include v-valo-button-style($background-color: $color1, $context-color: $color2);
-    }
-    
-    .v-button-color3 {
-      @include v-valo-button-style($background-color: $color3, $context-color: $color2);
-    }
-    
-    .v-button-color4 {
-      @include v-valo-button-style($background-color: $color4, $context-color: $color2);
-    }
-    
-    .v-button-color5 {
-      @include v-valo-button-style($background-color: $color5, $context-color: $color2);
-    }
-    
-    .v-button-color6 {
-      @include v-valo-button-style($background-color: $color6,
-                                   $context-color: $color2, 
-                                   $emboss-style: soft, 
-                                   $emboss-depth: 30%, 
-                                   $gradient-depth: 13%, 
-                                   $border-radius: ceil($v-unit-size/2));
-      font-weight: 600;
-    }
-  
-    .v-button-focus {
-      @include v-valo-button-focus-style($color2, $color2);
-    }
-  
-    .v-button-active {
-      @include v-valo-button-active-style($color2);
-    }
-
-    .v-button-small {
-      @include v-valo-button-style($unit-size: ceil($v-unit-size*0.8), $context-color: $color2, $background-color: $color2);
-    }
-
-    .v-button-large {
-      @include v-valo-button-style($unit-size: ceil($v-unit-size*1.2), $context-color: $color2, $background-color: $color2);
-    }
-  }
-  
-  .color3 {
-    @include v-valo-components($context-color: $color3);
-    
-    .v-button-color2 {
-      @include v-valo-button-style($background-color: $color1, $context-color: $color3);
-    }
-    
-    .v-button-color3 {
-      @include v-valo-button-style($background-color: $color2, $context-color: $color3);
-    }
-    
-    .v-button-color4 {
-      @include v-valo-button-style($background-color: $color4, $context-color: $color3);
-    }
-    
-    .v-button-color5 {
-      @include v-valo-button-style($background-color: $color5, $context-color: $color3);
-    }
-    
-    .v-button-color6 {
-      @include v-valo-button-style($background-color: $color6,
-                                   $context-color: $color3, 
-                                   $emboss-style: soft, 
-                                   $emboss-depth: 30%, 
-                                   $gradient-depth: 13%, 
-                                   $border-radius: ceil($v-unit-size/2));
-      font-weight: 600;
-    }
-  
-    .v-button-focus {
-      @include v-valo-button-focus-style($color3, $color3);
-    }
-  
-    .v-button-active {
-      @include v-valo-button-active-style($color3);
-    }
-
-    .v-button-small {
-      @include v-valo-button-style($unit-size: ceil($v-unit-size*0.8), $context-color: $color3, $background-color: $color3);
-    }
-
-    .v-button-large {
-      @include v-valo-button-style($unit-size: ceil($v-unit-size*1.2), $context-color: $color3, $background-color: $color3);
-    }
-  }
-  
-  .color4 {
-    @include v-valo-components($context-color: $color4);
-    
-    .v-button-color2 {
-      @include v-valo-button-style($background-color: $color1, $context-color: $color4);
-    }
-    
-    .v-button-color3 {
-      @include v-valo-button-style($background-color: $color2, $context-color: $color4);
-    }
-    
-    .v-button-color4 {
-      @include v-valo-button-style($background-color: $color3, $context-color: $color4);
-    }
-    
-    .v-button-color5 {
-      @include v-valo-button-style($background-color: $color5, $context-color: $color4);
-    }
-    
-    .v-button-color6 {
-      @include v-valo-button-style($background-color: $color6,
-                                   $context-color: $color4, 
-                                   $emboss-style: soft, 
-                                   $emboss-depth: 30%, 
-                                   $gradient-depth: 13%, 
-                                   $border-radius: ceil($v-unit-size/2));
-      font-weight: 600;
-    }
-  
-    .v-button-focus {
-      @include v-valo-button-focus-style($color4, $color4);
-    }
-  
-    .v-button-active {
-      @include v-valo-button-active-style($color4);
-    }
-
-    .v-button-small {
-      @include v-valo-button-style($unit-size: ceil($v-unit-size*0.8), $context-color: $color4, $background-color: $color4);
-    }
-
-    .v-button-large {
-      @include v-valo-button-style($unit-size: ceil($v-unit-size*1.2), $context-color: $color4, $background-color: $color4);
-    }
-  }
-  
-  .color5 {
-    @include v-valo-components($context-color: $color5);
-    
-    .v-button-color2 {
-      @include v-valo-button-style($background-color: $color1, $context-color: $color5);
-    }
-    
-    .v-button-color3 {
-      @include v-valo-button-style($background-color: $color2, $context-color: $color5);
-    }
-    
-    .v-button-color4 {
-      @include v-valo-button-style($background-color: $color3, $context-color: $color5);
-    }
-    
-    .v-button-color5 {
-      @include v-valo-button-style($background-color: $color4, $context-color: $color5);
-    }
-    
-    .v-button-color6 {
-      @include v-valo-button-style($background-color: $color6,
-                                   $context-color: $color5, 
-                                   $emboss-style: soft, 
-                                   $emboss-depth: 30%, 
-                                   $gradient-depth: 13%, 
-                                   $border-radius: ceil($v-unit-size/2));
-      font-weight: 600;
-    }
-  
-    .v-button-focus {
-      @include v-valo-button-focus-style($color5, $color5);
-    }
-  
-    .v-button-active {
-      @include v-valo-button-active-style($color5);
-    }
-
-    .v-button-small {
-      @include v-valo-button-style($unit-size: ceil($v-unit-size*0.8), $context-color: $color5, $background-color: $color5);
-    }
-
-    .v-button-large {
-      @include v-valo-button-style($unit-size: ceil($v-unit-size*1.2), $context-color: $color5, $background-color: $color5);
-    }
-  }
+  @include variants;
 
 }

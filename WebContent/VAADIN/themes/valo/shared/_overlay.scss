@@ -1,0 +1,5 @@
+$v-overlay-border-radius: $v-border-radius !default;
+
+@mixin v-valo-overlay-style ($context-color: $v-app-background-color) {
+	border-radius: $v-overlay-border-radius;
+}

@@ -1,0 +1,90 @@
+@mixin jk-splitbutton ($context-color: $v-app-background-color) {
+
+  .jk-splitbutton > .v-button {
+    display: block;
+    position: relative;
+    margin-right: $v-unit-size - 1px;
+    
+    @if $v-border-radius {
+      border-radius: $v-border-radius 0 0 $v-border-radius;
+      //padding-right: $v-button-width-ratio + em;
+    }
+    
+    &:focus {
+      z-index: 2;
+    }
+  }
+  
+  .jk-splitbutton {
+  	
+    & > .jk-splitbutton-secondary {
+      display: block;
+      margin-top: -$v-unit-size;
+    
+      &:focus {
+        outline: none;
+        & .jk-splitbutton-secondary-menuitem-caption {
+          @include v-valo-button-focus-style($context-color: $context-color, $background-color: $context-color);
+        }
+      }
+    }
+    
+    .jk-splitbutton-secondary-menuitem {
+      display: block;
+      text-align: right;
+    }
+  
+    .jk-splitbutton-secondary-submenu-indicator {
+      display: none;
+    }
+  
+    .jk-splitbutton-secondary-menuitem-caption {
+      @extend %v-widget;
+      @include v-valo-button-style($context-color: $context-color, $background-color: $context-color, $clean: true);
+      
+      width: $v-unit-size;
+      text-align: center;
+      z-index: 1;
+      
+      @if $v-border-radius {
+        border-radius: 0 $v-border-radius $v-border-radius 0;
+      }
+      
+      &:before {
+      	// TODO add arrow icon
+        pointer-events: none;
+      }
+    }
+    
+    .jk-splitbutton-secondary-menuitem-selected .jk-splitbutton-secondary-menuitem-caption {
+      @include v-valo-button-active-style;
+    }
+    
+    &.v-disabled .jk-splitbutton-secondary-menuitem-caption,
+    &.v-disabled > .jk-splitbutton-secondary:focus .jk-splitbutton-secondary-menuitem-caption  {
+      //@extend %tune-button-disabled;
+      //&:before {
+      //  border-top-color: tune-text-color-disabled($vaadin-ui-color) !important;
+      //}
+    }
+    
+  }
+  
+  /*.jk-splitbutton-secondary-popup {
+    @extend %tune-selection-popup;
+    
+    .jk-splitbutton-secondary-menuitem {
+      @extend %tune-selection;
+      display: block;
+    }
+    
+    .jk-splitbutton-secondary-menuitem-selected {
+      @extend %tune-selection-selected;
+    }
+  }
+  
+  .jk-splitbutton-secondary-submenu:focus {
+    outline: none;
+  }*/
+  
+}

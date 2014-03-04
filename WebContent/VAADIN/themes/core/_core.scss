@@ -331,6 +331,10 @@ $relativePaths: false;
 @import "components/all";
 
 
+// Import fonts (font icons mainly)
+@import "fonts/fonts";
+
+
 // Only import and include these once per compilation
 // (someone might mix & match multiple themes together)
 
@@ -342,6 +346,8 @@ $v-core-included: false !default;
   
   // Include component styles
   @include v-core-components;
+  
+  @include fonts;
 
   $v-core-included: true;
 }

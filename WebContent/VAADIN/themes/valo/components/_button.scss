@@ -1,6 +1,7 @@
 $v-button-border-radius: $v-border-radius !default;
 $v-button-font-weight: 400 !default;
 $v-button-cursor: pointer !default;
+$v-enable-button-hover-style: true !default;
 
 
 
@@ -31,6 +32,8 @@ $v-button-cursor: pointer !default;
     cursor: $v-button-cursor;
     font-weight: $v-button-font-weight;
     position: relative;
+    vertical-align: top;
+    line-height: 0;
 
     // Generated element for :hover, :focus and :active styles
     &:after {
@@ -57,6 +60,18 @@ $v-button-cursor: pointer !default;
 
     // Vertical centering of icon and caption, independent of the height of the button
     @include vertical-align-guide($to-align: div, $pseudo-element: before);
+
+    // Safari handles line-heights and vertical-alignments somewhat differently, so we need to adjust
+    .v-sa &:before {
+      height: 110%;
+    }
+
+    // ...and since Chrome is still being labeled as WebKit and as "Safari", we need to revert that
+    // Firefox needs a bit of adjusting as well
+    .v-ch &:before,
+    .v-ff &:before {
+      height: 105%;
+    }
   }
 
 
@@ -69,7 +84,7 @@ $v-button-cursor: pointer !default;
   $emb-style: $emboss-style or $v-emboss-style;
   $emb-depth: $emboss-depth or $v-emboss-depth;
   $unit-size: $unit-size or if($clean, $v-unit-size, $unit-size);
-  $border-radius: $border-radius or if($clean, $v-border-radius, $border-radius);
+  $border-radius: $border-radius or if($clean, $v-button-border-radius, $border-radius);
 
 
   // Background gradient/color
@@ -89,14 +104,22 @@ $v-button-cursor: pointer !default;
   // Size
   @if $unit-size {
     height: $unit-size;
-    line-height: $unit-size - 2px; // minus borders
+    //line-height: $unit-size - 2px; // minus borders
 
-    $padding-width: ceil($unit-size/2.2);
+    $padding-width: ceil($unit-size/2.4);
     @if $border-radius {
       // TODO this assumes border-radius is specified in pixels
       $padding-width: $padding-width + ceil($border-radius/3);
     }
     padding: 0 $padding-width;
+
+    .v-icon {
+      margin: 0 ceil($padding-width/4)/-1;
+    }
+
+    .v-icon + span:not(:empty) {
+      margin-left: ceil($padding-width/1.5);
+    }
   }
 
 
@@ -135,6 +158,12 @@ $v-button-cursor: pointer !default;
     text-shadow: v-valo-button-text-shadow($bg-color, $emboss-style: $emb-style, $emboss-depth: $emb-depth);
   }
   
+  
+  @if $v-enable-button-hover-style and ($clean or $background-color) {
+    &:hover {
+      @include v-valo-button-hover-style($background-color: $bg-color, $clean: $clean);
+    }
+  }
 
   @if $clean or $background-color or $context-color {
     &:focus {
@@ -167,18 +196,14 @@ $v-button-cursor: pointer !default;
 
     @if $focus-color == $context-color {
       $focus-color: #fff;
-    } @else {
-      $luminance-diff: abs(color-luminance($context-color) - color-luminance($focus-color));
-      $saturation-diff: abs(color-luminance($context-color) - color-luminance($focus-color));
-      @if $luminance-diff < 50 or $saturation-diff < 20% {
+    } @else if luminance-diff($context-color, $focus-color) < 50 or saturation-diff($context-color, $focus-color) < 20% {
         $focus-color: #fff;
-      }
     }
     
     @if color-luminance($focus-color) + 50 < color-luminance($background-color) {
       border: 1px solid $focus-color;
     } @else {
-      border: none;
+      border: 1px solid transparent;
     }
     
     box-shadow: 0 0 0 2px transparentize($focus-color, .5);
@@ -195,16 +220,44 @@ $v-button-cursor: pointer !default;
 @mixin v-valo-button-active-style ($background-color: $v-app-background-color, $clean: false) {
   &:after {
     $bg: blend-multiply(black(.5), $background-color);
-    background: transparentize($bg, .9);
+    background-color: transparentize($bg, .9);
     
     .v-ie8 & {
-      background: $bg;
+      background-color: $bg;
 
       @if $clean {
         -ms-filter: alpha(opacity=10);  
       }
     }
   }
+}
+
+
+
+@mixin v-valo-button-hover-style ($background-color: $v-app-background-color, $clean: false) {
+  &:after {
+    $bg: blend-overlay(white(.5), $background-color);
+    background-color: transparentize($bg, .8);
+    border: inherit;
+    @include transition(none);
+    
+    .v-ie8 & {
+      background-color: $bg;
+
+      @if $clean {
+        -ms-filter: alpha(opacity=20);  
+      }
+    }
+  }
+}
+
+
+
+
+@mixin v-valo-button-borderless-style {
+  border: none;
+  box-shadow: none;
+  background: transparent;
 }
 
 

@@ -5,7 +5,7 @@ $v-app-background-color:  #fafafa   !default;
 $v-font-size:             15px      !default;	// Should be specified in pixels
 $v-font-weight:           300       !default;
 $v-font-color:            font-color($v-app-background-color) !default;
-$v-font-family:           "Helvetica Neue", sans-serif !default;
+$v-font-family:           "Open Sans", sans-serif !default;
 
 $v-unit-size:             ceil(2.4 * $v-font-size) !default;	// Must be specified in pixels
 
@@ -19,10 +19,10 @@ $v-layout-spacing-horizontal: ceil($v-unit-size/3) !default;
 
 $v-border-radius:         4px       !default;	// Must be specified in pixels
 
-$v-gradient-depth:        5%       !default;
+$v-gradient-depth:        10%       !default;
 $v-gradient-style:        linear    !default;
 
-$v-emboss-depth:          20%       !default;
-$v-emboss-style:		  sharp	!default;
+$v-emboss-depth:          40%       !default;
+$v-emboss-style:		  soft	!default;
 
 $v-focus-color:           #00b4f0   !default;

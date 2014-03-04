@@ -118,6 +118,7 @@
   
   .v-app,
   .v-ui.v-scrollable {
+    width: auto !important;
     height: auto !important;
     overflow: visible !important;
   }

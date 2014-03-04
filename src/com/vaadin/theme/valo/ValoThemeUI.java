@@ -12,6 +12,7 @@ import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.server.ExternalResource;
+import com.vaadin.server.FontAwesome;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CheckBox;
@@ -192,6 +193,20 @@ public class ValoThemeUI extends UI {
         button.addStyleName("large");
         row.addComponent(button);
 
+        button = new Button("Icon");
+        button.setIcon(FontAwesome.CAMERA);
+        row.addComponent(button);
+
+        button = new Button();
+        button.setIcon(FontAwesome.MICROPHONE);
+        button.addStyleName("icon");
+        row.addComponent(button);
+
+        button = new Button("Frameless");
+        button.setIcon(FontAwesome.CHEVRON_RIGHT);
+        button.addStyleName("frameless");
+        row.addComponent(button);
+
         /**
          * Text fields
          */
@@ -208,7 +223,7 @@ public class ValoThemeUI extends UI {
 
         tf = new TextField("Focused");
         tf.setInputPrompt("Last name");
-        tf.addStyleName("focus");
+        tf.addStyleName("focused");
         row.addComponent(tf);
 
         tf = new TextField("Custom color");
@@ -216,15 +231,14 @@ public class ValoThemeUI extends UI {
         tf.addStyleName("color1");
         row.addComponent(tf);
 
-        tf = new TextField("Disabled");
+        tf = new TextField("User Color");
         tf.setInputPrompt("Gender");
-        tf.setEnabled(false);
+        tf.addStyleName("color2");
         row.addComponent(tf);
 
-        tf = new TextField("Themed (disabled)");
+        tf = new TextField("Themed");
         tf.setInputPrompt("Age");
-        tf.addStyleName("color2");
-        tf.setEnabled(false);
+        tf.addStyleName("color3");
         row.addComponent(tf);
 
         tf = new TextField("Read-only");
@@ -232,6 +246,29 @@ public class ValoThemeUI extends UI {
         tf.setValue("Finnish");
         tf.setReadOnly(true);
         row.addComponent(tf);
+
+        tf = new TextField("Small");
+        tf.setValue("Field value");
+        tf.addStyleName("small");
+        row.addComponent(tf);
+
+        tf = new TextField("Large");
+        tf.setValue("Field value");
+        tf.addStyleName("large");
+        row.addComponent(tf);
+
+        addSection(root, "SplitButton (custom)", Category.Other);
+
+        row = new HorizontalLayout();
+        row.addStyleName("wrapping");
+        row.setSpacing(true);
+        root.addComponent(row);
+
+        SplitButton split = new SplitButton("Main Option");
+        split.addMenuItem("Alternative Option", null);
+        split.addMenuItem("Second Alternative Option", null);
+        split.addMenuItem("Option Three", null);
+        row.addComponent(split);
 
         return root;
     }
