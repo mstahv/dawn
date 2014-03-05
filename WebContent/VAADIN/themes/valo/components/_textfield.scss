@@ -124,18 +124,13 @@ $v-textfield-border-radius: $v-border-radius !default;
     @include transition(none);  
   }
   
-  $focus-color: $v-focus-color;
-  @if $focus-color == $context-color {
-    $focus-color: #fff;
-  } @else if luminance-diff($context-color, $focus-color) < 50 or saturation-diff($context-color, $focus-color) < 20% {
-      $focus-color: #fff;
-  }
+  $focus-color: v-valo-focus-color($context-color: $context-color);
   
   @if color-luminance($focus-color) + 50 < color-luminance($context-color) {
     border-color: $focus-color;
   }
   
-  box-shadow: 0 0 0 2px transparentize($focus-color, .5);
+  box-shadow: v-valo-focus-box-shadow($color: $focus-color);
 }
 
 

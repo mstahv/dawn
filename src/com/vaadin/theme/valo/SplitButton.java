@@ -9,7 +9,7 @@ import com.vaadin.ui.MenuBar.MenuItem;
 public class SplitButton extends CssLayout {
 
     private static final long serialVersionUID = 1L;
-    
+
     protected Button primaryButton = new Button();
     protected MenuBar secondaryButton = new MenuBar();
     protected MenuItem menuRoot;
@@ -29,10 +29,12 @@ public class SplitButton extends CssLayout {
         menuRoot.addItem(caption, command);
     }
 
+    @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
         primaryButton.setEnabled(enabled);
         secondaryButton.setEnabled(enabled);
+        menuRoot.setEnabled(enabled);
     }
 
 }

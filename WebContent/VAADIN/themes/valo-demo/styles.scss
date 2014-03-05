@@ -9,6 +9,13 @@ $color6: #fe902a;
 $colors: ($color1, $color2, $color3, $color4, $color5);
 
 
+
+//$v-sizing: x * $v-font-size !default;
+//$v-spacing: $v-sizing !default;
+
+
+
+
 @import "../valo/valo";
 @import "addons";
 
@@ -19,13 +26,13 @@ $colors: ($color1, $color2, $color3, $color4, $color5);
 
 body {
     // Fake height so that the browser scrollbar can be restored between reloads
-    min-height: 30000px;
+    min-height: 3000px;
 }
 
 
 
 // Pillow emboss effect for buttons
-//@function v-valo-button-box-shadow($background-color, $context-color: $v-app-background-color, $emboss-depth: $v-emboss-depth, $gradient-depth: $v-gradient-depth) {
+//@function v-valo-button-box-shadow($background-color, $context-color: $v-app-background-color, $emboss-style: $v-emboss-style, $emboss-depth: $v-emboss-depth, $gradient-style: $v-gradient-style, $gradient-depth: $v-gradient-depth) {
 //  @return 0px 1px 1px 0px rgba(0,0,0, $emboss-depth/30%), 
 //          0px 3px 1px 0px rgba(0,0,0, $emboss-depth/50%), 
 //          0px 2px 1px 2px rgba(255,255,255, $emboss-depth/100%), 

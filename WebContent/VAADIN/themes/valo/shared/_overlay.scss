@@ -1,5 +1,54 @@
 $v-overlay-border-radius: $v-border-radius !default;
 
+.v-shadow,
+.v-shadow-window {
+	display: none;
+}
+
 @mixin v-valo-overlay-style ($context-color: $v-app-background-color) {
+	padding: ceil($v-unit-size/8);
 	border-radius: $v-overlay-border-radius;
+  
+  $bg: v-valo-textfield-background-color($context-color: $context-color);  
+  background: $bg;
+  color: font-color($bg);
+
+	box-shadow:         0px 2px 4px 0px rgba(0,0,0,0.12), 0px 0px 0px 1px transparentize(darken($context-color, $v-emboss-depth), .5), 0px 3px 5px 0px rgba(0,0,0,0.05);
+
+	@include animation(v-valo-overlay-open 200ms);
+}
+
+@include keyframes(v-valo-overlay-open) {
+	0% {
+		@include transform(translatey(-2px));
+		opacity: 0;
+	}
+}
+
+@mixin v-valo-selection-item {
+	cursor: pointer;
+	line-height: ceil($v-unit-size/1.4);
+	padding: 0 ceil($v-unit-size/4);
+	@if $v-border-radius {
+		border-radius: $v-border-radius - 1px;
+	}
+	font-weight: $v-font-weight + 100;
+
+	position: relative;
+	&:active:before {
+		content: "";
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background: #000;
+		@include opacity(.1);
+		pointer-events: none;
+	}
+}
+
+@mixin v-valo-selection-item-selected {
+	@include v-valo-gradient($v-focus-color);
+	color: font-color($v-focus-color);
 }

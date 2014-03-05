@@ -1,0 +1,27 @@
+@mixin v-valo-menubar ($primary-stylename: v-menubar) {
+	
+	.#{$primary-stylename}-popup {
+		color: foobar;
+		@include v-valo-menubar-popup-style($primary-stylename);
+	}
+
+}
+
+@mixin v-valo-menubar-popup-style ($primary-stylename: v-menubar, $context-color: $v-app-background-color) {
+	@include v-valo-overlay-style($context-color: $context-color);
+	margin: ceil($v-unit-size/8) 0 0 1px !important;
+
+	.#{$primary-stylename}-submenu {
+		outline: none;
+	}
+
+	.#{$primary-stylename}-menuitem {
+		display: block;
+		@include v-valo-selection-item;
+	}
+
+	.#{$primary-stylename}-menuitem-selected {
+		@include v-valo-selection-item-selected;
+	}
+
+}

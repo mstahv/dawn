@@ -14,6 +14,7 @@ import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.CssLayout;
@@ -46,6 +47,7 @@ public class ValoThemeUI extends UI {
 
     @Override
     protected void init(VaadinRequest request) {
+        getPage().setTitle("Valo Theme");
         setContent(root);
         root.addComponent(components);
 
@@ -103,11 +105,7 @@ public class ValoThemeUI extends UI {
         /**
          * Labels
          */
-        addSection(root, "Labels", Category.Basic_Components);
-
-        Label h1 = new Label("Main Title");
-        h1.addStyleName("h1");
-        root.addComponent(h1);
+        addSection(root, "Labels", Category.Basic_Components, null);
 
         Label large = new Label(
                 "Large type for introductory text. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu.");
@@ -142,7 +140,7 @@ public class ValoThemeUI extends UI {
         /**
          * Buttons
          */
-        addSection(root, "Buttons", Category.Basic_Components);
+        addSection(root, "Buttons", Category.Basic_Components, null);
 
         HorizontalLayout row = new HorizontalLayout();
         row.addStyleName("wrapping");
@@ -193,7 +191,7 @@ public class ValoThemeUI extends UI {
         button.addStyleName("large");
         row.addComponent(button);
 
-        button = new Button("Icon");
+        button = new Button("Photos");
         button.setIcon(FontAwesome.CAMERA);
         row.addComponent(button);
 
@@ -210,7 +208,7 @@ public class ValoThemeUI extends UI {
         /**
          * Text fields
          */
-        addSection(root, "Text Fields", Category.Basic_Components);
+        addSection(root, "Text Fields", Category.Basic_Components, null);
 
         row = new HorizontalLayout();
         row.addStyleName("wrapping");
@@ -257,7 +255,11 @@ public class ValoThemeUI extends UI {
         tf.addStyleName("large");
         row.addComponent(tf);
 
-        addSection(root, "SplitButton (custom)", Category.Other);
+        addSection(
+                root,
+                "SplitButton",
+                Category.Other,
+                "This is a custom composite component, extending CssLayout and containing a Button and a MenuBar. Theme mixins are used to style the MenuBar to look like a Button.");
 
         row = new HorizontalLayout();
         row.addStyleName("wrapping");
@@ -273,13 +275,19 @@ public class ValoThemeUI extends UI {
         return root;
     }
 
-    void addSection(VerticalLayout root, String title, Category category) {
+    void addSection(VerticalLayout root, String title, Category category,
+            String description) {
         String id = title.toLowerCase().replace(" ", "-");
 
         Label h1 = new Label(title);
         h1.addStyleName("h1");
         h1.setId("" + id);
         root.addComponent(h1);
+
+        if (description != null) {
+            Label desc = new Label(description + "<br><br>", ContentMode.HTML);
+            root.addComponent(desc);
+        }
 
         Link link = new Link(title, new ExternalResource("#" + id));
 

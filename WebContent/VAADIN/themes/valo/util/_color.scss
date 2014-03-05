@@ -158,3 +158,19 @@ $vaadin-luminance-threshold: 150 !default;
   }
 }
 
+
+@function v-valo-focus-color ($context-color: $v-app) {
+  $focus-color: $v-focus-color;
+  @if $focus-color == $context-color {
+    $focus-color: #fff;
+  } @else if luminance-diff($context-color, $focus-color) < 50 or saturation-diff($context-color, $focus-color) < 20% {
+      $focus-color: #fff;
+  }
+  @return $focus-color;
+}
+
+@function v-valo-focus-box-shadow ($emboss-style: $v-emboss-style, $color: $v-focus-color) {
+  $shadow-blur: if($v-emboss-style == soft, 2px, 0);
+  $shadow-spread: if($v-emboss-style == soft, 2px, 2px);
+  @return 0 0 $shadow-blur $shadow-spread transparentize($color, .5);
+}

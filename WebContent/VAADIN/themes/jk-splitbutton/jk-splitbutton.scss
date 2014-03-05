@@ -2,12 +2,10 @@
 
   .jk-splitbutton > .v-button {
     display: block;
-    position: relative;
     margin-right: $v-unit-size - 1px;
     
     @if $v-border-radius {
       border-radius: $v-border-radius 0 0 $v-border-radius;
-      //padding-right: $v-button-width-ratio + em;
     }
     
     &:focus {
@@ -43,6 +41,7 @@
       @include v-valo-button-style($context-color: $context-color, $background-color: $context-color, $clean: true);
       
       width: $v-unit-size;
+      padding: 0;
       text-align: center;
       z-index: 1;
       
@@ -51,8 +50,14 @@
       }
       
       &:before {
-      	// TODO add arrow icon
+      	content: "\f0d7";
+        font-family: FontAwesome;
         pointer-events: none;
+        width: $v-unit-size - 2px;
+        height: $v-unit-size - 2px;
+        line-height: $v-unit-size - 2px;
+        text-align: center;
+        font-size: 1.2em;
       }
     }
     
@@ -62,6 +67,7 @@
     
     &.v-disabled .jk-splitbutton-secondary-menuitem-caption,
     &.v-disabled > .jk-splitbutton-secondary:focus .jk-splitbutton-secondary-menuitem-caption  {
+      @include opacity(.7);
       //@extend %tune-button-disabled;
       //&:before {
       //  border-top-color: tune-text-color-disabled($vaadin-ui-color) !important;
@@ -70,21 +76,11 @@
     
   }
   
-  /*.jk-splitbutton-secondary-popup {
-    @extend %tune-selection-popup;
-    
-    .jk-splitbutton-secondary-menuitem {
-      @extend %tune-selection;
-      display: block;
-    }
-    
-    .jk-splitbutton-secondary-menuitem-selected {
-      @extend %tune-selection-selected;
-    }
+}
+
+
+@mixin jk-splitbutton-popup ($context-color: $v-app-background-color) {
+  .jk-splitbutton-secondary-popup {
+    @include v-valo-menubar-popup-style($primary-stylename: jk-splitbutton-secondary, $context-color: $context-color);
   }
-  
-  .jk-splitbutton-secondary-submenu:focus {
-    outline: none;
-  }*/
-  
 }

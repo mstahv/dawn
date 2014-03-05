@@ -114,7 +114,7 @@ $v-enable-button-hover-style: true !default;
     padding: 0 $padding-width;
 
     .v-icon {
-      margin: 0 ceil($padding-width/4)/-1;
+      margin: 0 ceil($padding-width/5)/-1;
     }
 
     .v-icon + span:not(:empty) {
@@ -192,21 +192,15 @@ $v-enable-button-hover-style: true !default;
   }
   
   &:after {
-    $focus-color: $v-focus-color;
-
-    @if $focus-color == $context-color {
-      $focus-color: #fff;
-    } @else if luminance-diff($context-color, $focus-color) < 50 or saturation-diff($context-color, $focus-color) < 20% {
-        $focus-color: #fff;
-    }
+    $focus-color: v-valo-focus-color($context-color: $context-color);
     
     @if color-luminance($focus-color) + 50 < color-luminance($background-color) {
       border: 1px solid $focus-color;
     } @else {
       border: 1px solid transparent;
     }
-    
-    box-shadow: 0 0 0 2px transparentize($focus-color, .5);
+
+    box-shadow: v-valo-focus-box-shadow($color: $focus-color);
     
     @if $clean {
       @include transition(none);

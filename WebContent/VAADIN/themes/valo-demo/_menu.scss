@@ -10,7 +10,7 @@
 
     -webkit-transform: translatex(-96%);
     transform: translatex(-96%);
-    transition: all 200ms 500ms;
+    transition: all 200ms 300ms;
     opacity: .7;
 
     &:hover {
@@ -34,7 +34,7 @@
       -webkit-transform: translatex(100%);
       transform: translatex(100%);
       line-height: 2em;
-      transition: opacity 200ms 500ms;
+      transition: opacity 200ms 300ms;
       width: 20px;
       height: 3px;
       background: #000;

@@ -2,6 +2,7 @@
 @import "button";
 @import "textfield";
 @import "orderedlayout";
+@import "menubar";
 
 
 @mixin v-valo-components ($context-color: null) {
@@ -26,6 +27,10 @@
   
   @if v-is-included(orderedlayout) {
     @include v-valo-orderedlayout;
+  }
+  
+  @if v-is-included(menubar) {
+    @include v-valo-menubar;
   }
   
   @if v-is-included(label) {
