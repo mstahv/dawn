@@ -1,0 +1,30 @@
+@mixin v-valo-optiongroup ($primary-stylename: v-optiongroup) {
+  
+  .v-radiobutton {
+  	:root & > input {
+      &:checked ~ label:after {
+        content: "\2022";
+        font-size: round($v-unit-size/1.2);
+      }
+    }
+    & > label:before,
+    & > label:after {
+      border-radius: 50%;
+    }
+  }
+  
+  .v-select-optiongroup {
+  
+    .v-radiobutton,
+    .v-checkbox {
+      display: block;
+      margin: round($v-unit-size/4) $v-font-size 0 0;
+      
+      &:first-child {
+        margin-top: round($v-unit-size/6);
+      }
+    }
+  
+  }
+  
+}

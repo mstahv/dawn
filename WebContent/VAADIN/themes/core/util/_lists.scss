@@ -1,5 +1,20 @@
-@function contains ($list, $var) {
-  @return (false != index($list, $var));
+@function contains ($list, $var, $recursive: false) {
+  @if $recursive == false {
+    @return (false != index($list, $var));
+  }
+
+  $ret: false;
+  @each $item in $list {
+    @if type-of($item) == list and $recursive {
+      @if contains($item, $var, true) {
+        @return true;
+      }
+    } @else if $item == $var {
+      @return true;
+    }
+  }
+
+  @return false;
 }
 
 // Author: Hugo Giraudel

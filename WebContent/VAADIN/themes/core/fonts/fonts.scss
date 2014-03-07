@@ -31,5 +31,7 @@ $fontawesome-pathPrefix: null;
         -moz-osx-font-smoothing: grayscale;
         display: inline-block;
         text-align: center;
+        @extend %no-selection;
+        cursor: default;
     }
 }

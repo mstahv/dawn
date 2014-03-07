@@ -6,12 +6,16 @@
 @import "util/color";
 @import "util/anim";
 @import "util/gradient";
+@import "util/bevel-and-shadow";
 @import "util/util";
 
 @import "fonts/fonts";
 
 @if contains($v-font-family, "Open Sans") {
   @include font-open-sans($italic: false, $light: true, $book: true, $medium: true);
+}
+@if contains($v-font-family, "Source Sans Pro") {
+  @include font-source-sans-pro($italic: false, $light: true, $regular: true, $medium: true);
 }
 
 @import "shared/global";

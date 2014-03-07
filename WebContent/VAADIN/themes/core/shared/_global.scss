@@ -75,7 +75,11 @@
   
   .v-icon,
   .v-errorindicator,
-  .v-required-field-indicator,
+  .v-required-field-indicator {
+    display: inline-block;
+    line-height: inherit;
+  }
+
   .v-caption,
   .v-captiontext {
     display: inline-block;
@@ -126,6 +130,12 @@
   // Reposition loading indicator so that it doens't scroll with the page
   .v-loading-indicator {
     position: fixed !important;
+  }
+
+  .v-overlay-container {
+    position: fixed;
+    top: 0;
+    left: 0;
   }
   
   // Reposition notifications so that they don't scroll with the page

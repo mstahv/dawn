@@ -27,7 +27,7 @@
 
 
 // Arbitrary luminance threshold after which colors should be adjusted either darker or lighter
-$vaadin-luminance-threshold: 150 !default;
+$v-luminance-threshold: 150 !default;
 
 
 
@@ -43,7 +43,7 @@ $vaadin-luminance-threshold: 150 !default;
 
 @function is-dark-color($bg-color) {
   $luminance: color-luminance($bg-color);
-  @if $luminance < $vaadin-luminance-threshold or (saturation($bg-color) > 80% and ($luminance < $vaadin-luminance-threshold + 20)) {
+  @if $luminance < $v-luminance-threshold or (saturation($bg-color) > 80% and ($luminance < $v-luminance-threshold + 20)) {
     @return true;
   } @else {
     @return false;
@@ -52,7 +52,7 @@ $vaadin-luminance-threshold: 150 !default;
 
 // Returns a text color with enough contrast for the given background color
 //
-@function font-color ($bg-color) {
+@function v-valo-font-color ($bg-color) {
   @if $bg-color {
     @if is-dark-color($bg-color) {
       @return scale_color($bg-color, $lightness: 80%, $saturation: -60%);
@@ -64,40 +64,8 @@ $vaadin-luminance-threshold: 150 !default;
 }
 
 
-@function font-color-disabled ($bg-color) {
-  @if is-dark-color($bg-color) {
-    @return adjust-color($bg-color, $lightness: 20%, $saturation: -6%);
-  } @else {
-    @return adjust-color($bg-color, $lightness: -20%, $saturation: -6%);
-  }
-}
-
-
-@function font-color-light ($bg-color) {
-  @if is-dark-color($bg-color) {
-    @return adjust-color($bg-color, $lightness: 30%, $saturation: -3%);
-  } @else {
-    @return adjust-color($bg-color, $lightness: -30%, $saturation: -3%);
-  }
-}
-
-
-@function font-color-active ($bg-color) {
-  @return font-color(darken($bg-color, 5%));
-}
-
-
-@function color-variant ($color, $amount) {
-  @if color-luminance($color) > 170 {
-    @return adjust_color($color, $lightness: -$amount);
-  } @else {
-    @return adjust_color($color, $lightness: $amount);
-  }
-}
-
-
-@function header-color ($bg-color, $contrast: 1) {
-  $font-color: font-color($bg-color);
+@function v-valo-header-color ($bg-color, $contrast: 1) {
+  $font-color: v-valo-font-color($bg-color);
   @if is-dark-color($bg-color) {
     @return lighten($font-color, 30% * $contrast);
   } @else {
@@ -108,69 +76,16 @@ $vaadin-luminance-threshold: 150 !default;
 
 
 
-
-// Returns a sane background color for the given primary color
-//
-@function bg-color ($color) {
-  $bg-color: $color;
-  @if color-luminance($color) > 122 {
-    $bg-color: lighten($bg-color, 14%);
-  } @else {
-    $bg-color: darken($bg-color, 10%);
-  }
-  $bg-color: scale-color($bg-color, $saturation: -50%);
-  @return $bg-color;
-}
-
-
-
-
-// Returns a sane link color for the given primary color
-//
-@function link-color ($color) {
-  $link: $color;
-  @if color-luminance($color) > 122 {
-    $link: scale-color($link, $lightness: -50%);
-  } @else {
-    $link: scale-color($link, $lightness: 50%);
-  }
-  @if saturation($color) > 0 {
-    @return scale-color($link, $saturation: 5%);
-  } @else {
-    @return $link;
-  }
-}
-
-
-// Returns a sane selection color for the given primary color
-//
-@function selection-color ($color) {
-  $selection: $color;
-  @if color-luminance($color) > 122 {
-    $selection: scale-color($selection, $lightness: -50%);
-  } @else {
-    $selection: scale-color($selection, $lightness: 50%);
-  }
-  @if saturation($color) > 0 {
-    @return scale-color($selection, $saturation: 5%);
-  } @else {
-    @return $selection;
-  }
-}
-
-
-@function v-valo-focus-color ($context-color: $v-app) {
+@function v-valo-focus-color ($context-color: $v-app-background-color) {
   $focus-color: $v-focus-color;
-  @if $focus-color == $context-color {
+  @if luminance-diff($context-color, $focus-color) < 30 or (luminance-diff($context-color, $focus-color) < 10 and saturation-diff($context-color, $focus-color) < 20%) {
     $focus-color: #fff;
-  } @else if luminance-diff($context-color, $focus-color) < 50 or saturation-diff($context-color, $focus-color) < 20% {
-      $focus-color: #fff;
   }
   @return $focus-color;
 }
 
-@function v-valo-focus-box-shadow ($emboss-style: $v-emboss-style, $color: $v-focus-color) {
-  $shadow-blur: if($v-emboss-style == soft, 2px, 0);
-  $shadow-spread: if($v-emboss-style == soft, 2px, 2px);
-  @return 0 0 $shadow-blur $shadow-spread transparentize($color, .5);
+
+
+@function v-valo-focus-box-shadow ($color: $v-focus-color, $focus-style: $v-focus-style) {
+  @return $focus-style transparentize($color, .5);
 }

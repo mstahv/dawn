@@ -4,25 +4,32 @@ $v-app-background-color:  #fafafa   !default;
 
 $v-font-size:             15px      !default;	// Should be specified in pixels
 $v-font-weight:           300       !default;
-$v-font-color:            font-color($v-app-background-color) !default;
+$v-font-color:            v-valo-font-color($v-app-background-color) !default;
 $v-font-family:           "Open Sans", sans-serif !default;
 
-$v-unit-size:             ceil(2.4 * $v-font-size) !default;	// Must be specified in pixels
+$v-unit-size:             round(2.4 * $v-font-size) !default;	// Must be specified in pixels
 
-$v-layout-margin-top:     ceil($v-unit-size) !default;
-$v-layout-margin-right:   ceil($v-unit-size) !default;
-$v-layout-margin-bottom:  ceil($v-unit-size) !default;
-$v-layout-margin-left:    ceil($v-unit-size) !default;
+$v-layout-margin-top:     round($v-unit-size) !default;
+$v-layout-margin-right:   round($v-unit-size) !default;
+$v-layout-margin-bottom:  round($v-unit-size) !default;
+$v-layout-margin-left:    round($v-unit-size) !default;
 
-$v-layout-spacing-vertical:   ceil($v-unit-size/3) !default;
-$v-layout-spacing-horizontal: ceil($v-unit-size/3) !default;
+$v-layout-spacing-vertical:   round($v-unit-size/3) !default;
+$v-layout-spacing-horizontal: round($v-unit-size/3) !default;
 
+$v-border-width:					1px 			!default;
 $v-border-radius:         4px       !default;	// Must be specified in pixels
 
-$v-gradient-depth:        7%       !default;
 $v-gradient-style:        linear    !default;
+$v-gradient-depth:        10%       !default;
 
-$v-emboss-depth:          30%       !default;
-$v-emboss-style:		  		sharp	!default;
+$v-bevel-style: 					inset 0 1px 0 hilite, inset 0 -1px 0 shade !default;
+$v-bevel-depth:						20%				!default;
 
-$v-focus-color:           #00b4f0   !default;
+$v-shadow-style:					0 2px 3px shade !default;
+$v-shadow-depth:          5%       !default;
+
+$v-focus-style: 					0 0 0 2px !default;
+$v-focus-color:           #3589e9   !default;
+
+$v-animations-enabled:		true 			!default;

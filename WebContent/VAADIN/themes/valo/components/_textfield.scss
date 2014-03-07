@@ -1,128 +1,120 @@
-$v-textfield-border-radius: $v-border-radius !default;
+$v-textfield-border-radius: null !default;
+$v-textfield-bevel-style: inset 0 1px 0 shade !default;
+$v-textfield-bevel-depth: null !default;
+$v-textfield-background-color: null !default;
+$v-textfield-unit-size: null !default;
+$v-textfield-font-weight: 400 !default;
+$v-textfield-border-width: $v-border-width !default;
 
 
-@function v-valo-textfield-background-color ($context-color, $background-color: null) {
+
+@function v-valo-textfield-background-color ($context-color) {
   $bg-color: lighten($context-color, 8%);
   @if is-dark-color($context-color) {
     $bg-color: darken($context-color, 4%);
   }
-  @if $background-color and $background-color != $context-color {
-    $bg-color: blend-multiply(transparentize($background-color,.9), $bg-color);
-    $bg-color: blend-overlay(transparentize(scale-color($background-color, $saturation: -50%), .3), $bg-color);
-  }
-
+  //@if $background-color and $background-color != $context-color {
+  //  $bg-color: blend-multiply(transparentize($background-color,.9), $bg-color);
+  //  $bg-color: blend-overlay(transparentize(scale-color($background-color, $saturation: -50%), .3), $bg-color);
+  //}
   @return $bg-color;
 }
 
 
-@function v-valo-textfield-box-shadow (
-    $context-color: $v-app-background-color,
-    $background-color: null,
-    $emboss-style: $v-emboss-style,
-    $emboss-depth: $v-emboss-depth
-  ) {
 
-  //@if is-dark-color($context-color) {
-  //  @return 0 0 0 2px rgba(255,255,255, color-luminance($context-color)/255/3);
-  //} @else {
-  //  @return 0 0 0 2px rgba(0,0,0, (0.1-(color-luminance($context-color)/255*0.06)));
-  //}
 
-  @if $emboss-style == sharp {
-    @return inset 0 2px 0 black($emboss-depth/500%);
-  } @else if $emboss-style == soft {
-    @return inset 0 1px 1px black($emboss-depth/500%);
+
+@function v-valo-textfield-box-shadow ($bevel-style: $v-textfield-bevel-style, $bevel-depth: $v-bevel-depth) {
+  @if $bevel-depth == 0 {
+    @return none;
   }
-
-  @return none;
+  @return replace($bevel-style, shade, black($bevel-depth/500%));
 }
 
 
-@mixin v-valo-textfield-style (
-    $context-color: null,
-    $background-color: null,
-    $border-radius: null,
-    $emboss-style: null,
-    $emboss-depth: null,
-    $unit-size: null,
-    $clean: false
-  ) {
 
-  // Set up variables that are used for actual values 
-  // (variables that might be needed even though not explicitly specified by caller)
-  $bg-color: $background-color;
-  $ctx-color: $context-color or $v-app-background-color;
-  $emb-style: $emboss-style or $v-emboss-style;
-  $emb-depth: $emboss-depth or $v-emboss-depth;
-  $unit-size: $unit-size or if($clean, $v-unit-size, $unit-size);
-  $border-radius: $border-radius or if($clean, $v-textfield-border-radius, $border-radius);
-  
-  @if $clean {
-    margin: 0;
-    font: inherit;
-    font-weight: 400;
-    line-height: 1;
-    @include transition(box-shadow 180ms, border 180ms);
 
-    &.v-disabled {
-      @include opacity(.3);
-    }
-  }
-  
-  @if $unit-size {
-    height: $unit-size;
-    $padding-width: ceil($unit-size/6);
-    @if $border-radius {
-      // TODO this assumes border-radius is specified in pixels
-      $padding-width: $padding-width + ceil($border-radius/3);
-    }
-    padding: 0 $padding-width;
-  }
-  
+@mixin v-valo-textfield-size ($unit-size, $border-radius) {
+  height: $unit-size;
+  $padding-width: ceil($unit-size/6);
   @if $border-radius {
-    border-radius: $border-radius;
+    $padding-width: $padding-width + ceil($border-radius/3);
   }
+  padding: 0 $padding-width;
+}
 
+
+
+@function v-valo-textfield-border-color ($context-color: $v-app-background-color, 
+                                         $bevel-style: $v-bevel-style, $bevel-depth: $v-bevel-depth,
+                                         $background-color: $v-textfield-background-color) {
+  //$border-color: blend-darken(scale-color($ctx-color, $lightness: max(-20%, -$emb-depth), $saturation: -70%), transparentize(scale-color($ctx-color, $lightness: max(-20%, -$emb-depth), $saturation: -25%), 1-$emb-depth/100%));
+  $border-color: blend-darken($background-color, scale-color($context-color, $lightness: max(-50%, -$bevel-depth)));
+  $border-color: scale-color($border-color, $saturation: -$bevel-depth);
+  @return $border-color;
+}
+
+
+
+
+@mixin v-valo-textfield-style ($context-color: $v-app-background-color,
+                               $bevel-style: $v-textfield-bevel-style, $bevel-depth: $v-textfield-bevel-depth, 
+                               $unit-size: $v-textfield-unit-size, $border-radius: $v-textfield-border-radius,
+                               $background-color: $v-textfield-background-color) {
+
+  // Set up variable defaults
+  $background-color: $background-color or v-valo-textfield-background-color($context-color);
+  $bevel-style: $bevel-style or $v-bevel-style;
+  $bevel-depth: $bevel-depth or $v-bevel-depth;
+  $unit-size: $unit-size or $v-unit-size;
+  $border-radius: $border-radius or $v-border-radius;
   
-  @if $clean or $context-color or $background-color or $emboss-style or $emboss-depth {
-    // Border color
-    $border-color: blend-darken(scale-color($ctx-color, $lightness: max(-20%, -$emb-depth), $saturation: -70%), transparentize(scale-color($ctx-color, $lightness: max(-20%, -$emb-depth), $saturation: -25%), 1-$emb-depth/100%));
-    //@if luminance-diff($ctx-color, $bg-color) < 20 {
-    //  $border-color: scale-color($ctx-color, $lightness: max(-20%, -$emb-depth), $saturation: -10%);
-    //}
-    $border-color: scale-color($border-color, $saturation: -$emb-depth);
-    border: 1px solid $border-color;
-    
-    $bg: v-valo-textfield-background-color($context-color: $ctx-color, $background-color: $bg-color);
-    background: $bg;
-    color: font-color($bg);
-    
-    box-shadow: v-valo-textfield-box-shadow($context-color: $ctx-color, $background-color: $bg-color, $emboss-style: $emb-style, $emboss-depth: $emb-depth);
-    
-    &:focus {
-      @include v-valo-textfield-focus-style($context-color: $ctx-color, $clean: $clean);
-    }
-    
-    // TODO allow parent selector to be used in interpolation
-    &.v-textfield-prompt {
-      @include v-valo-textfield-prompt-style($context-color: $ctx-color, $background-color: $bg-color, $clean: $clean);
-    }
+  margin: 0;
+  font: inherit;
+  font-weight: $v-textfield-font-weight;
+  @include v-valo-textfield-size($unit-size, $border-radius);
+  border-radius: $border-radius;
+  border: $v-textfield-border-width solid v-valo-textfield-border-color($context-color, $bevel-style, $bevel-depth, $background-color);
+  background: $background-color;
+  color: v-valo-font-color($background-color);
+  //box-shadow: v-valo-textfield-box-shadow($context-color: $ctx-color, $background-color: $bg-color, $bevel-style: $emb-style, $bevel-depth: $emb-depth);
+
+  @if $v-animations-enabled {
+    @include transition(box-shadow 180ms, border 180ms);
+  }
+
+  &.v-disabled {
+    @include opacity(.3);
+  }
+
+  &:focus {
+    @include v-valo-textfield-focus-style($context-color: $context-color);
+  }
+  
+  // TODO allow parent selector to be used in interpolation
+  &.v-textfield-prompt,
+  &.v-textarea-prompt {
+    @include v-valo-textfield-prompt-style($background-color);
   }
 
 }
 
 
-@mixin v-valo-textfield-prompt-style ($context-color: $v-app-background-color, $background-color: null, $clean: false) {
-  $bg: v-valo-textfield-background-color($context-color: $context-color, $background-color: $background-color);
-  color: mix(font-color($bg), $bg);
+@mixin v-valo-textfield-prompt-style ($background-color) {
+  $font-color: v-valo-font-color($background-color);
+  $font-color: mix($background-color, $font-color);
+  @if is-dark-color($background-color) and saturation($background-color) > 50% {
+    $font-color: scale-color($font-color, $lightness: 20%);
+  }
+  color: $font-color;
 }
 
 
-@mixin v-valo-textfield-focus-style ($context-color: $v-app-background-color, $clean: false) {
-  @if $clean {
-    outline: none;
-    @include transition(none);  
-  }
+@mixin v-valo-textfield-focus-style ($context-color: $v-app-background-color) {
+  outline: none;
+  @if $v-animations-enabled {
+    @include transition(none);
+  } 
   
   $focus-color: v-valo-focus-color($context-color: $context-color);
   
@@ -143,7 +135,7 @@ $v-textfield-border-radius: $v-border-radius !default;
 @mixin v-valo-textfield ($primary-stylename: v-textfield) {
   
   .#{$primary-stylename} {
-    @include v-valo-textfield-style($clean: true);
+    @include v-valo-textfield-style;
   }
   
   .#{$primary-stylename}-readonly {

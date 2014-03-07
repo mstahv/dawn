@@ -1,8 +1,11 @@
 @import "label";
 @import "button";
 @import "textfield";
+@import "textarea";
 @import "orderedlayout";
 @import "menubar";
+@import "checkbox";
+@import "optiongroup";
 
 
 @mixin v-valo-components ($context-color: null) {
@@ -14,15 +17,23 @@
     $v-app-background-color: $context-color;
     
     background-color: $context-color;
-    color: font-color($context-color);
+    color: v-valo-font-color($context-color);
   }
   
   @if v-is-included(button) {
     @include v-valo-button;
   }
   
+  @if v-is-included(checkbox) {
+    @include v-valo-checkbox;
+  }
+  
   @if v-is-included(textfield) {
     @include v-valo-textfield;
+  }
+  
+  @if v-is-included(textarea) {
+    @include v-valo-textarea;
   }
   
   @if v-is-included(orderedlayout) {
@@ -30,7 +41,11 @@
   }
   
   @if v-is-included(menubar) {
-    @include v-valo-menubar;
+    //@include v-valo-menubar;
+  }
+  
+  @if v-is-included(optiongroup) {
+    @include v-valo-optiongroup;
   }
   
   @if v-is-included(label) {

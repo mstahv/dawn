@@ -11,7 +11,7 @@ $v-overlay-border-radius: $v-border-radius !default;
   
   $bg: v-valo-textfield-background-color($context-color: $context-color);  
   background: $bg;
-  color: font-color($bg);
+  color: v-valo-font-color($bg);
 
 	box-shadow:         0px 2px 4px 0px rgba(0,0,0,0.12), 0px 0px 0px 1px transparentize(darken($context-color, $v-emboss-depth), .5), 0px 3px 5px 0px rgba(0,0,0,0.05);
 
@@ -50,5 +50,5 @@ $v-overlay-border-radius: $v-border-radius !default;
 
 @mixin v-valo-selection-item-selected {
 	@include v-valo-gradient($v-focus-color);
-	color: font-color($v-focus-color);
+	color: v-valo-font-color($v-focus-color);
 }
