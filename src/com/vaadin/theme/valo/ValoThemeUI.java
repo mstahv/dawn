@@ -24,6 +24,7 @@ import com.vaadin.event.Action;
 import com.vaadin.event.Action.Handler;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -469,13 +470,14 @@ public class ValoThemeUI extends UI implements Handler {
         /**
          * Combo boxes
          */
-        row = addSection(root, "ComboBox", Category.Selection_Components, null);
+        row = addSection(root, "Combo Boxes", Category.Selection_Components,
+                null);
 
         ComboBox combo = new ComboBox("Normal");
         combo.setInputPrompt("You can type here");
-        combo.addItem("Option One");
-        combo.addItem("Option Two");
-        combo.addItem("Option Three");
+        for (int i = 1; i <= 200; i++) {
+            combo.addItem("Option " + i);
+        }
         row.addComponent(combo);
 
         combo = new ComboBox("Disabled");
@@ -486,12 +488,28 @@ public class ValoThemeUI extends UI implements Handler {
         combo.setEnabled(false);
         row.addComponent(combo);
 
-        combo = new ComboBox("Custom color, with many items");
+        combo = new ComboBox("Custom color");
         combo.setInputPrompt("You can type here");
         for (int i = 1; i <= 200; i++) {
             combo.addItem("Option " + i);
         }
-        combo.addStyleName("important");
+        combo.addStyleName("color1");
+        row.addComponent(combo);
+
+        combo = new ComboBox("Custom color");
+        combo.setInputPrompt("You can type here");
+        for (int i = 1; i <= 200; i++) {
+            combo.addItem("Option " + i);
+        }
+        combo.addStyleName("color2");
+        row.addComponent(combo);
+
+        combo = new ComboBox("Custom color");
+        combo.setInputPrompt("You can type here");
+        for (int i = 1; i <= 200; i++) {
+            combo.addItem("Option " + i);
+        }
+        combo.addStyleName("color3");
         row.addComponent(combo);
 
         combo = new ComboBox("Small");
@@ -502,12 +520,12 @@ public class ValoThemeUI extends UI implements Handler {
         combo.addStyleName("small");
         row.addComponent(combo);
 
-        combo = new ComboBox("Small");
+        combo = new ComboBox("Large");
         combo.setInputPrompt("You can type here");
         combo.addItem("Option One");
         combo.addItem("Option Two");
         combo.addItem("Option Three");
-        combo.addStyleName("small");
+        combo.addStyleName("large");
         row.addComponent(combo);
 
         /**
@@ -680,27 +698,8 @@ public class ValoThemeUI extends UI implements Handler {
             public void buttonClick(ClickEvent event) {
                 win.close();
                 UI.getCurrent().addWindow(win);
-                // win.setPositionX(event.getClientX());
-                // win.setPositionY(event.getClientY()
-                // + Page.getCurrent().getBrowserWindowHeight());
-                win.center();
-            }
-        });
-        row.addComponent(button);
-
-        final Window win2 = new Window("Primary Window");
-        win2.addStyleName("primary");
-        win2.setWidth("30%");
-        win2.setHeight("30%");
-        win2.setContent(windowContents());
-
-        button = new Button("Open Primary Window");
-        button.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                win2.close();
-                UI.getCurrent().addWindow(win2);
-                win2.center();
+                win.setPositionX(Page.getCurrent().getBrowserWindowWidth() / 2);
+                win.setPositionY(Page.getCurrent().getBrowserWindowHeight() / 2);
             }
         });
         row.addComponent(button);

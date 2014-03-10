@@ -7,18 +7,13 @@
 }
 
 
-@mixin v-valo-textarea-style ($context-color: $v-app-background-color,
-                               $bevel-style: $v-textfield-bevel-style, $bevel-depth: $v-textfield-bevel-depth, 
-                               $unit-size: $v-textfield-unit-size, $border-radius: $v-textfield-border-radius,
-                               $background-color: $v-textfield-background-color) {
+@mixin v-valo-textarea-style ($bevel-style: $v-textfield-bevel-style, $bevel-depth: $v-textfield-bevel-depth, 
+                              $unit-size: $v-textfield-unit-size, $border-radius: $v-textfield-border-radius,
+                              $background-color: $v-textfield-background-color) {
 
   $unit-size: $unit-size or $v-unit-size;
-  $border-radius: $border-radius or $v-border-radius;
 
-  @include v-valo-textfield-style($context-color,
-                               $bevel-style, $bevel-depth, 
-                               $unit-size, $border-radius,
-                               $background-color);
+  @include v-valo-textfield-style($bevel-style, $bevel-depth, $unit-size, $border-radius, $background-color);
   height: auto;
   resize: none;
   padding-top: round($unit-size/8);

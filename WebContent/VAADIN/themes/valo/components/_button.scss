@@ -14,7 +14,7 @@ $v-button-font-weight: 400 !default;
 $v-button-cursor: pointer !default;
 $v-enable-button-hover-style: true !default;
 $v-button-border-width: $v-border-width !default;
-
+$v-button-disabled-opacity: $v-disabled-opacity !default;
 
 
 
@@ -34,6 +34,7 @@ $v-button-border-width: $v-border-width !default;
   cursor: $v-button-cursor;
   font-weight: $v-button-font-weight;
   position: relative;
+  text-align: center;
 
   // Generated element for :hover, :focus and :active styles
   &:after {
@@ -52,8 +53,7 @@ $v-button-border-width: $v-border-width !default;
   }
 
   &.v-disabled {
-    cursor: default;
-    @include opacity(.7);
+    @include opacity($v-button-disabled-opacity);
     
     &:after {
       display: none;
@@ -98,13 +98,12 @@ $v-button-border-width: $v-border-width !default;
 
 
 
-@function v-valo-button-border-color ($context-color: $v-app-background-color, 
-                                      $bevel-style: $v-bevel-style, $bevel-depth: $v-bevel-depth,
+@function v-valo-button-border-color ($bevel-style: $v-bevel-style, $bevel-depth: $v-bevel-depth,
                                       $background-color: $v-button-background-color) {
 
   $background-color: $background-color or $v-app-background-color;
-
-  $border-color: blend-darken($background-color, scale-color($context-color, $lightness: max(-50%, -$bevel-depth)));
+  $border-color: if(color-luminance($background-color) < color-luminance($v-app-background-color), $background-color, $v-app-background-color);
+  $border-color: blend-darken($border-color, scale-color($border-color, $lightness: max(-50%, -$bevel-depth)));
   $border-color: scale-color($border-color, $saturation: -$bevel-depth);
   @if contains($bevel-style, shade, true) {
     $border-color: $border-color $border-color blend-multiply(transparentize(#000, max(0.9, 1-$bevel-depth/100%)), $border-color);
@@ -116,8 +115,7 @@ $v-button-border-width: $v-border-width !default;
 
 
 
-@mixin v-valo-button-style ($context-color: $v-app-background-color, 
-                            $gradient-style: $v-button-gradient-style, $gradient-depth: $v-button-gradient-depth, 
+@mixin v-valo-button-style ($gradient-style: $v-button-gradient-style, $gradient-depth: $v-button-gradient-depth, 
                             $bevel-style: $v-button-bevel-style, $bevel-depth: $v-button-bevel-depth, 
                             $unit-size: $v-button-unit-size, $border-radius: $v-button-border-radius,
                             $background-color: $v-button-background-color) {
@@ -135,7 +133,7 @@ $v-button-border-width: $v-border-width !default;
 
   border-radius: $border-radius;
   border: $v-button-border-width solid;
-  border-color: v-valo-button-border-color($context-color, $bevel-style, $bevel-depth, $background-color);
+  border-color: v-valo-button-border-color($bevel-style, $bevel-depth, $background-color);
 
   @include v-valo-gradient($background-color, $gradient-style, $gradient-depth);
   color: v-valo-font-color($background-color);
@@ -152,7 +150,7 @@ $v-button-border-width: $v-border-width !default;
   &:focus {
     outline: none;
     &:after {
-      @include v-valo-button-focus-style($background-color: $background-color, $context-color: $context-color);
+      @include v-valo-button-focus-style($background-color: $background-color);
     }
   }
 
@@ -164,8 +162,8 @@ $v-button-border-width: $v-border-width !default;
 }
 
 
-@mixin v-valo-button-focus-style ($background-color: $v-app-background-color, $context-color: $v-app-background-color) {
-  $focus-color: v-valo-focus-color($context-color: $context-color);
+@mixin v-valo-button-focus-style ($background-color: $v-app-background-color) {
+  $focus-color: v-valo-focus-color();
   
   @if color-luminance($focus-color) + 50 < color-luminance($background-color) {
     border: 1px solid $focus-color;
@@ -220,25 +218,6 @@ $v-button-border-width: $v-border-width !default;
 
 @function v-valo-button-box-shadow($background-color, $bevel-style: $v-bevel-style, $bevel-depth: $v-bevel-depth, $gradient-style: $v-gradient-style, $gradient-depth: $v-gradient-depth) {
   @return v-valo-bevel($background-color, $bevel-style, $bevel-depth, $gradient-style, $gradient-depth), v-valo-shadow();
-  /*@if $emboss-style == none {
-    @return none;
-
-  } @else if $emboss-style == sharp {
-    $bottom-color: blend-multiply(transparentize(#000, max(0, 1-($emboss-depth+$gradient-depth)/300%)), blend-overlay(transparentize(#000,1-(min(1,($emboss-depth+$gradient-depth)/200%))),$background-color));
-    @return inset 0 -2px 0 $bottom-color;
-
-  } @else if $emboss-style == soft {
-    $box-shadow-offset: round(sqrt($emboss-depth/25%));
-    $box-shadow-blur: floor(sqrt($emboss-depth/18%));
-    $box-shadow-spread: min(round(sqrt($emboss-depth/100%)), $box-shadow-offset - $box-shadow-blur);
-
-    $top-color: blend-overlay(transparentize(#fff,1-(min(1,$emboss-depth/100%+$gradient-depth/100%))),$background-color);
-    $bottom-color: blend-multiply(transparentize(#000, max(0, 1-$gradient-depth/100%)), blend-overlay(transparentize(#000,1-(min(1,$emboss-depth/100%+$gradient-depth/100%))),$background-color));
-
-    @return 0 round($emboss-depth/100%)+1px min(2,round($emboss-depth/15%))+px rgba(0,0,0,min($emboss-depth/200%,0.3)),
-                inset 0 $box-shadow-offset+px $box-shadow-blur+px $box-shadow-spread+px $top-color,
-                inset 0 (-$box-shadow-offset+px) $box-shadow-blur+px $box-shadow-spread+px transparentize($bottom-color, .8);
-  }*/
 }
 
 

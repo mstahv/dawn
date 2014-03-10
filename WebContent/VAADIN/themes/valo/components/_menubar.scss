@@ -1,7 +1,6 @@
 @mixin v-valo-menubar ($primary-stylename: v-menubar) {
 	
 	.#{$primary-stylename}-popup {
-		color: foobar;
 		@include v-valo-menubar-popup-style($primary-stylename);
 	}
 

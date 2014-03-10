@@ -6,26 +6,21 @@
 @import "menubar";
 @import "checkbox";
 @import "optiongroup";
+@import "combobox";
 
 
-@mixin v-valo-components ($context-color: null) {
-  
-  $v-app-bg-color: null;
-  @if $context-color {
-    // Store temporarily
-    $v-app-bg-color: $v-app-background-color;
-    $v-app-background-color: $context-color;
+@mixin v-valo-components {
     
-    background-color: $context-color;
-    color: v-valo-font-color($context-color);
-  }
-  
   @if v-is-included(button) {
     @include v-valo-button;
   }
   
-  @if v-is-included(checkbox) {
+  @if v-is-included(checkbox) or v-is-included(optiongroup) {
     @include v-valo-checkbox;
+  }
+  
+  @if v-is-included(combobox) {
+    @include v-valo-combobox;
   }
   
   @if v-is-included(textfield) {
@@ -50,11 +45,6 @@
   
   @if v-is-included(label) {
     @include v-valo-label;
-  }
-  
-  // Restore original value
-  @if $context-color {
-    $v-app-background-color: $v-app-bg-color;
   }
   
 }

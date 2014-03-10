@@ -76,9 +76,9 @@ $v-luminance-threshold: 150 !default;
 
 
 
-@function v-valo-focus-color ($context-color: $v-app-background-color) {
+@function v-valo-focus-color ($context: $v-app-background-color) {
   $focus-color: $v-focus-color;
-  @if luminance-diff($context-color, $focus-color) < 30 or (luminance-diff($context-color, $focus-color) < 10 and saturation-diff($context-color, $focus-color) < 20%) {
+  @if luminance-diff($context, $focus-color) < 30 or (luminance-diff($context, $focus-color) < 10 and saturation-diff($context, $focus-color) < 20%) {
     $focus-color: #fff;
   }
   @return $focus-color;
@@ -87,5 +87,15 @@ $v-luminance-threshold: 150 !default;
 
 
 @function v-valo-focus-box-shadow ($color: $v-focus-color, $focus-style: $v-focus-style) {
-  @return $focus-style transparentize($color, .5);
+  @return replace($focus-style, focus-color, transparentize($color, .5));
+}
+
+
+
+@function v-valo-selection-color ($context: $v-app-background-color) {
+  $selection-color: $v-selection-color;
+  @if luminance-diff($context, $selection-color) < 30 or (luminance-diff($context, $selection-color) < 10 and saturation-diff($context, $selection-color) < 20%) {
+    $selection-color: #fff;
+  }
+  @return $selection-color;
 }

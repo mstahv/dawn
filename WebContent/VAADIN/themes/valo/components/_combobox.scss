@@ -1,0 +1,260 @@
+$v-enable-combobox-hover-style: true !default;
+
+
+
+
+@mixin v-valo-combobox ($primary-stylename: v-filterselect) {
+
+	.#{$primary-stylename} {
+		position: relative;
+		@include v-valo-combobox-style($primary-stylename: $primary-stylename);
+  }
+  
+  .#{$primary-stylename}-suggestpopup {
+    @include v-valo-combobox-popup;
+  }
+
+}
+
+
+
+
+
+
+@mixin v-valo-combobox-style ($bevel-style: $v-textfield-bevel-style, $bevel-depth: $v-textfield-bevel-depth, 
+                              $unit-size: $v-textfield-unit-size, $border-radius: $v-textfield-border-radius,
+                              $background-color: $v-textfield-background-color, $primary-stylename: v-filterselect) {
+
+	$background-color: $background-color or v-valo-textfield-background-color($v-app-background-color);
+  $bevel-style: $bevel-style or $v-bevel-style;
+  $bevel-depth: $bevel-depth or $v-bevel-depth;
+  $unit-size: $unit-size or $v-unit-size;
+  $border-radius: $border-radius or $v-border-radius;
+
+  .#{$primary-stylename}-input {
+  	@include v-valo-combobox-input-style($bevel-style: $bevel-style, $bevel-depth: $bevel-depth, $unit-size: $unit-size, 
+  																			 $border-radius: $border-radius, $background-color: $background-color);
+  }
+  
+  &.#{$primary-stylename}-prompt > .#{$primary-stylename}-input {
+    @include v-valo-textfield-prompt-style(v-valo-textfield-background-color($background-color));
+  }
+
+  .#{$primary-stylename}-button {
+  	@include v-valo-combobox-button-style($unit-size: $unit-size, $bevel-style: $bevel-style, $bevel-depth: $bevel-depth,
+																		 			$background-color: $background-color);
+  }
+  
+  .#{$primary-stylename}.v-disabled  {
+  	@include opacity($v-textfield-disabled-opacity);
+    & > .#{$primary-stylename}-button {
+      cursor: default;
+      pointer-events: none;
+    }
+  }
+}
+
+
+
+
+
+@-webkit-keyframes v-valo-combobox-show-status {
+  0% {
+    @include transform( translatey(-100%) );
+  }
+}
+
+@include keyframes(v-valo-combobox-show-items) {
+  0% {
+    opacity: 0;
+    @include transform( translatey(-$v-unit-size/4) );
+  }
+}
+
+
+
+
+@mixin v-valo-combobox-input-style ($bevel-style: $v-textfield-bevel-style, $bevel-depth: $v-textfield-bevel-depth, 
+                              			$unit-size: $v-textfield-unit-size, $border-radius: $v-textfield-border-radius,
+                              			$background-color: $v-textfield-background-color) {
+  @extend %v-widget;
+  @include v-valo-textfield-style($bevel-style: $bevel-style, $bevel-depth: $bevel-depth, 
+                              		$unit-size: $unit-size, $border-radius: $border-radius,
+                              		$background-color: $background-color) ;
+  width: 100% !important;
+}
+
+
+
+
+
+
+
+@mixin v-valo-combobox-button-style ($unit-size: $v-unit-size, $bevel-style: $v-bevel-style, $bevel-depth: $v-bevel-depth,
+																		 $background-color: $v-textfield-background-color) {
+	position: absolute !important;
+	top: $v-textfield-border-width;
+	right: $v-textfield-border-width;
+	width: $unit-size;
+	height: $unit-size - ($v-textfield-border-width*2);
+	line-height: $unit-size - ($v-textfield-border-width*2);
+	text-align: center;
+	cursor: pointer;
+	border-left: $v-textfield-border-width solid blend-darken(transparentize(#000, .9), $background-color);
+	
+	&:before {
+		@include v-valo-combobox-button-icon-style($background-color);
+		@include opacity(.5);
+	}
+
+	@if $v-enable-combobox-hover-style {
+		&:hover:before {
+			@include opacity(1);
+		}
+	}
+
+	&:active:before {
+		@include opacity(.5);
+	}
+}
+
+
+
+@mixin v-valo-combobox-button-icon-style ($background-color) {
+	font-family: FontAwesome;
+	content: "\f078";
+	color: v-valo-font-color($background-color);
+}
+
+
+
+
+@mixin v-valo-combobox-popup ($background-color: null) {
+  
+  @include v-valo-overlay-style($background-color: $background-color);
+  @if $v-border-radius > 0 {
+  	border-radius: $v-border-radius $v-border-radius 0 $v-border-radius;
+  }
+
+ 	margin-top: ceil($v-unit-size/8) !important;
+  
+  table,
+  tbody,
+  tr,
+  td {
+  	display: block;
+  }
+
+  @if $v-animations-enabled {
+  	table {
+  		@include animation(show-items 200ms 180ms backwards);
+  	}
+	}
+  
+  .gwt-MenuItem {
+    @include v-valo-selection-item($parent-background-color: $background-color);
+  }
+  
+  .gwt-MenuItem-selected {
+    @include v-valo-selection-item-selected($parent-background-color: $background-color);
+  }
+
+  .v-filterselect-status {
+    position: absolute;
+    right: -1px;
+    $bg: $background-color or $v-app-background-color;
+    $bg: scale-color($bg, $lightness: -15%);
+    background: transparentize($bg, .1);
+    color: text-color($bg);
+    border-radius: 0 0 $v-border-radius $v-border-radius;
+    height: ceil($v-unit-size*0.6);
+    bottom: -(ceil($v-unit-size*0.6));
+    font-size: ceil($v-font-size*0.73);
+    line-height: ceil($v-unit-size*0.6);
+    padding: 0 ceil($v-unit-size/7);
+
+    @if $v-animations-enabled {
+   		@include animation(show-status 200ms 180ms backwards);
+  	}
+    
+    > * {
+      color: v-valo-font-color($bg);
+      text-decoration: none;
+    }
+  }
+  
+  // Page navigation
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: ceil($v-unit-size/2.5);
+    background: scale-color($v-app-background-color, $lightness: -5%);
+    border-left: 1px solid scale-color($v-app-background-color, $lightness: -15%);
+    opacity: .2;
+    transition: all 200ms 300ms;
+    z-index: 2;
+  }
+    
+  &:hover:before {
+    width: ceil($v-unit-size/1.5);
+    opacity: .7;
+  }
+  
+  &:hover div[class*="page"] span {
+    -webkit-transform: scale(1.8);
+  }
+  
+  $arrow: ceil($v-unit-size/8);
+  div[class*="page"] {
+    position: absolute;
+    right: 0;
+    z-index: 3;
+    opacity: .2;
+    cursor: pointer;
+    transition: all 200ms;
+    width: ceil($v-unit-size/1.5);
+    
+    &:hover {
+      opacity: 1;
+    }
+    
+    span {
+      width: 0;
+      height: 0;
+      overflow: hidden;
+      display: block;
+      border-color: transparent;
+      border-style: solid;
+      border-width: $arrow $arrow 0 $arrow;
+      transition: all 200ms 300ms;
+      position: absolute;
+      right: ceil($arrow/2);
+    }
+  }
+  
+  div[class*="prev"] {
+    top: 0;
+    bottom: 50%;
+    span {
+      border-width: 0 $arrow $arrow $arrow;
+      border-bottom-color: text-color($v-app-background-color);
+      top: $arrow;
+      -webkit-transform-origin: 100% 0%;
+    }
+    
+  }
+  
+  div[class*="next"] {
+    bottom: 0;
+    top: 50%;
+    span {
+      border-top-color: text-color($v-app-background-color);
+      bottom: $arrow;
+      -webkit-transform-origin: 100% 100%;
+    }
+  }
+
+}

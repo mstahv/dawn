@@ -29,7 +29,9 @@ $v-bevel-depth:						20%				!default;
 $v-shadow-style:					0 2px 3px shade !default;
 $v-shadow-depth:          5%       !default;
 
-$v-focus-style: 					0 0 0 2px !default;
+$v-focus-style: 					0 0 0 2px focus-color !default;
 $v-focus-color:           #3589e9   !default;
 
 $v-animations-enabled:		true 			!default;
+
+$v-disabled-opacity:			0.7					!default;

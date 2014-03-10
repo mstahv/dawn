@@ -2,59 +2,67 @@
   
   .#{$primary-stylename},
   .v-radiobutton {
-  	
-  	position: relative;
-    line-height: round($v-unit-size/2);
-    padding-left: round($v-unit-size/1.8);
-    
-    :root & > input {
-      position: absolute;
-      clip: rect(0,0,0,0);
-      left: .2em;
-      top: .2em;
-      z-index: 0;
-      margin: 0;
-      
-      &:focus ~ label:after {
-        box-shadow: v-valo-focus-box-shadow();
-      }
-      
-      &:active ~ label:after {
-        @include v-valo-button-active-style;
-      }
-      
-      &:checked ~ label:after {
-        content: "\f00c";
-      }
-    }
-
-    & > label:before,
-    & > label:after {
-      content: "";
-      display: inline-block;
-      @include box-sizing(border-box);
-      width: round($v-unit-size/2);
-      height: round($v-unit-size/2);
-      position: absolute;
-      left: 0;
-      border-radius: min(round($v-unit-size/6), $v-border-radius);
-      font-family: FontAwesome;
-      color: v-valo-focus-color();
-      font-size: round($v-font-size * 0.8);
-      text-align: center;
-    }
-    
-    & > label:before {
-      @include v-valo-button-style;
-      padding: 0;
-      height: round($v-unit-size/2);
-    }
-    
-    & > .v-icon,
-    & > label .v-icon  {
-      margin: 0 round($v-unit-size/6) 0;
-    }
-    
+  	@include v-valo-checkbox-style;   
   }
   
+}
+
+
+@mixin v-valo-checkbox-icon-style {
+  content: "\f00c";
+  font-family: FontAwesome;
+}
+
+
+@mixin v-valo-checkbox-style ($background-color: $v-app-background-color) {
+  position: relative;
+  line-height: round($v-unit-size/2);
+  padding-left: round($v-unit-size/1.8);
+  
+  :root & > input {
+    position: absolute;
+    clip: rect(0,0,0,0);
+    left: .2em;
+    top: .2em;
+    z-index: 0;
+    margin: 0;
+    
+    &:focus ~ label:after {
+      box-shadow: v-valo-focus-box-shadow();
+    }
+    
+    &:active ~ label:after {
+      @include v-valo-button-active-style($background-color: $background-color);
+    }
+    
+    &:checked ~ label:after {
+      @include v-valo-checkbox-icon-style;
+    }
+  }
+
+  & > label:before,
+  & > label:after {
+    content: "";
+    display: inline-block;
+    @include box-sizing(border-box);
+    width: round($v-unit-size/2);
+    height: round($v-unit-size/2);
+    position: absolute;
+    left: 0;
+    border-radius: min(round($v-unit-size/6), $v-border-radius);
+    color: v-valo-selection-color($context: $background-color);
+    font-size: round($v-font-size * 0.8);
+    text-align: center;
+  }
+  
+  & > label:before {
+    @include v-valo-button-style($background-color: $background-color);
+    padding: 0;
+    height: round($v-unit-size/2);
+  }
+  
+  & > .v-icon,
+  & > label .v-icon  {
+    margin: 0 round($v-unit-size/6) 0;
+  }
 }
