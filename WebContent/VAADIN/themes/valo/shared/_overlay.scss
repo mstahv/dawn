@@ -6,7 +6,7 @@ $v-overlay-open-animation: v-valo-overlay-open 200ms !default;
 	display: none;
 }
 
-@mixin v-valo-overlay-style ($background-color, $open-animation: $v-overlay-open-animation) {
+@mixin v-valo-overlay-style ($background-color: null, $open-animation: $v-overlay-open-animation) {
 	padding: ceil($v-unit-size/8);
 	border-radius: $v-overlay-border-radius;
   
@@ -15,7 +15,7 @@ $v-overlay-open-animation: v-valo-overlay-open 200ms !default;
   color: v-valo-font-color($bg);
 
 	box-shadow:	0px 2px 4px 0px rgba(0,0,0,0.12), 
-							0px 0px 0px 1px transparentize(darken($bg, $v-bevel-depth), .5), 
+							0px 0px 0px 1px rgba(darken($bg, $v-bevel-depth), $v-bevel-depth/100%), 
 							0px 3px 5px 0px rgba(0,0,0,0.05);
 
 	@if $v-animations-enabled and $v-overlay-open-animation {

@@ -130,8 +130,12 @@ $v-datefield-hover-style-enabled: $v-hover-styles-enabled !default;
 
 
 
-@mixin v-valo-datefield-popup-style ($background-color: null) {
-	@include v-valo-overlay-style($background-color: $background-color);
+@mixin v-valo-datefield-popup-style ($context: $v-app-background-color) {
+	$copy: $v-app-background-color;
+	$v-app-background-color: $context;
+
+	@include v-valo-overlay-style;
+
  	margin-top: ceil($v-unit-size/8) !important;
  	cursor: default;
 
@@ -144,6 +148,10 @@ $v-datefield-hover-style-enabled: $v-hover-styles-enabled !default;
     padding: round($v-unit-size/20);
     text-align: center;
   }
+
+  @include v-valo-datefield-calendarpanel-style;
+
+  $v-app-background-color: $copy;
 }
 
 
@@ -293,6 +301,9 @@ $v-datefield-hover-style-enabled: $v-hover-styles-enabled !default;
   text-align: center;
   font-size: ceil($v-font-size * 0.86);
   background: $v-app-background-color;
+  @if $v-border-radius > 0 {
+  	border-radius: ceil($v-border-radius/2);
+  }
   @if $v-animations-enabled {
 		@include transition(color 200ms);
 	}

@@ -11,7 +11,7 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
   }
   
   .#{$primary-stylename}-suggestpopup {
-    @include v-valo-combobox-popup;
+    @include v-valo-combobox-popup-style;
   }
 
 }
@@ -139,7 +139,7 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
 
 
 
-@mixin v-valo-combobox-popup ($background-color: null) {
+@mixin v-valo-combobox-popup-style ($background-color: null) {
   
   @include v-valo-overlay-style($background-color: $background-color);
 

@@ -190,15 +190,24 @@ $large-size: ceil($v-unit-size*1.2);
 
 
     .v-filterselect-suggestpopup-color1 {
-    	@include v-valo-combobox-popup($background-color: nth($colors, 2));
+    	@include v-valo-combobox-popup-style($background-color: nth($colors, 2));
     }
 
     .v-filterselect-suggestpopup-color2 {
-    	@include v-valo-combobox-popup($background-color: nth($colors, 3));
+    	@include v-valo-combobox-popup-style($background-color: nth($colors, 3));
     }
 
     .v-filterselect-suggestpopup-color3 {
-    	@include v-valo-combobox-popup($background-color: nth($colors, 4));
+    	@include v-valo-combobox-popup-style($background-color: nth($colors, 4));
+    }
+
+
+    .v-datefield-popup-color1 {
+    	@include v-valo-datefield-popup-style($context: nth($colors, 2));
+    }
+
+    .v-datefield-popup-color2 {
+    	@include v-valo-datefield-popup-style($context: nth($colors, 3));
     }
 	}
 

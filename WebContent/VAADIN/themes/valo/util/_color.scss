@@ -86,8 +86,9 @@ $v-luminance-threshold: 150 !default;
 
 
 
-@function v-valo-focus-box-shadow ($color: $v-focus-color, $focus-style: $v-focus-style) {
-  @return replace($focus-style, focus-color, transparentize($color, .5));
+@function v-valo-focus-box-shadow ($color: null, $focus-style: $v-focus-style) {
+  $focus-color: $color or v-valo-focus-color();
+  @return replace($focus-style, focus-color, transparentize($focus-color, .5));
 }
 
 
