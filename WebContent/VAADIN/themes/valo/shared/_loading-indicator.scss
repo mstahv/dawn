@@ -81,7 +81,8 @@ $v-loading-indicator-bar-height: ceil($v-unit-size/6) !default;
     width: 50%;
     opacity: 1;
     height: $v-loading-indicator-bar-height;
-    background: $v-loading-indicator-color;
+    background-color: $v-loading-indicator-color;
+    //@include linear-gradient(to right, rgba($v-loading-indicator-color,0) 0%, $v-loading-indicator-color 100%);
     pointer-events: none;
     
     @include transition(none);

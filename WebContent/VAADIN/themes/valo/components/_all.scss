@@ -7,6 +7,8 @@
 @import "checkbox";
 @import "optiongroup";
 @import "combobox";
+@import "link";
+@import "datefield";
 
 
 @mixin v-valo-components {
@@ -31,6 +33,10 @@
     @include v-valo-textarea;
   }
   
+  @if v-is-included(datefield) {
+    @include v-valo-datefield;
+  }
+  
   @if v-is-included(orderedlayout) {
     @include v-valo-orderedlayout;
   }
@@ -41,6 +47,10 @@
   
   @if v-is-included(optiongroup) {
     @include v-valo-optiongroup;
+  }
+  
+  @if v-is-included(link) {
+    @include v-valo-link;
   }
   
   @if v-is-included(label) {

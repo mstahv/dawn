@@ -12,7 +12,7 @@ $v-button-unit-size: null !default;
 // Simple properties have default values
 $v-button-font-weight: 400 !default;
 $v-button-cursor: pointer !default;
-$v-enable-button-hover-style: true !default;
+$v-button-hover-style-enabled: $v-hover-styles-enabled !default;
 $v-button-border-width: $v-border-width !default;
 $v-button-disabled-opacity: $v-disabled-opacity !default;
 
@@ -40,10 +40,10 @@ $v-button-disabled-opacity: $v-disabled-opacity !default;
   &:after {
     content: "";
     position: absolute;
-    top: -1px;
-    right: -1px;
-    bottom: -1px;
-    left: -1px;
+    top: -$v-button-border-width;
+    right: -$v-button-border-width;
+    bottom: -$v-button-border-width;
+    left: -$v-button-border-width;
     border-radius: inherit;
     border: inherit;
     border-width: 0;
@@ -103,10 +103,10 @@ $v-button-disabled-opacity: $v-disabled-opacity !default;
 
   $background-color: $background-color or $v-app-background-color;
   $border-color: if(color-luminance($background-color) < color-luminance($v-app-background-color), $background-color, $v-app-background-color);
-  $border-color: blend-darken($border-color, scale-color($border-color, $lightness: max(-50%, -$bevel-depth)));
-  $border-color: scale-color($border-color, $saturation: -$bevel-depth);
+  $border-color: blend-darken($border-color, scale-color($border-color, $lightness: max(-50%, -$bevel-depth/2)));
+  $border-color: scale-color($border-color, $saturation: -$bevel-depth/2);
   @if contains($bevel-style, shade, true) {
-    $border-color: $border-color $border-color blend-multiply(transparentize(#000, max(0.9, 1-$bevel-depth/100%)), $border-color);
+    $border-color: $border-color $border-color blend-multiply(transparentize(#000, max(0.8, 1-$bevel-depth/200%)), $border-color);
   }
 
   @return $border-color;
@@ -141,7 +141,7 @@ $v-button-disabled-opacity: $v-disabled-opacity !default;
   box-shadow: v-valo-button-box-shadow($background-color, $bevel-style, $bevel-depth, $gradient-style, $gradient-depth);
   text-shadow: v-valo-button-text-shadow($background-color, $bevel-depth);
   
-  @if $v-enable-button-hover-style {
+  @if $v-button-hover-style-enabled {
     &:hover:after {
       @include v-valo-button-hover-style($background-color: $background-color);
     }
@@ -166,7 +166,7 @@ $v-button-disabled-opacity: $v-disabled-opacity !default;
   $focus-color: v-valo-focus-color();
   
   @if color-luminance($focus-color) + 50 < color-luminance($background-color) {
-    border: 1px solid $focus-color;
+    border: $v-button-border-width solid $focus-color;
   }
 
   box-shadow: v-valo-focus-box-shadow($color: $focus-color);

@@ -1,0 +1,26 @@
+@mixin v-valo-link ($primary-stylename: v-link) {
+	.#{$primary-stylename} {
+		@include v-valo-link-style;
+	}
+}
+
+
+@mixin v-valo-link-style {
+	a {
+		text-decoration: none;
+		color: v-valo-link-color();
+		@include transition(color 200ms);
+
+		&:hover {
+			color: lighten(v-valo-link-color(), 10%);
+		}
+	}
+
+	.v-icon {
+		cursor: pointer;
+	}
+
+	.v-icon + span:not(:empty) {
+		margin-left: round($v-font-size/4)
+	}
+}

@@ -14,10 +14,10 @@
 }
 
 
-@mixin v-valo-checkbox-style ($background-color: $v-app-background-color) {
+@mixin v-valo-checkbox-style ($background-color: $v-app-background-color, $unit-size: $v-unit-size) {
   position: relative;
-  line-height: round($v-unit-size/2);
-  padding-left: round($v-unit-size/1.8);
+  line-height: round($unit-size/2);
+  padding-left: round($unit-size/1.5);
   
   :root & > input {
     position: absolute;
@@ -45,24 +45,24 @@
     content: "";
     display: inline-block;
     @include box-sizing(border-box);
-    width: round($v-unit-size/2);
-    height: round($v-unit-size/2);
+    width: round($unit-size/2);
+    height: round($unit-size/2);
     position: absolute;
     left: 0;
-    border-radius: min(round($v-unit-size/6), $v-border-radius);
+    border-radius: min(round($unit-size/6), $v-border-radius);
     color: v-valo-selection-color($context: $background-color);
-    font-size: round($v-font-size * 0.8);
+    font-size: round($v-font-size * 0.8 * ($unit-size/$v-unit-size));
     text-align: center;
   }
   
   & > label:before {
-    @include v-valo-button-style($background-color: $background-color);
+    @include v-valo-button-style($background-color: $background-color, $unit-size: $unit-size);
     padding: 0;
-    height: round($v-unit-size/2);
+    height: round($unit-size/2);
   }
   
   & > .v-icon,
   & > label .v-icon  {
-    margin: 0 round($v-unit-size/6) 0;
+    margin: 0 round($unit-size/6) 0 round($unit-size/12);
   }
 }

@@ -1,12 +1,12 @@
 $v-overlay-border-radius: $v-border-radius !default;
-$v-selection-color: $v-focus-color !default;
+$v-overlay-open-animation: v-valo-overlay-open 200ms !default;
 
 .v-shadow,
 .v-shadow-window {
 	display: none;
 }
 
-@mixin v-valo-overlay-style ($background-color) {
+@mixin v-valo-overlay-style ($background-color, $open-animation: $v-overlay-open-animation) {
 	padding: ceil($v-unit-size/8);
 	border-radius: $v-overlay-border-radius;
   
@@ -18,16 +18,19 @@ $v-selection-color: $v-focus-color !default;
 							0px 0px 0px 1px transparentize(darken($bg, $v-bevel-depth), .5), 
 							0px 3px 5px 0px rgba(0,0,0,0.05);
 
-	@include animation(v-valo-overlay-open 200ms);
+	@if $v-animations-enabled and $v-overlay-open-animation {
+		@include animation($open-animation);
+	}
 }
 
 
 
-
-@include keyframes(v-valo-overlay-open) {
-	0% {
-		@include transform(translatey(-3px));
-		opacity: 0;
+@if $v-animations-enabled {
+	@include keyframes(v-valo-overlay-open) {
+		0% {
+			@include transform(translatey(-3px));
+			opacity: 0;
+		}
 	}
 }
 

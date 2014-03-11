@@ -99,3 +99,13 @@ $v-luminance-threshold: 150 !default;
   }
   @return $selection-color;
 }
+
+
+
+@function v-valo-link-color ($context: $v-app-background-color) {
+  $link-color: $v-link-color;
+  @if luminance-diff($context, $link-color) < 30 or (luminance-diff($context, $link-color) < 10 and saturation-diff($context, $link-color) < 20%) {
+    $link-color: #fff;
+  }
+  @return $link-color;
+}

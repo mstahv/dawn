@@ -383,6 +383,10 @@ public class ValoThemeUI extends UI implements Handler {
         link.addStyleName("large");
         row.addComponent(link);
 
+        link = new Link(null, new ExternalResource("https://vaadin.com"));
+        link.setIcon(FontAwesome.ANCHOR);
+        row.addComponent(link);
+
         /**
          * Text fields
          */
@@ -650,23 +654,28 @@ public class ValoThemeUI extends UI implements Handler {
         date.setResolution(Resolution.YEAR);
         row.addComponent(date);
 
+        date = new DateField("Custom color");
+        date.setValue(new Date());
+        date.setResolution(Resolution.DAY);
+        date.addStyleName("color1");
+        row.addComponent(date);
+
+        date = new DateField("Custom color");
+        date.setValue(new Date());
+        date.setResolution(Resolution.DAY);
+        date.addStyleName("color2");
+        row.addComponent(date);
+
         date = new DateField("Small");
         date.setValue(new Date());
         date.setResolution(Resolution.DAY);
         date.addStyleName("small");
         row.addComponent(date);
 
-        date = new DateField("Primary color");
+        date = new DateField("Large");
         date.setValue(new Date());
         date.setResolution(Resolution.DAY);
-        date.addStyleName("primary");
-        row.addComponent(date);
-
-        date = new DateField("Primary disabled");
-        date.setValue(new Date());
-        date.setResolution(Resolution.DAY);
-        date.addStyleName("primary");
-        date.setEnabled(false);
+        date.addStyleName("large");
         row.addComponent(date);
 
         date = new DateField("Week numbers");
@@ -680,6 +689,11 @@ public class ValoThemeUI extends UI implements Handler {
         date.setValue(new Date());
         date.setResolution(Resolution.SECOND);
         date.setLocale(new Locale("en", "US"));
+        row.addComponent(date);
+
+        date = new DateField("Custom format");
+        date.setValue(new Date());
+        date.setDateFormat("E dd/MM/yyyy");
         row.addComponent(date);
 
         /**

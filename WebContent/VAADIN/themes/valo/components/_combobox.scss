@@ -1,4 +1,4 @@
-$v-enable-combobox-hover-style: true !default;
+$v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
 
 
 
@@ -47,7 +47,7 @@ $v-enable-combobox-hover-style: true !default;
   
   &.v-disabled  {
   	@include opacity($v-textfield-disabled-opacity);
-    & > .#{$primary-stylename}-button {
+    & .#{$primary-stylename}-button {
       cursor: default;
       pointer-events: none;
       &:active:after {
@@ -85,6 +85,7 @@ $v-enable-combobox-hover-style: true !default;
                               		$unit-size: $unit-size, $border-radius: $border-radius,
                               		$background-color: $background-color) ;
   width: 100% !important;
+  padding-right: $unit-size * 1.2;
 }
 
 
@@ -103,14 +104,14 @@ $v-enable-combobox-hover-style: true !default;
 	line-height: $unit-size - ($v-textfield-border-width*2);
 	text-align: center;
 	cursor: pointer;
-	border-left: $v-textfield-border-width solid blend-darken(transparentize(#000, .9), $background-color);
+	border-left: $v-textfield-border-width solid blend-darken(black($bevel-depth/200%), $background-color);
 	
 	&:before {
 		@include v-valo-combobox-button-icon-style($background-color);
 		@include opacity(.5);
 	}
 
-	@if $v-enable-combobox-hover-style {
+	@if $v-combobox-hover-style-enabled {
 		&:hover:before {
 			@include opacity(1);
 		}
@@ -141,9 +142,6 @@ $v-enable-combobox-hover-style: true !default;
 @mixin v-valo-combobox-popup ($background-color: null) {
   
   @include v-valo-overlay-style($background-color: $background-color);
-  @if $v-border-radius > 0 {
-  	border-radius: $v-border-radius $v-border-radius 0 $v-border-radius;
-  }
 
  	margin-top: ceil($v-unit-size/8) !important;
   
@@ -170,7 +168,7 @@ $v-enable-combobox-hover-style: true !default;
 
   .v-filterselect-status {
     position: absolute;
-    right: -1px;
+    right: $v-border-radius;
     $bg: $background-color or $v-app-background-color;
     $bg: scale-color($bg, $lightness: -15%);
     background: transparentize($bg, .1);
@@ -181,6 +179,8 @@ $v-enable-combobox-hover-style: true !default;
     font-size: ceil($v-font-size*0.73);
     line-height: ceil($v-unit-size*0.6);
     padding: 0 ceil($v-unit-size/7);
+    cursor: default;
+    pointer-events: none;
 
     @if $v-animations-enabled {
    		@include animation(show-status 200ms 180ms backwards);
