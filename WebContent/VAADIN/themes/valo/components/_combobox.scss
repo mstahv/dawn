@@ -108,12 +108,15 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
 	
 	&:before {
 		@include v-valo-combobox-button-icon-style($background-color);
-		@include opacity(.5);
+		color: mix($background-color, v-valo-font-color($background-color));
+		@if $v-animations-enabled {
+			@include transition(color 140ms);
+		}
 	}
 
 	@if $v-combobox-hover-style-enabled {
 		&:hover:before {
-			@include opacity(1);
+			color: v-valo-font-color($background-color);
 		}
 	}
 

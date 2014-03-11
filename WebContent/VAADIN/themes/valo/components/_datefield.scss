@@ -95,15 +95,23 @@ $v-datefield-hover-style-enabled: $v-hover-styles-enabled !default;
 	font: inherit;
 	border-right: $v-textfield-border-width solid blend-darken(black($bevel-depth/200%), $background-color);
 	outline: none;
+
+	@if $v-border-radius > 0 {
+		$br: max(0, $v-border-radius - $v-textfield-border-width);
+		border-radius: $br 0 0 $br;
+	}
 	
 	&:before {
 		@include v-valo-datefield-button-icon-style($background-color);
-		@include opacity(.5);
+		color: mix($background-color, v-valo-font-color($background-color));
+		@if $v-animations-enabled {
+			@include transition(color 140ms);
+		}
 	}
 
 	@if $v-combobox-hover-style-enabled {
 		&:hover:before {
-			@include opacity(1);
+			color: v-valo-font-color($background-color);
 		}
 	}
 
@@ -157,6 +165,7 @@ $v-datefield-hover-style-enabled: $v-hover-styles-enabled !default;
 
 @mixin v-valo-datefield-calendarpanel-style ($primary-stylename: v-datefield-calendarpanel) {
 	.#{$primary-stylename} {
+		font-size: $v-font-size;
     &:focus {
       outline: none;
     }
@@ -263,7 +272,7 @@ $v-datefield-hover-style-enabled: $v-hover-styles-enabled !default;
   
   td.#{$primary-stylename}-month {
     width: round($v-unit-size * 3.5);
-    color: v-valo-selection-color();
+    @include v-valo-datefield-calendarpanel-month-style;
   }
   
   .v-datefield-year td.v-datefield-calendarpanel-month {
@@ -354,4 +363,8 @@ $v-datefield-hover-style-enabled: $v-hover-styles-enabled !default;
 @mixin v-valo-datefield-calendarpanel-prevyear-icon-style {
 	font-family: FontAwesome;
 	content: "\f100";
+}
+
+@mixin v-valo-datefield-calendarpanel-month-style {
+	color: v-valo-selection-color();
 }

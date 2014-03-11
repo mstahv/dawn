@@ -9,6 +9,7 @@
 @import "combobox";
 @import "link";
 @import "datefield";
+@import "window";
 
 
 @mixin v-valo-components {
@@ -51,6 +52,10 @@
   
   @if v-is-included(link) {
     @include v-valo-link;
+  }
+  
+  @if v-is-included(window) {
+    @include v-valo-window;
   }
   
   @if v-is-included(label) {

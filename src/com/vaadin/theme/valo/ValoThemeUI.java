@@ -701,19 +701,62 @@ public class ValoThemeUI extends UI implements Handler {
          */
         row = addSection(root, "Windows", Category.Component_Containers, null);
 
-        final Window win = new Window("Normal Window");
+        final Window win = new Window();
         win.setWidth("30%");
-        win.setHeight("30%");
-        win.setContent(windowContents());
+        win.setContent(windowContents(false));
 
         button = new Button("Open Window");
         button.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
                 win.close();
+                win.setCaption("Window Caption");
+                win.setClosable(true);
+                win.setResizable(true);
+                win.setContent(windowContents(true));
+                win.removeStyleName("dialog");
+                win.setHeight("30%");
                 UI.getCurrent().addWindow(win);
-                win.setPositionX(Page.getCurrent().getBrowserWindowWidth() / 2);
-                win.setPositionY(Page.getCurrent().getBrowserWindowHeight() / 2);
+                win.setPositionX(Page.getCurrent().getBrowserWindowWidth() / 3);
+                win.setPositionY(Page.getCurrent().getBrowserWindowHeight() / 3);
+            }
+        });
+        row.addComponent(button);
+
+        button = new Button("w/o Caption");
+        button.addClickListener(new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                win.setCaption("");
+            }
+        });
+        row.addComponent(button);
+
+        button = new Button("w/o Close");
+        button.addClickListener(new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                win.setClosable(false);
+            }
+        });
+        row.addComponent(button);
+
+        button = new Button("w/o Resize");
+        button.addClickListener(new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                win.setResizable(false);
+            }
+        });
+        row.addComponent(button);
+
+        button = new Button("w/o Scroll");
+        button.addClickListener(new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                win.setContent(windowContents(false));
+                win.addStyleName("dialog");
+                win.setHeight(null);
             }
         });
         row.addComponent(button);
@@ -861,13 +904,47 @@ public class ValoThemeUI extends UI implements Handler {
         return row;
     }
 
-    private Component windowContents() {
-        VerticalLayout content = new VerticalLayout();
-        content.setMargin(true);
-        content.addComponent(new Label(
-                "<h2>Lorem Ipsum Dolor Sit Amet, Consectetur</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor. <h3>Ut in nulla enim</h3> Phasellus molestie magna non est.</p><p>Bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus. Mauris iaculis porttitor posuere. Praesent id metus massa, ut blandit odio. Proin quis tortor orci. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu ullamcorper orci. Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque faucibus vestibulum. Nulla at nulla justo, eget luctus tortor. Nulla facilisi. Duis aliquet egestas purus in blandit. Curabitur vulputate, ligula lacinia scelerisque.</p>",
-                ContentMode.HTML));
-        return content;
+    private Component windowContents(boolean scrollable) {
+        VerticalLayout root = new VerticalLayout();
+
+        HorizontalLayout footer = new HorizontalLayout();
+        footer.setWidth("100%");
+        footer.setSpacing(true);
+        footer.addStyleName("v-window-bottom-toolbar");
+
+        Label footerText = new Label("Footer text");
+        footerText.setSizeUndefined();
+
+        Button ok = new Button("OK");
+        ok.addStyleName("primary");
+
+        Button cancel = new Button("Cancel");
+
+        footer.addComponents(footerText, ok, cancel);
+        footer.setExpandRatio(footerText, 1);
+
+        Component content = null;
+        if (scrollable) {
+            Panel panel = new Panel();
+            panel.setSizeFull();
+            panel.setContent(new Label(
+                    "<h2>Subtitle</h2><p>Quam diu etiam furor iste tuus nos eludet? Petierunt uti sibi concilium totius Galliae in diem certam indicere. Ut enim ad minim veniam, quis nostrud exercitation. Quae vero auctorem tractata ab fiducia dicuntur.</p><p>Quisque ut dolor gravida, placerat libero vel, euismod. Etiam habebis sem dicantur magna mollis euismod. Nihil hic munitissimus habendi senatus locus, nihil horum? Curabitur est gravida et libero vitae dictum. Ullamco laboris nisi ut aliquid ex ea commodi consequat. Morbi odio eros, volutpat ut pharetra vitae, lobortis sed nibh.</p>",
+                    ContentMode.HTML));
+            content = panel;
+        } else {
+            content = new VerticalLayout();
+            ((VerticalLayout) content)
+                    .addComponent(new Label(
+                            "<h2>Subtitle</h2><p>Normal type for plain text. Etiam at risus et justo dignissim congue.</p>",
+                            ContentMode.HTML));
+        }
+        root.addComponents(content, footer);
+        if (scrollable) {
+            root.setSizeFull();
+            root.setExpandRatio(content, 1);
+        }
+
+        return root;
     }
 
     Component panelContent() {

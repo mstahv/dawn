@@ -1,3 +1,6 @@
 @mixin v-core-window ($primary-stylename: v-window) {
-  
+	.#{$primary-stylename}-restorebox-disabled,
+	.#{$primary-stylename}-maximizebox-disabled {
+		display: none;
+	}
 }

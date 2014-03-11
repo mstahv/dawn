@@ -9,7 +9,7 @@
 	a {
 		text-decoration: none;
 		color: v-valo-link-color();
-		@include transition(color 200ms);
+		@include transition(color 140ms);
 
 		&:hover {
 			color: lighten(v-valo-link-color(), 10%);

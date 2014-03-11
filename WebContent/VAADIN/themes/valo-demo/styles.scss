@@ -49,4 +49,17 @@ body {
   
   @include variants;
 
+  .v-button-primary {
+    @include v-valo-button-style($background-color: $color3);
+    padding: 0 round($v-unit-size/1.4);
+  }
+  /*
+  .v-filterselect-button {
+    @include v-valo-button-style;
+    width: $v-unit-size;
+    padding: 0;
+    border-width: 0 0 0 $v-button-border-width;
+  }
+  */
+
 }
