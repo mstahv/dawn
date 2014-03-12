@@ -28,6 +28,7 @@ body {
 
 .valo-demo {
   @include v-valo;
+  @include v-valo-component-group;
 
   @include valo-styleguide-menu;
 

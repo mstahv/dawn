@@ -20,6 +20,7 @@
 
 @import "shared/global";
 @import "shared/overlay";
+@import "shared/notification";
 
 @import "components/all";
 
@@ -27,4 +28,5 @@
 @mixin v-valo {
   @include v-valo-global;
   @include v-valo-components;
+  @include v-valo-notification;
 }

@@ -26,6 +26,8 @@ import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.server.VaadinSession;
+import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.shared.ui.slider.SliderOrientation;
@@ -41,7 +43,6 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Link;
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Slider;
@@ -77,6 +78,9 @@ public class ValoThemeUI extends UI implements Handler {
     protected void init(VaadinRequest request) {
         getPage().setTitle("Valo Theme");
         setContent(root);
+
+        root.addComponent(commonParts());
+
         root.addComponent(components);
 
         components.addComponents(components(1), components(2), components(3),
@@ -119,6 +123,184 @@ public class ValoThemeUI extends UI implements Handler {
         }
 
         return menu;
+    }
+
+    VerticalLayout commonParts() {
+        final VerticalLayout root = new VerticalLayout();
+        root.setMargin(true);
+        root.addStyleName("common-parts");
+
+        /**
+         * Loading incidator
+         */
+        HorizontalLayout row = addSection(
+                root,
+                "Loading Indicator",
+                Category.Common,
+                "You can test the loading indicator by pressing the buttons. The theme also provides a handy Sass mixin that you can use to include a spinner anywhere in your application.");
+
+        Button loading = new Button("Loading (800ms)…");
+        loading.addClickListener(new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                try {
+                    Thread.sleep(800);
+                } catch (InterruptedException e) {
+                }
+            }
+        });
+        row.addComponent(loading);
+
+        Button delay = new Button("Task Delayed (3s)…");
+        delay.addClickListener(new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                }
+            }
+        });
+        row.addComponent(delay);
+
+        Button wait = new Button("Please Wait (15s)…");
+        wait.addClickListener(new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                try {
+                    Thread.sleep(15000);
+                } catch (InterruptedException e) {
+                }
+            }
+        });
+        row.addComponent(wait);
+
+        /**
+         * Notifications
+         */
+
+        row = addSection(
+                root,
+                "Notifications",
+                Category.Common,
+                "There are the built-in notification styles, but you can easily create more variations with the theme mixins.");
+
+        final Notification notification = new Notification("Notification Title");
+
+        final Notification notification2 = new Notification(
+                "Notification Title");
+        notification2
+                .setDescription("A more informative message about what has happened. Nihil hic munitissimus habendi senatus locus, nihil horum? Inmensae subtilitatis, obscuris et malesuada fames. Hi omnes lingua, institutis, legibus inter se differunt.");
+
+        CssLayout group = new CssLayout();
+        group.addStyleName("v-component-group");
+        row.addComponent(group);
+        Button notify = new Button("Humanized", new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                notification.setPosition(Position.MIDDLE_CENTER);
+                notification.setDelayMsec(0);
+                notification.setStyleName("humanized");
+                notification.show(getPage());
+            }
+        });
+        group.addComponent(notify);
+
+        notify = new Button("+ description", new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                notification2.setPosition(Position.MIDDLE_CENTER);
+                notification2.setDelayMsec(0);
+                notification2.setStyleName("humanized");
+                notification2.show(getPage());
+            }
+        });
+        group.addComponent(notify);
+
+        group = new CssLayout();
+        group.addStyleName("v-component-group");
+        row.addComponent(group);
+        notify = new Button("Tray", new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                notification.setPosition(Position.TOP_RIGHT);
+                notification.setDelayMsec(-1);
+                notification.setStyleName("tray");
+                notification.show(getPage());
+            }
+        });
+        group.addComponent(notify);
+
+        notify = new Button("+ description", new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                notification2.setPosition(Position.BOTTOM_RIGHT);
+                notification2.setDelayMsec(-1);
+                notification2.setStyleName("tray");
+                notification2.show(getPage());
+            }
+        });
+        group.addComponent(notify);
+
+        group = new CssLayout();
+        group.addStyleName("v-component-group");
+        row.addComponent(group);
+        notify = new Button("Warning", new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                notification.setPosition(Position.MIDDLE_CENTER);
+                notification.setDelayMsec(1500);
+                notification.setStyleName("warning");
+                notification.show(getPage());
+            }
+        });
+        group.addComponent(notify);
+
+        notify = new Button("+ description", new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                notification2.setPosition(Position.MIDDLE_CENTER);
+                notification2.setDelayMsec(1500);
+                notification2.setStyleName("warning");
+                notification2.show(getPage());
+            }
+        });
+        group.addComponent(notify);
+
+        group = new CssLayout();
+        group.addStyleName("v-component-group");
+        row.addComponent(group);
+        notify = new Button("Error", new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                notification.setPosition(Position.MIDDLE_CENTER);
+                notification.setDelayMsec(-1);
+                notification.setStyleName("error");
+                notification.show(getPage());
+            }
+        });
+        group.addComponent(notify);
+
+        notify = new Button("+ description", new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                notification2.setPosition(Position.MIDDLE_CENTER);
+                notification2.setDelayMsec(-1);
+                notification2.setStyleName("error");
+                notification2.show(getPage());
+            }
+        });
+        group.addComponent(notify);
+
+        notify = new Button("Session Expired", new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                VaadinSession.getCurrent().close();
+            }
+        });
+        row.addComponent(notify);
+
+        return root;
     }
 
     VerticalLayout components(int num) {
@@ -166,146 +348,10 @@ public class ValoThemeUI extends UI implements Handler {
         root.addComponent(normal);
 
         /**
-         * Loading incidator
-         */
-        HorizontalLayout row = addSection(
-                root,
-                "Loading Indicator",
-                Category.Common,
-                "You can test the loading indicator by pressing the buttons. The theme also provides a handy Sass mixin that you can use to include a spinner anywhere in your application.");
-
-        Button loading = new Button("Loading…");
-        loading.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                try {
-                    Thread.sleep(800);
-                } catch (InterruptedException e) {
-                }
-            }
-        });
-        row.addComponent(loading);
-
-        Button delay = new Button("Task Delayed…");
-        delay.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                }
-            }
-        });
-        row.addComponent(delay);
-
-        Button wait = new Button("Please Wait…");
-        wait.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                try {
-                    Thread.sleep(15000);
-                } catch (InterruptedException e) {
-                }
-            }
-        });
-        row.addComponent(wait);
-
-        /**
-         * Notifications
-         */
-
-        row = addSection(
-                root,
-                "Notifications",
-                Category.Common,
-                "There are the built-in notification styles, but you can easily create more variations with the theme mixins.");
-
-        Button notify = new Button("Humanized", new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                Notification.show("Humanized");
-            }
-        });
-        notify.addStyleName("small");
-        row.addComponent(notify);
-
-        notify = new Button("w/ Description", new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                Notification.show("Humanized",
-                        "A more informative message about what has happened.",
-                        Type.HUMANIZED_MESSAGE);
-            }
-        });
-        notify.addStyleName("small");
-        row.addComponent(notify);
-
-        notify = new Button("Tray", new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                Notification.show("Tray notification", null,
-                        Type.TRAY_NOTIFICATION);
-            }
-        });
-        notify.addStyleName("small");
-        row.addComponent(notify);
-
-        notify = new Button("w/ Description", new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                Notification.show("Tray notification",
-                        "A more informative message about what has happened.",
-                        Type.TRAY_NOTIFICATION);
-            }
-        });
-        notify.addStyleName("small");
-        row.addComponent(notify);
-
-        notify = new Button("Warning", new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                Notification.show("Warning", Type.WARNING_MESSAGE);
-            }
-        });
-        notify.addStyleName("small");
-        row.addComponent(notify);
-
-        notify = new Button("w/ Description", new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                Notification.show("Warning",
-                        "A more informative message about what has happened.",
-                        Type.WARNING_MESSAGE);
-            }
-        });
-        notify.addStyleName("small");
-        row.addComponent(notify);
-
-        notify = new Button("Error", new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                Notification.show("Error", Type.ERROR_MESSAGE);
-            }
-        });
-        notify.addStyleName("small");
-        row.addComponent(notify);
-
-        notify = new Button("w/ Description", new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                Notification
-                        .show("Error",
-                                "A more informative message about what has happened. Duis aliquet egestas purus in blandit. Curabitur vulputate, ligula lacinia scelerisque tempor, lacus lacus ornare ante, ac egestas est urna.",
-                                Type.ERROR_MESSAGE);
-            }
-        });
-        notify.addStyleName("small");
-        row.addComponent(notify);
-
-        /**
          * Buttons
          */
-        row = addSection(root, "Buttons", Category.Basic_Components, null);
+        HorizontalLayout row = addSection(root, "Buttons",
+                Category.Basic_Components, null);
 
         Button button = new Button("Normal");
         row.addComponent(button);
@@ -364,6 +410,17 @@ public class ValoThemeUI extends UI implements Handler {
         button.setIcon(FontAwesome.CHEVRON_RIGHT);
         button.addStyleName("frameless");
         row.addComponent(button);
+
+        CssLayout group = new CssLayout();
+        group.addStyleName("v-component-group");
+        row.addComponent(group);
+
+        button = new Button("One");
+        group.addComponent(button);
+        button = new Button("Two");
+        group.addComponent(button);
+        button = new Button("Three");
+        group.addComponent(button);
 
         Link link = new Link("Link to vaadin.com", new ExternalResource(
                 "https://vaadin.com"));
@@ -431,6 +488,17 @@ public class ValoThemeUI extends UI implements Handler {
         tf.setValue("Field value");
         tf.addStyleName("large");
         row.addComponent(tf);
+
+        group = new CssLayout();
+        group.addStyleName("v-component-group");
+        row.addComponent(group);
+
+        tf = new TextField();
+        tf.setInputPrompt("Grouped with a button");
+        group.addComponent(tf);
+
+        button = new Button("Do It");
+        group.addComponent(button);
 
         /**
          * Text areas

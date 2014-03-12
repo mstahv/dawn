@@ -5,6 +5,7 @@
   font: $v-font-weight #{$v-font-size}/#{$v-line-height} $v-font-family;
   color: $v-font-color;
   background-color: $v-app-background-color;
+  cursor: default;
   
   // Use Helvetica Neue for Mac instead of Helvetica, which has a slightly different baseline
   @if $v-font-family == sans-serif {

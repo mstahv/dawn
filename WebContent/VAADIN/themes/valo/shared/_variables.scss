@@ -3,7 +3,7 @@
 $v-app-background-color:  #fafafa   			!default;
 
 $v-font-size:             15px      			!default;	// Should be specified in pixels
-$v-font-weight:           300       			!default;
+$v-font-weight:           300       			!default; // Must be specified as a numeric value (i.e. not 'normal' or 'bold')
 $v-font-color:            v-valo-font-color($v-app-background-color) !default;
 $v-font-family:           "Open Sans", sans-serif !default;
 

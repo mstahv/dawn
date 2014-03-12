@@ -13,6 +13,7 @@
     min-height: $v-unit-size !important;
     overflow: hidden !important;
     white-space: nowrap;
+    @include transition(all 200ms);
   }
 
   .#{$primary-stylename} > .popupContent {
