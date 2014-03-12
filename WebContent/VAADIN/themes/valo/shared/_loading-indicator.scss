@@ -62,7 +62,7 @@
 
 @include keyframes(v-progress-wait-pulse) {
   0% { opacity: 1; }
-  50% { opacity: .3; }
+  50% { opacity: .1; }
   100% { opacity: 1; }
 }
 

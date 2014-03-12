@@ -61,8 +61,9 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
 
 
 
-@-webkit-keyframes v-valo-combobox-show-status {
+@include keyframes(v-valo-combobox-show-status) {
   0% {
+    opacity: 0;
     @include transform( translatey(-100%) );
   }
 }
@@ -144,7 +145,12 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
 
 @mixin v-valo-combobox-popup-style ($background-color: null) {
   
-  @include v-valo-overlay-style($background-color: $background-color);
+  .v-filterselect-suggestmenu {
+    @include v-valo-overlay-style($background-color: $background-color);
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+  }
 
  	margin-top: ceil($v-unit-size/8) !important;
   
@@ -157,7 +163,7 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
 
   @if $v-animations-enabled {
   	table {
-  		@include animation(show-items 200ms 180ms backwards);
+  		//@include animation(v-valo-combobox-show-items 200ms 80ms backwards);
   	}
 	}
   
@@ -175,7 +181,7 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
     $bg: $background-color or $v-app-background-color;
     $bg: scale-color($bg, $lightness: -15%);
     background: transparentize($bg, .1);
-    color: text-color($bg);
+    color: v-valo-font-color($bg);
     border-radius: 0 0 $v-border-radius $v-border-radius;
     height: ceil($v-unit-size*0.6);
     bottom: -(ceil($v-unit-size*0.6));
@@ -186,7 +192,7 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
     pointer-events: none;
 
     @if $v-animations-enabled {
-   		@include animation(show-status 200ms 180ms backwards);
+   		@include animation(v-valo-combobox-show-status 200ms 80ms backwards);
   	}
     
     > * {
@@ -196,7 +202,7 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
   }
   
   // Page navigation
-  &:before {
+  /*&:before {
     content: "";
     position: absolute;
     top: 0;
@@ -213,60 +219,53 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
   &:hover:before {
     width: ceil($v-unit-size/1.5);
     opacity: .7;
-  }
+  }*/
   
-  &:hover div[class*="page"] span {
-    -webkit-transform: scale(1.8);
-  }
-  
-  $arrow: ceil($v-unit-size/8);
   div[class*="page"] {
     position: absolute;
-    right: 0;
     z-index: 3;
-    opacity: .2;
+    right: 0;
+    @include opacity(.2);
     cursor: pointer;
-    transition: all 200ms;
+    @include transition( all 200ms );
     width: ceil($v-unit-size/1.5);
+    height: ceil($v-unit-size/1.5);
+    line-height: ceil($v-unit-size/1.5);
+    text-align: center;
+    font-family: FontAwesome;
+    @include transform( scale(.8) );
+
+    $bg: $background-color or $v-app-background-color;
+    color: v-valo-font-color($bg);
     
     &:hover {
-      opacity: 1;
+      @include opacity(1);
     }
     
     span {
-      width: 0;
-      height: 0;
-      overflow: hidden;
-      display: block;
-      border-color: transparent;
-      border-style: solid;
-      border-width: $arrow $arrow 0 $arrow;
-      transition: all 200ms 300ms;
-      position: absolute;
-      right: ceil($arrow/2);
+      // Hide text
+      display: none;
     }
   }
   
+  &:hover div[class*="page"] {
+    @include transform( scale(1) );
+  }
+
   div[class*="prev"] {
     top: 0;
-    bottom: 50%;
-    span {
-      border-width: 0 $arrow $arrow $arrow;
-      border-bottom-color: text-color($v-app-background-color);
-      top: $arrow;
-      -webkit-transform-origin: 100% 0%;
+    @include transform-origin( 100% 0% );
+    &:before {
+      content: "\f077";
     }
     
   }
   
   div[class*="next"] {
     bottom: 0;
-    top: 50%;
-    span {
-      border-top-color: text-color($v-app-background-color);
-      bottom: $arrow;
-      -webkit-transform-origin: 100% 100%;
+    @include transform-origin( 100% 100% );
+    &:before {
+      content: "\f078";
     }
   }
-
 }
