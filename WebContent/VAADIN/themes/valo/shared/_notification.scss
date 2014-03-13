@@ -5,21 +5,47 @@
 
   // Positional offsets
 
-  .v-Notification[style~="top:"] {
+  .v-Notification[style*=" top: 0"] {
     margin-top: $v-layout-spacing-vertical !important;
   }
 
-  .v-Notification[style~="right:"] {
+  .v-Notification[style*=" right: 0"] {
     margin-right: $v-layout-spacing-horizontal;
   }
 
-  .v-Notification[style~="bottom:"] {
+  .v-Notification[style*=" bottom: 0"] {
     margin-bottom: $v-layout-spacing-vertical;
   }
 
-  .v-Notification[style~="left:"] {
+  .v-Notification[style*=" left: 0"] {
     margin-left: $v-layout-spacing-horizontal !important;
   }
+
+
+
+
+  // Custom animations for positions
+  // Left/right positions override top & bottom
+
+  @if $v-animations-enabled {
+    .v-Notification[style*=" top: 0"] {
+      @include v-valo-anim-slide-down(800ms);
+    }
+
+    .v-Notification[style*=" bottom: 0"] {
+      @include v-valo-anim-slide-up(800ms);
+    }
+
+    .v-Notification[style*=" right: 0"] {
+      @include v-valo-anim-slide-left(800ms);
+    }
+
+    .v-Notification[style*=" left: 0"]:not(.v-Notification-system) {
+      @include v-valo-anim-slide-right(800ms);
+    }
+  }
+
+
 
 
 
@@ -58,6 +84,7 @@
     @if $v-animations-enabled {
       @include v-valo-anim-fade-in;
     }
+
   }
 
 
@@ -139,12 +166,6 @@
     }
 
     @include v-valo-notification-error-style;
-  }
-
-
-  // Custom animations for positions
-  .v-Notification[style~="right:"] {
-    @include v-valo-anim-slide-left(800ms);
   }
 
 }

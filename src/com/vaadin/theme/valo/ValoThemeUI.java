@@ -47,9 +47,11 @@ import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Slider;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.Table.TableDragMode;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Tree;
+import com.vaadin.ui.Tree.TreeDragMode;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
@@ -209,8 +211,8 @@ public class ValoThemeUI extends UI implements Handler {
         notify = new Button("+ description", new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                notification2.setPosition(Position.MIDDLE_CENTER);
-                notification2.setDelayMsec(0);
+                notification2.setPosition(Position.TOP_LEFT);
+                notification2.setDelayMsec(-1);
                 notification2.setStyleName("humanized");
                 notification2.show(getPage());
             }
@@ -259,8 +261,8 @@ public class ValoThemeUI extends UI implements Handler {
         notify = new Button("+ description", new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                notification2.setPosition(Position.MIDDLE_CENTER);
-                notification2.setDelayMsec(1500);
+                notification2.setPosition(Position.TOP_CENTER);
+                notification2.setDelayMsec(-1);
                 notification2.setStyleName("warning");
                 notification2.show(getPage());
             }
@@ -284,7 +286,7 @@ public class ValoThemeUI extends UI implements Handler {
         notify = new Button("+ description", new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                notification2.setPosition(Position.MIDDLE_CENTER);
+                notification2.setPosition(Position.BOTTOM_CENTER);
                 notification2.setDelayMsec(-1);
                 notification2.setStyleName("error");
                 notification2.show(getPage());
@@ -886,6 +888,7 @@ public class ValoThemeUI extends UI implements Handler {
         Tree tree = new Tree();
         tree.setSelectable(true);
         tree.setContainerDataSource(container);
+        tree.setDragMode(TreeDragMode.NODE);
         row.addComponent(tree);
         Iterator<String> propertyIterator = container.getContainerPropertyIds()
                 .iterator();
@@ -1041,6 +1044,8 @@ public class ValoThemeUI extends UI implements Handler {
         table.setColumnCollapsingAllowed(true);
         table.setColumnReorderingAllowed(true);
         table.setPageLength(0);
+        table.addActionHandler(this);
+        table.setDragMode(TableDragMode.MULTIROW);
         return table;
     }
 
