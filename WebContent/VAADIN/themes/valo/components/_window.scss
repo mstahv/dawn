@@ -16,6 +16,10 @@
     @include transition(all 200ms);
   }
 
+  .v-window-draggingCurtain + .v-window {
+    @include transition(none);
+  }
+
   .#{$primary-stylename} > .popupContent {
   }
   

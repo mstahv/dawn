@@ -911,9 +911,9 @@ public class ValoThemeUI extends UI implements Handler {
             tree.setItemCaptionPropertyId(captionId);
         }
         Collection<Integer> itemIds = container.getItemIds();
-        Integer first = itemIds.iterator().next();
-        tree.expandItem(first);
-        tree.select(first);
+        Integer firstItemId = itemIds.iterator().next();
+        tree.expandItem(firstItemId);
+        tree.select(firstItemId);
 
         // Add actions (context menu)
         tree.addActionHandler(this);
@@ -926,11 +926,13 @@ public class ValoThemeUI extends UI implements Handler {
 
         Table table = getTable("Normal");
         table.setContainerDataSource(container);
+        table.select(firstItemId);
         row.addComponent(table);
 
         table = getTable("With footer");
         table.setFooterVisible(true);
         table.setContainerDataSource(container);
+        table.select(firstItemId);
         propertyIterator = container.getContainerPropertyIds().iterator();
         while (propertyIterator.hasNext()) {
             Object id = propertyIterator.next();
@@ -1061,7 +1063,7 @@ public class ValoThemeUI extends UI implements Handler {
         table.setSortEnabled(true);
         table.setColumnCollapsingAllowed(true);
         table.setColumnReorderingAllowed(true);
-        table.setPageLength(0);
+        table.setPageLength(10);
         table.addActionHandler(this);
         table.setDragMode(TableDragMode.MULTIROW);
         return table;
