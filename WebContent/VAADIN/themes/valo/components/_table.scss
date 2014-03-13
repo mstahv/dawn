@@ -1,0 +1,165 @@
+$v-table-row-height: round($v-unit-size/1.4) !default;
+$v-table-border-width: $v-border-width !default;
+$v-table-border-color: null !default;
+$v-table-horizontal-cell-padding: round($v-unit-size/4) !default;
+$v-table-horizontal-cell-padding-edge: round($v-unit-size/2.5) !default;
+$v-table-resizer-width: 4px !default;
+$v-table-header-font-size: round($v-font-size * 0.86) !default;
+$v-table-background-color: null !default;
+
+
+@function v-valo-table-background-color($context: $v-app-background-color) {
+	@return v-valo-textfield-background-color($context);
+}
+
+
+@mixin v-valo-table ($primary-stylename: v-table) {
+
+	$background-color: $v-table-background-color or v-valo-table-background-color();
+	$border-color: $v-table-border-color or darken($v-app-background-color, $v-bevel-depth/2);
+
+  .#{$primary-stylename}-header-wrap,
+	.#{$primary-stylename}-footer-wrap {
+		border: $v-border-width solid $border-color;
+		@include v-valo-gradient($v-app-background-color);
+	}
+
+	.#{$primary-stylename}-header-wrap {
+		border-bottom: none;
+	}
+
+	.#{$primary-stylename}-footer-wrap {
+		border-top: none;
+	}
+
+	.#{$primary-stylename}-footer td {
+		border: none;
+		border-left: $v-table-border-width solid $border-color;
+		padding: 0;
+	}
+
+	.#{$primary-stylename}-footer td:first-child {
+		border-color: transparent;
+	}
+
+	.#{$primary-stylename}-footer-container {
+		$vertical-padding: round(($v-table-row-height - $v-table-header-font-size)/2);
+		padding: $vertical-padding $v-table-horizontal-cell-padding;
+		font-size: $v-table-header-font-size;
+		line-height: 1;
+	}
+
+	.#{$primary-stylename}-footer td:first-child .#{$primary-stylename}-footer-container {
+		padding-left: $v-table-horizontal-cell-padding-edge + $v-table-resizer-width;
+		@include box-sizing(border-box);
+	}
+
+	.#{$primary-stylename}-footer td:last-child .#{$primary-stylename}-footer-container {
+		padding-right: $v-table-horizontal-cell-padding-edge;
+		@include box-sizing(border-box);
+	}
+
+	.#{$primary-stylename}-caption-container {
+		font-size: $v-table-header-font-size;
+		line-height: 1;
+		$vertical-padding: round(($v-table-row-height - $v-table-header-font-size)/2);
+		padding-top: $vertical-padding;
+		padding-bottom: $vertical-padding;
+		padding-left: $v-table-horizontal-cell-padding;
+		margin-left: 0;
+		border-left: $v-table-border-width solid $border-color;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		width: auto !important;
+	}
+
+	.#{$primary-stylename}-header td:first-child .#{$primary-stylename}-caption-container {
+		border-left-color: transparent;
+		margin-left: $v-table-horizontal-cell-padding - $v-table-resizer-width;
+		padding-left: $v-table-resizer-width;
+	}
+
+	.#{$primary-stylename}-header td:last-child .#{$primary-stylename}-caption-container {
+		padding-right: $v-table-resizer-width;
+		@include box-sizing(border-box);
+	}
+
+	.#{$primary-stylename}-resizer {
+		height: $v-table-row-height;
+		background: transparent;
+		width: $v-table-resizer-width;
+		margin: 0 !important;
+		cursor: e-resize;
+		cursor: col-resize;
+	}
+
+	.#{$primary-stylename}-cell-content {
+		border: none;
+		border-left: $v-table-border-width solid $border-color;
+		line-height: 1.4;
+		$vertical-padding: round(($v-table-row-height - $v-font-size*1.4)/2);
+		padding: $vertical-padding $v-table-horizontal-cell-padding;
+	}
+
+	.#{$primary-stylename}-cell-content:first-child {
+		border-left-color: transparent;
+	}
+
+	.#{$primary-stylename}-cell-content:first-child .#{$primary-stylename}-cell-wrapper {
+		padding-left: $v-table-horizontal-cell-padding-edge - $v-table-resizer-width;
+		@include box-sizing(border-box);
+	}
+
+	.#{$primary-stylename}-cell-content:last-child .#{$primary-stylename}-cell-wrapper {
+		padding-right: $v-table-horizontal-cell-padding-edge;
+		@include box-sizing(border-box);
+	}
+
+	.#{$primary-stylename}-body {
+		border: $v-table-border-width solid $border-color;
+		background-color: $background-color;
+	}
+
+	.#{$primary-stylename}-row-odd {
+	}
+
+	.#{$primary-stylename} .v-selected {
+		@include v-valo-gradient(v-valo-selection-color());
+		color: v-valo-font-color(v-valo-selection-color());
+	}
+
+	.#{$primary-stylename} .v-selected + .v-selected {
+		$gradient-end: first(last(v-valo-gradient-color-stops(v-valo-selection-color())));
+		background: $gradient-end;
+	}
+
+	.#{$primary-stylename} .v-selected .#{$primary-stylename}-cell-content {
+		border-left-color: transparent;
+	}
+
+	.#{$primary-stylename}-header-cell-asc .#{$primary-stylename}-sort-indicator,
+	.#{$primary-stylename}-header-cell-desc .#{$primary-stylename}-sort-indicator {
+		background: transparent;
+		width: 0.5em;
+		height: $v-table-row-height;
+	}
+
+	.#{$primary-stylename}-header-cell-asc .#{$primary-stylename}-sort-indicator:before,
+	.#{$primary-stylename}-header-cell-desc .#{$primary-stylename}-sort-indicator:before {
+		font-family: FontAwesome;
+		font-style: normal;
+		font-weight: normal;
+		display: inline-block;
+	}
+
+	.#{$primary-stylename}-header-cell-asc .#{$primary-stylename}-sort-indicator:before {
+		content: '\f0dd';
+	}
+
+	.#{$primary-stylename}-header-cell-desc .#{$primary-stylename}-sort-indicator:before {
+		content: '\f0de';
+	}
+
+
+}

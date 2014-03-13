@@ -12,6 +12,7 @@
 @import "window";
 @import "csslayout";
 @import "tree";
+@import "table";
 
 
 @mixin v-valo-components {
@@ -62,6 +63,10 @@
   
   @if v-is-included(tree) {
     @include v-valo-tree;
+  }
+  
+  @if v-is-included(table) {
+    @include v-valo-table;
   }
   
   @if v-is-included(label) {

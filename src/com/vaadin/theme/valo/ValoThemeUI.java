@@ -47,6 +47,7 @@ import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Slider;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.Table.Align;
 import com.vaadin.ui.Table.TableDragMode;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
@@ -265,6 +266,19 @@ public class ValoThemeUI extends UI implements Handler {
                 notification2.setDelayMsec(-1);
                 notification2.setStyleName("warning");
                 notification2.show(getPage());
+            }
+        });
+        group.addComponent(notify);
+
+        notify = new Button("No caption", new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                Notification n3 = new Notification(null,
+                        "Just a simple description for this warning message.");
+                n3.setPosition(Position.TOP_CENTER);
+                n3.setDelayMsec(-1);
+                n3.setStyleName("warning");
+                n3.show(getPage());
             }
         });
         group.addComponent(notify);
@@ -877,7 +891,7 @@ public class ValoThemeUI extends UI implements Handler {
         MockupContainer container = new MockupContainer();
         container.setDataSet(baconDataSet);
         container.setItemCount(20);
-        container.setPropertyCount(4);
+        container.setPropertyCount(3);
         container.setNumberOfChildren(4);
         container.setItemDelay(0);
 
@@ -917,9 +931,13 @@ public class ValoThemeUI extends UI implements Handler {
         table = getTable("With footer");
         table.setFooterVisible(true);
         table.setContainerDataSource(container);
-        if (propertyIterator.hasNext()) {
+        propertyIterator = container.getContainerPropertyIds().iterator();
+        while (propertyIterator.hasNext()) {
             Object id = propertyIterator.next();
-            table.setColumnFooter(id, "Footer for " + id);
+            table.setColumnFooter(id, id + " footer");
+            if (!propertyIterator.hasNext()) {
+                table.setColumnAlignment(id, Align.RIGHT);
+            }
         }
         row.addComponent(table);
 

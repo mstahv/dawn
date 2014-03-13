@@ -29,19 +29,19 @@
 
   @if $v-animations-enabled {
     .v-Notification[style*=" top: 0"] {
-      @include v-valo-anim-slide-down(800ms);
+      @include v-valo-anim-slide-down(600ms);
     }
 
     .v-Notification[style*=" bottom: 0"] {
-      @include v-valo-anim-slide-up(800ms);
+      @include v-valo-anim-slide-up(600ms);
     }
 
     .v-Notification[style*=" right: 0"] {
-      @include v-valo-anim-slide-left(800ms);
+      @include v-valo-anim-slide-left(600ms);
     }
 
     .v-Notification[style*=" left: 0"]:not(.v-Notification-system) {
-      @include v-valo-anim-slide-right(800ms);
+      @include v-valo-anim-slide-right(600ms);
     }
   }
 
@@ -53,7 +53,6 @@
 
   .v-Notification {
     cursor: pointer;
-    white-space: nowrap;
     border-radius: $v-border-radius;
     text-align: center;
     position: fixed !important;
@@ -64,13 +63,13 @@
       text-align: left;
       font-weight: inherit;
       line-height: inherit;
+      white-space: nowrap;
     }
     
     p {
       margin: 0;
       display: inline-block;
       vertical-align: middle;
-      white-space: normal;
       max-width: 30em;
       text-align: left;
     }
@@ -98,10 +97,6 @@
     border-radius: 0;
     
     @include v-valo-notification-system-style;
-    
-    @if $v-animations-enabled {
-      @include v-valo-anim-slide-down;
-    }
   }
 
   // Need a more specific selector to override positional margins
