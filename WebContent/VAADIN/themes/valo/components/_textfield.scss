@@ -1,10 +1,12 @@
-$v-textfield-border-radius: null !default;
 $v-textfield-bevel-style: inset 0 1px 0 shade, 0 1px 0 hilite !default;
-$v-textfield-bevel-depth: null !default;
+$v-textfield-bevel-depth: $v-bevel-depth !default;
+$v-textfield-shadow-style: $v-shadow-style !default;
+$v-textfield-shadow-depth: 0% !default;
 $v-textfield-background-color: null !default;
-$v-textfield-unit-size: null !default;
+$v-textfield-unit-size: $v-unit-size !default;
 $v-textfield-font-weight: 400 !default;
 $v-textfield-border-width: $v-border-width !default;
+$v-textfield-border-radius: $v-border-radius !default;
 $v-textfield-disabled-opacity: $v-disabled-opacity !default;
 
 
@@ -21,11 +23,13 @@ $v-textfield-disabled-opacity: $v-disabled-opacity !default;
 
 
 
-@function v-valo-textfield-box-shadow ($bevel-style: $v-textfield-bevel-style, $bevel-depth: $v-bevel-depth) {
-  @if $bevel-depth == 0 {
+@function v-valo-textfield-box-shadow ($bevel-style: $v-bevel-style, $bevel-depth: $v-bevel-depth,
+                                       $shadow-style: $v-shadow-style, $shadow-depth: $v-shadow-depth) {
+  @if $bevel-depth == 0 and $shadow-depth == 0 {
     @return none;
   }
-  @return v-valo-replace-hilite-and-shade($bevel-style, white($bevel-depth/500%), black($bevel-depth/500%));
+  @return v-valo-replace-hilite-and-shade($bevel-style, white($bevel-depth/500%), black($bevel-depth/500%)), 
+          v-valo-shadow($shadow-style: $shadow-style, $shadow-depth: $shadow-depth);
 }
 
 
@@ -55,15 +59,11 @@ $v-textfield-disabled-opacity: $v-disabled-opacity !default;
 
 
 @mixin v-valo-textfield-style ($bevel-style: $v-textfield-bevel-style, $bevel-depth: $v-textfield-bevel-depth, 
+                               $shadow-style: $v-textfield-shadow-style, $shadow-depth: $v-textfield-shadow-depth,
                                $unit-size: $v-textfield-unit-size, $border-radius: $v-textfield-border-radius,
                                $background-color: $v-textfield-background-color) {
 
-  // Set up variable defaults
   $background-color: $background-color or v-valo-textfield-background-color($v-app-background-color);
-  $bevel-style: $bevel-style or $v-bevel-style;
-  $bevel-depth: $bevel-depth or $v-bevel-depth;
-  $unit-size: $unit-size or $v-unit-size;
-  $border-radius: $border-radius or $v-border-radius;
   
   @include appearance(none);
   margin: 0;
@@ -74,7 +74,7 @@ $v-textfield-disabled-opacity: $v-disabled-opacity !default;
   border: $v-textfield-border-width solid v-valo-textfield-border-color($bevel-style, $bevel-depth, $background-color);
   background: $background-color;
   color: v-valo-font-color($background-color);
-  box-shadow: v-valo-textfield-box-shadow($bevel-style: $bevel-style, $bevel-depth: $bevel-depth);
+  box-shadow: v-valo-textfield-box-shadow($bevel-style: $bevel-style, $bevel-depth: $bevel-depth, $shadow-style: $shadow-style, $shadow-depth: $shadow-depth);
 
   @if $v-animations-enabled {
     @include transition(box-shadow 180ms, border 180ms);
@@ -85,7 +85,7 @@ $v-textfield-disabled-opacity: $v-disabled-opacity !default;
   }
 
   &:focus {
-    @include v-valo-textfield-focus-style;
+    @include v-valo-textfield-focus-style($bevel-style: $bevel-style, $bevel-depth: $bevel-depth, $shadow-style: $shadow-style, $shadow-depth: $shadow-depth);
   }
   
   // TODO allow parent selector to be used in interpolation
@@ -107,7 +107,8 @@ $v-textfield-disabled-opacity: $v-disabled-opacity !default;
 }
 
 
-@mixin v-valo-textfield-focus-style {
+@mixin v-valo-textfield-focus-style ($bevel-style: $v-textfield-bevel-style, $bevel-depth: $v-textfield-bevel-depth, 
+                                     $shadow-style: $v-textfield-shadow-style, $shadow-depth: $v-textfield-shadow-depth) {
   outline: none;
   @if $v-animations-enabled {
     @include transition(none);
@@ -119,7 +120,8 @@ $v-textfield-disabled-opacity: $v-disabled-opacity !default;
     border-color: $focus-color;
   }
   
-  box-shadow: v-valo-textfield-box-shadow(), v-valo-focus-box-shadow($color: $focus-color);
+  box-shadow: v-valo-textfield-box-shadow($bevel-style: $bevel-style, $bevel-depth: $bevel-depth, $shadow-style: $shadow-style, $shadow-depth: $shadow-depth), 
+              v-valo-focus-box-shadow($color: $focus-color);
 }
 
 

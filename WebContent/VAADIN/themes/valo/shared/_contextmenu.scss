@@ -1,0 +1,15 @@
+@mixin v-valo-contextmenu {
+  
+  .v-contextmenu {
+    @include v-valo-overlay-style;
+  }
+  
+  .v-contextmenu .gwt-MenuItem {
+    @include v-valo-selection-item;
+  }
+  
+  .v-contextmenu .gwt-MenuItem-selected {
+    @include v-valo-selection-item-selected;
+  }
+  
+}

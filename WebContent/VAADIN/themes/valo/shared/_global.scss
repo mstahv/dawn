@@ -1,4 +1,5 @@
 @import "loading-indicator";
+@import "contextmenu";
 
 
 @mixin v-valo-app-style {
@@ -65,5 +66,7 @@
   .v-disabled {
     cursor: default !important;
   }
+
+  @include v-valo-contextmenu;
 
 }

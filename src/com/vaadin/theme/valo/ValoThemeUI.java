@@ -734,6 +734,12 @@ public class ValoThemeUI extends UI implements Handler {
         date.addStyleName("color2");
         row.addComponent(date);
 
+        date = new DateField("Custom color");
+        date.setValue(new Date());
+        date.setResolution(Resolution.DAY);
+        date.addStyleName("color3");
+        row.addComponent(date);
+
         date = new DateField("Small");
         date.setValue(new Date());
         date.setResolution(Resolution.DAY);
@@ -888,9 +894,9 @@ public class ValoThemeUI extends UI implements Handler {
             tree.setItemCaptionPropertyId(captionId);
         }
         Collection<Integer> itemIds = container.getItemIds();
-        for (Integer integer : itemIds) {
-            tree.expandItem(integer);
-        }
+        Integer first = itemIds.iterator().next();
+        tree.expandItem(first);
+        tree.select(first);
 
         // Add actions (context menu)
         tree.addActionHandler(this);

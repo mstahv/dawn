@@ -11,6 +11,7 @@
 @import "datefield";
 @import "window";
 @import "csslayout";
+@import "tree";
 
 
 @mixin v-valo-components {
@@ -57,6 +58,10 @@
   
   @if v-is-included(window) {
     @include v-valo-window;
+  }
+  
+  @if v-is-included(tree) {
+    @include v-valo-tree;
   }
   
   @if v-is-included(label) {

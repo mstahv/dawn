@@ -21,7 +21,8 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
 
 
 
-@mixin v-valo-combobox-style ($bevel-style: $v-textfield-bevel-style, $bevel-depth: $v-textfield-bevel-depth, 
+@mixin v-valo-combobox-style ($bevel-style: $v-textfield-bevel-style, $bevel-depth: $v-textfield-bevel-depth,
+                              $shadow-style: $v-textfield-shadow-style, $shadow-depth: $v-textfield-shadow-depth, 
                               $unit-size: $v-textfield-unit-size, $border-radius: $v-textfield-border-radius,
                               $background-color: $v-textfield-background-color, $primary-stylename: v-filterselect) {
 
@@ -33,6 +34,7 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
 
   .#{$primary-stylename}-input {
   	@include v-valo-combobox-input-style($bevel-style: $bevel-style, $bevel-depth: $bevel-depth, $unit-size: $unit-size, 
+                                         $shadow-style: $shadow-style, $shadow-depth: $shadow-depth,
   																			 $border-radius: $border-radius, $background-color: $background-color);
   }
   
@@ -68,21 +70,16 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
   }
 }
 
-@include keyframes(v-valo-combobox-show-items) {
-  0% {
-    opacity: 0;
-    @include transform( translatey(-$v-unit-size/4) );
-  }
-}
-
 
 
 
 @mixin v-valo-combobox-input-style ($bevel-style: $v-textfield-bevel-style, $bevel-depth: $v-textfield-bevel-depth, 
+                                    $shadow-style: $v-textfield-shadow-style, $shadow-depth: $v-textfield-shadow-depth,
                               			$unit-size: $v-textfield-unit-size, $border-radius: $v-textfield-border-radius,
                               			$background-color: $v-textfield-background-color) {
   @extend %v-widget;
   @include v-valo-textfield-style($bevel-style: $bevel-style, $bevel-depth: $bevel-depth, 
+                                  $shadow-style: $shadow-style, $shadow-depth: $shadow-depth,
                               		$unit-size: $unit-size, $border-radius: $border-radius,
                               		$background-color: $background-color) ;
   width: 100% !important;
@@ -160,15 +157,9 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
   td {
   	display: block;
   }
-
-  @if $v-animations-enabled {
-  	table {
-  		//@include animation(v-valo-combobox-show-items 200ms 80ms backwards);
-  	}
-	}
   
   .gwt-MenuItem {
-    @include v-valo-selection-item($parent-background-color: $background-color);
+    @include v-valo-selection-item;
   }
   
   .gwt-MenuItem-selected {
@@ -200,26 +191,6 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
       text-decoration: none;
     }
   }
-  
-  // Page navigation
-  /*&:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    width: ceil($v-unit-size/2.5);
-    background: scale-color($v-app-background-color, $lightness: -5%);
-    border-left: 1px solid scale-color($v-app-background-color, $lightness: -15%);
-    opacity: .2;
-    transition: all 200ms 300ms;
-    z-index: 2;
-  }
-    
-  &:hover:before {
-    width: ceil($v-unit-size/1.5);
-    opacity: .7;
-  }*/
   
   div[class*="page"] {
     position: absolute;
@@ -256,7 +227,7 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
     top: 0;
     @include transform-origin( 100% 0% );
     &:before {
-      content: "\f077";
+      content: "\f0d8";
     }
     
   }
@@ -265,7 +236,7 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
     bottom: 0;
     @include transform-origin( 100% 100% );
     &:before {
-      content: "\f078";
+      content: "\f0d7";
     }
   }
 }

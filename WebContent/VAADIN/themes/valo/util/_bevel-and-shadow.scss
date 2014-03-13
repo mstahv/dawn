@@ -14,7 +14,9 @@
 
 
 
-@function v-valo-shadow ($context-color: $v-app-background-color, $shadow-style: $v-shadow-style, $shadow-depth: $v-shadow-depth) {
+@function v-valo-shadow ($context-color: $v-app-background-color, $shadow-style: null, $shadow-depth: null) {
+	$shadow-style: $shadow-style or $v-shadow-style;
+	$shadow-depth: $shadow-depth or $v-shadow-depth;
 	@return v-valo-replace-hilite-and-shade($shadow-style, rgba(#fff, $shadow-depth/100%), rgba(#000, $shadow-depth/100%));
 }
 
