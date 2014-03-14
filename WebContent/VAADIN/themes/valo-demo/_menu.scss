@@ -8,6 +8,12 @@
     min-width: 200px;
     padding: 1em;
 
+    // Promote to a rendering layer
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+
     @include transform( translatex(-96%) );
     transition: all 200ms 300ms;
     opacity: .7;

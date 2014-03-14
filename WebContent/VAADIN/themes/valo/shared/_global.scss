@@ -30,6 +30,11 @@
       @include v-valo-app-style;
     }
   //}
+
+  &.v-overlay-container {
+    position: absolute;
+    top: 0;
+  }
   
   @include v-valo-loading-bar;
   

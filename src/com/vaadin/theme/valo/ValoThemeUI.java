@@ -140,7 +140,7 @@ public class ValoThemeUI extends UI implements Handler {
                 root,
                 "Loading Indicator",
                 Category.Common,
-                "You can test the loading indicator by pressing the buttons. The theme also provides a handy Sass mixin that you can use to include a spinner anywhere in your application.");
+                "You can test the loading indicator by pressing the buttons. The theme also provides a mixin that you can use to include a spinner anywhere in your application.");
 
         Button loading = new Button("Loading (800ms)…");
         loading.addClickListener(new ClickListener() {
@@ -182,11 +182,7 @@ public class ValoThemeUI extends UI implements Handler {
          * Notifications
          */
 
-        row = addSection(
-                root,
-                "Notifications",
-                Category.Common,
-                "There are the built-in notification styles, but you can easily create more variations with the theme mixins.");
+        row = addSection(root, "Notifications", Category.Common, null);
 
         final Notification notification = new Notification("Notification Title");
 
@@ -315,6 +311,79 @@ public class ValoThemeUI extends UI implements Handler {
             }
         });
         row.addComponent(notify);
+
+        /**
+         * Windows
+         */
+        row = addSection(root, "Windows", Category.Component_Containers, null);
+
+        final Window win = new Window();
+        win.setWidth("320px");
+        win.setContent(windowContents(false));
+
+        group = new CssLayout();
+        group.addStyleName("v-component-group");
+        row.addComponent(group);
+
+        Button button = new Button("Open Window", new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                win.close();
+                win.setContent(windowContents(true));
+                win.removeStyleName("dialog");
+                win.setHeight("240px");
+                UI.getCurrent().addWindow(win);
+                win.setPositionX(Page.getCurrent().getBrowserWindowWidth() / 3);
+                win.setPositionY(Page.getCurrent().getBrowserWindowHeight() / 3);
+            }
+        });
+        group.addComponent(button);
+
+        button = new Button("w/o Scroll", new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                win.close();
+                win.setContent(windowContents(false));
+                win.addStyleName("dialog");
+                win.setHeight(null);
+                UI.getCurrent().addWindow(win);
+                win.setPositionX(Page.getCurrent().getBrowserWindowWidth() / 3);
+                win.setPositionY(Page.getCurrent().getBrowserWindowHeight() / 3);
+            }
+        });
+        group.addComponent(button);
+
+        group = new CssLayout();
+        group.addStyleName("v-component-group");
+        row.addComponent(group);
+
+        button = new Button("Toggle caption", new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                if (win.getCaption().equals("")) {
+                    win.setCaption("Window Caption");
+                } else {
+                    win.setCaption("");
+                }
+            }
+        });
+        group.addComponent(button);
+
+        button = new Button("Toggle close", new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                win.setClosable(!win.isClosable());
+            }
+        });
+        group.addComponent(button);
+
+        button = new Button("Toggle maximize", new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                win.setResizable(!win.isResizable());
+            }
+        });
+        group.addComponent(button);
 
         return root;
     }
@@ -787,71 +856,6 @@ public class ValoThemeUI extends UI implements Handler {
         row.addComponent(date);
 
         /**
-         * Windows
-         */
-        row = addSection(root, "Windows", Category.Component_Containers, null);
-
-        final Window win = new Window();
-        win.setWidth("30%");
-        win.setContent(windowContents(false));
-
-        button = new Button("Open Window");
-        button.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                win.close();
-                win.setCaption("Window Caption");
-                win.setClosable(true);
-                win.setResizable(true);
-                win.setContent(windowContents(true));
-                win.removeStyleName("dialog");
-                win.setHeight("30%");
-                UI.getCurrent().addWindow(win);
-                win.setPositionX(Page.getCurrent().getBrowserWindowWidth() / 3);
-                win.setPositionY(Page.getCurrent().getBrowserWindowHeight() / 3);
-            }
-        });
-        row.addComponent(button);
-
-        button = new Button("w/o Caption");
-        button.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                win.setCaption("");
-            }
-        });
-        row.addComponent(button);
-
-        button = new Button("w/o Close");
-        button.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                win.setClosable(false);
-            }
-        });
-        row.addComponent(button);
-
-        button = new Button("w/o Resize");
-        button.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                win.setResizable(false);
-            }
-        });
-        row.addComponent(button);
-
-        button = new Button("w/o Scroll");
-        button.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                win.setContent(windowContents(false));
-                win.addStyleName("dialog");
-                win.setHeight(null);
-            }
-        });
-        row.addComponent(button);
-
-        /**
          * Panels and layout panels
          */
         row = addSection(root, "Panels & Layout Panels",
@@ -890,7 +894,7 @@ public class ValoThemeUI extends UI implements Handler {
         MockupFactory.setDefaultDataSet(baconDataSet);
         MockupContainer container = new MockupContainer();
         container.setDataSet(baconDataSet);
-        container.setItemCount(20);
+        container.setItemCount(200);
         container.setPropertyCount(3);
         container.setNumberOfChildren(4);
         container.setItemDelay(0);
@@ -914,6 +918,7 @@ public class ValoThemeUI extends UI implements Handler {
         Integer firstItemId = itemIds.iterator().next();
         tree.expandItem(firstItemId);
         tree.select(firstItemId);
+        tree.setItemIcon(firstItemId, FontAwesome.CODE_FORK);
 
         // Add actions (context menu)
         tree.addActionHandler(this);

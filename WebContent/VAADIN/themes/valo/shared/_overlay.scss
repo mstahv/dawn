@@ -7,11 +7,20 @@ $v-overlay-open-animation: v-valo-overlay-open 200ms !default;
 	display: none;
 }
 
+
+
+@function v-valo-overlay-background-color ($context: $v-app-background-color) {
+	@return v-valo-textfield-background-color($context);
+}
+
+
+
+
 @mixin v-valo-overlay-style ($background-color: null, $open-animation: $v-overlay-open-animation) {
 	padding: ceil($v-unit-size/8);
 	border-radius: $v-overlay-border-radius;
   
-  $bg: $background-color or v-valo-textfield-background-color($v-app-background-color);  
+  $bg: $background-color or v-valo-overlay-background-color();
   background: $bg;
   color: v-valo-font-color($bg);
 
@@ -22,6 +31,11 @@ $v-overlay-open-animation: v-valo-overlay-open 200ms !default;
 	@if $v-animations-enabled and $v-overlay-open-animation {
 		@include animation($open-animation);
 	}
+    
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 

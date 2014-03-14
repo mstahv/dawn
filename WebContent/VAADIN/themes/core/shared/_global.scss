@@ -109,6 +109,7 @@
 
 
 // Make the BODY element scrollable instead of the .v-ui element
+// NOTE breaks percentage sized overlay elements
 @mixin natural-page-scrolling {
   
   html {
@@ -133,7 +134,7 @@
   }
 
   .v-overlay-container {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
   }
@@ -141,15 +142,6 @@
   // Reposition notifications so that they don't scroll with the page
   .v-Notification {
     position: fixed !important;
-    //top: 45% !important;
-  }
-  
-  .v-Notification-system {
-    //top: 0 !important;
-  }
-  
-  .v-Notification-tray {
-  	//top: auto !important;
   }
   
 }

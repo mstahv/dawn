@@ -17,7 +17,7 @@ $colors: ($color1, $color2, $color3, $color4, $color5);
 @import "menu";
 @import "variants";
 
-//@include natural-page-scrolling;
+@include natural-page-scrolling;
 
 body {
     // Fake height so that the browser scrollbar can be restored between reloads

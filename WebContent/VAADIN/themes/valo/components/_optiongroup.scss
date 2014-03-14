@@ -3,8 +3,13 @@
   .v-radiobutton {
   	:root & > input {
       &:checked ~ label:after {
-        content: "\2022";
-        font-size: round($v-unit-size/1.2);
+        content: "";
+        $size: $v-unit-size/6;
+        width: $size;
+        height: $size;
+        top: $size;
+        left: $size;
+        background: v-valo-selection-color();
       }
     }
     & > label:before,

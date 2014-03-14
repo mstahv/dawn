@@ -36,6 +36,10 @@
     cursor: move;
     line-height: $v-unit-size;
     padding-left: round($v-unit-size/3);
+    margin-right: $v-unit-size * 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     color: mix($v-app-background-color, v-valo-font-color($v-app-background-color));
   }
   
@@ -47,7 +51,7 @@
     top: 0;
     right: 0;
     width: $v-unit-size;
-    line-height: $v-unit-size;
+    line-height: $v-unit-size - 1px;
     text-align: center;
     cursor: pointer;
     font-family: FontAwesome;

@@ -27,8 +27,8 @@
     z-index: 0;
     margin: 0;
     
-    &:focus ~ label:after {
-      box-shadow: v-valo-focus-box-shadow();
+    &:focus ~ label:before {
+      box-shadow: v-valo-button-box-shadow($background-color), v-valo-focus-box-shadow();
     }
     
     &:active ~ label:after {

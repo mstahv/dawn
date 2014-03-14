@@ -86,8 +86,8 @@ $v-loading-indicator-bar-height: ceil($v-unit-size/6) !default;
     pointer-events: none;
     
     @include transition(none);
-    @include animation(v-progress-start 1200ms);
-    @include animation-fill-mode(forwards);
+    @include animation(v-progress-start 1000ms 200ms both);
+    //@include animation-fill-mode(forwards);
     
     &[style*="none"] {
       // Chrome skips the transitions because it thinks the element is display: none;
@@ -104,8 +104,7 @@ $v-loading-indicator-bar-height: ceil($v-unit-size/6) !default;
     .v-ff & {
       width: 50%;
     }
-    @include animation(v-progress-delay 3.8s);
-    @include animation-fill-mode(forwards);
+    @include animation(v-progress-delay 3.8s forwards);
   }
   
   .v-loading-indicator-wait {
@@ -113,8 +112,7 @@ $v-loading-indicator-bar-height: ceil($v-unit-size/6) !default;
     .v-ff & {
       width: 90%;
     }
-    @include animation(v-progress-wait 5s, v-progress-wait-pulse 1s 4s infinite);
-    @include animation-fill-mode(forwards);
+    @include animation(v-progress-wait 5s forwards, v-progress-wait-pulse 1s 4s infinite);
   }
   
 }
