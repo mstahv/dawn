@@ -74,9 +74,16 @@
 
   select {
     font: inherit;
+    font-weight: 400;
     line-height: inherit;
     color: inherit;
-    background-color: inherit;
+    background-color: v-valo-textfield-background-color($v-app-background-color);
+  }
+
+  button {
+    font: inherit;
+    font-weight: 400;
+    line-height: inherit;
   }
 
   .v-disabled {

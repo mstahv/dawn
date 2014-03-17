@@ -1,10 +1,12 @@
 $v-slider-track-size: round($v-unit-size/8) !default;
+$v-slider-handle-size: round($v-unit-size/1.8) !default;
 
 
 @mixin v-valo-slider ($primary-stylename: v-slider) {
 
 	// Round to an even number
 	$v-slider-track-size: $v-slider-track-size + $v-slider-track-size%2;
+	$v-slider-handle-size: $v-slider-handle-size + $v-slider-handle-size%2;
 
 	.#{$primary-stylename} {
 		position: relative;
@@ -21,7 +23,7 @@ $v-slider-track-size: round($v-unit-size/8) !default;
 	.#{$primary-stylename}-base {
 		min-width: $v-unit-size * 5;
 		height: $v-slider-track-size;
-		margin: round(($v-unit-size - $v-slider-track-size)/2) round($v-unit-size/4);
+		margin: round(($v-unit-size - $v-slider-track-size)/2) round($v-slider-handle-size/2);
 		white-space: nowrap;
 		overflow: hidden;
 		border-radius: $v-border-radius;
@@ -32,8 +34,8 @@ $v-slider-track-size: round($v-unit-size/8) !default;
 			@include v-valo-progressbar-track-style;
 			height: $v-slider-track-size;
 			top: round(($v-unit-size - $v-slider-track-size)/2);
-			left: round($v-unit-size/4);
-			right: round($v-unit-size/4);
+			left: round($v-slider-handle-size/2);
+			right: round($v-slider-handle-size/2);
 		}
 
 		&:after {
@@ -43,15 +45,12 @@ $v-slider-track-size: round($v-unit-size/8) !default;
 			position: relative;
 			margin-left: -100%;
 			width: 100%;
-			//height: $v-slider-track-size;
-			//border-radius: $v-border-radius;
 			vertical-align: top;
 		}
 	}
 
 	.#{$primary-stylename}-handle {
-		height: $v-unit-size;
-		margin-top: round($v-unit-size/-2);
+		margin-top: round(($v-unit-size - $v-slider-track-size)/-2);
 		width: 0;
 		display: inline-block;
 		vertical-align: top;
@@ -70,13 +69,13 @@ $v-slider-track-size: round($v-unit-size/8) !default;
 			content: "";
 			@include box-sizing(border-box);
 			padding: 0;
-			width: round($v-unit-size/2);
-			height: round($v-unit-size/2);
+			width: $v-slider-handle-size;
+			height: $v-slider-handle-size;
 			border-radius: 50%;
 			position: absolute;
 			z-index: 1;
-			margin-top: round(($v-unit-size/2 - $v-slider-track-size));
-			margin-left: round($v-unit-size/-4);
+			margin-top: round(($v-unit-size - $v-slider-handle-size)/2);
+			margin-left: round($v-slider-handle-size/-2);
 		}
 	}
 
@@ -95,7 +94,7 @@ $v-slider-track-size: round($v-unit-size/8) !default;
 
 
 	.#{$primary-stylename}-vertical {
-		padding: round($v-unit-size/4) 0;
+		padding: round($v-slider-handle-size/2) 0;
 
 		.#{$primary-stylename}-base {
 			min-width: 0;
@@ -109,8 +108,8 @@ $v-slider-track-size: round($v-unit-size/8) !default;
 				min-width: 0;
 				width: inherit;
 				height: auto;
-				top: round($v-unit-size/4);
-				bottom: round($v-unit-size/4);
+				top: round($v-slider-handle-size/2);
+				bottom: round($v-slider-handle-size/2);
 				left: round(($v-unit-size - $v-slider-track-size)/2);
 			}
 
@@ -126,8 +125,8 @@ $v-slider-track-size: round($v-unit-size/8) !default;
 
 			&:before,
 			&:after {
-				margin-top: round($v-unit-size/-4);
-				margin-left: round(($v-unit-size/2 - $v-slider-track-size)/-2);
+				margin-top: round($v-slider-handle-size/-2);
+				margin-left: round(($v-slider-handle-size - $v-slider-track-size)/-2);
 			}
 		}
 	}
