@@ -15,6 +15,8 @@
 @import "table";
 @import "gridlayout";
 @import "splitpanel";
+@import "progressbar";
+@import "slider";
 
 
 @mixin v-valo-components {
@@ -78,6 +80,15 @@
   
   @if v-is-included(splitpanel) {
     @include v-valo-splitpanel;
+  }
+  
+  @if v-is-included(progressbar) or v-is-included(progressindicator) {
+    @include v-valo-progressbar;
+    @include v-valo-progressbar(v-progressindicator);
+  }
+  
+  @if v-is-included(slider) {
+    @include v-valo-slider;
   }
   
   @if v-is-included(label) {

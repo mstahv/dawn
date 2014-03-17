@@ -23,8 +23,8 @@ $v-textfield-disabled-opacity: $v-disabled-opacity !default;
 
 
 
-@function v-valo-textfield-box-shadow ($bevel-style: $v-bevel-style, $bevel-depth: $v-bevel-depth,
-                                       $shadow-style: $v-shadow-style, $shadow-depth: $v-shadow-depth) {
+@function v-valo-textfield-box-shadow ($bevel-style: $v-textfield-bevel-style, $bevel-depth: $v-textfield-bevel-depth,
+                                       $shadow-style: $v-textfield-shadow-style, $shadow-depth: $v-textfield-shadow-depth) {
   @if $bevel-depth == 0 and $shadow-depth == 0 {
     @return null;
   }

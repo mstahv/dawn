@@ -1,5 +1,6 @@
 $v-splitpanel-splitter-size: round($v-unit-size/5) !default;
 
+
 @mixin v-valo-splitpanel($primary-stylename : v-splitpanel) {
 	$copy: $v-shadow-depth;
 	$v-shadow-depth: 0%;
