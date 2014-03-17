@@ -212,12 +212,13 @@ $v-button-disabled-opacity: $v-disabled-opacity !default;
   border: none;
   box-shadow: none;
   background: transparent;
+  color: inherit;
 }
 
 
 
 @function v-valo-button-box-shadow($background-color, $bevel-style: $v-bevel-style, $bevel-depth: $v-bevel-depth, $gradient-style: $v-gradient-style, $gradient-depth: $v-gradient-depth) {
-  @return v-valo-bevel($background-color, $bevel-style, $bevel-depth, $gradient-style, $gradient-depth), v-valo-shadow();
+  @return append(v-valo-bevel($background-color, $bevel-style, $bevel-depth, $gradient-style, $gradient-depth), v-valo-shadow());
 }
 
 

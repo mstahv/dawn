@@ -20,7 +20,11 @@
 
 		// Assume most components have borders
 		.v-widget {
-			margin-left: -$v-border-width;
+			@if $v-border-width > 0 {
+				margin-left: -$v-border-width;
+			} @else {
+				margin-left: round($v-font-size/8);
+			}
 
 			&:first-child {
 				margin-left: 0;

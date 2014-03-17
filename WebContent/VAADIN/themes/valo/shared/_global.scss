@@ -1,5 +1,8 @@
 @import "loading-indicator";
 @import "contextmenu";
+@import "overlay";
+@import "notification";
+@import "tooltip";
 
 
 @mixin v-valo-app-style {
@@ -31,10 +34,10 @@
     }
   //}
 
-  &.v-overlay-container {
-    position: absolute;
-    top: 0;
-  }
+  //&.v-overlay-container {
+  //  position: absolute;
+  //  top: 0;
+  //}
   
   @include v-valo-loading-bar;
   
@@ -44,7 +47,8 @@
   
   .v-captiontext,
   .v-errorindicator,
-  .v-required-field-indicator {
+  .v-required-field-indicator,
+  img.v-icon {
     vertical-align: middle;
   }
   
@@ -68,9 +72,20 @@
     }
   }
 
+  select {
+    font: inherit;
+    line-height: inherit;
+    color: inherit;
+    background-color: inherit;
+  }
+
   .v-disabled {
     cursor: default !important;
   }
+
+  @include v-valo-drag-element;
+
+  @include v-valo-tooltip;
 
   @include v-valo-contextmenu;
 

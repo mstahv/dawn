@@ -1,9 +1,6 @@
 @mixin v-core-splitpanel ($primary-stylename: v-splitpanel) {
   
-  .#{$primary-stylename}-hsplitter div {
-  	position: absolute;
-  	top: 0;
-  	bottom: 0;
-  }
-  
 }
+
+
+

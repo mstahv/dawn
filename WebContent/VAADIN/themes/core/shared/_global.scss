@@ -87,7 +87,8 @@
   }
   
   .v-tooltip {
-    pointer-events: none;
+    // Don't use to make it possible to select text from an error message.
+    //pointer-events: none;
   }
   
   // TODO see if these are really needed

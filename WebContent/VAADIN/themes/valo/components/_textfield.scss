@@ -3,7 +3,7 @@ $v-textfield-bevel-depth: $v-bevel-depth !default;
 $v-textfield-shadow-style: $v-shadow-style !default;
 $v-textfield-shadow-depth: 0% !default;
 $v-textfield-background-color: null !default;
-$v-textfield-unit-size: $v-unit-size !default;
+$v-textfield-unit-size: null !default;
 $v-textfield-font-weight: 400 !default;
 $v-textfield-border-width: $v-border-width !default;
 $v-textfield-border-radius: $v-border-radius !default;
@@ -26,10 +26,11 @@ $v-textfield-disabled-opacity: $v-disabled-opacity !default;
 @function v-valo-textfield-box-shadow ($bevel-style: $v-bevel-style, $bevel-depth: $v-bevel-depth,
                                        $shadow-style: $v-shadow-style, $shadow-depth: $v-shadow-depth) {
   @if $bevel-depth == 0 and $shadow-depth == 0 {
-    @return none;
+    @return null;
   }
-  @return v-valo-replace-hilite-and-shade($bevel-style, white($bevel-depth/500%), black($bevel-depth/500%)), 
-          v-valo-shadow($shadow-style: $shadow-style, $shadow-depth: $shadow-depth);
+  $_bevel: v-valo-replace-hilite-and-shade($bevel-style, white($bevel-depth/500%), black($bevel-depth/500%));
+  $_shadow: v-valo-shadow($shadow-style: $shadow-style, $shadow-depth: $shadow-depth);
+  @return append($_bevel, $_shadow);
 }
 
 
@@ -64,6 +65,7 @@ $v-textfield-disabled-opacity: $v-disabled-opacity !default;
                                $background-color: $v-textfield-background-color) {
 
   $background-color: $background-color or v-valo-textfield-background-color($v-app-background-color);
+  $unit-size: $unit-size or $v-unit-size;
   
   @include appearance(none);
   margin: 0;
@@ -128,6 +130,9 @@ $v-textfield-disabled-opacity: $v-disabled-opacity !default;
 @mixin v-valo-textfield-readonly-style {
   background: transparent;
   box-shadow: none;
+  &:focus {
+    box-shadow: v-valo-focus-box-shadow();
+  }
 }
 
 

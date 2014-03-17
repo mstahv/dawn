@@ -1,0 +1,15 @@
+
+$v-button-background-color: v-valo-selection-color();
+
+// FLAT STYLE
+@mixin v-valo-textfield-focus-style ($bevel-style: $v-textfield-bevel-style, $bevel-depth: $v-textfield-bevel-depth, 
+                                     $shadow-style: $v-textfield-shadow-style, $shadow-depth: $v-textfield-shadow-depth) {
+  background-color: #fff;
+  color: v-valo-selection-color();
+  outline: none;
+}
+
+
+@function v-valo-overlay-box-shadow ($bg) {
+	@return 0 0 0 4px rgba(#000, .5);
+}

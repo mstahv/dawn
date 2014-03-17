@@ -124,18 +124,19 @@ $v-table-background-color: null !default;
 	.#{$primary-stylename}-row-odd {
 	}
 
-	.#{$primary-stylename} .v-selected {
+	[class*="-row"].v-selected {
 		@include v-valo-gradient(v-valo-selection-color());
 		color: v-valo-font-color(v-valo-selection-color());
-	}
+		text-shadow: v-valo-button-text-shadow(v-valo-selection-color(), $v-bevel-depth);
 
-	.#{$primary-stylename} .v-selected + .v-selected {
-		$gradient-end: first(last(v-valo-gradient-color-stops(v-valo-selection-color())));
-		background: $gradient-end;
-	}
-
-	.#{$primary-stylename} .v-selected .#{$primary-stylename}-cell-content {
-		border-left-color: transparent;
+		& + .v-selected {
+			$gradient-end: first(last(v-valo-gradient-color-stops(v-valo-selection-color())));
+			background: $gradient-end;
+		}
+		
+		& .#{$primary-stylename}-cell-content {
+			border-left-color: darken(v-valo-selection-color(), 8%);
+		}
 	}
 
 	.#{$primary-stylename}-header-cell-asc .#{$primary-stylename}-sort-indicator,

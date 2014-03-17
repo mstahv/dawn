@@ -51,7 +51,7 @@ $large-size: ceil($v-unit-size*1.2);
 	      @include v-valo-button-focus-style;
 	    }
 	  
-	    .v-button-active {
+	    .v-button-active:after {
 	      @include v-valo-button-active-style;
 	    }
 

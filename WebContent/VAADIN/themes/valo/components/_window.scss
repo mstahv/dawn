@@ -1,6 +1,12 @@
+$v-window-box-shadow: 0 6px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !default;
+
+
 @mixin v-valo-window ($primary-stylename: v-window) {
 	.#{$primary-stylename} {
 		@include v-valo-overlay-style;
+    @if $v-window-box-shadow {
+      box-shadow: v-valo-overlay-box-shadow($v-app-background-color), $v-window-box-shadow;
+    }
 		padding: 0;
 	}
 

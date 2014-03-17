@@ -1,23 +1,24 @@
-$v-app-background-color: #fafafa;
+//@import "flat-style-vars";
+
+@import "../valo/valo";
+@import "addons";
+
+//@import "flat-style-mixins";
+
 $color1: $v-app-background-color;
 $color2: #606060;
 $color3: #5d73c0;
 $color4: #F45937;
 $color5: #d2f4f3;
 $color6: #fe902a;
-
 $colors: ($color1, $color2, $color3, $color4, $color5);
 
-
-
-@import "../valo/valo";
-@import "addons";
 
 
 @import "menu";
 @import "variants";
 
-@include natural-page-scrolling;
+//@include natural-page-scrolling;
 
 body {
     // Fake height so that the browser scrollbar can be restored between reloads

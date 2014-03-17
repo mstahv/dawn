@@ -6,6 +6,7 @@
   }
   .#{$primary-stylename}-slot {
   	position: absolute;
+    line-height: $v-line-height;
   }
   .#{$primary-stylename}-spacing-on {
   	overflow: hidden;

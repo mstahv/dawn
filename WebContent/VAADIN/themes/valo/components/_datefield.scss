@@ -34,6 +34,11 @@ $v-datefield-hover-style-enabled: $v-hover-styles-enabled !default;
 }
 
 
+@mixin v-valo-inline-datefield ($primary-stylename: v-inline-datefield) {
+  @include v-valo-datefield-calendarpanel-style(#{$primary-stylename}-calendarpanel);
+}
+
+
 
 
 
@@ -48,7 +53,7 @@ $v-datefield-hover-style-enabled: $v-hover-styles-enabled !default;
   $border-radius: $border-radius or $v-border-radius;
 
   .#{$primary-stylename}-textfield {
-  	@extend %v-widget;
+  	@include box-sizing(border-box);
   	@include v-valo-textfield-style($bevel-style: $bevel-style, $bevel-depth: $bevel-depth, 
                               			$unit-size: $unit-size, $border-radius: $border-radius,
                               			$background-color: $background-color) ;
@@ -66,11 +71,26 @@ $v-datefield-hover-style-enabled: $v-hover-styles-enabled !default;
 
   &.v-disabled {
 		@include opacity($v-textfield-disabled-opacity);
-    & .#{$primary-stylename}-button {
+
+    .#{$primary-stylename}-button {
       cursor: default;
       pointer-events: none;
       &:active:after {
       	display: none;
+      }
+    }
+  }
+
+  &.v-readonly {
+    .#{$primary-stylename}-textfield {
+      @include v-valo-textfield-readonly-style;
+    }
+
+    .#{$primary-stylename}-button {
+      cursor: default;
+      pointer-events: none;
+      &:active:after {
+        display: none;
       }
     }
   }
@@ -154,7 +174,6 @@ $v-datefield-hover-style-enabled: $v-hover-styles-enabled !default;
    
   td {
     padding: round($v-unit-size/20);
-    text-align: center;
   }
 
   @include v-valo-datefield-calendarpanel-style;
@@ -166,6 +185,8 @@ $v-datefield-hover-style-enabled: $v-hover-styles-enabled !default;
 @mixin v-valo-datefield-calendarpanel-style ($primary-stylename: v-datefield-calendarpanel) {
 	.#{$primary-stylename} {
 		font-size: $v-font-size;
+    text-align: center;
+
     &:focus {
       outline: none;
     }

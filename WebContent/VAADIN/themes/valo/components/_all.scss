@@ -13,6 +13,8 @@
 @import "csslayout";
 @import "tree";
 @import "table";
+@import "gridlayout";
+@import "splitpanel";
 
 
 @mixin v-valo-components {
@@ -39,10 +41,15 @@
   
   @if v-is-included(datefield) {
     @include v-valo-datefield;
+    @include v-valo-inline-datefield;
   }
   
   @if v-is-included(orderedlayout) {
     @include v-valo-orderedlayout;
+  }
+  
+  @if v-is-included(gridlayout) {
+    @include v-valo-gridlayout;
   }
   
   @if v-is-included(menubar) {
@@ -67,6 +74,10 @@
   
   @if v-is-included(table) {
     @include v-valo-table;
+  }
+  
+  @if v-is-included(splitpanel) {
+    @include v-valo-splitpanel;
   }
   
   @if v-is-included(label) {

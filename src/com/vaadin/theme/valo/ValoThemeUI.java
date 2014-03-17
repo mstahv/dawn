@@ -25,12 +25,14 @@ import com.vaadin.event.Action.Handler;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
+import com.vaadin.server.UserError;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.shared.ui.slider.SliderOrientation;
+import com.vaadin.themeviewer.ThemeViewer;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -58,7 +60,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
-@Theme("valo-demo")
+@Theme("valo")
 @Title("Valo Theme")
 public class ValoThemeUI extends UI implements Handler {
 
@@ -80,17 +82,19 @@ public class ValoThemeUI extends UI implements Handler {
     @Override
     protected void init(VaadinRequest request) {
         getPage().setTitle("Valo Theme");
-        setContent(root);
+        // setContent(root);
+        //
+        // root.addComponent(commonParts());
+        //
+        // root.addComponent(components);
+        //
+        // components.addComponents(components(1), components(2), components(3),
+        // components(4), components(5));
+        // components.addStyleName("components-root");
+        //
+        // root.addComponentAsFirst(buildMenu());
 
-        root.addComponent(commonParts());
-
-        root.addComponent(components);
-
-        components.addComponents(components(1), components(2), components(3),
-                components(4), components(5));
-        components.addStyleName("components-root");
-
-        root.addComponentAsFirst(buildMenu());
+        setContent(new ThemeViewer());
 
     }
 
@@ -385,6 +389,34 @@ public class ValoThemeUI extends UI implements Handler {
         });
         group.addComponent(button);
 
+        /**
+         * Tooltips
+         */
+        row = addSection(root, "Tooltips", Category.Common, null);
+
+        Label label = new Label("Simple");
+        label.setDescription("Simple tooltip message");
+        row.addComponent(label);
+
+        label = new Label("Long");
+        label.setDescription("Long tooltip message. Inmensae subtilitatis, obscuris et malesuada fames. Salutantibus vitae elit libero, a pharetra augue.");
+        row.addComponent(label);
+
+        label = new Label("HTML");
+        label.setDescription("<div><h1>Ut enim ad minim veniam, quis nostrud exercitation</h1><p><span>Morbi fringilla convallis sapien, id pulvinar odio volutpat.</span> <span>Vivamus sagittis lacus vel augue laoreet rutrum faucibus.</span> <span>Donec sed odio operae, eu vulputate felis rhoncus.</span> <span>At nos hinc posthac, sitientis piros Afros.</span> <span>Tu quoque, Brute, fili mi, nihil timor populi, nihil!</span></p><p><span>Gallia est omnis divisa in partes tres, quarum.</span> <span>Praeterea iter est quasdam res quas ex communi.</span> <span>Cum ceteris in veneratione tui montes, nascetur mus.</span> <span>Quam temere in vitiis, legem sancimus haerentia.</span> <span>Idque Caesaris facere voluntate liceret: sese habere.</span></p></div>");
+        row.addComponent(label);
+
+        label = new Label("w/ Error Message");
+        label.setDescription("Simple tooltip message");
+        label.setComponentError(new UserError("Something terrible has happened"));
+        row.addComponent(label);
+
+        label = new Label("w/ Long Error Message");
+        label.setDescription("Simple tooltip message");
+        label.setComponentError(new UserError(
+                "<div><h1>Contra legem facit qui id facit quod lex prohibet</h1><p><span>Tityre, tu patulae recubans sub tegmine fagi  dolor.</span> <span>Tityre, tu patulae recubans sub tegmine fagi  dolor.</span> <span>Prima luce, cum quibus mons aliud  consensu ab eo.</span> <span>Quid securi etiam tamquam eu fugiat nulla pariatur.</span> <span>Fabio vel iudice vincam, sunt in culpa qui officia.</span> <span>Nihil hic munitissimus habendi senatus locus, nihil horum?</span></p><p><span>Plura mihi bona sunt, inclinet, amari petere vellent.</span> <span>Integer legentibus erat a ante historiarum dapibus.</span> <span>Quam diu etiam furor iste tuus nos eludet?</span> <span>Nec dubitamus multa iter quae et nos invenerat.</span> <span>Quisque ut dolor gravida, placerat libero vel, euismod.</span> <span>Quae vero auctorem tractata ab fiducia dicuntur.</span></p></div>"));
+        row.addComponent(label);
+
         return root;
     }
 
@@ -635,6 +667,7 @@ public class ValoThemeUI extends UI implements Handler {
         for (int i = 1; i <= 200; i++) {
             combo.addItem("Option " + i);
         }
+        combo.setItemIcon("Option 1", FontAwesome.FILM);
         row.addComponent(combo);
 
         combo = new ComboBox("Disabled");
@@ -1065,6 +1098,7 @@ public class ValoThemeUI extends UI implements Handler {
     Table getTable(String caption) {
         Table table = new Table(caption);
         table.setSelectable(true);
+        table.setMultiSelect(true);
         table.setSortEnabled(true);
         table.setColumnCollapsingAllowed(true);
         table.setColumnReorderingAllowed(true);

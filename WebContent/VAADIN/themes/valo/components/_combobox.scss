@@ -8,6 +8,11 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
 	.#{$primary-stylename} {
 		position: relative;
 		@include v-valo-combobox-style($primary-stylename: $primary-stylename);
+    white-space: nowrap;
+
+    .v-icon {
+      position: absolute;
+    }
   }
   
   .#{$primary-stylename}-suggestpopup {
@@ -37,6 +42,19 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
                                          $shadow-style: $shadow-style, $shadow-depth: $shadow-depth,
   																			 $border-radius: $border-radius, $background-color: $background-color);
   }
+
+  .v-icon {
+    max-height: $unit-size;
+    $padding-width: ceil($unit-size/6);
+    @if $border-radius {
+      $padding-width: $padding-width + ceil($border-radius/3);
+    }
+    margin-left: $padding-width;
+
+    + .#{$primary-stylename}-input {
+      padding-left: $padding-width + $unit-size;
+    }
+  }
   
   &.#{$primary-stylename}-prompt > .#{$primary-stylename}-input {
     @include v-valo-textfield-prompt-style(v-valo-textfield-background-color($background-color));
@@ -54,6 +72,20 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
       pointer-events: none;
       &:active:after {
       	display: none;
+      }
+    }
+  }
+
+  &.v-readonly {
+    .#{$primary-stylename}-input {
+      @include v-valo-textfield-readonly-style;
+    }
+
+    .#{$primary-stylename}-button {
+      cursor: default;
+      pointer-events: none;
+      &:active:after {
+        display: none;
       }
     }
   }
@@ -77,7 +109,7 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
                                     $shadow-style: $v-textfield-shadow-style, $shadow-depth: $v-textfield-shadow-depth,
                               			$unit-size: $v-textfield-unit-size, $border-radius: $v-textfield-border-radius,
                               			$background-color: $v-textfield-background-color) {
-  @extend %v-widget;
+  @include box-sizing(border-box);
   @include v-valo-textfield-style($bevel-style: $bevel-style, $bevel-depth: $bevel-depth, 
                                   $shadow-style: $shadow-style, $shadow-depth: $shadow-depth,
                               		$unit-size: $unit-size, $border-radius: $border-radius,
@@ -103,6 +135,10 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
 	text-align: center;
 	cursor: pointer;
 	border-left: $v-textfield-border-width solid blend-darken(black($bevel-depth/200%), $background-color);
+
+  @if $v-border-radius > 0 {
+    border-radius: 0 $v-border-radius $v-border-radius 0;
+  }
 	
 	&:before {
 		@include v-valo-combobox-button-icon-style($background-color);
@@ -125,6 +161,7 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
     right: 0;
     bottom: 0;
     left: 0;
+    border-radius: inherit;
 		@include v-valo-button-active-style($background-color);
 	}
 }

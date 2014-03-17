@@ -1,0 +1,70 @@
+$v-splitpanel-splitter-size: round($v-unit-size/5) !default;
+
+@mixin v-valo-splitpanel($primary-stylename : v-splitpanel) {
+	$copy: $v-shadow-depth;
+	$v-shadow-depth: 0%;
+
+	// Round to even number
+	$v-splitpanel-splitter-size: $v-splitpanel-splitter-size + $v-splitpanel-splitter-size%2;
+
+	.#{$primary-stylename}-hsplitter {
+		width: $v-splitpanel-splitter-size;
+	}
+
+	.#{$primary-stylename}-hsplitter div,
+	.#{$primary-stylename}-vsplitter div {
+		@include v-valo-button-style;
+		@include box-sizing(border-box);
+		height: auto;
+		padding: 0;
+		border-radius: 0;
+		position: absolute;
+		top: -$v-button-border-width;
+		right: -$v-button-border-width;
+		bottom: -$v-button-border-width;
+		left: -$v-button-border-width;
+		cursor: s-resize;
+		cursor: row-resize;
+
+		&:before {
+			content: "";
+			width: $v-unit-size;
+			height: 0;
+			border: 1px solid;
+			border-color: darken($v-app-background-color, $v-bevel-depth) darken($v-app-background-color, $v-bevel-depth/2) darken($v-app-background-color, $v-bevel-depth/2) darken($v-app-background-color, $v-bevel-depth);
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-left: round(-$v-unit-size/2);
+			margin-top: -1px;
+		}
+	}
+
+	.#{$primary-stylename}-vsplitter {
+		height: $v-splitpanel-splitter-size;
+	}
+
+	.#{$primary-stylename}-hsplitter div {
+		cursor: e-resize;
+		cursor: col-resize;
+		@include v-valo-gradient($color: $v-app-background-color, $direction: to right);
+
+		&:before {
+			width: 0;
+			height: $v-unit-size;
+			margin-left: -1px;
+			margin-top: round(-$v-unit-size/2);
+		}
+	}
+
+	.v-disabled [class$="splitter"] div {
+		cursor: default;
+
+		&:before {
+			display: none;
+		}
+	}
+
+	$v-shadow-depth: $copy;
+
+}

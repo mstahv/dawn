@@ -3,18 +3,19 @@
   .v-radiobutton {
   	:root & > input {
       &:checked ~ label:after {
-        content: "";
         $size: $v-unit-size/6;
         width: $size;
         height: $size;
         top: $size;
         left: $size;
-        background: v-valo-selection-color();
+        background: v-valo-selection-color($v-button-background-color);
       }
-    }
-    & > label:before,
-    & > label:after {
-      border-radius: 50%;
+
+      & ~ label:before,
+      & ~ label:after {
+        border-radius: 50%;
+        content: "";
+      }
     }
   }
   

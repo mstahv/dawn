@@ -14,7 +14,9 @@
 }
 
 
-@mixin v-valo-checkbox-style ($background-color: $v-app-background-color, $unit-size: $v-unit-size) {
+@mixin v-valo-checkbox-style ($background-color: $v-button-background-color, $unit-size: $v-unit-size) {
+  $background-color: $background-color or $v-app-background-color;
+  
   position: relative;
   line-height: round($unit-size/2);
   padding-left: round($unit-size/1.5);
@@ -30,39 +32,48 @@
     &:focus ~ label:before {
       box-shadow: v-valo-button-box-shadow($background-color), v-valo-focus-box-shadow();
     }
+
+    & ~ label:before,
+    & ~ label:after {
+      content: "";
+      display: inline-block;
+      @include box-sizing(border-box);
+      width: round($unit-size/2);
+      height: round($unit-size/2);
+      position: absolute;
+      left: 0;
+      border-radius: min(round($unit-size/6), $v-border-radius);
+      font-size: round($v-font-size * 0.8 * ($unit-size/$v-unit-size));
+      text-align: center;
+    }
+    
+    & ~ label:before {
+      @include v-valo-button-style($background-color: $background-color, $unit-size: $unit-size);
+      padding: 0;
+      height: round($unit-size/2);
+    }
+
+    & ~ label:after {
+      @include v-valo-checkbox-icon-style;
+      color: transparent;
+      @if $v-animations-enabled {
+        @include transition(color 100ms);
+      }
+    }
     
     &:active ~ label:after {
       @include v-valo-button-active-style($background-color: $background-color);
     }
     
     &:checked ~ label:after {
-      @include v-valo-checkbox-icon-style;
+      color: v-valo-selection-color($context: $background-color);
     }
-  }
 
-  & > label:before,
-  & > label:after {
-    content: "";
-    display: inline-block;
-    @include box-sizing(border-box);
-    width: round($unit-size/2);
-    height: round($unit-size/2);
-    position: absolute;
-    left: 0;
-    border-radius: min(round($unit-size/6), $v-border-radius);
-    color: v-valo-selection-color($context: $background-color);
-    font-size: round($v-font-size * 0.8 * ($unit-size/$v-unit-size));
-    text-align: center;
   }
-  
-  & > label:before {
-    @include v-valo-button-style($background-color: $background-color, $unit-size: $unit-size);
-    padding: 0;
-    height: round($unit-size/2);
-  }
-  
+    
   & > .v-icon,
   & > label .v-icon  {
     margin: 0 round($unit-size/6) 0 round($unit-size/12);
   }
+
 }

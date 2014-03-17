@@ -1,10 +1,10 @@
-@mixin v-valo-gradient($color, $style: $v-gradient-style, $depth: $v-gradient-depth, $fallback: null) {
+@mixin v-valo-gradient($color, $style: $v-gradient-style, $depth: $v-gradient-depth, $fallback: null, $direction: to bottom) {
   @if $color {
     @if $depth <= 0 {
       background: $fallback or $color;
     } @else {
       $color-stops: v-valo-gradient-color-stops($color, $style, $depth);
-      @include linear-gradient(to bottom, $color-stops);
+      @include linear-gradient($direction, $color-stops);
     }
   }
 }
