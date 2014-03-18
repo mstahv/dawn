@@ -32,6 +32,7 @@ import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.shared.ui.slider.SliderOrientation;
+import com.vaadin.themeviewer.ThemeViewer;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -81,19 +82,19 @@ public class ValoThemeUI extends UI implements Handler {
     @Override
     protected void init(VaadinRequest request) {
         getPage().setTitle("Valo Theme");
-        setContent(root);
+        // setContent(root);
+        //
+        // root.addComponent(commonParts());
+        //
+        // root.addComponent(components);
+        //
+        // components.addComponents(components(1), components(2), components(3),
+        // components(4), components(5));
+        // components.addStyleName("components-root");
+        //
+        // root.addComponentAsFirst(buildMenu());
 
-        root.addComponent(commonParts());
-
-        root.addComponent(components);
-
-        components.addComponents(components(1), components(2), components(3),
-                components(4), components(5));
-        components.addStyleName("components-root");
-
-        root.addComponentAsFirst(buildMenu());
-
-        // setContent(new ThemeViewer());
+        setContent(new ThemeViewer());
 
     }
 

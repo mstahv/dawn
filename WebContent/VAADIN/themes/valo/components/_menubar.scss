@@ -1,13 +1,120 @@
 @mixin v-valo-menubar ($primary-stylename: v-menubar) {
 	
+	$copy: $v-button-hover-style-enabled;
+	$v-button-hover-style-enabled: false;
+
+	.#{$primary-stylename} {
+		@include v-valo-button-common-properties;
+		@include v-valo-button-style;
+		padding: 0;
+	}
+
+	$v-button-hover-style-enabled: $copy;
+
+	.#{$primary-stylename}:active:after {
+		background: transparent;
+	}
+
+	.#{$primary-stylename} > .#{$primary-stylename}-menuitem {
+		@include v-valo-menubar-menuitem-style;
+	}
+
+	.v-disabled > .#{$primary-stylename}-menuitem:before {
+		display: none;
+	}
+
+	.#{$primary-stylename} > .#{$primary-stylename}-menuitem-selected {
+		@include v-valo-gradient($color: v-valo-selection-color());
+		box-shadow: v-valo-button-box-shadow($background-color: v-valo-selection-color());
+		text-shadow: v-valo-button-text-shadow($background-color: v-valo-selection-color());
+		color: v-valo-font-color(v-valo-selection-color());
+		$bc: v-valo-button-border-color($background-color: v-valo-selection-color());
+		border-color: $bc;
+
+		+ .#{$primary-stylename}-menuitem {
+			border-color: $bc;
+		}
+
+		&:hover:before {
+			background: none;
+		}
+	}
+
+	.#{$primary-stylename} .#{$primary-stylename}-submenu-indicator {
+		display: none;
+	}
+
 	.#{$primary-stylename}-popup {
 		@include v-valo-menubar-popup-style($primary-stylename);
+		//margin-top: -$v-selection-overlay-padding-vertical !important;
+		//margin-left: $v-selection-overlay-padding-horizontal !important;
 	}
 
 }
 
-@mixin v-valo-menubar-popup-style ($primary-stylename: v-menubar, $context-color: $v-app-background-color) {
-	@include v-valo-overlay-style($context-color: $context-color);
+
+
+
+@mixin v-valo-menubar-menuitem-style {
+	position: relative;
+	z-index: 1;
+	display: inline-block;
+	@include v-valo-button-size($v-unit-size, $v-border-radius);
+	height: $v-unit-size - $v-button-border-width*2;
+	border-left: $v-button-border-width solid;
+	border-color: inherit;
+	vertical-align: top;
+	line-height: $v-unit-size - $v-button-border-width*2 - 1px;
+	@extend %no-selection;
+
+	$br: $v-button-border-radius - $v-button-border-width;
+	&:first-child {
+		border-left: none;
+		border-radius: $br 0 0 $br;
+	}
+
+	&:last-child {
+		border-radius: 0 $br $br 0;
+	}
+
+	&:before {
+		content: "";
+		content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+	}
+
+	@if $v-button-hover-style-enabled {
+		&:hover:before {
+			@include v-valo-button-hover-style;
+			border: none;
+		}
+	}
+
+	&:active:before {
+		@include v-valo-button-active-style;
+	}
+
+	.v-icon {
+		$margin-width: ceil($v-unit-size/2.4/5);
+		margin: 0 $margin-width 0 #{-$margin-width};
+	}
+}
+
+
+
+
+
+@mixin v-valo-menubar-popup-style ($primary-stylename: v-menubar, $context: $v-app-background-color) {
+
+	$copy: $v-app-background-color;
+	$v-app-background-color: $context;
+
+	@include v-valo-selection-overlay-style;
+
 	margin: ceil($v-unit-size/8) 0 0 1px !important;
 
 	.#{$primary-stylename}-submenu {
@@ -16,11 +123,12 @@
 
 	.#{$primary-stylename}-menuitem {
 		display: block;
-		@include v-valo-selection-item;
+		@include v-valo-selection-item-style;
 	}
 
 	.#{$primary-stylename}-menuitem-selected {
-		@include v-valo-selection-item-selected;
+		@include v-valo-selection-item-selected-style;
 	}
 
+	$v-app-background-color: $copy;
 }

@@ -18,7 +18,8 @@
 			}
 		}
 
-		// Assume most components have borders
+		// Assume most components have borders. 
+		// This is just a best-guess, will need fine-tuning if border-widths vary from widget-to-widget
 		.v-widget {
 			@if $v-border-width > 0 {
 				margin-left: -$v-border-width;

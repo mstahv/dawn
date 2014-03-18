@@ -55,7 +55,7 @@
   }
   
   @if v-is-included(menubar) {
-    //@include v-valo-menubar;
+    @include v-valo-menubar;
   }
   
   @if v-is-included(optiongroup) {

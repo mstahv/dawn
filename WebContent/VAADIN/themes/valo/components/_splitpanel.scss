@@ -8,6 +8,10 @@ $v-splitpanel-splitter-size: round($v-unit-size/5) !default;
 	// Round to even number
 	$v-splitpanel-splitter-size: $v-splitpanel-splitter-size + $v-splitpanel-splitter-size%2;
 
+	.#{$primary-stylename} {
+		overflow: hidden;
+	}
+
 	.#{$primary-stylename}-hsplitter {
 		width: $v-splitpanel-splitter-size;
 	}

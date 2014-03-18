@@ -50,6 +50,6 @@ $v-tooltip-errormessage-background-color: #FF6854 !default;
 	font-size: $v-tooltip-font-size;
 
 	@if $v-animations-enabled {
-		@include v-valo-anim-fade-in;
+		//@include v-valo-anim-fade-in;
 	}
 }

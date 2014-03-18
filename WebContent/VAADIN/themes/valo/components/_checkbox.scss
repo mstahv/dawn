@@ -30,6 +30,7 @@
     margin: 0;
     
     &:focus ~ label:before {
+      @include v-valo-button-focus-style($background-color: $background-color);
       box-shadow: v-valo-button-box-shadow($background-color), v-valo-focus-box-shadow();
     }
 

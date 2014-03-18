@@ -6,7 +6,7 @@ $v-button-gradient-style: null !default;
 $v-button-gradient-depth: null !default;
 $v-button-shadow-style: null !default;
 $v-button-shadow-depth: null !default;
-$v-button-border-radius: null !default;
+$v-button-border-radius: $v-border-radius !default;
 $v-button-unit-size: null !default;
 
 // Simple properties have default values
@@ -35,6 +35,7 @@ $v-button-disabled-opacity: $v-disabled-opacity !default;
   font-weight: $v-button-font-weight;
   position: relative;
   text-align: center;
+  white-space: nowrap;
 
   // Generated element for :hover, :focus and :active styles
   &:after {
@@ -60,6 +61,10 @@ $v-button-disabled-opacity: $v-disabled-opacity !default;
     }
   }
 
+  @include v-valo-button-vertical-centering;
+}
+
+@mixin v-valo-button-vertical-centering {
   // Vertical centering of icon and caption, independent of the height of the button
   @include vertical-align-guide($to-align: div, $pseudo-element: before);
 
@@ -88,7 +93,7 @@ $v-button-disabled-opacity: $v-disabled-opacity !default;
   padding: 0 $padding-width;
 
   .v-icon {
-    margin: 0 ceil($padding-width/5)/-1;
+    margin: 0 ceil($padding-width/-5);
   }
 
   .v-icon + span:not(:empty) {
@@ -127,7 +132,6 @@ $v-button-disabled-opacity: $v-disabled-opacity !default;
   $bevel-style: $bevel-style or $v-bevel-style;
   $bevel-depth: $bevel-depth or $v-bevel-depth;
   $unit-size: $unit-size or $v-unit-size;
-  $border-radius: $border-radius or $v-border-radius;
   
   @include v-valo-button-size($unit-size, $border-radius);
 

@@ -180,7 +180,7 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
 @mixin v-valo-combobox-popup-style ($background-color: null) {
   
   .v-filterselect-suggestmenu {
-    @include v-valo-overlay-style($background-color: $background-color);
+    @include v-valo-selection-overlay-style($background-color: $background-color);
     box-sizing: border-box;
     position: relative;
     z-index: 1;
@@ -196,11 +196,11 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
   }
   
   .gwt-MenuItem {
-    @include v-valo-selection-item;
+    @include v-valo-selection-item-style;
   }
   
   .gwt-MenuItem-selected {
-    @include v-valo-selection-item-selected($parent-background-color: $background-color);
+    @include v-valo-selection-item-selected-style($parent-background-color: $background-color);
   }
 
   .v-filterselect-status {
