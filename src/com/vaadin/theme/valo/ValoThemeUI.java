@@ -32,7 +32,6 @@ import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.shared.ui.slider.SliderOrientation;
-import com.vaadin.themeviewer.ThemeViewer;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -42,8 +41,12 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Link;
+import com.vaadin.ui.MenuBar;
+import com.vaadin.ui.MenuBar.Command;
+import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.Panel;
@@ -57,10 +60,11 @@ import com.vaadin.ui.Tree;
 import com.vaadin.ui.Tree.TreeDragMode;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.VerticalSplitPanel;
 import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
-@Theme("valo")
+@Theme("valo-demo")
 @Title("Valo Theme")
 public class ValoThemeUI extends UI implements Handler {
 
@@ -82,19 +86,19 @@ public class ValoThemeUI extends UI implements Handler {
     @Override
     protected void init(VaadinRequest request) {
         getPage().setTitle("Valo Theme");
-        // setContent(root);
-        //
-        // root.addComponent(commonParts());
-        //
-        // root.addComponent(components);
-        //
-        // components.addComponents(components(1), components(2), components(3),
-        // components(4), components(5));
-        // components.addStyleName("components-root");
-        //
-        // root.addComponentAsFirst(buildMenu());
+        setContent(root);
 
-        setContent(new ThemeViewer());
+        root.addComponent(commonParts());
+
+        root.addComponent(components);
+
+        components.addComponents(components(1), components(2), components(3),
+                components(4), components(5));
+        components.addStyleName("components-root");
+
+        root.addComponentAsFirst(buildMenu());
+
+        // setContent(new ThemeViewer());
 
     }
 
@@ -719,6 +723,13 @@ public class ValoThemeUI extends UI implements Handler {
         row.addComponent(combo);
 
         /**
+         * Menu Bars
+         */
+        row = addSection(root, "Menu Bars", Category.Basic_Components, null);
+        row.setWidth("100%");
+        row.addComponent(getMenuBar());
+
+        /**
          * Split button
          */
         // row = addSection(
@@ -984,7 +995,7 @@ public class ValoThemeUI extends UI implements Handler {
         /**
          * Sliders
          */
-        row = addSection(root, "Slider", Category.Basic_Components, null);
+        row = addSection(root, "Sliders", Category.Basic_Components, null);
 
         Slider slider = new Slider("Horizontal");
         slider.setValue(50.0);
@@ -1010,6 +1021,22 @@ public class ValoThemeUI extends UI implements Handler {
         slider.setValue(50.0);
         slider.setEnabled(false);
         row.addComponent(slider);
+
+        /**
+         * Split panels
+         */
+        row = addSection(root, "Split Panels", Category.Component_Containers,
+                null);
+
+        HorizontalSplitPanel sp = new HorizontalSplitPanel();
+        sp.setWidth("100px");
+        sp.setHeight("120px");
+        row.addComponent(sp);
+
+        VerticalSplitPanel sp2 = new VerticalSplitPanel();
+        sp2.setWidth("100px");
+        sp2.setHeight("120px");
+        row.addComponent(sp2);
 
         return root;
     }
@@ -1130,4 +1157,81 @@ public class ValoThemeUI extends UI implements Handler {
         Notification.show(action.getCaption());
     }
 
+    MenuBar getMenuBar() {
+        MenuBar menubar = new MenuBar();
+        menubar.setWidth("100%");
+        final MenuBar.MenuItem file = menubar.addItem("File", null);
+        final MenuBar.MenuItem newItem = file.addItem("New", null);
+        file.addItem("Open file...", null);
+        file.addSeparator();
+
+        newItem.addItem("File", null);
+        newItem.addItem("Folder", null);
+        newItem.addItem("Project...", null);
+
+        file.addItem("Close", null);
+        file.addItem("Close All", null);
+        file.addSeparator();
+
+        file.addItem("Save", null);
+        file.addItem("Save As...", null);
+        file.addItem("Save All", null);
+
+        final MenuBar.MenuItem edit = menubar.addItem("Edit", null);
+        edit.addItem("Undo", null);
+        edit.addItem("Redo", null).setEnabled(false);
+        edit.addSeparator();
+
+        edit.addItem("Cut", null);
+        edit.addItem("Copy", null);
+        edit.addItem("Paste", null);
+        edit.addSeparator();
+
+        final MenuBar.MenuItem find = edit.addItem("Find/Replace", null);
+
+        find.addItem("Google Search", null);
+        find.addSeparator();
+        find.addItem("Find/Replace...", null);
+        find.addItem("Find Next", null);
+        find.addItem("Find Previous", null);
+
+        Command check = new Command() {
+            @Override
+            public void menuSelected(MenuItem selectedItem) {
+                // selectedItem.setChecked(!selectedItem.isChecked());
+                Notification.show(selectedItem.isChecked() ? "Checked"
+                        : "Unchecked");
+            }
+        };
+
+        final MenuBar.MenuItem view = menubar.addItem("View", null);
+        view.addItem("Show Status Bar", check).setCheckable(true);
+        MenuItem title = view.addItem("Show Title Bar", check);
+        title.setCheckable(true);
+        title.setChecked(true);
+        view.addItem("Customize Toolbar...", null);
+        view.addSeparator();
+
+        view.addItem("Actual Size", null);
+        view.addItem("Zoom In", null);
+        view.addItem("Zoom Out", null);
+
+        MenuItem fav = menubar.addItem("", check);
+        fav.setIcon(FontAwesome.HEART);
+        fav.setStyleName("icon");
+        fav.setCheckable(true);
+
+        fav = menubar.addItem("", check);
+        fav.setIcon(FontAwesome.RETWEET);
+        fav.setStyleName("icon");
+        fav.setCheckable(true);
+        fav.setCheckable(true);
+
+        menubar.addItem("Attach", null).setIcon(FontAwesome.PAPERCLIP);
+        menubar.addItem("Undo", null).setIcon(FontAwesome.UNDO);
+        menubar.addItem("Redo", null).setIcon(FontAwesome.REPEAT);
+        menubar.addItem("Upload", null).setIcon(FontAwesome.UPLOAD);
+
+        return menubar;
+    }
 }

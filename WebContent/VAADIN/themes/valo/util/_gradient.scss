@@ -4,6 +4,7 @@
       background: $fallback or $color;
     } @else {
       $color-stops: v-valo-gradient-color-stops($color, $style, $depth);
+      background-color: $color;
       @include linear-gradient($direction, $color-stops);
     }
   }

@@ -101,6 +101,7 @@ $v-selection-item-padding-horizontal: ceil($v-unit-size/4) !default;
 		background: #000;
 		@include opacity(.1);
 		pointer-events: none;
+		border-radius: inherit;
 	}
 
   .v-icon {

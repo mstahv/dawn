@@ -55,7 +55,7 @@ $v-luminance-threshold: 150 !default;
 @function v-valo-font-color ($bg-color) {
   @if $bg-color {
     @if is-dark-color($bg-color) {
-      @return scale_color($bg-color, $lightness: 80%, $saturation: -60%);
+      @return scale_color($bg-color, $lightness: 85%, $saturation: -50%);
     } @else {
       @return scale_color($bg-color, $lightness: -70%, $saturation: -50%);
     }
