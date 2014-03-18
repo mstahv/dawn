@@ -21,22 +21,13 @@ $v-slider-handle-size: round($v-unit-size/1.8) !default;
 	}
 
 	.#{$primary-stylename}-base {
+		@include v-valo-progressbar-track-style;
 		min-width: $v-unit-size * 5;
 		height: $v-slider-track-size;
 		margin: round(($v-unit-size - $v-slider-track-size)/2) round($v-slider-handle-size/2);
 		white-space: nowrap;
 		overflow: hidden;
 		border-radius: $v-border-radius;
-
-		&:before {
-			content: "";
-			position: absolute;
-			@include v-valo-progressbar-track-style;
-			height: $v-slider-track-size;
-			top: round(($v-unit-size - $v-slider-track-size)/2);
-			left: round($v-slider-handle-size/2);
-			right: round($v-slider-handle-size/2);
-		}
 
 		&:after {
 			@include v-valo-progressbar-indicator-style;
@@ -97,24 +88,16 @@ $v-slider-handle-size: round($v-unit-size/1.8) !default;
 		padding: round($v-slider-handle-size/2) 0;
 
 		.#{$primary-stylename}-base {
+			@include v-valo-gradient($color: darken($v-app-background-color, $v-bevel-depth/2), $style: linear-reverse, $direction: to right);
 			min-width: 0;
 			width: $v-slider-track-size;
 			height: 100% !important;
 			min-height: $v-unit-size * 5;
 			margin: 0 round(($v-unit-size - $v-slider-track-size)/2);
 
-			&:before {
-				@include v-valo-gradient($color: darken($v-app-background-color, $v-bevel-depth/2), $style: linear-reverse, $direction: to right);
-				min-width: 0;
-				width: inherit;
-				height: auto;
-				top: round($v-slider-handle-size/2);
-				bottom: round($v-slider-handle-size/2);
-				left: round(($v-unit-size - $v-slider-track-size)/2);
-			}
-
 			&:after {
 				margin-left: 0;
+				@include v-valo-gradient($color: v-valo-selection-color(), $direction: to right);
 			}
 		}
 
