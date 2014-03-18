@@ -124,11 +124,41 @@
 	.#{$primary-stylename}-menuitem {
 		display: block;
 		@include v-valo-selection-item-style;
+		position: relative;
+	}
+
+	.#{$primary-stylename}-submenu-indicator {
+		display: none;
+
+		+ .#{$primary-stylename}-menuitem-caption {
+			padding-right: $v-unit-size;
+			&:after {
+				position: absolute;
+				right: $v-selection-item-padding-horizontal;
+				@include v-valo-menubar-submenu-indicator-style;
+			}
+		}
 	}
 
 	.#{$primary-stylename}-menuitem-selected {
 		@include v-valo-selection-item-selected-style;
 	}
 
+	.#{$primary-stylename}-separator {
+		display: block;
+		margin: $v-selection-overlay-padding-vertical 0;
+		height: 0;
+		overflow: hidden;
+		border-bottom: 1px solid darken(v-valo-overlay-background-color(), 5%);
+	}
+
 	$v-app-background-color: $copy;
+}
+
+
+
+@mixin v-valo-menubar-submenu-indicator-style {
+	font-family: FontAwesome;
+	content: "\f054";
+	line-height: $v-selection-item-height + 2px;
 }

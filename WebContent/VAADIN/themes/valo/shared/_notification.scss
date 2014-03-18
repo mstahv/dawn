@@ -80,7 +80,11 @@
     }
     
     h1 ~ p {
-      margin-left: 1.5em;
+      margin-left: round($v-font-size * 1.5);
+    }
+    
+    .v-icon + h1 {
+      margin-left: round($v-font-size);
     }
 
     @include v-valo-notification-style;
@@ -115,8 +119,9 @@
   // Tray notification
 
   .v-Notification-tray {
+    text-align: left;
     h1 {
-      display: block;      
+      //display: block;      
     }
     
     h1 + p {

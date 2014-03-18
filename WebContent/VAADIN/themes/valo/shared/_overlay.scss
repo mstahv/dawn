@@ -9,8 +9,13 @@ $v-overlay-padding-horizontal: $v-overlay-padding !default;
 $v-selection-overlay-padding: $v-overlay-padding !default;
 $v-selection-overlay-padding-vertical: $v-selection-overlay-padding !default;
 $v-selection-overlay-padding-horizontal: $v-selection-overlay-padding !default;
-$v-selection-item-border-radius: $v-border-radius - 1px !default;
 
+$v-selection-item-border-radius: $v-border-radius - 1px !default;
+$v-selection-item-height: ceil($v-unit-size/1.4) !default;
+$v-selection-item-padding-horizontal: ceil($v-unit-size/4) !default;
+
+
+// Not needed in modern browsers. Reconsider for IE8
 .v-shadow,
 .v-shadow-window {
 	display: none;
@@ -78,8 +83,8 @@ $v-selection-item-border-radius: $v-border-radius - 1px !default;
 
 @mixin v-valo-selection-item-style {
 	cursor: pointer;
-	line-height: ceil($v-unit-size/1.4);
-	padding: 0 ceil($v-unit-size/4);
+	line-height: $v-selection-item-height;
+	padding: 0 $v-selection-item-padding-horizontal*2 0 $v-selection-item-padding-horizontal;
 	@if $v-selection-item-border-radius > 0 {
 		border-radius: $v-selection-item-border-radius;
 	}
@@ -99,8 +104,8 @@ $v-selection-item-border-radius: $v-border-radius - 1px !default;
 	}
 
   .v-icon {
-    max-height: ceil($v-unit-size/1.4);
-    margin-right: round($v-unit-size/4);
+    max-height: $v-selection-item-height;
+    margin-right: round($v-selection-item-padding-horizontal/2);
   }
 }
 
