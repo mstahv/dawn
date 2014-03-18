@@ -14,7 +14,7 @@
 @mixin v-valo-progressbar-track-style {
 	border-radius: $v-border-radius;
 	height: round($v-unit-size/4);
-	min-width: $v-unit-size * 5;
+	min-width: $v-unit-size * 2;
 	@include v-valo-gradient($color: darken($v-app-background-color, $v-bevel-depth/2), $style: linear-reverse);
 	box-shadow: v-valo-textfield-box-shadow();
 	@include box-sizing(border-box);

@@ -1,12 +1,16 @@
 $v-slider-track-size: round($v-unit-size/8) !default;
-$v-slider-handle-size: round($v-unit-size/1.8) !default;
+$v-slider-track-border-radius: $v-border-radius !default;
+$v-slider-handle-width: round($v-unit-size/1.8) !default;
+$v-slider-handle-height: round($v-unit-size/1.8) !default;
+$v-slider-handle-border-radius: ceil($v-slider-handle-width/2) !default;
 
 
 @mixin v-valo-slider ($primary-stylename: v-slider) {
 
 	// Round to an even number
 	$v-slider-track-size: $v-slider-track-size + $v-slider-track-size%2;
-	$v-slider-handle-size: $v-slider-handle-size + $v-slider-handle-size%2;
+	$v-slider-handle-width: $v-slider-handle-width + $v-slider-handle-width%2;
+	$v-slider-handle-height: $v-slider-handle-height + $v-slider-handle-height%2;
 
 	.#{$primary-stylename} {
 		position: relative;
@@ -22,15 +26,16 @@ $v-slider-handle-size: round($v-unit-size/1.8) !default;
 
 	.#{$primary-stylename}-base {
 		@include v-valo-progressbar-track-style;
-		min-width: $v-unit-size * 5;
+		min-width: $v-unit-size * 2;
 		height: $v-slider-track-size;
-		margin: round(($v-unit-size - $v-slider-track-size)/2) round($v-slider-handle-size/2);
+		margin: round(($v-unit-size - $v-slider-track-size)/2) round($v-slider-handle-width/2);
 		white-space: nowrap;
 		overflow: hidden;
-		border-radius: $v-border-radius;
+		border-radius: $v-slider-track-border-radius;
 
 		&:after {
 			@include v-valo-progressbar-indicator-style;
+			min-width: 0;
 			content: "";
 			display: inline-block;
 			position: relative;
@@ -42,7 +47,7 @@ $v-slider-handle-size: round($v-unit-size/1.8) !default;
 
 	.#{$primary-stylename}-handle {
 		margin-top: round(($v-unit-size - $v-slider-track-size)/-2);
-		width: 0;
+		width: .1px; // Firefox needs a non-zero value
 		display: inline-block;
 		vertical-align: top;
 
@@ -53,6 +58,9 @@ $v-slider-handle-size: round($v-unit-size/1.8) !default;
 		&:after {
 			@include v-valo-button-focus-style;
 			opacity: 0;
+			@if $v-animations-enabled {
+				@include transition(opacity 200ms);
+			}
 		}
 
 		&:before,
@@ -60,22 +68,18 @@ $v-slider-handle-size: round($v-unit-size/1.8) !default;
 			content: "";
 			@include box-sizing(border-box);
 			padding: 0;
-			width: $v-slider-handle-size;
-			height: $v-slider-handle-size;
-			border-radius: 50%;
+			width: $v-slider-handle-width;
+			height: $v-slider-handle-height;
+			border-radius: $v-slider-handle-border-radius;
 			position: absolute;
 			z-index: 1;
-			margin-top: round(($v-unit-size - $v-slider-handle-size)/2);
-			margin-left: round($v-slider-handle-size/-2);
+			margin-top: round(($v-unit-size - $v-slider-handle-height)/2);
+			margin-left: round($v-slider-handle-width/-2);
 		}
 	}
 
 	.#{$primary-stylename}-feedback {
-		border-radius: $v-border-radius;
-		background: rgba(#333, .8);
-		color: #fff;
-		padding: 0 round($v-unit-size/6);
-		box-shadow: 0 2px 5px 0 rgba(#000, .2);
+		@include v-valo-tooltip-style;
 	}
 
 
@@ -85,14 +89,15 @@ $v-slider-handle-size: round($v-unit-size/1.8) !default;
 
 
 	.#{$primary-stylename}-vertical {
-		padding: round($v-slider-handle-size/2) 0;
+		padding: round($v-slider-handle-width/2) 0;
+		height: $v-unit-size * 2; // Effectively min-height
 
 		.#{$primary-stylename}-base {
 			@include v-valo-gradient($color: darken($v-app-background-color, $v-bevel-depth/2), $style: linear-reverse, $direction: to right);
 			min-width: 0;
 			width: $v-slider-track-size;
 			height: 100% !important;
-			min-height: $v-unit-size * 5;
+			min-height: $v-unit-size * 2;
 			margin: 0 round(($v-unit-size - $v-slider-track-size)/2);
 
 			&:after {
@@ -102,14 +107,17 @@ $v-slider-handle-size: round($v-unit-size/1.8) !default;
 		}
 
 		.#{$primary-stylename}-handle {
-			height: 0;
+			width: 0;
+			height: .1px;
 			width: $v-unit-size;
 			display: block;
 
 			&:before,
 			&:after {
-				margin-top: round($v-slider-handle-size/-2);
-				margin-left: round(($v-slider-handle-size - $v-slider-track-size)/-2);
+				width: $v-slider-handle-height;
+				height: $v-slider-handle-width;
+				margin-top: round($v-slider-handle-width/-2);
+				margin-left: round(($v-slider-handle-height - $v-slider-track-size)/-2);
 			}
 		}
 	}

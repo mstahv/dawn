@@ -32,7 +32,6 @@ import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.shared.ui.slider.SliderOrientation;
-import com.vaadin.themeviewer.ThemeViewer;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -82,19 +81,19 @@ public class ValoThemeUI extends UI implements Handler {
     @Override
     protected void init(VaadinRequest request) {
         getPage().setTitle("Valo Theme");
-        // setContent(root);
-        //
-        // root.addComponent(commonParts());
-        //
-        // root.addComponent(components);
-        //
-        // components.addComponents(components(1), components(2), components(3),
-        // components(4), components(5));
-        // components.addStyleName("components-root");
-        //
-        // root.addComponentAsFirst(buildMenu());
+        setContent(root);
 
-        setContent(new ThemeViewer());
+        root.addComponent(commonParts());
+
+        root.addComponent(components);
+
+        components.addComponents(components(1), components(2), components(3),
+                components(4), components(5));
+        components.addStyleName("components-root");
+
+        root.addComponentAsFirst(buildMenu());
+
+        // setContent(new ThemeViewer());
 
     }
 
@@ -987,22 +986,27 @@ public class ValoThemeUI extends UI implements Handler {
         row = addSection(root, "Slider", Category.Basic_Components, null);
 
         Slider slider = new Slider("Horizontal");
+        slider.setValue(50.0);
         row.addComponent(slider);
 
         slider = new Slider("Horizontal, sized");
+        slider.setValue(50.0);
         slider.setWidth("200px");
         row.addComponent(slider);
 
         slider = new Slider("Vertical");
+        slider.setValue(50.0);
         slider.setOrientation(SliderOrientation.VERTICAL);
         row.addComponent(slider);
 
         slider = new Slider("Vertical, sized");
+        slider.setValue(50.0);
         slider.setOrientation(SliderOrientation.VERTICAL);
         slider.setHeight("200px");
         row.addComponent(slider);
 
         slider = new Slider("Disabled");
+        slider.setValue(50.0);
         slider.setEnabled(false);
         row.addComponent(slider);
 

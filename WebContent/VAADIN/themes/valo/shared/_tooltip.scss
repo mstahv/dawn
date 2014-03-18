@@ -10,6 +10,31 @@ $v-tooltip-errormessage-background-color: #FF6854 !default;
 @mixin v-valo-tooltip {
 	.v-tooltip {
 		@include v-valo-tooltip-style;
+
+		div[style*="width"] {
+			width: auto !important;
+		}
+
+		.v-errormessage {
+			background: $v-tooltip-errormessage-background-color;
+			margin: -$v-tooltip-padding-vertical #{-$v-tooltip-padding-horizontal} $v-tooltip-padding-vertical;
+			padding: $v-tooltip-padding-vertical $v-tooltip-padding-horizontal;
+			max-height: 10em;
+			overflow: auto;
+			font-weight: $v-font-weight + 100;
+		}
+
+		.v-tooltip-text {
+			max-height: 10em;
+			overflow: auto;
+		}
+
+		h1,
+		h2,
+		h3,
+		h4 {
+			color: inherit;
+		}
 	}
 }
 
@@ -24,28 +49,7 @@ $v-tooltip-errormessage-background-color: #FF6854 !default;
 	overflow: hidden !important;
 	font-size: $v-tooltip-font-size;
 
-	div[style*="width"] {
-		width: auto !important;
-	}
-
-	.v-errormessage {
-		background: $v-tooltip-errormessage-background-color;
-		margin: -$v-tooltip-padding-vertical #{-$v-tooltip-padding-horizontal} $v-tooltip-padding-vertical;
-		padding: $v-tooltip-padding-vertical $v-tooltip-padding-horizontal;
-		max-height: 10em;
-		overflow: auto;
-		font-weight: $v-font-weight + 100;
-	}
-
-	.v-tooltip-text {
-		max-height: 10em;
-		overflow: auto;
-	}
-
-	h1,
-	h2,
-	h3,
-	h4 {
-		color: inherit;
+	@if $v-animations-enabled {
+		@include v-valo-anim-fade-in;
 	}
 }
