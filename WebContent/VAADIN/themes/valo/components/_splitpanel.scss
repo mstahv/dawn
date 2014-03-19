@@ -36,8 +36,10 @@ $v-splitpanel-splitter-size: round($v-unit-size/5) !default;
 			width: $v-unit-size;
 			height: 0;
 			border: 1px solid;
-			$border-color1: scale-color($v-app-background-color, $lightness: -$v-bevel-depth, $saturation: -$v-bevel-depth/2);
-			$border-color2: scale-color($v-app-background-color, $lightness: -$v-bevel-depth/2, $saturation: -$v-bevel-depth/4);
+			$color: $v-button-background-color or $v-app-background-color;
+			$shade: max($v-bevel-depth, 10%);
+			$border-color1: scale-color($color, $lightness: -$shade, $saturation: -$shade/2);
+			$border-color2: scale-color($color, $lightness: -$shade/2, $saturation: -$shade/4);
 			border-color: $border-color1 $border-color2 $border-color2 $border-color1;
 			position: absolute;
 			top: 50%;
@@ -54,7 +56,8 @@ $v-splitpanel-splitter-size: round($v-unit-size/5) !default;
 	.#{$primary-stylename}-hsplitter div {
 		cursor: e-resize;
 		cursor: col-resize;
-		@include v-valo-gradient($color: $v-app-background-color, $direction: to right);
+		$color: $v-button-background-color or $v-app-background-color;
+		@include v-valo-gradient($color: $color, $direction: to right);
 
 		&:before {
 			width: 0;
@@ -69,6 +72,22 @@ $v-splitpanel-splitter-size: round($v-unit-size/5) !default;
 
 		&:before {
 			display: none;
+		}
+	}
+
+	// Allow undefined/auto height for horizontal split
+
+	.#{$primary-stylename}-horizontal {
+		.#{$primary-stylename}-second-container {
+		  position: static !important;
+		  display: inline-block;
+		  margin-left: $v-splitpanel-splitter-size; /* Match to the width of the splitter element */
+		  vertical-align: top;
+		}
+
+		.#{$primary-stylename}-first-container {
+		  display: inline-block;
+		  vertical-align: top;
 		}
 	}
 

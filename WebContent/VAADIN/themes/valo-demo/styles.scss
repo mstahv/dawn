@@ -52,7 +52,7 @@ body {
     }
   }
   
-  @include variants;
+  //@include variants;
 
   .v-button-primary {
     @include v-valo-button-style($background-color: $color3);

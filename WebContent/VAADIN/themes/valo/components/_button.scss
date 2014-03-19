@@ -185,8 +185,8 @@ $v-button-disabled-opacity: $v-disabled-opacity !default;
 
 
 @mixin v-valo-button-active-style ($background-color: $v-app-background-color) {
-  $bg: blend-multiply(black(.5), $background-color);
-  background-color: transparentize($bg, .9);
+  $bg: scale-color($background-color, $lightness: -25%);
+  background-color: rgba($bg, .15);
   
   .v-ie8 & {
     background-color: $bg;
@@ -197,8 +197,8 @@ $v-button-disabled-opacity: $v-disabled-opacity !default;
 
 
 @mixin v-valo-button-hover-style ($background-color: $v-app-background-color) {
-  $bg: blend-overlay(white(.5), $background-color);
-  background-color: transparentize($bg, .8);
+  $bg: lighten($background-color, 15%);
+  background-color: rgba($bg, .1);
   border: inherit;
   
   @if $v-animations-enabled {

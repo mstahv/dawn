@@ -20,6 +20,9 @@
 		overflow: hidden;
 	}
 
+	.#{$primary-stylename}-caption-container-align-right {
+		text-align: right;
+	}
 
 	.#{$primary-stylename}-header td,
 	.#{$primary-stylename}-footer td,

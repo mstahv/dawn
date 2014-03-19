@@ -15,7 +15,7 @@
 	border-radius: $v-border-radius;
 	height: round($v-unit-size/4);
 	min-width: $v-unit-size * 2;
-	@include v-valo-gradient($color: scale-color($v-app-background-color, $lightness: min($v-bevel-depth/-2, -5%), $saturation: $v-bevel-depth/-2), $style: linear-reverse);
+	@include v-valo-gradient($color: scale-color($v-app-background-color, $lightness: min($v-bevel-depth/-2, -10%), $saturation: $v-bevel-depth/-2), $style: linear-reverse);
 	box-shadow: v-valo-textfield-box-shadow();
 	@include box-sizing(border-box);
 }

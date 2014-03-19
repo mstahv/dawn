@@ -20,6 +20,7 @@ import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.event.Action;
 import com.vaadin.event.Action.Handler;
 import com.vaadin.server.ExternalResource;
@@ -83,13 +84,41 @@ public class ValoThemeUI extends UI implements Handler {
         Common, Basic_Components, Component_Containers, Selection_Components, Inputs, Feedback, Other
     }
 
+    IndexedContainer tableData = new IndexedContainer();
+
     @Override
     protected void init(VaadinRequest request) {
+        baconDataSet = new BaconDataSet();
+        MockupFactory.setDefaultDataSet(baconDataSet);
+        container = new MockupContainer();
+        container.setDataSet(baconDataSet);
+        container.setItemCount(200);
+        container.setPropertyCount(3);
+        container.setNumberOfChildren(4);
+        container.setItemDelay(0);
+        Collection<Integer> itemIds = container.getItemIds();
+        firstItemId = itemIds.iterator().next();
+
+        tableData.addContainerProperty("Lorem", String.class, null);
+        tableData.addContainerProperty("Foo", String.class, null);
+        tableData.addContainerProperty("Bar", String.class, null);
+        for (int i = 0; i < 200; i++) {
+            Object addItem = tableData.addItem();
+            tableData.getItem(addItem).getItemProperty("Lorem")
+                    .setValue(baconDataSet.nextValue());
+            tableData.getItem(addItem).getItemProperty("Foo")
+                    .setValue(baconDataSet.nextValue());
+            tableData.getItem(addItem).getItemProperty("Bar")
+                    .setValue(baconDataSet.nextValue());
+        }
+
         getPage().setTitle("Valo Theme");
         setContent(root);
+        root.setWidth("100%");
 
-        root.addComponent(commonParts());
+        // root.addComponent(commonParts());
 
+        components.setWidth("100%");
         root.addComponent(components);
 
         components.addComponents(components(1), components(2), components(3),
@@ -433,44 +462,487 @@ public class ValoThemeUI extends UI implements Handler {
         root.addStyleName("components");
         root.addStyleName("color-context" + num);
 
-        /**
-         * Labels
-         */
-        addSection(root, "Labels", Category.Basic_Components, null);
+        // labels(root);
+        // buttonsAndLinks(root);
+        // textfields(root);
+        // textareas(root);
+        // comboboxes(root);
+        // menubars(root);
+        // splitbuttons(root);
+        // checkboxes(root);
+        // optiongroups(root);
+        // datefields(root);
+        // panels(root);
+        // trees(root);
+        tables(root);
+        // sliders(root);
+        // splitpanels(root);
 
-        Label large = new Label(
-                "Large type for introductory text. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu.");
-        large.addStyleName("large");
-        root.addComponent(large);
+        return root;
+    }
 
-        Label h2 = new Label("Subtitle");
-        h2.addStyleName("h2");
-        root.addComponent(h2);
+    void splitpanels(final VerticalLayout root) {
+        HorizontalLayout row;
+        row = addSection(root, "Split Panels", Category.Component_Containers,
+                null);
 
-        Label normal = new Label(
-                "Normal type for plain text. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu.");
-        root.addComponent(normal);
+        HorizontalSplitPanel sp = new HorizontalSplitPanel();
+        sp.setWidth("100px");
+        sp.setHeight("120px");
+        row.addComponent(sp);
 
-        Label h3 = new Label("Small Title");
-        h3.addStyleName("h3");
-        root.addComponent(h3);
+        VerticalSplitPanel sp2 = new VerticalSplitPanel();
+        sp2.setWidth("100px");
+        sp2.setHeight("120px");
+        row.addComponent(sp2);
+    }
 
-        Label small = new Label(
-                "Small type for additional text. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu.");
-        small.addStyleName("small");
-        root.addComponent(small);
+    void sliders(final VerticalLayout root) {
+        HorizontalLayout row;
+        row = addSection(root, "Sliders", Category.Basic_Components, null);
 
-        Label h4 = new Label("Section Title");
-        h4.addStyleName("h4");
-        root.addComponent(h4);
+        Slider slider = new Slider("Horizontal");
+        slider.setValue(50.0);
+        row.addComponent(slider);
 
-        normal = new Label(
-                "Normal type for plain text. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu.");
-        root.addComponent(normal);
+        slider = new Slider("Horizontal, sized");
+        slider.setValue(50.0);
+        slider.setWidth("200px");
+        row.addComponent(slider);
 
-        /**
-         * Buttons
-         */
+        slider = new Slider("Vertical");
+        slider.setValue(50.0);
+        slider.setOrientation(SliderOrientation.VERTICAL);
+        row.addComponent(slider);
+
+        slider = new Slider("Vertical, sized");
+        slider.setValue(50.0);
+        slider.setOrientation(SliderOrientation.VERTICAL);
+        slider.setHeight("200px");
+        row.addComponent(slider);
+
+        slider = new Slider("Disabled");
+        slider.setValue(50.0);
+        slider.setEnabled(false);
+        row.addComponent(slider);
+    }
+
+    void tables(final VerticalLayout root) {
+        HorizontalLayout row;
+        row = addSection(root, "Table", Category.Selection_Components, null);
+        row.setWidth("100%");
+
+        VerticalLayout wrap = new VerticalLayout();
+        wrap.setSpacing(true);
+        row.addComponent(wrap);
+
+        Table table = getTable("Normal");
+        wrap.addComponent(table);
+
+        table = getTable("Sized & Footer");
+        table.setWidth("100%");
+        table.setColumnExpandRatio("Lorem", 1.0f);
+        table.setColumnExpandRatio("Foo", 1.0f);
+        table.setColumnExpandRatio("Bar", 1.0f);
+        table.setFooterVisible(true);
+        table.setColumnFooter("Lorem", "lorem");
+        table.setColumnFooter("Foo", "foo");
+        table.setColumnFooter("Bar", "bar");
+        wrap.addComponent(table);
+    }
+
+    void trees(final VerticalLayout root) {
+        HorizontalLayout row;
+        row = addSection(root, "Tree", Category.Selection_Components, null);
+        Tree tree = new Tree();
+        tree.setSelectable(true);
+        tree.setContainerDataSource(container);
+        tree.setDragMode(TreeDragMode.NODE);
+        row.addComponent(tree);
+        Iterator<String> propertyIterator = container.getContainerPropertyIds()
+                .iterator();
+        if (propertyIterator.hasNext()) {
+            Object captionId = propertyIterator.next();
+            tree.setItemCaptionPropertyId(captionId);
+        }
+        tree.expandItem(firstItemId);
+        tree.select(firstItemId);
+        tree.setItemIcon(firstItemId, FontAwesome.CODE_FORK);
+
+        // Add actions (context menu)
+        tree.addActionHandler(this);
+    }
+
+    void panels(final VerticalLayout root) {
+        HorizontalLayout row;
+        row = addSection(root, "Panels & Layout Panels",
+                Category.Component_Containers, null);
+        Panel panel = new Panel("Normal");
+        panel.setContent(panelContent());
+        row.addComponent(panel);
+
+        panel = new Panel("Sized");
+        panel.setWidth("10em");
+        panel.setHeight("8em");
+        panel.setContent(panelContent());
+        row.addComponent(panel);
+
+        panel = new Panel("Custom Color");
+        panel.addStyleName("important");
+        panel.setContent(panelContent());
+        row.addComponent(panel);
+
+        panel = new Panel("Testing for IE");
+        panel.addStyleName("custom");
+        panel.setWidth("10em");
+        panel.setHeight("8em");
+        VerticalLayout l = new VerticalLayout();
+        l.setSizeFull();
+        Button test1 = new Button("Test 1");
+        test1.setSizeFull();
+        Button test2 = new Button("Test 2");
+        l.addComponent(test1);
+        l.addComponent(test2);
+        l.setExpandRatio(test1, 1.0f);
+        panel.setContent(l);
+        row.addComponent(panel);
+    }
+
+    void datefields(final VerticalLayout root) {
+        HorizontalLayout row;
+        row = addSection(root, "Date Fields", Category.Inputs, null);
+        DateField date = new DateField("Second resolution");
+        date.setValue(new Date());
+        date.setResolution(Resolution.SECOND);
+        row.addComponent(date);
+
+        date = new DateField("Minute resolution");
+        date.setValue(new Date());
+        date.setResolution(Resolution.MINUTE);
+        row.addComponent(date);
+
+        date = new DateField("Hour resolution");
+        date.setValue(new Date());
+        date.setResolution(Resolution.HOUR);
+        row.addComponent(date);
+
+        date = new DateField("Disabled");
+        date.setValue(new Date());
+        date.setResolution(Resolution.HOUR);
+        date.setEnabled(false);
+        row.addComponent(date);
+
+        date = new DateField("Day resolution");
+        date.setValue(new Date());
+        date.setResolution(Resolution.DAY);
+        row.addComponent(date);
+
+        date = new DateField("Month resolution");
+        date.setValue(new Date());
+        date.setResolution(Resolution.MONTH);
+        row.addComponent(date);
+
+        date = new DateField("Year resolution");
+        date.setValue(new Date());
+        date.setResolution(Resolution.YEAR);
+        row.addComponent(date);
+
+        date = new DateField("Custom color");
+        date.setValue(new Date());
+        date.setResolution(Resolution.DAY);
+        date.addStyleName("color1");
+        row.addComponent(date);
+
+        date = new DateField("Custom color");
+        date.setValue(new Date());
+        date.setResolution(Resolution.DAY);
+        date.addStyleName("color2");
+        row.addComponent(date);
+
+        date = new DateField("Custom color");
+        date.setValue(new Date());
+        date.setResolution(Resolution.DAY);
+        date.addStyleName("color3");
+        row.addComponent(date);
+
+        date = new DateField("Small");
+        date.setValue(new Date());
+        date.setResolution(Resolution.DAY);
+        date.addStyleName("small");
+        row.addComponent(date);
+
+        date = new DateField("Large");
+        date.setValue(new Date());
+        date.setResolution(Resolution.DAY);
+        date.addStyleName("large");
+        row.addComponent(date);
+
+        date = new DateField("Week numbers");
+        date.setValue(new Date());
+        date.setResolution(Resolution.DAY);
+        date.setLocale(new Locale("fi", "fi"));
+        date.setShowISOWeekNumbers(true);
+        row.addComponent(date);
+
+        date = new DateField("US locale");
+        date.setValue(new Date());
+        date.setResolution(Resolution.SECOND);
+        date.setLocale(new Locale("en", "US"));
+        row.addComponent(date);
+
+        date = new DateField("Custom format");
+        date.setValue(new Date());
+        date.setDateFormat("E dd/MM/yyyy");
+        row.addComponent(date);
+    }
+
+    void optiongroups(final VerticalLayout root) {
+        HorizontalLayout row;
+        row = addSection(root, "Option Groups", Category.Selection_Components,
+                null);
+
+        OptionGroup options = new OptionGroup("Choose one");
+        options.addItem("Option One");
+        options.addItem("Option Two");
+        options.addItem("Option Three");
+        options.select("Option One");
+        options.setItemIcon("Option One", FontAwesome.DESKTOP);
+        options.setItemIcon("Option Two", FontAwesome.KEYBOARD_O);
+        options.setItemIcon("Option Three", FontAwesome.GAMEPAD);
+        row.addComponent(options);
+
+        options = new OptionGroup("Choose many");
+        options.setMultiSelect(true);
+        options.addItem("Option One");
+        options.addItem("Option Two");
+        options.addItem("Option Three");
+        options.select("Option One");
+        options.setItemIcon("Option One", FontAwesome.DESKTOP);
+        options.setItemIcon("Option Two", FontAwesome.KEYBOARD_O);
+        options.setItemIcon("Option Three", FontAwesome.GAMEPAD);
+        row.addComponent(options);
+    }
+
+    void checkboxes(final VerticalLayout root) {
+        HorizontalLayout row;
+        row = addSection(root, "Check Boxes", Category.Inputs, null);
+
+        CheckBox check = new CheckBox("Checked", true);
+        row.addComponent(check);
+
+        check = new CheckBox("Not checked");
+        row.addComponent(check);
+
+        check = new CheckBox(null, true);
+        check.setDescription("No caption");
+        row.addComponent(check);
+
+        check = new CheckBox("Custom color", true);
+        check.addStyleName("color1");
+        row.addComponent(check);
+
+        check = new CheckBox("Custom color", true);
+        check.addStyleName("color2");
+        check.setIcon(FontAwesome.DESKTOP);
+        row.addComponent(check);
+
+        check = new CheckBox("With Icon", true);
+        check.setIcon(FontAwesome.KEYBOARD_O);
+        row.addComponent(check);
+
+        check = new CheckBox();
+        check.setIcon(FontAwesome.GAMEPAD);
+        row.addComponent(check);
+
+        check = new CheckBox("Small", true);
+        check.addStyleName("small");
+        row.addComponent(check);
+
+        check = new CheckBox("Large", true);
+        check.addStyleName("large");
+        row.addComponent(check);
+    }
+
+    void splitbuttons(final VerticalLayout root) {
+        HorizontalLayout row;
+        row = addSection(
+                root,
+                "SplitButton",
+                Category.Other,
+                "This is a custom composite component, extending CssLayout and containing a Button and a MenuBar. Theme mixins are used to style the MenuBar to look like a Button.");
+
+        SplitButton split = new SplitButton("Main Option");
+        split.addMenuItem("Alternative Option", null);
+        split.addMenuItem("Second Alternative Option", null);
+        split.addMenuItem("Option Three", null);
+        row.addComponent(split);
+    }
+
+    void menubars(final VerticalLayout root) {
+        HorizontalLayout row;
+        row = addSection(root, "Menu Bars", Category.Basic_Components, null);
+        row.setWidth("100%");
+        row.addComponent(getMenuBar());
+    }
+
+    void comboboxes(final VerticalLayout root) {
+        HorizontalLayout row;
+        row = addSection(root, "Combo Boxes", Category.Selection_Components,
+                null);
+
+        ComboBox combo = new ComboBox("Normal");
+        combo.setInputPrompt("You can type here");
+        for (int i = 1; i <= 200; i++) {
+            combo.addItem("Option " + i);
+        }
+        combo.setItemIcon("Option 1", FontAwesome.FILM);
+        row.addComponent(combo);
+
+        combo = new ComboBox("Disabled");
+        combo.setInputPrompt("You can type here");
+        combo.addItem("Option One");
+        combo.addItem("Option Two");
+        combo.addItem("Option Three");
+        combo.setEnabled(false);
+        row.addComponent(combo);
+
+        combo = new ComboBox("Custom color");
+        combo.setInputPrompt("You can type here");
+        for (int i = 1; i <= 200; i++) {
+            combo.addItem("Option " + i);
+        }
+        combo.addStyleName("color1");
+        row.addComponent(combo);
+
+        combo = new ComboBox("Custom color");
+        combo.setInputPrompt("You can type here");
+        for (int i = 1; i <= 200; i++) {
+            combo.addItem("Option " + i);
+        }
+        combo.addStyleName("color2");
+        row.addComponent(combo);
+
+        combo = new ComboBox("Custom color");
+        combo.setInputPrompt("You can type here");
+        for (int i = 1; i <= 200; i++) {
+            combo.addItem("Option " + i);
+        }
+        combo.addStyleName("color3");
+        row.addComponent(combo);
+
+        combo = new ComboBox("Small");
+        combo.setInputPrompt("You can type here");
+        combo.addItem("Option One");
+        combo.addItem("Option Two");
+        combo.addItem("Option Three");
+        combo.addStyleName("small");
+        row.addComponent(combo);
+
+        combo = new ComboBox("Large");
+        combo.setInputPrompt("You can type here");
+        combo.addItem("Option One");
+        combo.addItem("Option Two");
+        combo.addItem("Option Three");
+        combo.addStyleName("large");
+        row.addComponent(combo);
+    }
+
+    void textareas(final VerticalLayout root) {
+        HorizontalLayout row;
+        row = addSection(root, "Text Areas", Category.Inputs, null);
+
+        TextArea ta = new TextArea("Normal");
+        ta.setInputPrompt("Write your comment…");
+        row.addComponent(ta);
+
+        ta = new TextArea("Focused");
+        ta.setInputPrompt("Write your comment…");
+        ta.addStyleName("focused");
+        row.addComponent(ta);
+
+        ta = new TextArea("Custom color");
+        ta.addStyleName("color1");
+        ta.setInputPrompt("Write your comment…");
+        row.addComponent(ta);
+
+        ta = new TextArea("Custom color");
+        ta.addStyleName("color2");
+        ta.setInputPrompt("Write your comment…");
+        row.addComponent(ta);
+
+        ta = new TextArea("Custom color");
+        ta.addStyleName("color3");
+        ta.setInputPrompt("Write your comment…");
+        row.addComponent(ta);
+
+        ta = new TextArea("Small");
+        ta.addStyleName("small");
+        ta.setInputPrompt("Write your comment…");
+        row.addComponent(ta);
+
+        ta = new TextArea("Large");
+        ta.addStyleName("large");
+        ta.setInputPrompt("Write your comment…");
+        row.addComponent(ta);
+    }
+
+    void textfields(final VerticalLayout root) {
+        HorizontalLayout row = addSection(root, "Text Fields", Category.Inputs,
+                null);
+
+        TextField tf = new TextField("Normal");
+        tf.setInputPrompt("First name");
+        row.addComponent(tf);
+
+        tf = new TextField("Focused");
+        tf.setInputPrompt("Last name");
+        tf.addStyleName("focused");
+        row.addComponent(tf);
+
+        tf = new TextField("Custom color");
+        tf.setInputPrompt("Email");
+        tf.addStyleName("color1");
+        row.addComponent(tf);
+
+        tf = new TextField("User Color");
+        tf.setInputPrompt("Gender");
+        tf.addStyleName("color2");
+        row.addComponent(tf);
+
+        tf = new TextField("Themed");
+        tf.setInputPrompt("Age");
+        tf.addStyleName("color3");
+        row.addComponent(tf);
+
+        tf = new TextField("Read-only");
+        tf.setInputPrompt("Nationality");
+        tf.setValue("Finnish");
+        tf.setReadOnly(true);
+        row.addComponent(tf);
+
+        tf = new TextField("Small");
+        tf.setValue("Field value");
+        tf.addStyleName("small");
+        row.addComponent(tf);
+
+        tf = new TextField("Large");
+        tf.setValue("Field value");
+        tf.addStyleName("large");
+        row.addComponent(tf);
+
+        CssLayout group = new CssLayout();
+        group.addStyleName("v-component-group");
+        row.addComponent(group);
+
+        tf = new TextField();
+        tf.setInputPrompt("Grouped with a button");
+        group.addComponent(tf);
+
+        Button button = new Button("Do It");
+        group.addComponent(button);
+    }
+
+    void buttonsAndLinks(final VerticalLayout root) {
         HorizontalLayout row = addSection(root, "Buttons",
                 Category.Basic_Components, null);
 
@@ -564,481 +1036,40 @@ public class ValoThemeUI extends UI implements Handler {
         link = new Link(null, new ExternalResource("https://vaadin.com"));
         link.setIcon(FontAwesome.ANCHOR);
         row.addComponent(link);
-
-        /**
-         * Text fields
-         */
-        row = addSection(root, "Text Fields", Category.Inputs, null);
-
-        TextField tf = new TextField("Normal");
-        tf.setInputPrompt("First name");
-        row.addComponent(tf);
-
-        tf = new TextField("Focused");
-        tf.setInputPrompt("Last name");
-        tf.addStyleName("focused");
-        row.addComponent(tf);
-
-        tf = new TextField("Custom color");
-        tf.setInputPrompt("Email");
-        tf.addStyleName("color1");
-        row.addComponent(tf);
-
-        tf = new TextField("User Color");
-        tf.setInputPrompt("Gender");
-        tf.addStyleName("color2");
-        row.addComponent(tf);
-
-        tf = new TextField("Themed");
-        tf.setInputPrompt("Age");
-        tf.addStyleName("color3");
-        row.addComponent(tf);
-
-        tf = new TextField("Read-only");
-        tf.setInputPrompt("Nationality");
-        tf.setValue("Finnish");
-        tf.setReadOnly(true);
-        row.addComponent(tf);
-
-        tf = new TextField("Small");
-        tf.setValue("Field value");
-        tf.addStyleName("small");
-        row.addComponent(tf);
-
-        tf = new TextField("Large");
-        tf.setValue("Field value");
-        tf.addStyleName("large");
-        row.addComponent(tf);
-
-        group = new CssLayout();
-        group.addStyleName("v-component-group");
-        row.addComponent(group);
-
-        tf = new TextField();
-        tf.setInputPrompt("Grouped with a button");
-        group.addComponent(tf);
-
-        button = new Button("Do It");
-        group.addComponent(button);
-
-        /**
-         * Text areas
-         */
-        row = addSection(root, "Text Areas", Category.Inputs, null);
-
-        TextArea ta = new TextArea("Normal");
-        ta.setInputPrompt("Write your comment…");
-        row.addComponent(ta);
-
-        ta = new TextArea("Focused");
-        ta.setInputPrompt("Write your comment…");
-        ta.addStyleName("focused");
-        row.addComponent(ta);
-
-        ta = new TextArea("Custom color");
-        ta.addStyleName("color1");
-        ta.setInputPrompt("Write your comment…");
-        row.addComponent(ta);
-
-        ta = new TextArea("Custom color");
-        ta.addStyleName("color2");
-        ta.setInputPrompt("Write your comment…");
-        row.addComponent(ta);
-
-        ta = new TextArea("Custom color");
-        ta.addStyleName("color3");
-        ta.setInputPrompt("Write your comment…");
-        row.addComponent(ta);
-
-        ta = new TextArea("Small");
-        ta.addStyleName("small");
-        ta.setInputPrompt("Write your comment…");
-        row.addComponent(ta);
-
-        ta = new TextArea("Large");
-        ta.addStyleName("large");
-        ta.setInputPrompt("Write your comment…");
-        row.addComponent(ta);
-
-        /**
-         * Combo boxes
-         */
-        row = addSection(root, "Combo Boxes", Category.Selection_Components,
-                null);
-
-        ComboBox combo = new ComboBox("Normal");
-        combo.setInputPrompt("You can type here");
-        for (int i = 1; i <= 200; i++) {
-            combo.addItem("Option " + i);
-        }
-        combo.setItemIcon("Option 1", FontAwesome.FILM);
-        row.addComponent(combo);
-
-        combo = new ComboBox("Disabled");
-        combo.setInputPrompt("You can type here");
-        combo.addItem("Option One");
-        combo.addItem("Option Two");
-        combo.addItem("Option Three");
-        combo.setEnabled(false);
-        row.addComponent(combo);
-
-        combo = new ComboBox("Custom color");
-        combo.setInputPrompt("You can type here");
-        for (int i = 1; i <= 200; i++) {
-            combo.addItem("Option " + i);
-        }
-        combo.addStyleName("color1");
-        row.addComponent(combo);
-
-        combo = new ComboBox("Custom color");
-        combo.setInputPrompt("You can type here");
-        for (int i = 1; i <= 200; i++) {
-            combo.addItem("Option " + i);
-        }
-        combo.addStyleName("color2");
-        row.addComponent(combo);
-
-        combo = new ComboBox("Custom color");
-        combo.setInputPrompt("You can type here");
-        for (int i = 1; i <= 200; i++) {
-            combo.addItem("Option " + i);
-        }
-        combo.addStyleName("color3");
-        row.addComponent(combo);
-
-        combo = new ComboBox("Small");
-        combo.setInputPrompt("You can type here");
-        combo.addItem("Option One");
-        combo.addItem("Option Two");
-        combo.addItem("Option Three");
-        combo.addStyleName("small");
-        row.addComponent(combo);
-
-        combo = new ComboBox("Large");
-        combo.setInputPrompt("You can type here");
-        combo.addItem("Option One");
-        combo.addItem("Option Two");
-        combo.addItem("Option Three");
-        combo.addStyleName("large");
-        row.addComponent(combo);
-
-        /**
-         * Menu Bars
-         */
-        row = addSection(root, "Menu Bars", Category.Basic_Components, null);
-        row.setWidth("100%");
-        row.addComponent(getMenuBar());
-
-        /**
-         * Split button
-         */
-        // row = addSection(
-        // root,
-        // "SplitButton",
-        // Category.Other,
-        // "This is a custom composite component, extending CssLayout and containing a Button and a MenuBar. Theme mixins are used to style the MenuBar to look like a Button.");
-        //
-        // SplitButton split = new SplitButton("Main Option");
-        // split.addMenuItem("Alternative Option", null);
-        // split.addMenuItem("Second Alternative Option", null);
-        // split.addMenuItem("Option Three", null);
-        // row.addComponent(split);
-
-        /**
-         * Check boxes
-         */
-        row = addSection(root, "Check Boxes", Category.Inputs, null);
-
-        CheckBox check = new CheckBox("Checked", true);
-        row.addComponent(check);
-
-        check = new CheckBox("Not checked");
-        row.addComponent(check);
-
-        check = new CheckBox(null, true);
-        check.setDescription("No caption");
-        row.addComponent(check);
-
-        check = new CheckBox("Custom color", true);
-        check.addStyleName("color1");
-        row.addComponent(check);
-
-        check = new CheckBox("Custom color", true);
-        check.addStyleName("color2");
-        check.setIcon(FontAwesome.DESKTOP);
-        row.addComponent(check);
-
-        check = new CheckBox("With Icon", true);
-        check.setIcon(FontAwesome.KEYBOARD_O);
-        row.addComponent(check);
-
-        check = new CheckBox();
-        check.setIcon(FontAwesome.GAMEPAD);
-        row.addComponent(check);
-
-        check = new CheckBox("Small", true);
-        check.addStyleName("small");
-        row.addComponent(check);
-
-        check = new CheckBox("Large", true);
-        check.addStyleName("large");
-        row.addComponent(check);
-
-        /**
-         * Option groups
-         */
-        row = addSection(root, "Option Groups", Category.Selection_Components,
-                null);
-
-        OptionGroup options = new OptionGroup("Choose one");
-        options.addItem("Option One");
-        options.addItem("Option Two");
-        options.addItem("Option Three");
-        options.select("Option One");
-        options.setItemIcon("Option One", FontAwesome.DESKTOP);
-        options.setItemIcon("Option Two", FontAwesome.KEYBOARD_O);
-        options.setItemIcon("Option Three", FontAwesome.GAMEPAD);
-        row.addComponent(options);
-
-        options = new OptionGroup("Choose many");
-        options.setMultiSelect(true);
-        options.addItem("Option One");
-        options.addItem("Option Two");
-        options.addItem("Option Three");
-        options.select("Option One");
-        options.setItemIcon("Option One", FontAwesome.DESKTOP);
-        options.setItemIcon("Option Two", FontAwesome.KEYBOARD_O);
-        options.setItemIcon("Option Three", FontAwesome.GAMEPAD);
-        row.addComponent(options);
-
-        /**
-         * Date fields
-         */
-        row = addSection(root, "Date Fields", Category.Inputs, null);
-        DateField date = new DateField("Second resolution");
-        date.setValue(new Date());
-        date.setResolution(Resolution.SECOND);
-        row.addComponent(date);
-
-        date = new DateField("Minute resolution");
-        date.setValue(new Date());
-        date.setResolution(Resolution.MINUTE);
-        row.addComponent(date);
-
-        date = new DateField("Hour resolution");
-        date.setValue(new Date());
-        date.setResolution(Resolution.HOUR);
-        row.addComponent(date);
-
-        date = new DateField("Disabled");
-        date.setValue(new Date());
-        date.setResolution(Resolution.HOUR);
-        date.setEnabled(false);
-        row.addComponent(date);
-
-        date = new DateField("Day resolution");
-        date.setValue(new Date());
-        date.setResolution(Resolution.DAY);
-        row.addComponent(date);
-
-        date = new DateField("Month resolution");
-        date.setValue(new Date());
-        date.setResolution(Resolution.MONTH);
-        row.addComponent(date);
-
-        date = new DateField("Year resolution");
-        date.setValue(new Date());
-        date.setResolution(Resolution.YEAR);
-        row.addComponent(date);
-
-        date = new DateField("Custom color");
-        date.setValue(new Date());
-        date.setResolution(Resolution.DAY);
-        date.addStyleName("color1");
-        row.addComponent(date);
-
-        date = new DateField("Custom color");
-        date.setValue(new Date());
-        date.setResolution(Resolution.DAY);
-        date.addStyleName("color2");
-        row.addComponent(date);
-
-        date = new DateField("Custom color");
-        date.setValue(new Date());
-        date.setResolution(Resolution.DAY);
-        date.addStyleName("color3");
-        row.addComponent(date);
-
-        date = new DateField("Small");
-        date.setValue(new Date());
-        date.setResolution(Resolution.DAY);
-        date.addStyleName("small");
-        row.addComponent(date);
-
-        date = new DateField("Large");
-        date.setValue(new Date());
-        date.setResolution(Resolution.DAY);
-        date.addStyleName("large");
-        row.addComponent(date);
-
-        date = new DateField("Week numbers");
-        date.setValue(new Date());
-        date.setResolution(Resolution.DAY);
-        date.setLocale(new Locale("fi", "fi"));
-        date.setShowISOWeekNumbers(true);
-        row.addComponent(date);
-
-        date = new DateField("US locale");
-        date.setValue(new Date());
-        date.setResolution(Resolution.SECOND);
-        date.setLocale(new Locale("en", "US"));
-        row.addComponent(date);
-
-        date = new DateField("Custom format");
-        date.setValue(new Date());
-        date.setDateFormat("E dd/MM/yyyy");
-        row.addComponent(date);
-
-        /**
-         * Panels and layout panels
-         */
-        row = addSection(root, "Panels & Layout Panels",
-                Category.Component_Containers, null);
-        Panel panel = new Panel("Normal");
-        panel.setContent(panelContent());
-        row.addComponent(panel);
-
-        panel = new Panel("Sized");
-        panel.setWidth("10em");
-        panel.setHeight("8em");
-        panel.setContent(panelContent());
-        row.addComponent(panel);
-
-        panel = new Panel("Custom Color");
-        panel.addStyleName("important");
-        panel.setContent(panelContent());
-        row.addComponent(panel);
-
-        panel = new Panel("Testing for IE");
-        panel.addStyleName("custom");
-        panel.setWidth("10em");
-        panel.setHeight("8em");
-        VerticalLayout l = new VerticalLayout();
-        l.setSizeFull();
-        Button test1 = new Button("Test 1");
-        test1.setSizeFull();
-        Button test2 = new Button("Test 2");
-        l.addComponent(test1);
-        l.addComponent(test2);
-        l.setExpandRatio(test1, 1.0f);
-        panel.setContent(l);
-        row.addComponent(panel);
-
-        MockupDataSet baconDataSet = new BaconDataSet();
-        MockupFactory.setDefaultDataSet(baconDataSet);
-        MockupContainer container = new MockupContainer();
-        container.setDataSet(baconDataSet);
-        container.setItemCount(200);
-        container.setPropertyCount(3);
-        container.setNumberOfChildren(4);
-        container.setItemDelay(0);
-
-        /**
-         * Trees
-         */
-        row = addSection(root, "Tree", Category.Selection_Components, null);
-        Tree tree = new Tree();
-        tree.setSelectable(true);
-        tree.setContainerDataSource(container);
-        tree.setDragMode(TreeDragMode.NODE);
-        row.addComponent(tree);
-        Iterator<String> propertyIterator = container.getContainerPropertyIds()
-                .iterator();
-        if (propertyIterator.hasNext()) {
-            Object captionId = propertyIterator.next();
-            tree.setItemCaptionPropertyId(captionId);
-        }
-        Collection<Integer> itemIds = container.getItemIds();
-        Integer firstItemId = itemIds.iterator().next();
-        tree.expandItem(firstItemId);
-        tree.select(firstItemId);
-        tree.setItemIcon(firstItemId, FontAwesome.CODE_FORK);
-
-        // Add actions (context menu)
-        tree.addActionHandler(this);
-
-        /**
-         * Tables
-         */
-        row = addSection(root, "Table/TreeTable/Grid",
-                Category.Selection_Components, null);
-
-        Table table = getTable("Normal");
-        table.setContainerDataSource(container);
-        table.select(firstItemId);
-        row.addComponent(table);
-
-        table = getTable("With footer");
-        table.setFooterVisible(true);
-        table.setContainerDataSource(container);
-        table.select(firstItemId);
-        propertyIterator = container.getContainerPropertyIds().iterator();
-        while (propertyIterator.hasNext()) {
-            Object id = propertyIterator.next();
-            table.setColumnFooter(id, id + " footer");
-            if (!propertyIterator.hasNext()) {
-                table.setColumnAlignment(id, Align.RIGHT);
-            }
-        }
-        row.addComponent(table);
-
-        /**
-         * Sliders
-         */
-        row = addSection(root, "Sliders", Category.Basic_Components, null);
-
-        Slider slider = new Slider("Horizontal");
-        slider.setValue(50.0);
-        row.addComponent(slider);
-
-        slider = new Slider("Horizontal, sized");
-        slider.setValue(50.0);
-        slider.setWidth("200px");
-        row.addComponent(slider);
-
-        slider = new Slider("Vertical");
-        slider.setValue(50.0);
-        slider.setOrientation(SliderOrientation.VERTICAL);
-        row.addComponent(slider);
-
-        slider = new Slider("Vertical, sized");
-        slider.setValue(50.0);
-        slider.setOrientation(SliderOrientation.VERTICAL);
-        slider.setHeight("200px");
-        row.addComponent(slider);
-
-        slider = new Slider("Disabled");
-        slider.setValue(50.0);
-        slider.setEnabled(false);
-        row.addComponent(slider);
-
-        /**
-         * Split panels
-         */
-        row = addSection(root, "Split Panels", Category.Component_Containers,
-                null);
-
-        HorizontalSplitPanel sp = new HorizontalSplitPanel();
-        sp.setWidth("100px");
-        sp.setHeight("120px");
-        row.addComponent(sp);
-
-        VerticalSplitPanel sp2 = new VerticalSplitPanel();
-        sp2.setWidth("100px");
-        sp2.setHeight("120px");
-        row.addComponent(sp2);
-
-        return root;
+    }
+
+    void labels(final VerticalLayout root) {
+        addSection(root, "Labels", Category.Basic_Components, null);
+
+        Label large = new Label(
+                "Large type for introductory text. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu.");
+        large.addStyleName("large");
+        root.addComponent(large);
+
+        Label h2 = new Label("Subtitle");
+        h2.addStyleName("h2");
+        root.addComponent(h2);
+
+        Label normal = new Label(
+                "Normal type for plain text. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu.");
+        root.addComponent(normal);
+
+        Label h3 = new Label("Small Title");
+        h3.addStyleName("h3");
+        root.addComponent(h3);
+
+        Label small = new Label(
+                "Small type for additional text. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu.");
+        small.addStyleName("small");
+        root.addComponent(small);
+
+        Label h4 = new Label("Section Title");
+        h4.addStyleName("h4");
+        root.addComponent(h4);
+
+        normal = new Label(
+                "Normal type for plain text. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu.");
+        root.addComponent(normal);
     }
 
     HorizontalLayout addSection(VerticalLayout root, String title,
@@ -1134,9 +1165,14 @@ public class ValoThemeUI extends UI implements Handler {
         table.setSortEnabled(true);
         table.setColumnCollapsingAllowed(true);
         table.setColumnReorderingAllowed(true);
-        table.setPageLength(10);
+        table.setPageLength(6);
         table.addActionHandler(this);
         table.setDragMode(TableDragMode.MULTIROW);
+        table.setContainerDataSource(tableData);
+        table.select(tableData.getIdByIndex(0));
+        table.setSortContainerPropertyId("Lorem");
+        table.setColumnAlignment("Bar", Align.RIGHT);
+
         return table;
     }
 
@@ -1146,6 +1182,9 @@ public class ValoThemeUI extends UI implements Handler {
     private static final Action ACTION_THREE = new Action("Action Three");
     private static final Action[] ACTIONS = new Action[] { ACTION_ONE,
             ACTION_TWO, ACTION_THREE };
+    private MockupContainer container;
+    private Integer firstItemId;
+    private MockupDataSet baconDataSet;
 
     @Override
     public Action[] getActions(Object target, Object sender) {
