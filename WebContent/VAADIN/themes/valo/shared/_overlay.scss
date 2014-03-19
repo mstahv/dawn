@@ -127,7 +127,7 @@ $v-selection-item-padding-horizontal: ceil($v-unit-size/4) !default;
 
 
 @mixin v-valo-drag-element {
-	.v-valo-drag-element {
+	.v-drag-element {
 		@include v-valo-drag-element-style;
 	}
 }
@@ -138,8 +138,4 @@ $v-selection-item-padding-horizontal: ceil($v-unit-size/4) !default;
 	border-radius: $v-border-radius;
 	overflow: hidden;
 	@include opacity(.8);
-
-	> [style*="hidden"] {
-		display: none;
-	}
 }

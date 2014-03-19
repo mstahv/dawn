@@ -71,6 +71,7 @@ $v-table-background-color: null !default;
 
 	[class^="#{$primary-stylename}-header-cell"] {
 		position: relative;
+		display: inline-block;
 	}
 
 	.#{$primary-stylename}-caption-container,
@@ -189,6 +190,11 @@ $v-table-background-color: null !default;
 		outline-offset: -$outline-width;
 	}
 
+	.v-drag-element.#{$primary-stylename}-focus,
+	.v-drag-element .#{$primary-stylename}-focus {
+		outline: none;
+	}
+
 	.#{$primary-stylename}-header-drag {
 		position: absolute;
 		@include opacity(0.9);
@@ -261,6 +267,23 @@ $v-table-background-color: null !default;
 	}
 	.v-off:before {
 		visibility: hidden;
+	}
+
+
+	tbody.v-drag-element {
+		display: block;
+		box-shadow: none;
+		background: transparent;
+		@include opacity(1);
+
+		tr {
+			display: block;
+			@include v-valo-drag-element-style;
+
+			&[style*="hidden"] {
+
+			}
+		}
 	}
 }
 
