@@ -1,7 +1,8 @@
-$v-table-row-height: round($v-unit-size/1) !default;
+$v-table-row-height: $v-unit-size !default;
 $v-table-border-width: $v-border-width !default;
 $v-table-border-color: null !default;
-$v-table-horizontal-cell-padding: round($v-unit-size/4) !default;
+$v-table-border-radius: 0 !default;
+$v-table-horizontal-cell-padding: round($v-unit-size/3) !default;
 //$v-table-horizontal-cell-padding-edge: round($v-unit-size/2.5) !default;
 $v-table-resizer-width: round($v-unit-size/5) !default;
 $v-table-sort-indicator-width: round($v-unit-size/2) !default;
@@ -26,7 +27,8 @@ $v-table-background-color: null !default;
 	}
 
   .#{$primary-stylename}-header-wrap,
-	.#{$primary-stylename}-footer-wrap {
+	.#{$primary-stylename}-footer-wrap,
+	.#{$primary-stylename}-header-drag {
 		border: $v-table-border-width solid $border-color;
 		@include v-valo-gradient($v-app-background-color);
 		white-space: nowrap;
@@ -35,11 +37,18 @@ $v-table-background-color: null !default;
 	}
 
 	.#{$primary-stylename}-header-wrap {
+		position: relative;
 		border-bottom: none;
+		@if $v-table-border-radius > 0 {
+			border-radius: $v-table-border-radius $v-table-border-radius 0 0;
+		}
 	}
 
 	.#{$primary-stylename}-footer-wrap {
 		border-top: none;
+		@if $v-table-border-radius > 0 {
+			border-radius: 0 0 $v-table-border-radius $v-table-border-radius;
+		}
 	}
 
 	.#{$primary-stylename}-footer td {
@@ -64,7 +73,8 @@ $v-table-background-color: null !default;
 		position: relative;
 	}
 
-	.#{$primary-stylename}-caption-container {
+	.#{$primary-stylename}-caption-container,
+	.#{$primary-stylename}-header-drag {
 		$vertical-padding: round(($v-table-row-height - $v-table-header-font-size)/2);
 		padding-top: $vertical-padding;
 		padding-bottom: $vertical-padding - $v-table-border-width;
@@ -119,7 +129,7 @@ $v-table-background-color: null !default;
 	}
 
 	.#{$primary-stylename}-row-odd {
-		background-color: $v-app-background-color;
+		background-color: mix($v-app-background-color, $background-color);
 	}
 
 	[class*="-row"].v-selected {
@@ -153,7 +163,7 @@ $v-table-background-color: null !default;
 		right: 0;
 
 		+ .#{$primary-stylename}-caption-container {
-			padding-right: $v-table-sort-indicator-width - $v-table-horizontal-cell-padding;
+			padding-right: $v-table-sort-indicator-width;
 		}
 	}
 
@@ -178,6 +188,80 @@ $v-table-background-color: null !default;
 		outline: $outline-width solid v-valo-focus-color();
 		outline-offset: -$outline-width;
 	}
+
+	.#{$primary-stylename}-header-drag {
+		position: absolute;
+		@include opacity(0.9);
+		margin-top: round($v-table-row-height/-2);
+		z-index: 30000;
+	}
+
+	.#{$primary-stylename}-focus-slot-right {
+		border-right: 2px solid rgba(v-valo-focus-color(), .5);
+	}
+
+	.#{$primary-stylename}-focus-slot-left {
+		border-left: 2px solid rgba(v-valo-focus-color(), .5);
+		left: 0;
+		right: auto;
+	}
+
+	.#{$primary-stylename}-column-selector {
+		@include v-valo-button-style;
+		position: absolute;
+		z-index: 2;
+		top: round($v-unit-size/-4);
+		right: round($v-unit-size/-4);
+		height: round($v-unit-size/2);
+		line-height: round($v-unit-size/2);
+		width: round($v-unit-size/2);
+		padding: 0;
+		border-radius: 50%;
+		cursor: pointer;
+		text-align: center;
+
+		@include opacity(0);
+		@if $v-animations-enabled {
+			@include transition(opacity 200ms 1s);
+		}
+
+		&:after {
+			content: "";
+			position: absolute;
+			top: -$v-button-border-width;
+			right: -$v-button-border-width;
+			bottom: -$v-button-border-width;
+			left: -$v-button-border-width;
+			border-radius: inherit;
+		}
+		&:active:after {
+			@include v-valo-button-active-style;
+		}
+		&:before {
+			@include v-valo-table-column-selector-icon-style;
+		}
+	}
+
+	.#{$primary-stylename}-header-wrap:hover .#{$primary-stylename}-column-selector {
+		@include opacity(1);
+		@include transition-delay(100ms);
+	}
+
+	/* row in column selector */
+	.v-on,
+	.v-off {
+		&:before {
+			@include v-valo-table-column-visible-icon-style;
+			font-size: 0.9em;
+			margin-right: round($v-unit-size/6);
+		}
+		div {
+			display: inline;
+		}
+	}
+	.v-off:before {
+		visibility: hidden;
+	}
 }
 
 
@@ -191,4 +275,14 @@ $v-table-background-color: null !default;
 @mixin v-valo-table-sort-desc-icon-style {
 	content: '\f0de';
 	font-family: FontAwesome;
+}
+
+@mixin v-valo-table-column-selector-icon-style {
+	font-family: FontAwesome;
+	content: "\f013";
+}
+
+@mixin v-valo-table-column-visible-icon-style {
+	content: "\f00c";
+  font-family: FontAwesome;
 }
