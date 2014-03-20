@@ -474,7 +474,7 @@ public class ValoThemeUI extends UI implements Handler {
         // textfields(root);
         // textareas(root);
         // comboboxes(root);
-        // menubars(root);
+        menubars(root);
         // splitbuttons(root);
         // checkboxes(root);
         // optiongroups(root);
@@ -528,8 +528,9 @@ public class ValoThemeUI extends UI implements Handler {
 
         final TabSheet ts5 = new TabSheet();
         wrap.addComponent(ts5);
-        ts5.setCaption("Icons on Top");
+        ts5.setCaption("Icons on Top + Padded Tabbar");
         ts5.addStyleName("icons-on-top");
+        ts5.addStyleName("padded");
         ts5.addTab(new Label(" "), "First");
         ts5.addTab(new Label(" "), "Another");
         ts5.addTab(new Label(" "), "One more");

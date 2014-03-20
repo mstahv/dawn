@@ -12,7 +12,7 @@
 		table,
 		tbody,
 		tr {
-			display: block;
+			display: inline-block;
 		}
 
 		td {
@@ -28,12 +28,14 @@
 	.#{$primary-stylename}-tabcontainer {
 		width: 100% !important;
 		overflow: hidden;
+		position: relative;
 		@extend %no-selection;
 	}
 
 	.#{$primary-stylename}-tabs {
 		border-bottom: $v-border-width solid $border-color;
 		height: $v-unit-size;
+		min-width: 100%;
 		@include box-sizing(border-box);
 
 		.v-caption {
@@ -93,6 +95,69 @@
 		&:active {
 			background: darken(v-valo-selection-color(), 5%);
 			color: v-valo-font-color(v-valo-selection-color());
+		}
+	}
+
+	.#{$primary-stylename}-scroller {
+		position: absolute;
+		right: 0;
+		top: 0;
+		padding-left: round($v-unit-size/4);
+		@include linear-gradient(to left, $v-app-background-color 70%, transparent 100%);
+		background-color: transparent;
+		border-bottom: $v-border-width solid $border-color;
+		pointer-events: none;
+
+		.v-ie8 &,
+		.v-ie9 & {
+			background-color: $v-app-background-color;
+		}
+
+		button {
+			@include appearance(none);
+			border: none;
+			background: transparent;
+			font: inherit;
+			color: inherit;
+			line-height: $v-unit-size - $v-border-width;
+			margin: 0;
+			padding: 0 round($v-unit-size/4);
+			outline: none;
+			cursor: pointer;
+			pointer-events: auto;
+			@include opacity(.5);
+
+			&:hover {
+				@include opacity(1);
+				color: v-valo-selection-color();
+			}
+
+			&:active {
+				@include opacity(.7);
+				color: v-valo-selection-color();
+			}
+		}
+
+		[class*="Next"] {
+			padding-left: round($v-unit-size/8);
+			&:before {
+				font-family: FontAwesome;
+				content: "\f054";
+			}
+		}
+
+		[class*="Prev"] {
+			padding-right: round($v-unit-size/4);
+			&:before {
+				font-family: FontAwesome;
+				content: "\f053";
+			}
+		}
+
+		[class*="disabled"] {
+			cursor: default;
+			color: inherit !important;
+			@include opacity(.1, true);
 		}
 	}
 
@@ -171,5 +236,11 @@
 
 	.#{$primary-stylename}-tabitem-selected .#{$primary-stylename}-caption-close {
 		visibility: visible;
+	}
+}
+
+@mixin v-valo-tabsheet-padded-tabbar ($primary-stylename: v-tabsheet) {
+	.#{$primary-stylename}-tabs {
+		padding: 0 round($v-unit-size/4);
 	}
 }

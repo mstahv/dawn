@@ -75,6 +75,10 @@ body {
     @include v-valo-tabsheet-only-selected-closable;
   }
 
+  .v-tabsheet-padded {
+    @include v-valo-tabsheet-padded-tabbar;
+  }
+
   /*
   .v-filterselect-button {
     @include v-valo-button-style;
