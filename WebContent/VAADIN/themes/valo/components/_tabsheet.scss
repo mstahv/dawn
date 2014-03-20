@@ -1,0 +1,175 @@
+@mixin v-valo-tabsheet ($primary-stylename: v-tabsheet) {
+
+	$_scale: if( is-dark-color($v-app-background-color) , max(5%, $v-bevel-depth/2), min(-5%, -$v-bevel-depth/2) );
+	$border-color: scale-color($v-app-background-color, $lightness: $_scale);
+
+	.#{$primary-stylename} {
+
+		&:not(.v-has-width) {
+			width: auto !important;
+		}
+
+		table,
+		tbody,
+		tr {
+			display: block;
+		}
+
+		td {
+			display: inline-block;
+			padding: 0;
+		}
+	}
+
+	.#{$primary-stylename}-spacertd {
+		display: none !important;
+	}
+
+	.#{$primary-stylename}-tabcontainer {
+		width: 100% !important;
+		overflow: hidden;
+		@extend %no-selection;
+	}
+
+	.#{$primary-stylename}-tabs {
+		border-bottom: $v-border-width solid $border-color;
+		height: $v-unit-size;
+		@include box-sizing(border-box);
+
+		.v-caption {
+			height: $v-unit-size;
+			line-height: $v-unit-size;
+			margin-left: round($v-unit-size/2);
+			padding: 0 round($v-unit-size/10);
+			@include box-sizing(border-box);
+			cursor: pointer;
+			text-align: center;
+			font-weight: $v-font-weight;
+
+			@if $v-animations-enabled {
+				@include transition(border-bottom 200ms, color 200ms);
+			}
+
+			.v-icon {
+				cursor: inherit;
+			}
+
+			.v-icon + .v-captiontext {
+				margin-left: round($v-unit-size/4);
+			}
+
+			&:hover {
+				color: v-valo-selection-color();
+			}
+		}
+
+		td:first-child .v-caption {
+			margin-left: 0;
+		}
+	}
+
+	.#{$primary-stylename}-tabitemcell:focus {
+		outline: none;
+	}
+
+	.#{$primary-stylename}-tabitem-selected .v-caption {
+		border-bottom: $v-border-width*2 solid v-valo-selection-color();
+		color: v-valo-selection-color();
+	}
+
+	.#{$primary-stylename}-caption-close {
+		font-size: 1.2em;
+		line-height: 1;
+		vertical-align: middle;
+		padding: round($v-font-size/8) round($v-font-size/4);
+		margin: round($v-font-size/-8) round($v-font-size/-4) round($v-font-size/-8) round($v-font-size/4);
+		border-radius: round($v-border-radius/2);
+
+		&:hover {
+			background: v-valo-selection-color();
+			color: v-valo-font-color(v-valo-selection-color());
+		}
+
+		&:active {
+			background: darken(v-valo-selection-color(), 5%);
+			color: v-valo-font-color(v-valo-selection-color());
+		}
+	}
+
+}
+
+
+
+
+
+@mixin v-valo-tabsheet-centered-tabs ($primary-stylename: v-tabsheet) {
+	.#{$primary-stylename}-tabcontainer {
+		text-align: center;
+	}
+}
+
+@mixin v-valo-tabsheet-equal-width-tabs ($primary-stylename: v-tabsheet, $flex: false) {
+	.#{$primary-stylename}-tabcontainer {
+		table,
+		tbody,
+		tr {
+			//display: table;
+			width: 100%;
+			border-spacing: 0;
+			border-collapse: collapse;
+		}
+
+		table {
+			//display: table;
+		}
+
+		tr {
+			display: table;
+			@if $flex == false {
+				table-layout: fixed;
+			}
+		}
+
+		td {
+			display: table-cell;
+			//width: 100% !important;
+		}
+
+		.v-caption {
+			margin: 0;
+			display: block;
+		}
+	}
+}
+
+@mixin v-valo-tabsheet-icons-on-top ($primary-stylename: v-tabsheet) {
+	.#{$primary-stylename}-tabs {
+		height: $v-unit-size * 2;
+
+		.v-caption {
+			height: $v-unit-size * 2;
+			padding-top: $v-unit-size;
+		}
+
+		.v-icon {
+			display: block;
+			font-size: $v-font-size * 2;
+			$_offset: round($v-unit-size/4);
+			margin: -($v-unit-size - $_offset) 0 #{-$_offset};
+
+			+ .v-captiontext.v-captiontext {
+				margin-left: 0;
+			}
+		}
+	}
+}
+
+@mixin v-valo-tabsheet-only-selected-closable ($primary-stylename: v-tabsheet) {
+	.#{$primary-stylename}-caption-close {
+		visibility: hidden;
+	}
+
+	.#{$primary-stylename}-tabitem-selected .#{$primary-stylename}-caption-close {
+		visibility: visible;
+	}
+}

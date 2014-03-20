@@ -70,6 +70,17 @@
       color: v-valo-selection-color($context: $background-color);
     }
 
+    &[disabled] {
+      ~ label:before,
+      ~ label:after {
+        @include opacity($v-disabled-opacity);
+      }
+
+      &:active ~ label:after {
+        background: transparent;
+      }
+    }
+
   }
     
   & > .v-icon,

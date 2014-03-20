@@ -11,7 +11,7 @@ $color3: #5d73c0;
 $color4: #F45937;
 $color5: #d2f4f3;
 $color6: #fe902a;
-$colors: ($color1, $color2, $color3, $color4, $color5);
+$colors: ($color1, $color2);//, $color3, $color4, $color5);
 
 
 
@@ -52,12 +52,29 @@ body {
     }
   }
   
-  //@include variants;
+  @include variants;
 
   .v-button-primary {
     @include v-valo-button-style($background-color: $color3);
     padding: 0 round($v-unit-size/1.4);
   }
+
+  .v-tabsheet-centered-tabs {
+    @include v-valo-tabsheet-centered-tabs;
+  }
+
+  .v-tabsheet-equal-width-tabs {
+    @include v-valo-tabsheet-equal-width-tabs($flex: false);
+  }
+
+  .v-tabsheet-icons-on-top {
+    @include v-valo-tabsheet-icons-on-top;
+  }
+
+  .v-tabsheet-selected-closable {
+    @include v-valo-tabsheet-only-selected-closable;
+  }
+
   /*
   .v-filterselect-button {
     @include v-valo-button-style;

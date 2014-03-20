@@ -17,6 +17,7 @@
 @import "splitpanel";
 @import "progressbar";
 @import "slider";
+@import "tabsheet";
 
 
 @mixin v-valo-components {
@@ -89,6 +90,10 @@
   
   @if v-is-included(slider) {
     @include v-valo-slider;
+  }
+  
+  @if v-is-included(tabsheet) {
+    @include v-valo-tabsheet;
   }
   
   @if v-is-included(label) {
