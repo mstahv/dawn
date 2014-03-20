@@ -20,6 +20,11 @@ $v-table-background-color: null !default;
 	$background-color: $v-table-background-color or v-valo-table-background-color();
 	$border-color: $v-table-border-color or darken($v-app-background-color, $v-bevel-depth/2);
 
+	.#{$primary-stylename} {
+		// For scroll position indicator
+		position: relative;
+	}
+
 	.v-table-header table, 
 	.v-table-footer table, 
 	.v-table-table {
@@ -285,6 +290,24 @@ $v-table-background-color: null !default;
 			}
 		}
 	}
+
+
+	.#{$primary-stylename}-body {
+		// Show on top of scroll position indicator (allow scroll events to hit the body instead of indicator)
+		position: relative;
+		z-index: 1;
+	}
+
+	.#{$primary-stylename}-scrollposition {
+		position: absolute;
+		top: 50%;
+		width: 100%;
+		height: $v-unit-size;
+		line-height: $v-unit-size;
+		margin: round($v-unit-size/-2) 0 0 !important;
+		text-align: center;
+	}
+
 }
 
 

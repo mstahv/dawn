@@ -23,6 +23,10 @@ import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.event.Action;
 import com.vaadin.event.Action.Handler;
+import com.vaadin.event.dd.DragAndDropEvent;
+import com.vaadin.event.dd.DropHandler;
+import com.vaadin.event.dd.acceptcriteria.AcceptAll;
+import com.vaadin.event.dd.acceptcriteria.AcceptCriterion;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
@@ -1168,6 +1172,18 @@ public class ValoThemeUI extends UI implements Handler {
         table.setPageLength(6);
         table.addActionHandler(this);
         table.setDragMode(TableDragMode.MULTIROW);
+        table.setDropHandler(new DropHandler() {
+
+            @Override
+            public AcceptCriterion getAcceptCriterion() {
+                return AcceptAll.get();
+            }
+
+            @Override
+            public void drop(DragAndDropEvent event) {
+                Notification.show(event.getTransferable().toString());
+            }
+        });
         table.setContainerDataSource(tableData);
         table.select(tableData.getIdByIndex(0));
         table.setSortContainerPropertyId("Lorem");
