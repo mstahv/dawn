@@ -135,7 +135,7 @@ public class ValoThemeUI extends UI implements Handler {
         components.setWidth("100%");
         root.addComponent(components);
 
-        for (int i = 1; i <= 2; i++) {
+        for (int i = 1; i <= 5; i++) {
             components.addComponent(components(i));
         }
         components.addStyleName("components-root");
@@ -477,24 +477,24 @@ public class ValoThemeUI extends UI implements Handler {
         root.addStyleName("components");
         root.addStyleName("color-context" + num);
 
-        // labels(root);
-        // buttonsAndLinks(root);
-        // textfields(root);
-        // textareas(root);
-        // comboboxes(root);
-        // menubars(root);
-        // splitbuttons(root);
-        // checkboxes(root);
-        // optiongroups(root);
-        // datefields(root);
+        labels(root);
+        buttonsAndLinks(root);
+        textfields(root);
+        textareas(root);
+        comboboxes(root);
+        menubars(root);
+        splitbuttons(root);
+        checkboxes(root);
+        optiongroups(root);
+        datefields(root);
         panels(root);
-        // trees(root);
-        // tables(root);
-        // treetables(root);
-        // sliders(root);
-        // splitpanels(root);
-        // tabsheets(root);
-        // colorpickers(root);
+        trees(root);
+        tables(root);
+        treetables(root);
+        sliders(root);
+        splitpanels(root);
+        tabsheets(root);
+        colorpickers(root);
 
         return root;
     }
