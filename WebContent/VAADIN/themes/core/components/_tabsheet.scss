@@ -1,5 +1,5 @@
 @mixin v-core-tabsheet ($primary-stylename: v-tabsheet) {
-  
+  /*
   .#{$primary-stylename}-tabcontainer {
     white-space: nowrap;
   }
@@ -7,6 +7,7 @@
   .#{$primary-stylename}-tabs {
   	// Inline block needed to make element grow it's offset width with its children
   	display: inline-block;
+    white-space: nowrap;
   	
     & > tbody {
       display: block;
@@ -17,8 +18,7 @@
   	}
   }
   
-  .#{$primary-stylename}-tabitemcell,
-  .#{$primary-stylename}-spacertd {
+  .#{$primary-stylename}-tabitemcell {
   	display: inline-block;
   	padding: 0;
   }
@@ -26,6 +26,7 @@
   .#{$primary-stylename}-tabitem > .v-caption {
     width: auto !important;
   }
+  */
   
   .#{$primary-stylename}-hidetabs > .#{$primary-stylename}-tabcontainer,
   .#{$primary-stylename}-spacertd,
@@ -33,10 +34,6 @@
   .v-disabled .#{$primary-stylename}-scroller,
   .#{$primary-stylename} .v-disabled .#{$primary-stylename}-caption-close {
     display: none;
-  }
-  
-  .#{$primary-stylename}-caption-close {
-    display: inline-block;
   }
   
   .#{$primary-stylename}-content {

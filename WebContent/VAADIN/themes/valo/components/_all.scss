@@ -18,6 +18,7 @@
 @import "progressbar";
 @import "slider";
 @import "tabsheet";
+@import "colorpicker";
 
 
 @mixin v-valo-components {
@@ -94,6 +95,10 @@
   
   @if v-is-included(tabsheet) {
     @include v-valo-tabsheet;
+  }
+  
+  @if v-is-included(colorpicker) {
+    @include v-valo-colorpicker;
   }
   
   @if v-is-included(label) {

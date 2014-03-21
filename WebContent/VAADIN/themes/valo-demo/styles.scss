@@ -11,7 +11,7 @@ $color3: #5d73c0;
 $color4: #F45937;
 $color5: #d2f4f3;
 $color6: #fe902a;
-$colors: ($color1, $color2);//, $color3, $color4, $color5);
+$colors: $color1, $color3; //, $color3, $color4, $color5);
 
 
 
@@ -75,7 +75,7 @@ body {
     @include v-valo-tabsheet-only-selected-closable;
   }
 
-  .v-tabsheet-padded {
+  .v-tabsheet-padded-tabbar {
     @include v-valo-tabsheet-padded-tabbar;
   }
 

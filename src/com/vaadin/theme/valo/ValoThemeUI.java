@@ -1,12 +1,16 @@
 package com.vaadin.theme.valo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map.Entry;
+import java.util.Random;
 
 import javax.servlet.annotation.WebServlet;
 
@@ -30,6 +34,8 @@ import com.vaadin.event.dd.acceptcriteria.AcceptCriterion;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
+import com.vaadin.server.Resource;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.server.UserError;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinSession;
@@ -41,6 +47,7 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CheckBox;
+import com.vaadin.ui.ColorPicker;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
@@ -474,7 +481,7 @@ public class ValoThemeUI extends UI implements Handler {
         // textfields(root);
         // textareas(root);
         // comboboxes(root);
-        menubars(root);
+        // menubars(root);
         // splitbuttons(root);
         // checkboxes(root);
         // optiongroups(root);
@@ -484,7 +491,8 @@ public class ValoThemeUI extends UI implements Handler {
         // tables(root);
         // sliders(root);
         // splitpanels(root);
-        tabsheets(root);
+        // tabsheets(root);
+        colorpickers(root);
 
         return root;
     }
@@ -494,97 +502,52 @@ public class ValoThemeUI extends UI implements Handler {
         row = addSection(root, "Tabs", Category.Component_Containers, null);
         row.setWidth("100%");
 
-        VerticalLayout wrap = new VerticalLayout();
+        final VerticalLayout wrap = new VerticalLayout();
         wrap.setSpacing(true);
         row.addComponent(wrap);
 
-        final CheckBox selectedOnly = new CheckBox(
-                "Only selected tab is closable");
-        selectedOnly.setImmediate(true);
-        wrap.addComponent(selectedOnly);
+        final CheckBox closable = new CheckBox("Closable");
+        closable.setImmediate(true);
+        wrap.addComponent(closable);
 
-        final TabSheet ts2 = new TabSheet();
-        wrap.addComponent(ts2);
-        ts2.setCaption("Normal");
-        ts2.addTab(new Label(" "), "First");
-        ts2.addTab(new Label(" "), "Another");
-        ts2.addTab(new Label(" "), "One more");
+        final CheckBox overflow = new CheckBox("Overflow");
+        overflow.setImmediate(true);
+        wrap.addComponent(overflow);
 
-        final TabSheet ts3 = new TabSheet();
-        wrap.addComponent(ts3);
-        ts3.setCaption("Centered Tabs");
-        ts3.addStyleName("centered-tabs");
-        ts3.addTab(new Label(" "), "First");
-        ts3.addTab(new Label(" "), "Another");
-        ts3.addTab(new Label(" "), "One more");
+        final CheckBox icon = new CheckBox("Icons");
+        icon.setImmediate(true);
+        wrap.addComponent(icon);
 
-        final TabSheet ts4 = new TabSheet();
-        wrap.addComponent(ts4);
-        ts4.setCaption("Equal-width Tabs");
-        ts4.addStyleName("equal-width-tabs");
-        ts4.addTab(new Label(" "), "First");
-        ts4.addTab(new Label(" "), "Another");
-        ts4.addTab(new Label(" "), "One more");
-
-        final TabSheet ts5 = new TabSheet();
-        wrap.addComponent(ts5);
-        ts5.setCaption("Icons on Top + Padded Tabbar");
-        ts5.addStyleName("icons-on-top");
-        ts5.addStyleName("padded");
-        ts5.addTab(new Label(" "), "First");
-        ts5.addTab(new Label(" "), "Another");
-        ts5.addTab(new Label(" "), "One more");
-
-        final TabSheet ts1 = new TabSheet();
-        ts1.setCaption("Overflowing Tabs");
-        wrap.addComponent(ts1);
-
-        for (int i = 0; i < 10; i++) {
-            String caption = baconDataSet.nextValue();
-            if (i == 0) {
-                caption = null;
-            }
-            Tab t = ts1.addTab(new Label(" "), caption);
-        }
-
-        ts1.getTab(0).setIcon(FontAwesome.DRIBBBLE);
-        ts1.getTab(1).setIcon(FontAwesome.SCISSORS);
-        ts1.getTab(2).setClosable(true);
-
-        ts2.getTab(0).setIcon(FontAwesome.DRIBBBLE);
-        ts2.getTab(1).setIcon(FontAwesome.SCISSORS);
-        ts2.getTab(2).setClosable(true);
-
-        ts3.getTab(0).setIcon(FontAwesome.DRIBBBLE);
-        ts3.getTab(1).setIcon(FontAwesome.SCISSORS);
-        ts3.getTab(2).setClosable(true);
-
-        ts4.getTab(0).setIcon(FontAwesome.DRIBBBLE);
-        ts4.getTab(1).setIcon(FontAwesome.SCISSORS);
-        ts4.getTab(2).setClosable(true);
-
-        ts5.getTab(0).setIcon(FontAwesome.DRIBBBLE);
-        ts5.getTab(1).setIcon(FontAwesome.SCISSORS);
-        ts5.getTab(2).setClosable(true);
-
-        selectedOnly.addValueChangeListener(new ValueChangeListener() {
+        ValueChangeListener update = new ValueChangeListener() {
             @Override
             public void valueChange(ValueChangeEvent event) {
-                if (selectedOnly.getValue()) {
-                    ts1.addStyleName("selected-closable");
-                    ts2.addStyleName("selected-closable");
-                    ts3.addStyleName("selected-closable");
-                    ts4.addStyleName("selected-closable");
-                    ts5.addStyleName("selected-closable");
-                } else {
-                    ts1.removeStyleName("selected-closable");
-                    ts2.removeStyleName("selected-closable");
-                    ts3.removeStyleName("selected-closable");
-                    ts4.removeStyleName("selected-closable");
-                    ts5.removeStyleName("selected-closable");
-                }
+                wrap.removeAllComponents();
+
+                wrap.addComponents(closable, overflow, icon);
+
+                wrap.addComponent(getTabSheet("Normal", null,
+                        closable.getValue(), overflow.getValue(),
+                        icon.getValue()));
+                wrap.addComponent(getTabSheet("Centered tabs", "centered-tabs",
+                        closable.getValue(), overflow.getValue(),
+                        icon.getValue()));
+                wrap.addComponent(getTabSheet("Equal-width tabs",
+                        "equal-width-tabs", closable.getValue(),
+                        overflow.getValue(), icon.getValue()));
+                wrap.addComponent(getTabSheet("Icons on top + padded tabbar",
+                        "icons-on-top padded-tabbar", closable.getValue(),
+                        overflow.getValue(), icon.getValue()));
+                wrap.addComponent(getTabSheet("Only selected tab is closable",
+                        "selected-closable", closable.getValue(),
+                        overflow.getValue(), icon.getValue()));
             }
-        });
+        };
+        closable.addValueChangeListener(update);
+        overflow.addValueChangeListener(update);
+        icon.addValueChangeListener(update);
+
+        // Generate initial view
+        icon.setValue(true);
     }
 
     void splitpanels(final VerticalLayout root) {
@@ -1144,6 +1107,14 @@ public class ValoThemeUI extends UI implements Handler {
         row.addComponent(link);
     }
 
+    void colorpickers(final VerticalLayout root) {
+        HorizontalLayout row = addSection(root, "Color Pickers",
+                Category.Inputs, null);
+
+        ColorPicker cp = new ColorPicker();
+        row.addComponent(cp);
+    }
+
     void labels(final VerticalLayout root) {
         addSection(root, "Labels", Category.Basic_Components, null);
 
@@ -1392,4 +1363,39 @@ public class ValoThemeUI extends UI implements Handler {
 
         return menubar;
     }
+
+    public static Resource icon(boolean image) {
+        if (!image) {
+            return ICONS.get(RANDOM.nextInt(SIZE));
+        }
+        return new ThemeResource("../runo/icons/32/document.png");
+    }
+
+    static List<FontAwesome> ICONS = Collections.unmodifiableList(Arrays
+            .asList(FontAwesome.values()));
+    static final int SIZE = ICONS.size();
+    static final Random RANDOM = new Random();
+
+    TabSheet getTabSheet(String caption, String style, boolean closable,
+            boolean scrolling, boolean icon) {
+        TabSheet ts = new TabSheet();
+        ts.addStyleName(style);
+        ts.setCaption(caption);
+
+        for (int i = 0; i < (scrolling ? 10 : 3); i++) {
+            String tabcaption = baconDataSet.nextValue();
+            if (i == 0 && icon) {
+                tabcaption = null;
+            }
+            Tab t = ts.addTab(new Label(" "), tabcaption);
+            t.setClosable(closable);
+
+            if (icon) {
+                t.setIcon(icon(i == 2));
+            }
+        }
+        return ts;
+
+    }
+
 }

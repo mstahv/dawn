@@ -1,8 +1,12 @@
 @mixin v-core-colorpicker ($primary-stylename: v-colorpicker) {
   
-  $pathPrefix: null;
+  $v-valo-colorpicker-pathPrefix: null;
   @if $relativePaths == false {
-    $pathPrefix: "../core/components/";
+    $v-valo-colorpicker-pathPrefix: "../core/components/";
+  }
+
+  .#{$primary-stylename}-popup.v-window {
+    min-width: 220px !important;
   }
   
   .#{$primary-stylename}-gradient-clicklayer {
@@ -10,11 +14,11 @@
   }
   
   .rgb-gradient .#{$primary-stylename}-gradient-background {
-    background: url(#{$pathPrefix}colorpicker/img/gradient2.png);
+    background: url(#{$v-valo-colorpicker-pathPrefix}colorpicker/img/gradient2.png);
   }
   
   .hsv-gradient .#{$primary-stylename}-gradient-foreground {
-    background: url(#{$pathPrefix}colorpicker/img/gradient.png);
+    background: url(#{$v-valo-colorpicker-pathPrefix}colorpicker/img/gradient.png);
   }
   
   .#{$primary-stylename}-gradient-lowerbox {
@@ -40,7 +44,7 @@
   }
 
   .#{$primary-stylename}-popup .v-slider.hue-slider:before {
-    background: url(#{$pathPrefix}colorpicker/img/slider_hue_bg.png);
+    background: url(#{$v-valo-colorpicker-pathPrefix}colorpicker/img/slider_hue_bg.png);
   }
 
   .#{$primary-stylename}-popup .v-textfield-dark {
