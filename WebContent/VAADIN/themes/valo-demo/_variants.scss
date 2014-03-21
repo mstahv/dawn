@@ -21,6 +21,24 @@ $large-size: ceil($v-unit-size*1.2);
     	color: v-valo-font-color($context);
 
 			@include v-valo-components;
+
+		  .v-panel-well {
+		    @include v-valo-panel-well-style;
+		  }
+
+		  .v-panel-borderless {
+		    @include v-valo-panel-borderless-style;
+		  }
+
+		  .v-csslayout-well {
+		    @include v-valo-panel-well-style;
+		    @include v-valo-panel-adjust-content-margins;
+		  }
+
+		  .v-csslayout-card {
+		    @include v-valo-panel-style;
+		    @include v-valo-panel-adjust-content-margins;
+		  }
     	
     	@if length($variant) >= 4 {
 

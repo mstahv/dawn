@@ -53,12 +53,17 @@
   }
   
   .v-caption {
-    font-size: .9em;
+    font-size: $v-caption-font-size;
     font-weight: $v-font-weight + 100;
     padding-bottom: .3em;
     @if $v-border-radius > 0 {
       padding-left: round($v-border-radius/4);
     }
+  }
+
+  .v-icon + .v-captiontext,
+  .v-icon + span {
+    margin-left: round($v-unit-size/5);
   }
   
   .v-errorindicator {

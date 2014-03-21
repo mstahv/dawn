@@ -350,6 +350,11 @@ $v-table-background-color: null !default;
 		margin-top: -$v-table-border-width;
 	}
 
+	.v-ff & .#{$primary-stylename}-row-drag-top td:first-child:before,
+	.v-ff & .#{$primary-stylename}-row-drag-bottom td:first-child:after {
+		line-height: 1px;
+	}
+
 }
 
 

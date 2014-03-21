@@ -20,6 +20,7 @@
 @import "slider";
 @import "tabsheet";
 @import "colorpicker";
+@import "panel";
 
 
 @mixin v-valo-components {
@@ -104,6 +105,10 @@
   
   @if v-is-included(colorpicker) {
     @include v-valo-colorpicker;
+  }
+  
+  @if v-is-included(panel) {
+    @include v-valo-panel;
   }
   
   @if v-is-included(label) {

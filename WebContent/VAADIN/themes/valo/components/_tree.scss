@@ -160,6 +160,11 @@ $v-tree-animations-enabled: false !default;
     position: relative;
     border-radius: $v-border-radius;
   }
+
+  .v-ff & .#{$primary-stylename}-node-drag-top:before,
+  .v-ff & .#{$primary-stylename}-node-drag-bottom:after {
+    line-height: 0;
+  }
 }
 
 

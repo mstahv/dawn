@@ -1,0 +1,86 @@
+@mixin v-valo-panel ($primary-stylename: v-panel) {
+
+	.#{$primary-stylename} {
+		@include v-valo-panel-style;
+	}
+
+	.#{$primary-stylename}-caption {
+		padding: 0 round($v-unit-size/3);
+		line-height: $v-unit-size;
+		$_bg: v-valo-panel-background-color();
+		border-bottom: $v-border-width solid rgba(#000, .05);
+		background: $v-app-background-color;
+		font-weight: $v-font-weight + 100;
+		font-size: $v-caption-font-size;
+	}
+
+	.#{$primary-stylename}-content {
+		@include v-valo-panel-adjust-content-margins;
+	}
+
+}
+
+
+
+@function v-valo-panel-background-color ($context: $v-app-background-color) {
+	$bg-color: lighten($context, 4%);
+  @return $bg-color;
+}
+
+
+@function v-valo-panel-border-color ($background-color) {
+	$border-color: if(color-luminance($background-color) < color-luminance($v-app-background-color), $background-color, $v-app-background-color);
+  $border-color: blend-darken($border-color, scale-color($border-color, $lightness: max(-30%, -$v-bevel-depth/2)));
+  $border-color: scale-color($border-color, $saturation: -$v-bevel-depth/2);
+  @return $border-color;
+}
+
+
+@mixin v-valo-panel-style {
+	background: v-valo-panel-background-color();
+	border-radius: $v-border-radius;
+	border: $v-border-width solid v-valo-panel-border-color(v-valo-panel-background-color());
+	box-shadow: v-valo-shadow();
+
+
+}
+
+
+@mixin v-valo-panel-well-style {
+	$_bg: v-valo-panel-background-color(darken($v-app-background-color, 6%));
+	background: $_bg;
+	box-shadow: v-valo-shadow($shadow-style: join(inset, $v-shadow-style));
+	border-radius: $v-border-radius;
+	border: $v-border-width solid v-valo-panel-border-color(v-valo-panel-background-color());
+
+	.v-panel-caption {
+		background: transparent;
+	}
+}
+
+
+@mixin v-valo-panel-borderless-style {
+	background: transparent;
+	border: none;
+	box-shadow: none;
+}
+
+
+@mixin v-valo-panel-adjust-content-margins {
+	> .v-margin-top {
+		padding-top: round($v-unit-size/3);
+	}
+
+	> .v-margin-right {
+		padding-right: round($v-unit-size/3);
+	}
+
+	> .v-margin-bottom {
+		padding-bottom: round($v-unit-size/3);
+	}
+
+	> .v-margin-left {
+		padding-left: round($v-unit-size/3);
+	}
+}
+

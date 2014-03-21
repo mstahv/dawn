@@ -487,10 +487,10 @@ public class ValoThemeUI extends UI implements Handler {
         // checkboxes(root);
         // optiongroups(root);
         // datefields(root);
-        // panels(root);
-        trees(root);
+        panels(root);
+        // trees(root);
         // tables(root);
-        treetables(root);
+        // treetables(root);
         // sliders(root);
         // splitpanels(root);
         // tabsheets(root);
@@ -672,37 +672,46 @@ public class ValoThemeUI extends UI implements Handler {
 
     void panels(final VerticalLayout root) {
         HorizontalLayout row;
-        row = addSection(root, "Panels & Layout Panels",
+        row = addSection(root, "Panels & Layout panels",
                 Category.Component_Containers, null);
+
         Panel panel = new Panel("Normal");
+        panel.setIcon(icon(false));
         panel.setContent(panelContent());
         row.addComponent(panel);
 
         panel = new Panel("Sized");
+        panel.setIcon(icon(false));
         panel.setWidth("10em");
         panel.setHeight("8em");
         panel.setContent(panelContent());
         row.addComponent(panel);
 
-        panel = new Panel("Custom Color");
-        panel.addStyleName("important");
+        panel = new Panel("Borderless style");
+        panel.setIcon(icon(false));
+        panel.addStyleName("borderless");
         panel.setContent(panelContent());
         row.addComponent(panel);
 
-        panel = new Panel("Testing for IE");
-        panel.addStyleName("custom");
-        panel.setWidth("10em");
-        panel.setHeight("8em");
-        VerticalLayout l = new VerticalLayout();
-        l.setSizeFull();
-        Button test1 = new Button("Test 1");
-        test1.setSizeFull();
-        Button test2 = new Button("Test 2");
-        l.addComponent(test1);
-        l.addComponent(test2);
-        l.setExpandRatio(test1, 1.0f);
-        panel.setContent(l);
+        panel = new Panel("Well style");
+        panel.setIcon(icon(false));
+        panel.addStyleName("well");
+        panel.setContent(panelContent());
         row.addComponent(panel);
+
+        CssLayout layout = new CssLayout();
+        layout.setIcon(icon(false));
+        layout.setCaption("Panel style layout");
+        layout.addStyleName("card");
+        layout.addComponent(panelContent());
+        row.addComponent(layout);
+
+        layout = new CssLayout();
+        layout.setIcon(icon(false));
+        layout.setCaption("Well style layout");
+        layout.addStyleName("well");
+        layout.addComponent(panelContent());
+        row.addComponent(layout);
     }
 
     void datefields(final VerticalLayout root) {

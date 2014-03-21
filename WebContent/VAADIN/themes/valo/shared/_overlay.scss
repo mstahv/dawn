@@ -137,5 +137,5 @@ $v-selection-item-padding-horizontal: ceil($v-unit-size/4) !default;
 	box-shadow: 0 2px 10px rgba(#000, .2);
 	border-radius: $v-border-radius;
 	overflow: hidden;
-	@include opacity(.8);
+	@include opacity(.5);
 }
