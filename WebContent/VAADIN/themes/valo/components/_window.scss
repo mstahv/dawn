@@ -35,6 +35,8 @@ $v-window-box-shadow: 0 6px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !default;
   	top: 0;
   	left: 0;
   	right: 0;
+    // Raise above the window content, if that is ever promoted to a layer
+    @include transform(translatez(0));
   }
 
   .v-window-header {

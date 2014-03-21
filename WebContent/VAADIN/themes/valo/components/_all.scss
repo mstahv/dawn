@@ -13,6 +13,7 @@
 @import "csslayout";
 @import "tree";
 @import "table";
+@import "treetable";
 @import "gridlayout";
 @import "splitpanel";
 @import "progressbar";
@@ -76,8 +77,12 @@
     @include v-valo-tree;
   }
   
-  @if v-is-included(table) {
+  @if v-is-included(table) or v-is-included(treetable) {
     @include v-valo-table;
+  }
+  
+  @if v-is-included(treetable) {
+    @include v-valo-treetable;
   }
   
   @if v-is-included(splitpanel) {

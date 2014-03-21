@@ -1,3 +1,6 @@
+$v-tabsheet-content-animation-enabled: $v-animations-enabled !default;
+
+
 @mixin v-valo-tabsheet ($primary-stylename: v-tabsheet) {
 
 	$_scale: if( is-dark-color($v-app-background-color) , max(5%, $v-bevel-depth/2), min(-5%, -$v-bevel-depth/2) );
@@ -198,6 +201,13 @@
 			cursor: default;
 			color: inherit !important;
 			@include opacity(.1, true);
+		}
+	}
+
+
+	@if $v-tabsheet-content-animation-enabled {
+		.#{$primary-stylename}-tabsheetpanel > .v-scrollable > .v-widget {
+			@include v-valo-anim-fade-in(300ms);
 		}
 	}
 

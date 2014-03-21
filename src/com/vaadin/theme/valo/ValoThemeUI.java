@@ -72,6 +72,7 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.Tree.TreeDragMode;
+import com.vaadin.ui.TreeTable;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
@@ -487,12 +488,13 @@ public class ValoThemeUI extends UI implements Handler {
         // optiongroups(root);
         // datefields(root);
         // panels(root);
-        // trees(root);
+        trees(root);
         // tables(root);
+        treetables(root);
         // sliders(root);
         // splitpanels(root);
         // tabsheets(root);
-        colorpickers(root);
+        // colorpickers(root);
 
         return root;
     }
@@ -598,7 +600,7 @@ public class ValoThemeUI extends UI implements Handler {
 
     void tables(final VerticalLayout root) {
         HorizontalLayout row;
-        row = addSection(root, "Table", Category.Selection_Components, null);
+        row = addSection(root, "Tables", Category.Selection_Components, null);
         row.setWidth("100%");
 
         VerticalLayout wrap = new VerticalLayout();
@@ -620,6 +622,20 @@ public class ValoThemeUI extends UI implements Handler {
         wrap.addComponent(table);
     }
 
+    void treetables(final VerticalLayout root) {
+        HorizontalLayout row;
+        row = addSection(root, "TreeTables", Category.Selection_Components,
+                null);
+        row.setWidth("100%");
+
+        VerticalLayout wrap = new VerticalLayout();
+        wrap.setSpacing(true);
+        row.addComponent(wrap);
+
+        TreeTable table = getTreeTable("Normal");
+        wrap.addComponent(table);
+    }
+
     void trees(final VerticalLayout root) {
         HorizontalLayout row;
         row = addSection(root, "Tree", Category.Selection_Components, null);
@@ -637,6 +653,18 @@ public class ValoThemeUI extends UI implements Handler {
         tree.expandItem(firstItemId);
         tree.select(firstItemId);
         tree.setItemIcon(firstItemId, FontAwesome.CODE_FORK);
+
+        tree.setDropHandler(new DropHandler() {
+            @Override
+            public AcceptCriterion getAcceptCriterion() {
+                return AcceptAll.get();
+            }
+
+            @Override
+            public void drop(DragAndDropEvent event) {
+                Notification.show(event.getTransferable().toString());
+            }
+        });
 
         // Add actions (context menu)
         tree.addActionHandler(this);
@@ -1246,7 +1274,6 @@ public class ValoThemeUI extends UI implements Handler {
         table.addActionHandler(this);
         table.setDragMode(TableDragMode.MULTIROW);
         table.setDropHandler(new DropHandler() {
-
             @Override
             public AcceptCriterion getAcceptCriterion() {
                 return AcceptAll.get();
@@ -1261,6 +1288,35 @@ public class ValoThemeUI extends UI implements Handler {
         table.select(tableData.getIdByIndex(0));
         table.setSortContainerPropertyId("Lorem");
         table.setColumnAlignment("Bar", Align.RIGHT);
+
+        return table;
+    }
+
+    TreeTable getTreeTable(String caption) {
+        TreeTable table = new TreeTable(caption);
+        table.setSelectable(true);
+        table.setMultiSelect(true);
+        table.setSortEnabled(true);
+        table.setAnimationsEnabled(true);
+        table.setColumnCollapsingAllowed(true);
+        table.setColumnReorderingAllowed(true);
+        table.setPageLength(6);
+        table.addActionHandler(this);
+        table.setDragMode(TableDragMode.MULTIROW);
+        table.setDropHandler(new DropHandler() {
+
+            @Override
+            public AcceptCriterion getAcceptCriterion() {
+                return AcceptAll.get();
+            }
+
+            @Override
+            public void drop(DragAndDropEvent event) {
+                Notification.show(event.getTransferable().toString());
+            }
+        });
+        table.setContainerDataSource(container);
+        table.select(tableData.getIdByIndex(0));
 
         return table;
     }

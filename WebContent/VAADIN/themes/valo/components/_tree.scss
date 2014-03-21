@@ -25,8 +25,6 @@ $v-tree-animations-enabled: false !default;
 
 @mixin v-valo-tree ($primary-stylename: v-tree) {
   
-  
-  
   .#{$primary-stylename} {
     position: relative;
     white-space: nowrap;
@@ -73,8 +71,7 @@ $v-tree-animations-enabled: false !default;
     }
 
     &:before {
-      content: "\f0da";
-      font-family: FontAwesome;
+      @include v-valo-tree-collapsed-icon-style;
       display: inline-block;
       margin: 0 .6em 0 1em;
       position: relative;
@@ -125,7 +122,7 @@ $v-tree-animations-enabled: false !default;
   
   .#{$primary-stylename}-node-children {
   	padding-left: round($v-unit-size/2);
-    overflow: hidden;
+    //overflow: hidden;
   }
 
   @if $v-tree-animations-enabled {
@@ -138,4 +135,40 @@ $v-tree-animations-enabled: false !default;
       @include animation(v-valo-tree-node-open 400ms ease-in);
     }
   }
+
+
+
+  // Drag'n'drop styles
+
+  .#{$primary-stylename}-node-drag-top:before,
+  .#{$primary-stylename}-node-drag-bottom:after {
+    content: "\2022";
+    display: block;
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background: v-valo-focus-color();
+    font-size: $v-font-size * 2;
+    line-height: 2px;
+    color: v-valo-focus-color();
+    text-indent: round($v-font-size/-4);
+    text-shadow: 0 0 1px $v-app-background-color, 0 0 1px $v-app-background-color;
+  }
+
+  .#{$primary-stylename}-node-caption-drag-center {
+    box-shadow: 0 0 0 2px v-valo-focus-color();
+    position: relative;
+    border-radius: $v-border-radius;
+  }
+}
+
+
+@mixin v-valo-tree-collapsed-icon-style {
+  content: "\f0da";
+  font-family: FontAwesome;
+}
+
+@mixin v-valo-tree-expanded-icon-style {
+  content: "\f0d7";
+  font-family: FontAwesome;
 }
