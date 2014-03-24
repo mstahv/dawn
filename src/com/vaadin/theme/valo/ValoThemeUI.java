@@ -43,6 +43,9 @@ import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.shared.ui.slider.SliderOrientation;
+import com.vaadin.ui.AbstractColorPicker.PopupStyle;
+import com.vaadin.ui.AbstractLayout;
+import com.vaadin.ui.Accordion;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -52,6 +55,7 @@ import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.DateField;
+import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Label;
@@ -130,20 +134,68 @@ public class ValoThemeUI extends UI implements Handler {
         setContent(root);
         root.setWidth("100%");
 
-        // root.addComponent(commonParts());
+        root.addComponent(commonParts());
 
         components.setWidth("100%");
         root.addComponent(components);
 
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 1; i++) {
             components.addComponent(components(i));
         }
         components.addStyleName("components-root");
 
-        root.addComponentAsFirst(buildMenu());
+        // root.addComponentAsFirst(buildMenu());
 
         // setContent(new ThemeViewer());
 
+        // tests(this);
+
+    }
+
+    private void tests(UI ui) {
+        VerticalLayout root = new VerticalLayout();
+        ui.setContent(root);
+        root.setMargin(true);
+        root.setSpacing(true);
+
+        HorizontalSplitPanel sp = new HorizontalSplitPanel();
+        sp.setWidth("100%");
+        sp.setHeight("100px");
+
+        Accordion acc = new Accordion();
+
+        Tab tab1 = acc.addTab(new TextField("first field"));
+        tab1.setCaption("First tab");
+
+        Tab tab2 = acc.addTab(new TextField("second field"));
+        tab2.setCaption("Second tab");
+
+        acc.setSizeFull();
+
+        sp.addComponent(acc);
+        root.addComponent(sp);
+
+        AbstractLayout layout = new VerticalLayout();
+        layout.addComponent(new Label("<h1>Vertical layout</h1>",
+                ContentMode.HTML));
+        layout.addComponent(new Label("Next row"));
+        root.addComponent(layout);
+
+        layout = new GridLayout(1, 2);
+        layout.setWidth("100%");
+        layout.addComponent(new Label("<h1>Grid layout</h1>", ContentMode.HTML));
+        layout.addComponent(new Label("Next row"));
+        root.addComponent(layout);
+
+        TabSheet tabSheet = new TabSheet();
+        tabSheet.addTab(new Label("<h1>Tabsheet</h1>", ContentMode.HTML),
+                "Label");
+        root.addComponent(tabSheet);
+
+        Accordion accordion = new Accordion();
+        accordion.addTab(new Label("<h1>Accordion</h1>", ContentMode.HTML),
+                "Label");
+        root.addComponent(accordion);
     }
 
     CssLayout buildMenu() {
@@ -477,24 +529,24 @@ public class ValoThemeUI extends UI implements Handler {
         root.addStyleName("components");
         root.addStyleName("color-context" + num);
 
-        labels(root);
-        buttonsAndLinks(root);
-        textfields(root);
-        textareas(root);
-        comboboxes(root);
-        menubars(root);
-        splitbuttons(root);
-        checkboxes(root);
-        optiongroups(root);
-        datefields(root);
-        panels(root);
+        // labels(root);
+        // buttonsAndLinks(root);
+        // textfields(root);
+        // textareas(root);
+        // comboboxes(root);
+        // menubars(root);
+        // splitbuttons(root);
+        // checkboxes(root);
+        // optiongroups(root);
+        // datefields(root);
+        // panels(root);
         trees(root);
-        tables(root);
-        treetables(root);
-        sliders(root);
-        splitpanels(root);
-        tabsheets(root);
-        colorpickers(root);
+        // tables(root);
+        // treetables(root);
+        // sliders(root);
+        // splitpanels(root);
+        // tabsheets(root);
+        // colorpickers(root);
 
         return root;
     }
@@ -641,6 +693,7 @@ public class ValoThemeUI extends UI implements Handler {
         row = addSection(root, "Tree", Category.Selection_Components, null);
         Tree tree = new Tree();
         tree.setSelectable(true);
+        tree.setMultiSelect(true);
         tree.setContainerDataSource(container);
         tree.setDragMode(TreeDragMode.NODE);
         row.addComponent(tree);
@@ -650,9 +703,12 @@ public class ValoThemeUI extends UI implements Handler {
             Object captionId = propertyIterator.next();
             tree.setItemCaptionPropertyId(captionId);
         }
+        for (Iterator<?> it = tree.getItemIds().iterator(); it.hasNext();) {
+            tree.setItemIcon(it.next(), icon(false));
+        }
         tree.expandItem(firstItemId);
         tree.select(firstItemId);
-        tree.setItemIcon(firstItemId, FontAwesome.CODE_FORK);
+        // tree.setItemIcon(firstItemId, FontAwesome.CODE_FORK);
 
         tree.setDropHandler(new DropHandler() {
             @Override
@@ -683,7 +739,7 @@ public class ValoThemeUI extends UI implements Handler {
         panel = new Panel("Sized");
         panel.setIcon(icon(false));
         panel.setWidth("10em");
-        panel.setHeight("8em");
+        panel.setHeight("250px");
         panel.setContent(panelContent());
         row.addComponent(panel);
 
@@ -1149,6 +1205,14 @@ public class ValoThemeUI extends UI implements Handler {
                 Category.Inputs, null);
 
         ColorPicker cp = new ColorPicker();
+        cp.setDefaultCaptionEnabled(true);
+        cp.setIcon(icon(false));
+        cp.setComponentError(new UserError("Test error"));
+        row.addComponent(cp);
+
+        cp = new ColorPicker();
+        cp.setPopupStyle(PopupStyle.POPUP_SIMPLE);
+        cp.setTextfieldVisibility(true);
         row.addComponent(cp);
     }
 
@@ -1239,6 +1303,7 @@ public class ValoThemeUI extends UI implements Handler {
         if (scrollable) {
             Panel panel = new Panel();
             panel.setSizeFull();
+            panel.addStyleName("borderless");
             panel.setContent(new Label(
                     "<h2>Subtitle</h2><p>Quam diu etiam furor iste tuus nos eludet? Petierunt uti sibi concilium totius Galliae in diem certam indicere. Ut enim ad minim veniam, quis nostrud exercitation. Quae vero auctorem tractata ab fiducia dicuntur.</p><p>Quisque ut dolor gravida, placerat libero vel, euismod. Etiam habebis sem dicantur magna mollis euismod. Nihil hic munitissimus habendi senatus locus, nihil horum? Curabitur est gravida et libero vitae dictum. Ullamco laboris nisi ut aliquid ex ea commodi consequat. Morbi odio eros, volutpat ut pharetra vitae, lobortis sed nibh.</p>",
                     ContentMode.HTML));
@@ -1262,13 +1327,16 @@ public class ValoThemeUI extends UI implements Handler {
     Component panelContent() {
         // return new Button("Panel content");
         VerticalLayout layout = new VerticalLayout();
+        layout.setSizeFull();
         layout.setMargin(true);
         layout.setSpacing(true);
         Label content = new Label(
                 "Suspendisse dictum feugiat nisl ut dapibus. Mauris iaculis porttitor posuere. Praesent id metus massa, ut blandit odio.");
         content.setWidth("10em");
         layout.addComponent(content);
-        layout.addComponent(new Button("Button"));
+        Button button = new Button("Button");
+        button.setSizeFull();
+        layout.addComponent(button);
         return layout;
     }
 

@@ -5,13 +5,7 @@
 	}
 
 	.#{$primary-stylename}-caption {
-		padding: 0 round($v-unit-size/3);
-		line-height: $v-unit-size;
-		$_bg: v-valo-panel-background-color();
-		border-bottom: $v-border-width solid rgba(#000, .05);
-		background: $v-app-background-color;
-		font-weight: $v-font-weight + 100;
-		font-size: $v-caption-font-size;
+		@include v-valo-panel-caption-style;
 	}
 
 	.#{$primary-stylename}-content {
@@ -23,7 +17,7 @@
 
 
 @function v-valo-panel-background-color ($context: $v-app-background-color) {
-	$bg-color: lighten($context, 4%);
+	$bg-color: lighten($context, 2%);
   @return $bg-color;
 }
 
@@ -41,13 +35,22 @@
 	border-radius: $v-border-radius;
 	border: $v-border-width solid v-valo-panel-border-color(v-valo-panel-background-color());
 	box-shadow: v-valo-shadow();
+}
 
 
+@mixin v-valo-panel-caption-style {
+	padding: 0 round($v-unit-size/3);
+	line-height: $v-unit-size;
+	$_bg: v-valo-panel-background-color();
+	border-bottom: $v-border-width solid rgba(#000, .05);
+	background: $v-app-background-color;
+	font-weight: $v-font-weight + 100;
+	font-size: $v-caption-font-size;
 }
 
 
 @mixin v-valo-panel-well-style {
-	$_bg: v-valo-panel-background-color(darken($v-app-background-color, 6%));
+	$_bg: v-valo-panel-background-color(darken($v-app-background-color, 4%));
 	background: $_bg;
 	box-shadow: v-valo-shadow($shadow-style: join(inset, $v-shadow-style));
 	border-radius: $v-border-radius;

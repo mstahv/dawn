@@ -53,7 +53,7 @@ body {
     }
   }
   
-  @include variants;
+  //@include variants;
 
   .v-button-primary {
     @include v-valo-button-style($background-color: $color3);
@@ -78,6 +78,10 @@ body {
 
   .v-tabsheet-padded-tabbar {
     @include v-valo-tabsheet-padded-tabbar;
+  }
+
+  .v-panel-borderless {
+    @include v-valo-panel-borderless-style;
   }
 
   /*

@@ -114,6 +114,11 @@
   	left: round($v-unit-size/6);
   	border-radius: $v-border-radius - 1px;
   	border: 1px solid hsla(0, 0%, 0%, .5);
+    max-width: $v-unit-size - round($v-unit-size/3) - 2px;
+
+    + .v-button-caption:not(:empty) {
+      margin-left: round($v-unit-size/2);
+    }
   }
 
 }

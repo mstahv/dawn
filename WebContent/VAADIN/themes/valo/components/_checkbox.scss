@@ -19,7 +19,10 @@
   
   position: relative;
   line-height: round($unit-size/2);
-  padding-left: round($unit-size/1.5);
+
+  :root & {
+    padding-left: round($unit-size/1.5);
+  }
   
   :root & > input {
     position: absolute;

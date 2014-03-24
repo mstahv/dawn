@@ -42,7 +42,7 @@ $v-textfield-disabled-opacity: $v-disabled-opacity !default;
   @if $border-radius {
     $padding-width: $padding-width + ceil($border-radius/3);
   }
-  padding: 0 $padding-width;
+  padding: ceil($unit-size/9) $padding-width;
 }
 
 

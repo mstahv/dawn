@@ -277,6 +277,7 @@ $v-table-background-color: null !default;
 
 	tbody.v-drag-element {
 		display: block;
+		overflow: visible;
 		box-shadow: none;
 		background: transparent;
 		@include opacity(1);
@@ -317,17 +318,24 @@ $v-table-background-color: null !default;
 	.#{$primary-stylename}-drag .#{$primary-stylename}-body {
 		outline: 2px solid rgba(v-valo-focus-color(), .5);
 
+		@if color-luminance(v-valo-focus-color()) + 50 < color-luminance($background-color) {
+    	border-color: v-valo-focus-color();
+    }
+
 		.#{$primary-stylename}-focus {
 			outline: none;
 		}
 	}
 
-	.#{$primary-stylename}-row-drag-middle .#{$primary-stylename}-cell-content {
-		$_bg: mix(v-valo-focus-color(), $background-color);
-		background-color: $_bg;
-		color: v-valo-font-color($_bg);
-		border-color: $_bg !important;
-		outline: none;
+	.#{$primary-stylename}-row-drag-middle td:first-child:before {
+		content: "";
+		display: block;
+		position: absolute;
+		height: $v-table-row-height + $v-table-border-width;
+		left: 0;
+		right: 0;
+		background: v-valo-focus-color($background-color);
+		@include opacity(.2);
 	}
 
 	.#{$primary-stylename}-row-drag-top td:first-child:before,
@@ -355,6 +363,11 @@ $v-table-background-color: null !default;
 		line-height: 1px;
 	}
 
+	.v-ie & .#{$primary-stylename}-row-drag-top td:first-child:before,
+	.v-ie & .#{$primary-stylename}-row-drag-bottom td:first-child:after {
+		line-height: 0;
+	}
+
 }
 
 
@@ -379,9 +392,3 @@ $v-table-background-color: null !default;
 	content: "\f00c";
   font-family: FontAwesome;
 }
-
-
-
-
-
-

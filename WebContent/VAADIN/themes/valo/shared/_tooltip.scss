@@ -16,8 +16,9 @@ $v-tooltip-errormessage-background-color: #FF6854 !default;
 		}
 
 		.v-errormessage {
-			background: $v-tooltip-errormessage-background-color;
-			margin: -$v-tooltip-padding-vertical #{-$v-tooltip-padding-horizontal} $v-tooltip-padding-vertical;
+			background-color: opacify($v-tooltip-errormessage-background-color, 1);
+			background-color: $v-tooltip-errormessage-background-color;
+			margin: -$v-tooltip-padding-vertical #{-$v-tooltip-padding-horizontal};
 			padding: $v-tooltip-padding-vertical $v-tooltip-padding-horizontal;
 			max-height: 10em;
 			overflow: auto;
@@ -27,6 +28,11 @@ $v-tooltip-errormessage-background-color: #FF6854 !default;
 		.v-tooltip-text {
 			max-height: 10em;
 			overflow: auto;
+			margin-top: $v-tooltip-padding-vertical * 2;
+		}
+
+		.v-errormessage[aria-hidden="true"] + .v-tooltip-text {
+			margin-top: 0;
 		}
 
 		h1,
@@ -40,7 +46,8 @@ $v-tooltip-errormessage-background-color: #FF6854 !default;
 
 
 @mixin v-valo-tooltip-style {
-	background: $v-tooltip-background-color;
+	background-color: opacify($v-tooltip-background-color, 1);  // For IE8
+	background-color: $v-tooltip-background-color;
 	box-shadow: $v-tooltip-box-shadow;
 	color: $v-tooltip-font-color;
 	padding: $v-tooltip-padding-vertical $v-tooltip-padding-horizontal;
