@@ -139,7 +139,7 @@ public class ValoThemeUI extends UI implements Handler {
         components.setWidth("100%");
         root.addComponent(components);
 
-        for (int i = 1; i <= 1; i++) {
+        for (int i = 1; i <= 2; i++) {
             components.addComponent(components(i));
         }
         components.addStyleName("components-root");
@@ -540,12 +540,12 @@ public class ValoThemeUI extends UI implements Handler {
         // optiongroups(root);
         // datefields(root);
         // panels(root);
-        trees(root);
+        // trees(root);
         // tables(root);
         // treetables(root);
         // sliders(root);
         // splitpanels(root);
-        // tabsheets(root);
+        tabsheets(root);
         // colorpickers(root);
 
         return root;
@@ -610,13 +610,21 @@ public class ValoThemeUI extends UI implements Handler {
                 null);
 
         HorizontalSplitPanel sp = new HorizontalSplitPanel();
-        sp.setWidth("100px");
-        sp.setHeight("120px");
+        sp.setWidth("200px");
+        sp.setHeight(null);
+        sp.setFirstComponent(new Label(
+                "Fictum,  deserunt mollit anim laborum astutumque!"));
+        sp.setSecondComponent(new Label(
+                "Non equidem invideo, miror magis posuere velit aliquet."));
         row.addComponent(sp);
 
         VerticalSplitPanel sp2 = new VerticalSplitPanel();
-        sp2.setWidth("100px");
-        sp2.setHeight("120px");
+        sp2.setWidth("200px");
+        sp2.setHeight("6em");
+        sp2.setFirstComponent(new Label(
+                "Fictum,  deserunt mollit anim laborum astutumque!"));
+        sp2.setSecondComponent(new Label(
+                "Non equidem invideo, miror magis posuere velit aliquet."));
         row.addComponent(sp2);
     }
 

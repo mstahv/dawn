@@ -8,9 +8,9 @@
   opacity: $o #{unquote($imp)};
   
   @if $o < 1 {
-    -ms-filter: alpha(opacity=$o*100%) #{unquote($imp)};
+    filter: alpha(opacity=$o*100) #{unquote($imp)};
   } @else {
-    -ms-filter: none #{unquote($imp)};
+    filter: none #{unquote($imp)};
   }
 }
 

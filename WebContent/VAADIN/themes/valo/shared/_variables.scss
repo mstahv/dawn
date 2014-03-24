@@ -7,6 +7,7 @@ $v-font-weight:           300       			!default; // Must be specified as a numer
 $v-font-color:            v-valo-font-color($v-app-background-color) !default;
 $v-font-family:           "Open Sans", sans-serif !default;
 $v-caption-font-size:			0.9em						!default;
+$v-caption-font-weight:		$v-font-weight + 100 !default;
 
 $v-unit-size:             round(2.4 * $v-font-size) !default;	// Must be specified in pixels
 

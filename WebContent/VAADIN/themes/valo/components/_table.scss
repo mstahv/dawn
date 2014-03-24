@@ -322,6 +322,10 @@ $v-table-background-color: null !default;
     	border-color: v-valo-focus-color();
     }
 
+    .v-ie8 & {
+    	border-color: v-valo-focus-color();
+    }
+
 		.#{$primary-stylename}-focus {
 			outline: none;
 		}

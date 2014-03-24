@@ -54,7 +54,7 @@
   
   .v-caption {
     font-size: $v-caption-font-size;
-    font-weight: $v-font-weight + 100;
+    font-weight: $v-caption-font-weight;
     padding-bottom: .3em;
     @if $v-border-radius > 0 {
       padding-left: round($v-border-radius/4);

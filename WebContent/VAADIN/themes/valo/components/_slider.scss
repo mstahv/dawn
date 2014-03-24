@@ -20,6 +20,10 @@ $v-slider-handle-border-radius: ceil($v-slider-handle-width/2) !default;
 
 			.#{$primary-stylename}-handle:after {
 				opacity: 1;
+
+				.v-ie8 & {
+					visibility: visible;
+				}
 			}
 		}
 
@@ -46,6 +50,10 @@ $v-slider-handle-border-radius: ceil($v-slider-handle-width/2) !default;
 			margin-left: -100%;
 			width: 100%;
 			vertical-align: top;
+
+			.v-ie8 & {
+				left: round(-$v-slider-handle-width/2);
+			}
 		}
 	}
 
@@ -64,6 +72,10 @@ $v-slider-handle-border-radius: ceil($v-slider-handle-width/2) !default;
 			opacity: 0;
 			@if $v-animations-enabled {
 				@include transition(opacity 200ms);
+			}
+
+			.v-ie8 & {
+				visibility: hidden;
 			}
 		}
 
@@ -107,6 +119,12 @@ $v-slider-handle-border-radius: ceil($v-slider-handle-width/2) !default;
 			&:after {
 				margin-left: 0;
 				@include v-valo-gradient($color: v-valo-selection-color(), $direction: to right);
+
+				.v-ie8 & {
+					top: round($v-slider-handle-width/2) - 2px;
+					left: 0;
+					height: 130%;
+				}
 			}
 		}
 
