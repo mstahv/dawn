@@ -79,6 +79,13 @@ $v-tabsheet-content-animation-enabled: $v-animations-enabled !default;
 			&:hover {
 				color: v-valo-selection-color();
 			}
+
+			&.v-disabled {
+				@include opacity($v-disabled-opacity);
+				cursor: default;
+				color: inherit !important;
+				border-bottom: none;
+			}
 		}
 
 		td:first-child .v-caption,

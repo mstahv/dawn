@@ -1,4 +1,12 @@
-$v-window-box-shadow: 0 6px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !default;
+$v-window-box-shadow: 0 4px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !default;
+
+
+@if $v-animations-enabled {
+  @include keyframes(v-valo-modal-window-indication) {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+}
 
 
 @mixin v-valo-window ($primary-stylename: v-window) {
@@ -156,6 +164,14 @@ $v-window-box-shadow: 0 6px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !default;
   }
 
 
+  // Flash modal window when clicking on the curtain
+  .#{$primary-stylename}-modalitycurtain:active {
+    ~ .v-window {
+      @include animation(none);
+    }
+  }
+
+
 
 
   .v-window-bottom-toolbar {
@@ -180,11 +196,6 @@ $v-window-box-shadow: 0 6px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !default;
 			margin: 0 round($v-unit-size/-3) round($v-unit-size/-3);
 			@include box-sizing(content-box);
 		}
-
-		//.v-window-contents > .v-scrollable {
-		//	overflow: visible;
-		//	position: static !important;
-		//}
   }
 
 }

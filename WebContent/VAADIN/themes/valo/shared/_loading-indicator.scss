@@ -14,19 +14,17 @@
 }
 
 
-@mixin v-valo-spinner ($size: 24px, $color: $v-primary-color, $speed: 500ms) {
-  height: $size;
-  width: $size;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  border: ceil($size/8) solid transparentize($color, .8);
+@mixin v-valo-spinner ($size: 24px, $thickness: 4px, $color: null, $speed: 500ms) {
+  $color: $color or v-valo-selection-color();
+  // Make size divisible by 2, so that the rotation won't jiggle
+  $size: $size + $size%2;
+  height: $size !important;
+  width: $size !important;
+  @include box-sizing(border-box);
+  border: $thickness solid transparentize($color, .8);
   border-top-color: transparentize($color, .15);
   border-radius: 100%;
-  -webkit-animation: v-rotate-360 $speed infinite linear;
-  -moz-animation: v-rotate-360 $speed infinite linear;
-  -o-animation: v-rotate-360 $speed infinite linear;
-  animation: v-rotate-360 $speed infinite linear;
+  @include animation(v-rotate-360 $speed infinite linear);
   pointer-events: none;
   @include transition(all ease-in-out 300ms);
 }
@@ -68,7 +66,7 @@
 
 
 $v-loading-indicator-color: $v-focus-color !default;
-$v-loading-indicator-bar-height: ceil($v-unit-size/6) !default;
+$v-loading-indicator-bar-height: ceil($v-unit-size/7) !default;
 
 @mixin v-valo-loading-bar {
   
@@ -112,7 +110,7 @@ $v-loading-indicator-bar-height: ceil($v-unit-size/6) !default;
     .v-ff & {
       width: 90%;
     }
-    @include animation(v-progress-wait 5s forwards, v-progress-wait-pulse 1s 4s infinite);
+    @include animation(v-progress-wait 5s forwards, v-progress-wait-pulse 1s 4s infinite backwards);
   }
   
 }

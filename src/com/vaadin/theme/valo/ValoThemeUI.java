@@ -60,9 +60,11 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Link;
+import com.vaadin.ui.ListSelect;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
+import com.vaadin.ui.NativeSelect;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.Panel;
@@ -77,6 +79,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.Tree.TreeDragMode;
 import com.vaadin.ui.TreeTable;
+import com.vaadin.ui.TwinColSelect;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
@@ -106,6 +109,13 @@ public class ValoThemeUI extends UI implements Handler {
 
     @Override
     protected void init(VaadinRequest request) {
+        // Show .v-app-loading badge
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         baconDataSet = new BaconDataSet();
         MockupFactory.setDefaultDataSet(baconDataSet);
         container = new MockupContainer();
@@ -529,27 +539,61 @@ public class ValoThemeUI extends UI implements Handler {
         root.addStyleName("components");
         root.addStyleName("color-context" + num);
 
-        labels(root);
-        buttonsAndLinks(root);
-        textfields(root);
-        textareas(root);
-        comboboxes(root);
-        menubars(root);
-        splitbuttons(root);
-        checkboxes(root);
-        optiongroups(root);
-        datefields(root);
-        panels(root);
-        trees(root);
-        tables(root);
-        treetables(root);
-        sliders(root);
-        splitpanels(root);
-        tabsheets(root);
+        // labels(root);
+        // buttonsAndLinks(root);
+        // textfields(root);
+        // textareas(root);
+        // comboboxes(root);
+        // menubars(root);
+        // splitbuttons(root);
+        // checkboxes(root);
+        // optiongroups(root);
+        // datefields(root);
+        // panels(root);
+        // trees(root);
+        // tables(root);
+        // treetables(root);
+        // sliders(root);
+        // splitpanels(root);
+        // tabsheets(root);
         // colorpickers(root);
-        accordions(root);
+        // accordions(root);
+        nativeselects(root);
 
         return root;
+    }
+
+    void nativeselects(VerticalLayout root) {
+        HorizontalLayout row = addSection(root, "Native Selects",
+                Category.Selection_Components, null);
+
+        NativeSelect select = new NativeSelect("Drop Down Select");
+        row.addComponent(select);
+
+        ListSelect list = new ListSelect("List Select");
+        list.setNewItemsAllowed(true);
+        row.addComponent(list);
+
+        TwinColSelect tcs = new TwinColSelect("TwinCol Select");
+        tcs.setLeftColumnCaption("Left Column");
+        tcs.setRightColumnCaption("Right Column");
+        tcs.setNewItemsAllowed(true);
+        row.addComponent(tcs);
+
+        TwinColSelect tcs2 = new TwinColSelect("Sized TwinCol Select");
+        tcs2.setLeftColumnCaption("Left Column");
+        tcs2.setRightColumnCaption("Right Column");
+        tcs2.setNewItemsAllowed(true);
+        tcs2.setWidth("280px");
+        tcs2.setHeight("200px");
+        row.addComponent(tcs2);
+
+        for (int i = 1; i <= 10; i++) {
+            select.addItem("Option " + i);
+            list.addItem("Option " + i);
+            tcs.addItem("Option " + i);
+            tcs2.addItem("Option " + i);
+        }
     }
 
     void accordions(VerticalLayout root) {
@@ -1312,6 +1356,19 @@ public class ValoThemeUI extends UI implements Handler {
         normal = new Label(
                 "Normal type for plain text. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu.");
         root.addComponent(normal);
+
+        h4 = new Label("Spinner");
+        h4.addStyleName("h4");
+        root.addComponent(h4);
+
+        Label spinnerDesc = new Label(
+                "This is just a label with a custom style name, for which the spinner mixin is added.");
+        spinnerDesc.addStyleName("small");
+        root.addComponent(spinnerDesc);
+
+        Label spinner = new Label();
+        spinner.addStyleName("spinner");
+        root.addComponent(spinner);
     }
 
     HorizontalLayout addSection(VerticalLayout root, String title,

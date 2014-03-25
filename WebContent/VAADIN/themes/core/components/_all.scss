@@ -25,6 +25,7 @@
 @import "panel";
 @import "popupview";
 @import "progressindicator";
+@import "richtextarea";
 @import "slider";
 @import "splitpanel";
 @import "table";
@@ -152,6 +153,10 @@
   
   @if v-is-included(progressindicator) {
     @include v-core-progressindicator;
+  }
+  
+  @if v-is-included(richtextarea) {
+    @include v-core-richtextarea;
   }
   
   @if v-is-included(slider) {

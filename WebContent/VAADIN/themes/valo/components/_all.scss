@@ -22,6 +22,8 @@
 @import "colorpicker";
 @import "panel";
 @import "accordion";
+@import "twincolselect";
+@import "nativeselect";
 
 
 @mixin v-valo-components {
@@ -114,6 +116,14 @@
   
   @if v-is-included(accordion) {
     @include v-valo-accordion;
+  }
+  
+  @if v-is-included(twincolselect) {
+    @include v-valo-twincolselect;
+  }
+  
+  @if v-is-included(nativeselect) {
+    @include v-valo-nativeselect;
   }
   
   @if v-is-included(label) {
