@@ -20,7 +20,9 @@ $large-size: ceil($v-unit-size*1.2);
 			background-color: $context;
     	color: v-valo-font-color($context);
 
-			@include v-valo-components;
+    	@if $i > 1 {
+				@include v-valo-components;
+			}
 
 		  .v-panel-well {
 		    @include v-valo-panel-well-style;

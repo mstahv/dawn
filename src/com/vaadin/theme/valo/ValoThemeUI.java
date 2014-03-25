@@ -134,12 +134,12 @@ public class ValoThemeUI extends UI implements Handler {
         setContent(root);
         root.setWidth("100%");
 
-        root.addComponent(commonParts());
+        // root.addComponent(commonParts());
 
         components.setWidth("100%");
         root.addComponent(components);
 
-        for (int i = 1; i <= 2; i++) {
+        for (int i = 1; i <= 5; i++) {
             components.addComponent(components(i));
         }
         components.addStyleName("components-root");
@@ -545,10 +545,48 @@ public class ValoThemeUI extends UI implements Handler {
         // treetables(root);
         // sliders(root);
         // splitpanels(root);
-        tabsheets(root);
+        // tabsheets(root);
         // colorpickers(root);
+        accordions(root);
 
         return root;
+    }
+
+    void accordions(VerticalLayout root) {
+        HorizontalLayout row = addSection(root, "Accordions",
+                Category.Component_Containers, null);
+        row.setWidth("100%");
+
+        Accordion ac = new Accordion();
+        row.addComponent(ac);
+        ac.addTab(new VerticalLayout() {
+            {
+                setMargin(true);
+                addComponent(new Label(
+                        "Fabio vel iudice vincam, sunt in culpa qui officia. Ut enim ad minim veniam, quis nostrud exercitation."));
+            }
+        }, baconDataSet.nextValue(), icon(false));
+        ac.addTab(new VerticalLayout() {
+            {
+                setMargin(true);
+                addComponent(new Label(
+                        "Gallia est omnis divisa in partes tres, quarum."));
+            }
+        }, baconDataSet.nextValue(), icon(false));
+        ac.addTab(new VerticalLayout() {
+            {
+                setMargin(true);
+                addComponent(new Label(
+                        "Nihil hic munitissimus habendi senatus locus, nihil horum? Sed haec quis possit intrepidus aestimare tellus."));
+            }
+        }, baconDataSet.nextValue(), icon(true));
+        ac.addTab(new VerticalLayout() {
+            {
+                setMargin(true);
+                addComponent(new Label(
+                        "Inmensae subtilitatis, obscuris et malesuada fames. Quisque ut dolor gravida, placerat libero vel, euismod."));
+            }
+        }, baconDataSet.nextValue());
     }
 
     void tabsheets(final VerticalLayout root) {

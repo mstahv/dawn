@@ -1,5 +1,5 @@
 @function v-valo-bevel ($color, $bevel-style: $v-bevel-style, $bevel-depth: $v-bevel-depth, 
-												$gradient-style: $v-gradient-style, $gradient-depth: 0) {
+												$gradient-style: $v-gradient-style, $gradient-depth: $v-gradient-depth) {
 	
   @if $bevel-depth == 0% {
   	@return null;

@@ -21,6 +21,7 @@
 @import "tabsheet";
 @import "colorpicker";
 @import "panel";
+@import "accordion";
 
 
 @mixin v-valo-components {
@@ -109,6 +110,10 @@
   
   @if v-is-included(panel) {
     @include v-valo-panel;
+  }
+  
+  @if v-is-included(accordion) {
+    @include v-valo-accordion;
   }
   
   @if v-is-included(label) {
