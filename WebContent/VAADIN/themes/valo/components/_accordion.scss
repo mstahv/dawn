@@ -34,8 +34,6 @@ $v-accordion-content-shadow-depth: $v-shadow-depth/2 !default;
 
 		@if $v-hover-styles-enabled {
 			&:hover:before {
-				//background: $v-app-background-color;
-				//@include opacity(.2);
 				@include v-valo-button-hover-style;
 				border: none;
 			}
@@ -43,7 +41,6 @@ $v-accordion-content-shadow-depth: $v-shadow-depth/2 !default;
 
 		&:active:before {
 			@include v-valo-button-active-style;
-			//@include opacity(1);
 		}
 	}
 

@@ -209,6 +209,23 @@ $large-size: ceil($v-unit-size*1.2);
 
 
 
+	    .v-panel-color1 .v-panel-caption {
+	    	@include v-valo-panel-caption-style($background-color: nth($colors, nth($variant, 1)));
+	    }
+
+	    .v-panel-color2 .v-panel-caption {
+	    	@include v-valo-panel-caption-style($background-color: nth($colors, nth($variant, 2)));
+	    }
+
+	    .v-panel-color3 .v-panel-caption {
+	    	@include v-valo-panel-caption-style($background-color: nth($colors, nth($variant, 3)));
+	    }
+
+
+	    .v-accordion-item-color1 .v-accordion-item-caption .v-caption {
+	    	@include v-valo-panel-caption-style($background-color: nth($colors, nth($variant, 2)));
+	    }
+
 	    $v-app-background-color: $copy;
 
 			//@include addons;

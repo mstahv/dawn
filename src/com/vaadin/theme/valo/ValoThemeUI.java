@@ -134,7 +134,7 @@ public class ValoThemeUI extends UI implements Handler {
         setContent(root);
         root.setWidth("100%");
 
-        // root.addComponent(commonParts());
+        root.addComponent(commonParts());
 
         components.setWidth("100%");
         root.addComponent(components);
@@ -421,7 +421,7 @@ public class ValoThemeUI extends UI implements Handler {
          */
         row = addSection(root, "Windows", Category.Component_Containers, null);
 
-        final Window win = new Window();
+        final Window win = new Window("Window Caption");
         win.setWidth("320px");
         win.setContent(windowContents(false));
 
@@ -429,13 +429,13 @@ public class ValoThemeUI extends UI implements Handler {
         group.addStyleName("v-component-group");
         row.addComponent(group);
 
-        Button button = new Button("Open Window", new ClickListener() {
+        Button button = new Button("Fixed footer", new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
                 win.close();
                 win.setContent(windowContents(true));
-                win.removeStyleName("dialog");
                 win.setHeight("240px");
+                win.setResizable(true);
                 UI.getCurrent().addWindow(win);
                 win.setPositionX(Page.getCurrent().getBrowserWindowWidth() / 3);
                 win.setPositionY(Page.getCurrent().getBrowserWindowHeight() / 3);
@@ -443,13 +443,13 @@ public class ValoThemeUI extends UI implements Handler {
         });
         group.addComponent(button);
 
-        button = new Button("w/o Scroll", new ClickListener() {
+        button = new Button("Auto height", new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
                 win.close();
                 win.setContent(windowContents(false));
-                win.addStyleName("dialog");
                 win.setHeight(null);
+                win.setResizable(false);
                 UI.getCurrent().addWindow(win);
                 win.setPositionX(Page.getCurrent().getBrowserWindowWidth() / 3);
                 win.setPositionY(Page.getCurrent().getBrowserWindowHeight() / 3);
@@ -529,23 +529,23 @@ public class ValoThemeUI extends UI implements Handler {
         root.addStyleName("components");
         root.addStyleName("color-context" + num);
 
-        // labels(root);
-        // buttonsAndLinks(root);
-        // textfields(root);
-        // textareas(root);
-        // comboboxes(root);
-        // menubars(root);
-        // splitbuttons(root);
-        // checkboxes(root);
-        // optiongroups(root);
-        // datefields(root);
-        // panels(root);
-        // trees(root);
-        // tables(root);
-        // treetables(root);
-        // sliders(root);
-        // splitpanels(root);
-        // tabsheets(root);
+        labels(root);
+        buttonsAndLinks(root);
+        textfields(root);
+        textareas(root);
+        comboboxes(root);
+        menubars(root);
+        splitbuttons(root);
+        checkboxes(root);
+        optiongroups(root);
+        datefields(root);
+        panels(root);
+        trees(root);
+        tables(root);
+        treetables(root);
+        sliders(root);
+        splitpanels(root);
+        tabsheets(root);
         // colorpickers(root);
         accordions(root);
 
@@ -579,14 +579,14 @@ public class ValoThemeUI extends UI implements Handler {
                 addComponent(new Label(
                         "Nihil hic munitissimus habendi senatus locus, nihil horum? Sed haec quis possit intrepidus aestimare tellus."));
             }
-        }, baconDataSet.nextValue(), icon(true));
+        }, baconDataSet.nextValue(), icon(false));
         ac.addTab(new VerticalLayout() {
             {
                 setMargin(true);
                 addComponent(new Label(
                         "Inmensae subtilitatis, obscuris et malesuada fames. Quisque ut dolor gravida, placerat libero vel, euismod."));
             }
-        }, baconDataSet.nextValue());
+        }, "Custom Caption", icon(false)).setStyleName("color1");
     }
 
     void tabsheets(final VerticalLayout root) {
@@ -786,6 +786,24 @@ public class ValoThemeUI extends UI implements Handler {
         panel.setIcon(icon(false));
         panel.setWidth("10em");
         panel.setHeight("250px");
+        panel.setContent(panelContent());
+        row.addComponent(panel);
+
+        panel = new Panel("Custom Caption");
+        panel.setIcon(icon(false));
+        panel.addStyleName("color1");
+        panel.setContent(panelContent());
+        row.addComponent(panel);
+
+        panel = new Panel("Custom Caption");
+        panel.setIcon(icon(false));
+        panel.addStyleName("color2");
+        panel.setContent(panelContent());
+        row.addComponent(panel);
+
+        panel = new Panel("Custom Caption");
+        panel.setIcon(icon(false));
+        panel.addStyleName("color3");
         panel.setContent(panelContent());
         row.addComponent(panel);
 
@@ -1350,22 +1368,24 @@ public class ValoThemeUI extends UI implements Handler {
             Panel panel = new Panel();
             panel.setSizeFull();
             panel.addStyleName("borderless");
-            panel.setContent(new Label(
+            VerticalLayout l = new VerticalLayout();
+            l.addComponent(new Label(
                     "<h2>Subtitle</h2><p>Quam diu etiam furor iste tuus nos eludet? Petierunt uti sibi concilium totius Galliae in diem certam indicere. Ut enim ad minim veniam, quis nostrud exercitation. Quae vero auctorem tractata ab fiducia dicuntur.</p><p>Quisque ut dolor gravida, placerat libero vel, euismod. Etiam habebis sem dicantur magna mollis euismod. Nihil hic munitissimus habendi senatus locus, nihil horum? Curabitur est gravida et libero vitae dictum. Ullamco laboris nisi ut aliquid ex ea commodi consequat. Morbi odio eros, volutpat ut pharetra vitae, lobortis sed nibh.</p>",
                     ContentMode.HTML));
+            l.setMargin(true);
+            panel.setContent(l);
             content = panel;
         } else {
-            content = new VerticalLayout();
-            ((VerticalLayout) content)
-                    .addComponent(new Label(
-                            "<h2>Subtitle</h2><p>Normal type for plain text. Etiam at risus et justo dignissim congue.</p>",
-                            ContentMode.HTML));
+            content = new Label(
+                    "<h2>Subtitle</h2><p>Normal type for plain text. Etiam at risus et justo dignissim congue.</p>",
+                    ContentMode.HTML);
         }
         root.addComponents(content, footer);
         if (scrollable) {
             root.setSizeFull();
             root.setExpandRatio(content, 1);
         }
+        root.setMargin(!scrollable);
 
         return root;
     }

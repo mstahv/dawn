@@ -22,6 +22,7 @@ $v-window-box-shadow: 0 6px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !default;
     @include transition(all 200ms);
   }
 
+  .v-window-resizingCurtain + .v-window,
   .v-window-draggingCurtain + .v-window {
     @include transition(none);
   }
@@ -114,10 +115,6 @@ $v-window-box-shadow: 0 6px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !default;
     }
   }
   
-  .v-window-resizebox {
-    display: none;
-  }
-  
   .v-window > .popupContent,
   .v-window-wrap,
   .v-window-contents,
@@ -129,14 +126,33 @@ $v-window-box-shadow: 0 6px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !default;
     @include box-sizing(border-box);
     border-radius: $v-border-radius;
     margin-top: 0 !important;
-  }
-  
-  .v-window-contents > .v-scrollable:focus {
-    outline: none;
+
+    > .v-scrollable {
+      @include v-valo-panel-adjust-content-margins;
+
+      &:focus {
+        outline: none;
+      }
+    }
   }
 
   .v-window-footer {
-  	display: none;
+  	height: 0;
+  }
+
+  .v-window-resizebox {
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    bottom: 0;
+    width: round($v-unit-size/2);
+    height: round($v-unit-size/2);
+    cursor: se-resize;
+    cursor: nwse-resize;
+  }
+
+  .v-window-resizebox-disabled {
+    display: none;
   }
 
 
@@ -159,18 +175,16 @@ $v-window-box-shadow: 0 6px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !default;
   	}
   }
 
-  .v-window-dialog {
-		padding: round($v-unit-size/3);
-
+  .v-margin-left.v-margin-right.v-margin-bottom {
 		.v-window-bottom-toolbar {
 			margin: 0 round($v-unit-size/-3) round($v-unit-size/-3);
 			@include box-sizing(content-box);
 		}
 
-		.v-window-contents > .v-scrollable {
-			overflow: visible;
-			position: static !important;
-		}
+		//.v-window-contents > .v-scrollable {
+		//	overflow: visible;
+		//	position: static !important;
+		//}
   }
 
 }

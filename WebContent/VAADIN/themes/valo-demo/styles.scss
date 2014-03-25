@@ -84,13 +84,12 @@ body {
     @include v-valo-panel-borderless-style;
   }
 
-  /*
-  .v-filterselect-button {
-    @include v-valo-button-style;
-    width: $v-unit-size;
-    padding: 0;
-    border-width: 0 0 0 $v-button-border-width;
-  }
-  */
+  
+  //.v-filterselect-button {
+  //  @include v-valo-button-style;
+  //  width: $v-unit-size;
+  //  padding: 0;
+  //  border-width: 0 0 0 $v-button-border-width;
+  //}
 
 }
