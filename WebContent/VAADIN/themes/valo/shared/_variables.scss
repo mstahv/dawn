@@ -6,7 +6,7 @@ $v-font-size:             15px      			!default;	// Should be specified in pixel
 $v-font-weight:           300       			!default; // Must be specified as a numeric value (i.e. not 'normal' or 'bold')
 $v-font-color:            v-valo-font-color($v-app-background-color) !default;
 $v-font-family:           "Open Sans", sans-serif !default;
-$v-caption-font-size:			0.9em						!default;
+$v-caption-font-size:			0.9 * $v-font-size	!default; // Should be a pixel value
 $v-caption-font-weight:		$v-font-weight + 100 !default;
 
 $v-unit-size:             round(2.4 * $v-font-size) !default;	// Must be specified in pixels
@@ -42,3 +42,5 @@ $v-disabled-opacity:			0.7							!default;
 $v-selection-color: 			$v-focus-color 	!default;
 
 $v-link-color: 						$v-focus-color 	!default;
+
+$v-default-field-width:		$v-unit-size * 5 !default;

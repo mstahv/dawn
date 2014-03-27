@@ -24,7 +24,11 @@ $v-selection-item-padding-horizontal: ceil($v-unit-size/4) !default;
 
 
 @function v-valo-overlay-background-color ($context: $v-app-background-color) {
-	@return v-valo-textfield-background-color($context);
+	//@return v-valo-textfield-background-color($context);
+	@if is-dark-color($context) {
+		@return darken($context, 2%);
+	}
+	@return lighten($context, 2%);
 }
 
 

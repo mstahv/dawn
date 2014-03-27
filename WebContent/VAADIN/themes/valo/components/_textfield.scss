@@ -140,6 +140,7 @@ $v-textfield-disabled-opacity: $v-disabled-opacity !default;
   
   .#{$primary-stylename} {
     @include v-valo-textfield-style;
+    width: $v-default-field-width;
   }
   
   .#{$primary-stylename}-readonly {

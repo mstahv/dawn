@@ -40,24 +40,35 @@ $v-window-box-shadow: 0 4px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !default;
   
   .v-window-outerheader {
   	position: absolute;
-  	z-index: 1;
+  	z-index: 2;
   	top: 0;
   	left: 0;
   	right: 0;
+    //height: $v-unit-size - 1px;
     // Raise above the window content, if that is ever promoted to a layer
     @include transform(translatez(0));
+
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      right: 0;
+      left: 0;
+      height: 1px;
+      background: adjust-color(v-valo-overlay-background-color(), $lightness: -5%, $saturation: -5%);
+    }
   }
 
   .v-window-header {
   	@extend %no-selection;
     cursor: move;
-    line-height: $v-unit-size;
+    line-height: $v-unit-size - 1px;
     padding-left: round($v-unit-size/3);
     margin-right: $v-unit-size * 2;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: mix($v-app-background-color, v-valo-font-color($v-app-background-color));
+    color: mix(v-valo-overlay-background-color(), v-valo-font-color(v-valo-overlay-background-color()));
   }
   
   .v-window-closebox,
@@ -137,9 +148,21 @@ $v-window-box-shadow: 0 4px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !default;
 
     > .v-scrollable {
       @include v-valo-panel-adjust-content-margins;
+      position: relative;
 
       &:focus {
         outline: none;
+      }
+
+      &:before {
+        content: "";
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        height: 1px;
+        background: v-valo-overlay-background-color();
+        left: 0;
+        right: 0;
       }
     }
   }

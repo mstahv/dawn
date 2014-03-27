@@ -31,4 +31,9 @@
 		text-align: center;
 	}
 
+	.#{$primary-stylename}-captioncell {
+		vertical-align: top;
+		line-height: round($v-unit-size * $v-caption-font-size/$v-font-size);
+	}
+
 }

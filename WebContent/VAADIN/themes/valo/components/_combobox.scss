@@ -114,7 +114,7 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
                                   $shadow-style: $shadow-style, $shadow-depth: $shadow-depth,
                               		$unit-size: $unit-size, $border-radius: $border-radius,
                               		$background-color: $background-color) ;
-  width: 100% !important;
+  width: $v-default-field-width;
   padding-right: $unit-size * 1.2;
 }
 

@@ -1,13 +1,10 @@
 package com.vaadin.theme.valo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.Random;
@@ -32,7 +29,6 @@ import com.vaadin.event.dd.DropHandler;
 import com.vaadin.event.dd.acceptcriteria.AcceptAll;
 import com.vaadin.event.dd.acceptcriteria.AcceptCriterion;
 import com.vaadin.server.ExternalResource;
-import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.server.Resource;
 import com.vaadin.server.ThemeResource;
@@ -976,9 +972,9 @@ public class ValoThemeUI extends UI implements Handler {
         options.addItem("Option Two");
         options.addItem("Option Three");
         options.select("Option One");
-        options.setItemIcon("Option One", FontAwesome.DESKTOP);
-        options.setItemIcon("Option Two", FontAwesome.KEYBOARD_O);
-        options.setItemIcon("Option Three", FontAwesome.GAMEPAD);
+        // options.setItemIcon("Option One", FontAwesome.DESKTOP);
+        // options.setItemIcon("Option Two", FontAwesome.KEYBOARD_O);
+        // options.setItemIcon("Option Three", FontAwesome.GAMEPAD);
         row.addComponent(options);
 
         options = new OptionGroup("Choose many");
@@ -987,9 +983,9 @@ public class ValoThemeUI extends UI implements Handler {
         options.addItem("Option Two");
         options.addItem("Option Three");
         options.select("Option One");
-        options.setItemIcon("Option One", FontAwesome.DESKTOP);
-        options.setItemIcon("Option Two", FontAwesome.KEYBOARD_O);
-        options.setItemIcon("Option Three", FontAwesome.GAMEPAD);
+        // options.setItemIcon("Option One", FontAwesome.DESKTOP);
+        // options.setItemIcon("Option Two", FontAwesome.KEYBOARD_O);
+        // options.setItemIcon("Option Three", FontAwesome.GAMEPAD);
         row.addComponent(options);
     }
 
@@ -1013,15 +1009,15 @@ public class ValoThemeUI extends UI implements Handler {
 
         check = new CheckBox("Custom color", true);
         check.addStyleName("color2");
-        check.setIcon(FontAwesome.DESKTOP);
+        // check.setIcon(FontAwesome.DESKTOP);
         row.addComponent(check);
 
         check = new CheckBox("With Icon", true);
-        check.setIcon(FontAwesome.KEYBOARD_O);
+        // check.setIcon(FontAwesome.KEYBOARD_O);
         row.addComponent(check);
 
         check = new CheckBox();
-        check.setIcon(FontAwesome.GAMEPAD);
+        // check.setIcon(FontAwesome.GAMEPAD);
         row.addComponent(check);
 
         check = new CheckBox("Small", true);
@@ -1065,7 +1061,7 @@ public class ValoThemeUI extends UI implements Handler {
         for (int i = 1; i <= 200; i++) {
             combo.addItem("Option " + i);
         }
-        combo.setItemIcon("Option 1", FontAwesome.FILM);
+        // combo.setItemIcon("Option 1", FontAwesome.FILM);
         row.addComponent(combo);
 
         combo = new ComboBox("Disabled");
@@ -1261,16 +1257,16 @@ public class ValoThemeUI extends UI implements Handler {
         row.addComponent(button);
 
         button = new Button("Photos");
-        button.setIcon(FontAwesome.CAMERA);
+        // button.setIcon(FontAwesome.CAMERA);
         row.addComponent(button);
 
         button = new Button();
-        button.setIcon(FontAwesome.MICROPHONE);
+        // button.setIcon(FontAwesome.MICROPHONE);
         button.addStyleName("icon");
         row.addComponent(button);
 
         button = new Button("Frameless");
-        button.setIcon(FontAwesome.CHEVRON_RIGHT);
+        // button.setIcon(FontAwesome.CHEVRON_RIGHT);
         button.addStyleName("frameless");
         row.addComponent(button);
 
@@ -1292,7 +1288,7 @@ public class ValoThemeUI extends UI implements Handler {
         link = new Link("Custom color", new ExternalResource(
                 "https://vaadin.com"));
         link.addStyleName("color3");
-        link.setIcon(FontAwesome.CHEVRON_CIRCLE_RIGHT);
+        // link.setIcon(FontAwesome.CHEVRON_CIRCLE_RIGHT);
         row.addComponent(link);
 
         link = new Link("Small", new ExternalResource("https://vaadin.com"));
@@ -1304,7 +1300,7 @@ public class ValoThemeUI extends UI implements Handler {
         row.addComponent(link);
 
         link = new Link(null, new ExternalResource("https://vaadin.com"));
-        link.setIcon(FontAwesome.ANCHOR);
+        // link.setIcon(FontAwesome.ANCHOR);
         row.addComponent(link);
     }
 
@@ -1601,35 +1597,35 @@ public class ValoThemeUI extends UI implements Handler {
         view.addItem("Zoom Out", null);
 
         MenuItem fav = menubar.addItem("", check);
-        fav.setIcon(FontAwesome.HEART);
+        // fav.setIcon(FontAwesome.HEART);
         fav.setStyleName("icon");
         fav.setCheckable(true);
         fav.setChecked(true);
 
         fav = menubar.addItem("", check);
-        fav.setIcon(FontAwesome.RETWEET);
+        // fav.setIcon(FontAwesome.RETWEET);
         fav.setStyleName("icon");
         fav.setCheckable(true);
         fav.setCheckable(true);
 
-        menubar.addItem("Attach", null).setIcon(FontAwesome.PAPERCLIP);
-        menubar.addItem("Undo", null).setIcon(FontAwesome.UNDO);
-        menubar.addItem("Redo", null).setIcon(FontAwesome.REPEAT);
-        menubar.addItem("Upload", null).setIcon(FontAwesome.UPLOAD);
+        // menubar.addItem("Attach", null).setIcon(FontAwesome.PAPERCLIP);
+        // menubar.addItem("Undo", null).setIcon(FontAwesome.UNDO);
+        // menubar.addItem("Redo", null).setIcon(FontAwesome.REPEAT);
+        // menubar.addItem("Upload", null).setIcon(FontAwesome.UPLOAD);
 
         return menubar;
     }
 
     public static Resource icon(boolean image) {
-        if (!image) {
-            return ICONS.get(RANDOM.nextInt(SIZE));
-        }
+        // if (!image) {
+        // return ICONS.get(RANDOM.nextInt(SIZE));
+        // }
         return new ThemeResource("../runo/icons/32/document.png");
     }
 
-    static List<FontAwesome> ICONS = Collections.unmodifiableList(Arrays
-            .asList(FontAwesome.values()));
-    static final int SIZE = ICONS.size();
+    // static List<FontAwesome> ICONS = Collections.unmodifiableList(Arrays
+    // .asList(FontAwesome.values()));
+    // static final int SIZE = ICONS.size();
     static final Random RANDOM = new Random();
 
     TabSheet getTabSheet(String caption, String style, boolean closable,

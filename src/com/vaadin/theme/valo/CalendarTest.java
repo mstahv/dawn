@@ -361,7 +361,6 @@ public class CalendarTest extends UI {
         controlPanel.addComponent(readOnlyButton);
         controlPanel.addComponent(disabledButton);
         controlPanel.addComponent(addNewEvent);
-        addNewEvent.setDescription("Test description");
 
         controlPanel.setComponentAlignment(timeZoneSelect,
                 Alignment.MIDDLE_LEFT);
@@ -920,10 +919,13 @@ public class CalendarTest extends UI {
 
         updateCalendarEventPopup(newEvent);
         updateCalendarEventForm(event);
+        // TODO this only works the first time
+        captionField.focus();
 
         if (!getWindows().contains(scheduleEventPopup)) {
             addWindow(scheduleEventPopup);
         }
+
     }
 
     /* Initializes a modal window to edit schedule event. */
@@ -934,9 +936,10 @@ public class CalendarTest extends UI {
 
         scheduleEventPopup = new Window(null, layout);
         scheduleEventPopup.setWidth("400px");
-        scheduleEventPopup.setModal(true);
+        // scheduleEventPopup.setModal(true);
         scheduleEventPopup.center();
 
+        scheduleEventFieldLayout.setMargin(false);
         layout.addComponent(scheduleEventFieldLayout);
 
         applyEventButton = new Button("Apply", new ClickListener() {
@@ -981,12 +984,15 @@ public class CalendarTest extends UI {
         });
 
         HorizontalLayout buttons = new HorizontalLayout();
+        buttons.addStyleName("v-window-bottom-toolbar");
+        buttons.setWidth("100%");
         buttons.setSpacing(true);
         buttons.addComponent(deleteEventButton);
         buttons.addComponent(applyEventButton);
+        buttons.setExpandRatio(applyEventButton, 1);
+        buttons.setComponentAlignment(applyEventButton, Alignment.TOP_RIGHT);
         buttons.addComponent(cancel);
         layout.addComponent(buttons);
-        layout.setComponentAlignment(buttons, Alignment.BOTTOM_RIGHT);
     }
 
     private void updateCalendarEventPopup(boolean newEvent) {

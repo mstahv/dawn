@@ -19,6 +19,7 @@ $v-calendar-event-colors: dodgerblue, seagreen, darkgoldenrod, firebrick, slateb
 		margin: 0;
 		cursor: pointer;
 		outline: none;
+		color: inherit;
 		@include opacity(.5);
 
 		&:focus {
@@ -235,7 +236,31 @@ $v-calendar-event-colors: dodgerblue, seagreen, darkgoldenrod, firebrick, slateb
 	}
 
 	.#{$primary-stylename} .v-daterange {
-		background: red;
+		position: relative;
+		
+		&:before {
+			content: "";
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: -1px;
+			left: 0;
+			background: v-valo-selection-color();
+			@include opacity(.5);
+			@if $v-border-radius > 0 {
+				border-radius: $v-border-radius $v-border-radius 0 0;
+			}
+		}
+
+		+ .v-daterange {
+			border-color: transparent;
+
+			&:before {
+				@if $v-border-radius > 0 {
+					border-radius: 0;
+				}
+			}
+		}
 	}
 
 

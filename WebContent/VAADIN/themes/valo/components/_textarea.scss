@@ -2,6 +2,7 @@
   
   .#{$primary-stylename} {
     @include v-valo-textarea-style;
+    width: $v-default-field-width;
   }
 
 }
