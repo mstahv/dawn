@@ -1,0 +1,34 @@
+@mixin v-valo-formlayout ($primary-stylename: v-formlayout) {
+	
+	.#{$primary-stylename}-spacing > tbody > .#{$primary-stylename}-row > .#{$primary-stylename}-captioncell, 
+	.#{$primary-stylename}-spacing > tbody > .#{$primary-stylename}-row > .#{$primary-stylename}-contentcell,
+	.#{$primary-stylename}-spacing > tbody > .#{$primary-stylename}-row > .#{$primary-stylename}-errorcell {
+		padding-top: $v-layout-spacing-vertical;
+	}
+
+	.#{$primary-stylename}-margin-top > tbody > .#{$primary-stylename}-firstrow > .#{$primary-stylename}-captioncell, 
+	.#{$primary-stylename}-margin-top > tbody > .#{$primary-stylename}-firstrow > .#{$primary-stylename}-contentcell,
+	.#{$primary-stylename}-margin-top > tbody > .#{$primary-stylename}-firstrow > .#{$primary-stylename}-errorcell {
+		padding-top: $v-layout-margin-top;
+	}
+
+	.#{$primary-stylename}-margin-bottom > tbody > .#{$primary-stylename}-lastrow > .#{$primary-stylename}-captioncell,
+	.#{$primary-stylename}-margin-bottom > tbody > .#{$primary-stylename}-lastrow > .#{$primary-stylename}-contentcell,
+	.#{$primary-stylename}-margin-bottom > tbody > .#{$primary-stylename}-lastrow > .#{$primary-stylename}-errorcell {
+		padding-bottom: $v-layout-margin-bottom;
+	}
+
+	.#{$primary-stylename}-margin-left > tbody > .#{$primary-stylename}-row > .#{$primary-stylename}-captioncell {
+		padding-left: $v-layout-margin-left;
+	}
+
+	.#{$primary-stylename}-margin-right > tbody > .#{$primary-stylename}-row > .#{$primary-stylename}-contentcell {
+		padding-right: $v-layout-margin-right;
+	}
+
+	.#{$primary-stylename}-error-indicator {
+		width: $v-layout-spacing-horizontal;
+		text-align: center;
+	}
+
+}

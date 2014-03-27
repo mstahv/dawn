@@ -91,7 +91,7 @@ import com.vaadin.ui.Window;
 public class ValoThemeUI extends UI implements Handler {
 
     @WebServlet(value = "/*", asyncSupported = true)
-    @VaadinServletConfiguration(productionMode = false, ui = ValoThemeUI.class)
+    @VaadinServletConfiguration(productionMode = false, ui = CalendarTest.class)
     public static class Servlet extends ThemeServlet {
     }
 
@@ -558,7 +558,7 @@ public class ValoThemeUI extends UI implements Handler {
         // tabsheets(root);
         // colorpickers(root);
         // accordions(root);
-        nativeselects(root);
+        // nativeselects(root);
 
         return root;
     }

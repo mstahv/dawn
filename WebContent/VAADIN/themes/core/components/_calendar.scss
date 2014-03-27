@@ -1,4 +1,4 @@
-@mixin vaadin-core-calendar ($primary-stylename: v-calender) {
+@mixin v-core-calendar ($primary-stylename: v-calendar) {
   .#{$primary-stylename}-month-day-scrollable {
     overflow-y: scroll;
   }
@@ -12,7 +12,6 @@
     left: 0;
     width: 100%;
     height: 1px;
-    overflow: hidden;
     background: red;
     z-index: 2;
   }
@@ -27,18 +26,27 @@
   }
   
   .#{$primary-stylename}-event-resizetop {
-    cursor: n-resize;
+    cursor: row-resize;
     top: 0;
   }
 
   .#{$primary-stylename}-event-resizebottom {
-    cursor: s-resize;
+    cursor: row-resize;
     bottom: 0;
   }
   
   
   // What a truckload of magic numbers!
   // TODO Try to find out what these actually do, and how to make them dissappear
+
+  .#{$primary-stylename}-header-month td:first-child {
+    padding-left: 20px;
+    // Same as VCalendar.MONTHLY_WEEKTOOLBARWIDTH - .#{$primary-stylename}-week-numbers border
+  }
+
+  .#{$primary-stylename}-week-numbers {
+    //border-right: 1px solid;
+  }
   
   .#{$primary-stylename}-month-sizedheight .#{$primary-stylename}-month-day {
   	height: 100px;

@@ -24,6 +24,8 @@
 @import "accordion";
 @import "twincolselect";
 @import "nativeselect";
+@import "calendar";
+@import "formlayout";
 
 
 @mixin v-valo-components {
@@ -38,6 +40,10 @@
   
   @if v-is-included(combobox) {
     @include v-valo-combobox;
+  }
+  
+  @if v-is-included(formlayout) {
+    @include v-valo-formlayout;
   }
   
   @if v-is-included(textfield) {
@@ -124,6 +130,10 @@
   
   @if v-is-included(nativeselect) {
     @include v-valo-nativeselect;
+  }
+  
+  @if v-is-included(calendar) {
+    @include v-valo-calendar;
   }
   
   @if v-is-included(label) {

@@ -1,4 +1,5 @@
 //@import "flat-style-vars";
+$v-app-background-color: #fff;
 
 @import "../valo/valo";
 @import "addons";
@@ -56,7 +57,7 @@ body {
     }
   }
   
-  @include variants;
+  //@include variants;
 
   .v-button-primary {
     @include v-valo-button-style($background-color: $color3);

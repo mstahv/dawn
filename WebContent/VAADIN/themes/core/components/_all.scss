@@ -59,9 +59,9 @@
     @include v-core-button;
   }
   
-  //@if v-is-included(calendar) {
-  //  @include v-core-calendar;
-  //}
+  @if v-is-included(calendar) {
+    @include v-core-calendar;
+  }
   
   //@if v-is-included(checkbox) or v-is-included(optiongroup) {
   //  @include v-core-checkbox;

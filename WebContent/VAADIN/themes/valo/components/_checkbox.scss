@@ -19,6 +19,7 @@
   
   position: relative;
   line-height: round($unit-size/2);
+  white-space: nowrap;
 
   :root & {
     padding-left: round($unit-size/1.5);
