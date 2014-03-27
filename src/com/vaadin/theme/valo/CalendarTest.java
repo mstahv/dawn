@@ -41,6 +41,7 @@ import com.vaadin.ui.Calendar;
 import com.vaadin.ui.Calendar.TimeFormat;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.ComboBox;
+import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.GridLayout;
@@ -93,6 +94,8 @@ public class CalendarTest extends UI {
     private Button monthButton;
 
     private Button weekButton;
+
+    private Button dayButton;
 
     private Button nextButton;
 
@@ -339,17 +342,22 @@ public class CalendarTest extends UI {
         hl.setSpacing(true);
         hl.addComponent(prevButton);
         hl.addComponent(captionLabel);
-        hl.addComponent(monthButton);
-        hl.addComponent(weekButton);
+
+        CssLayout group = new CssLayout();
+        group.addStyleName("v-component-group");
+        group.addComponent(dayButton);
+        group.addComponent(weekButton);
+        group.addComponent(monthButton);
+        hl.addComponent(group);
+
         hl.addComponent(nextButton);
         hl.setComponentAlignment(prevButton, Alignment.MIDDLE_LEFT);
         hl.setComponentAlignment(captionLabel, Alignment.MIDDLE_CENTER);
-        hl.setComponentAlignment(monthButton, Alignment.MIDDLE_CENTER);
-        hl.setComponentAlignment(weekButton, Alignment.MIDDLE_CENTER);
+        hl.setComponentAlignment(group, Alignment.MIDDLE_CENTER);
         hl.setComponentAlignment(nextButton, Alignment.MIDDLE_RIGHT);
 
-        monthButton.setVisible(viewMode == Mode.WEEK);
-        weekButton.setVisible(viewMode == Mode.DAY);
+        // monthButton.setVisible(viewMode == Mode.WEEK);
+        // weekButton.setVisible(viewMode == Mode.DAY);
 
         HorizontalLayout controlPanel = new HorizontalLayout();
         controlPanel.setSpacing(true);
@@ -382,7 +390,7 @@ public class CalendarTest extends UI {
     }
 
     private void initNavigationButtons() {
-        monthButton = new Button("Month view", new ClickListener() {
+        monthButton = new Button("Month", new ClickListener() {
 
             private static final long serialVersionUID = 1L;
 
@@ -392,7 +400,7 @@ public class CalendarTest extends UI {
             }
         });
 
-        weekButton = new Button("Week view", new ClickListener() {
+        weekButton = new Button("Week", new ClickListener() {
 
             private static final long serialVersionUID = 1L;
 
@@ -404,6 +412,20 @@ public class CalendarTest extends UI {
                 handler.weekClick(new WeekClick(calendarComponent, calendar
                         .get(GregorianCalendar.WEEK_OF_YEAR), calendar
                         .get(GregorianCalendar.YEAR)));
+            }
+        });
+
+        dayButton = new Button("Day", new ClickListener() {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+                // simulate day click
+                BasicDateClickHandler handler = (BasicDateClickHandler) calendarComponent
+                        .getHandler(DateClickEvent.EVENT_ID);
+                handler.dateClick(new DateClickEvent(calendarComponent,
+                        calendar.getTime()));
             }
         });
 
@@ -630,18 +652,21 @@ public class CalendarTest extends UI {
         Date today = getToday();
         calendar = new GregorianCalendar(getLocale());
         calendar.setTime(today);
+        calendarComponent.getInternalCalendar().setTime(today);
+
+        int rollAmount = calendar.get(GregorianCalendar.DAY_OF_MONTH) - 1;
+        calendar.add(GregorianCalendar.DAY_OF_MONTH, -rollAmount);
+        currentMonthsFirstDate = calendar.getTime();
 
         updateCaptionLabel();
 
         if (!showWeeklyView) {
-            int rollAmount = calendar.get(GregorianCalendar.DAY_OF_MONTH) - 1;
-            calendar.add(GregorianCalendar.DAY_OF_MONTH, -rollAmount);
-            resetTime(false);
-            currentMonthsFirstDate = calendar.getTime();
-            calendarComponent.setStartDate(currentMonthsFirstDate);
-            calendar.add(GregorianCalendar.MONTH, 1);
-            calendar.add(GregorianCalendar.DATE, -1);
-            calendarComponent.setEndDate(calendar.getTime());
+            // resetTime(false);
+            // currentMonthsFirstDate = calendar.getTime();
+            // calendarComponent.setStartDate(currentMonthsFirstDate);
+            // calendar.add(GregorianCalendar.MONTH, 1);
+            // calendar.add(GregorianCalendar.DATE, -1);
+            // calendarComponent.setEndDate(calendar.getTime());
         }
 
         addCalendarEventListeners();
@@ -935,7 +960,7 @@ public class CalendarTest extends UI {
         layout.setSpacing(true);
 
         scheduleEventPopup = new Window(null, layout);
-        scheduleEventPopup.setWidth("400px");
+        // scheduleEventPopup.setWidth("400px");
         // scheduleEventPopup.setModal(true);
         scheduleEventPopup.center();
 
@@ -955,6 +980,7 @@ public class CalendarTest extends UI {
                 }
             }
         });
+        applyEventButton.addStyleName("primary");
         Button cancel = new Button("Cancel", new ClickListener() {
 
             private static final long serialVersionUID = 1L;
@@ -973,6 +999,7 @@ public class CalendarTest extends UI {
                 deleteCalendarEvent();
             }
         });
+        deleteEventButton.addStyleName("frameless");
         scheduleEventPopup.addCloseListener(new Window.CloseListener() {
 
             private static final long serialVersionUID = 1L;
@@ -1148,8 +1175,8 @@ public class CalendarTest extends UI {
      */
     public void switchToWeekView() {
         viewMode = Mode.WEEK;
-        weekButton.setVisible(false);
-        monthButton.setVisible(true);
+        // weekButton.setVisible(false);
+        // monthButton.setVisible(true);
     }
 
     /*
@@ -1158,17 +1185,23 @@ public class CalendarTest extends UI {
      */
     public void switchToMonthView() {
         viewMode = Mode.MONTH;
-        monthButton.setVisible(false);
-        weekButton.setVisible(false);
+        // monthButton.setVisible(false);
+        // weekButton.setVisible(false);
 
-        calendar.setTime(currentMonthsFirstDate);
-        calendarComponent.setStartDate(currentMonthsFirstDate);
+        int rollAmount = calendar.get(GregorianCalendar.DAY_OF_MONTH) - 1;
+        calendar.add(GregorianCalendar.DAY_OF_MONTH, -rollAmount);
+
+        calendarComponent.setStartDate(calendar.getTime());
 
         updateCaptionLabel();
 
         calendar.add(GregorianCalendar.MONTH, 1);
         calendar.add(GregorianCalendar.DATE, -1);
-        resetCalendarTime(true);
+
+        calendarComponent.setEndDate(calendar.getTime());
+
+        calendar.setTime(getToday());
+        // resetCalendarTime(true);
     }
 
     /*
@@ -1176,8 +1209,8 @@ public class CalendarTest extends UI {
      */
     public void switchToDayView() {
         viewMode = Mode.DAY;
-        monthButton.setVisible(true);
-        weekButton.setVisible(true);
+        // monthButton.setVisible(true);
+        // weekButton.setVisible(true);
     }
 
     private void resetCalendarTime(boolean resetEndTime) {

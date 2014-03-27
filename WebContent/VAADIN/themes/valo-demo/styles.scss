@@ -65,6 +65,10 @@ body {
     padding: 0 round($v-unit-size/1.4);
   }
 
+  .v-button-frameless {
+    @include v-valo-button-borderless-style;
+  }
+
   .v-tabsheet-centered-tabs {
     @include v-valo-tabsheet-centered-tabs;
   }
