@@ -551,16 +551,23 @@ public class CalendarTest extends UI {
         });
 
         captionField = createTextField("Caption");
+        captionField.setInputPrompt("Event name");
         final TextField whereField = createTextField("Where");
+        whereField.setInputPrompt("Address or location");
         final TextArea descriptionField = createTextArea("Description");
+        descriptionField.setInputPrompt("Describe the event");
         descriptionField.setRows(3);
+        // descriptionField.setRequired(true);
 
         final ComboBox styleNameField = createStyleNameComboBox();
+        styleNameField.setInputPrompt("Choose calendar");
 
         formLayout.addComponent(startDateField);
+        // startDateField.setRequired(true);
         formLayout.addComponent(endDateField);
         formLayout.addComponent(allDayField);
         formLayout.addComponent(captionField);
+        // captionField.setComponentError(new UserError("Testing error"));
         if (eventClass == CalendarTestEvent.class) {
             formLayout.addComponent(whereField);
         }
@@ -607,17 +614,17 @@ public class CalendarTest extends UI {
     }
 
     private ComboBox createStyleNameComboBox() {
-        ComboBox s = new ComboBox("Color");
+        ComboBox s = new ComboBox("Calendar");
         s.addContainerProperty("c", String.class, "");
         s.setItemCaptionPropertyId("c");
         Item i = s.addItem("color1");
-        i.getItemProperty("c").setValue("Green");
+        i.getItemProperty("c").setValue("Personal");
         i = s.addItem("color2");
-        i.getItemProperty("c").setValue("Blue");
+        i.getItemProperty("c").setValue("Work");
         i = s.addItem("color3");
-        i.getItemProperty("c").setValue("Red");
+        i.getItemProperty("c").setValue("Family");
         i = s.addItem("color4");
-        i.getItemProperty("c").setValue("Orange");
+        i.getItemProperty("c").setValue("Hobbies");
         return s;
     }
 
@@ -1020,6 +1027,9 @@ public class CalendarTest extends UI {
         buttons.setComponentAlignment(applyEventButton, Alignment.TOP_RIGHT);
         buttons.addComponent(cancel);
         layout.addComponent(buttons);
+
+        // scheduleEventPopup.setContent(scheduleEventFieldLayout);
+        scheduleEventFieldLayout.addStyleName("unified");
     }
 
     private void updateCalendarEventPopup(boolean newEvent) {

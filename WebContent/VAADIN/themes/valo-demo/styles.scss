@@ -93,6 +93,10 @@ body {
     @include v-valo-panel-borderless-style;
   }
 
+  .v-formlayout.unified {
+    @include v-valo-formlayout-unified-style;
+  }
+
   
   //.v-filterselect-button {
   //  @include v-valo-button-style;

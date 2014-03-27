@@ -148,6 +148,11 @@ $v-window-box-shadow: 0 4px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !default;
 
     > .v-scrollable {
       @include v-valo-panel-adjust-content-margins;
+
+      > .v-formlayout {
+        @include v-valo-formlayout-margins($all: round($v-unit-size/3));
+      }
+
       position: relative;
 
       &:focus {

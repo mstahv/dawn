@@ -140,14 +140,20 @@ $v-valo-shared-pathPrefix: null;
   }
   
   .v-errorindicator {
-    color: red;
+    color: $v-error-indicator-color;
     font-weight: 600;
     width: ceil($v-unit-size/2);
+    border-radius: 50%;
     text-align: center;
     
     &:before {
       content: "!";
     }
+  }
+
+  .v-required-field-indicator {
+    color: $v-required-field-indicator-color;
+    padding: 0 .2em;
   }
 
   select {

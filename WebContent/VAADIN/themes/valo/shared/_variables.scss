@@ -1,46 +1,50 @@
 @import "../util/color";
 
-$v-app-background-color:  #fafafa   			!default;
+$v-app-background-color:  			#fafafa   											!default;
 
-$v-font-size:             15px      			!default;	// Should be specified in pixels
-$v-font-weight:           300       			!default; // Must be specified as a numeric value (i.e. not 'normal' or 'bold')
-$v-font-color:            v-valo-font-color($v-app-background-color) !default;
-$v-font-family:           "Open Sans", sans-serif !default;
-$v-caption-font-size:			0.9 * $v-font-size	!default; // Should be a pixel value
-$v-caption-font-weight:		$v-font-weight + 100 !default;
+$v-font-size:             			15px      											!default;	// Should be specified in pixels
+$v-font-weight:           			300       											!default; // Must be specified as a numeric value (i.e. not 'normal' or 'bold')
+$v-font-color:            			v-valo-font-color($v-app-background-color) !default;
+$v-font-family:           			"Open Sans", sans-serif 				!default;
 
-$v-unit-size:             round(2.4 * $v-font-size) !default;	// Must be specified in pixels
+$v-caption-font-size:					 	$v-font-size * 0.9							!default; // Should be a pixel value
+$v-caption-font-weight:					$v-font-weight + 100 						!default;
 
-$v-layout-margin-top:     round($v-unit-size) !default;
-$v-layout-margin-right:   round($v-unit-size) !default;
-$v-layout-margin-bottom:  round($v-unit-size) !default;
-$v-layout-margin-left:    round($v-unit-size) !default;
+$v-unit-size:             			round(2.4 * $v-font-size) 			!default;	// Must be specified in pixels (suitable range 18-50)
 
-$v-layout-spacing-vertical:   round($v-unit-size/3) !default;
-$v-layout-spacing-horizontal: round($v-unit-size/3) !default;
+$v-layout-margin-top:     			round($v-unit-size) 						!default;
+$v-layout-margin-right:   			round($v-unit-size) 						!default;
+$v-layout-margin-bottom:  			round($v-unit-size) 						!default;
+$v-layout-margin-left:    			round($v-unit-size)			 				!default;
 
-$v-border-width:					1px 						!default;
-$v-border-radius:         4px       			!default;	// Must be specified in pixels
+$v-layout-spacing-vertical:   	round($v-unit-size/3) 					!default;
+$v-layout-spacing-horizontal: 	round($v-unit-size/3) 					!default;
 
-$v-gradient-style:        linear    			!default;
-$v-gradient-depth:        8%       				!default;
+$v-border-width:								1px 														!default; // Must be specified in pixels
+$v-border-radius:         			4px       											!default;	// Must be specified in pixels
 
-$v-bevel-style: 					inset 0 1px 0 hilite, inset 0 -1px 0 shade !default;
-$v-bevel-depth:						25%							!default;
+$v-gradient-style:        			linear    											!default;
+$v-gradient-depth:        			8%       												!default;
 
-$v-shadow-style:					0 2px 3px shade !default;
-$v-shadow-depth:          5%       				!default;
+$v-bevel-style: 								inset 0 1px 0 hilite, inset 0 -1px 0 shade !default;
+$v-bevel-depth:									25%															!default;
 
-$v-focus-style: 					0 0 0 2px focus-color !default;
-$v-focus-color:           #3589e9   			!default;
+$v-shadow-style:								0 2px 3px shade 								!default;
+$v-shadow-depth:          			5%       												!default;
 
-$v-animations-enabled:		true 						!default;
-$v-hover-styles-enabled:	true						!default;
+$v-focus-style: 								0 0 0 2px focus-color 					!default;
+$v-focus-color:           			#3589e9   											!default;
 
-$v-disabled-opacity:			0.7							!default;
+$v-animations-enabled:					true 														!default;
+$v-hover-styles-enabled:				true														!default;
 
-$v-selection-color: 			$v-focus-color 	!default;
+$v-disabled-opacity:						0.7															!default;
 
-$v-link-color: 						$v-focus-color 	!default;
+$v-selection-color: 						$v-focus-color 									!default;
 
-$v-default-field-width:		$v-unit-size * 5 !default;
+$v-link-color: 									$v-focus-color 									!default;
+
+$v-default-field-width:					$v-unit-size * 5 								!default;
+
+$v-error-indicator-color:				#FF6854													!default;
+$v-required-field-indicator-color: $v-error-indicator-color			!default;
