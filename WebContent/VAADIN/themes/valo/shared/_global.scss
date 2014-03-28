@@ -20,7 +20,7 @@ $v-valo-shared-pathPrefix: null;
   background-color: $v-app-background-color;
   cursor: default;
   
-  // Use Helvetica Neue for Mac instead of Helvetica, which has a slightly different baseline
+  // Default to Helvetica Neue on Macs instead of Helvetica, which has a slightly different baseline
   @if $v-font-family == sans-serif {
   	.v-mac & {
         font-family: "Helvetica Neue", sans-serif;

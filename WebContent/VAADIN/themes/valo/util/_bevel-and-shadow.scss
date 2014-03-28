@@ -1,7 +1,7 @@
 @function v-valo-bevel ($color, $bevel-style: $v-bevel-style, $bevel-depth: $v-bevel-depth, 
 												$gradient-style: $v-gradient-style, $gradient-depth: $v-gradient-depth) {
 	
-  @if $bevel-depth == 0% {
+  @if $bevel-depth == 0% or $bevel-style == none {
   	@return null;
   }
   
@@ -21,29 +21,43 @@
 @function v-valo-shadow ($shadow-style: null, $shadow-depth: null) {
 	$shadow-style: $shadow-style or $v-shadow-style;
 	$shadow-depth: $shadow-depth or $v-shadow-depth;
-	@if $shadow-depth == 0% {
+
+	@if $shadow-depth == 0% or $shadow-style == none {
 		@return null;
 	}
+
 	@return v-valo-replace-hilite-and-shade($shadow-style, rgba(#fff, $shadow-depth/100%), rgba(#000, $shadow-depth/100%));
 }
 
 
 
 @function v-valo-replace-hilite-and-shade($shadow-list, $hilite, $shade) {
-	$new: null;
+	@if $shadow-list == none {
+		@return null;
+	}
+
+	@if type-of(last($shadow-list)) == color {
+		@return $shadow-list;
+	}
 
 	// If the shadow-list only contains one shadow
-	@if contains($shadow-list, hilite) or contains($shadow-list, shade) {
-		$new: replace($shadow-list, hilite, $hilite);
-		$new: replace($new, shade, $shade);
-		@return $new;
+	// (we can't use the recursive replace function because that will mess up the list delimeters)
+	@if last($shadow-list) == hilite {
+		@return replace($shadow-list, hilite, $hilite);
+	} @else if last($shadow-list) == shade {
+		@return replace($shadow-list, shade, $shade);
+	}
+	
+	// If there are multiple shadows in a list, recurse and separate lists with a comma
+	$new: null;
+	@each $part in $shadow-list {
+		@if type-of($part) == list and length($part) > 0 {
+			$part: v-valo-replace-hilite-and-shade($part, $hilite, $shade);
+			@if $part {
+				$new: $new, $part;
+			}
+		}
 	}
 
-	// If there are multiple shadows in a list
-	@each $part in $shadow-list {
-		$part: replace($part, hilite, $hilite);
-		$part: replace($part, shade, $shade);
-		$new: $new, $part;
-	}
 	@return $new;
 }

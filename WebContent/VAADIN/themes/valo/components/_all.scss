@@ -26,6 +26,7 @@
 @import "nativeselect";
 @import "calendar";
 @import "formlayout";
+@import "dragwrapper";
 
 
 @mixin v-valo-components {
@@ -138,6 +139,10 @@
   
   @if v-is-included(label) {
     @include v-valo-label;
+  }
+  
+  @if v-is-included(dragwrapper) {
+    @include v-valo-dragwrapper;
   }
   
 }

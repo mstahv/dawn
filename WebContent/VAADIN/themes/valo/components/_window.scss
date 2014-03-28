@@ -1,4 +1,5 @@
-$v-window-box-shadow: 0 4px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !default;
+$v-window-border-radius: null !default;
+$v-window-shadow-style: 0 4px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !default;
 
 
 @if $v-animations-enabled {
@@ -12,9 +13,14 @@ $v-window-box-shadow: 0 4px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !default;
 @mixin v-valo-window ($primary-stylename: v-window) {
 	.#{$primary-stylename} {
 		@include v-valo-overlay-style;
-    @if $v-window-box-shadow {
-      box-shadow: v-valo-overlay-box-shadow($v-app-background-color), $v-window-box-shadow;
+    @if $v-window-shadow-style {
+      @if $v-window-shadow-style == none {
+        box-shadow: none;
+      } @else {
+        box-shadow: v-valo-shadow($shadow-style: ($v-window-shadow-style, v-valo-overlay-box-shadow()));
+      }
     }
+    border-radius: $v-window-border-radius;
 		padding: 0;
 	}
 
@@ -55,7 +61,7 @@ $v-window-box-shadow: 0 4px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !default;
       right: 0;
       left: 0;
       height: 1px;
-      background: adjust-color(v-valo-overlay-background-color(), $lightness: -5%, $saturation: -5%);
+      background: adjust-color(v-valo-overlay-background-color(), $lightness: -5%, $saturation: -10%);
     }
   }
 
@@ -68,7 +74,7 @@ $v-window-box-shadow: 0 4px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !default;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: mix(v-valo-overlay-background-color(), v-valo-font-color(v-valo-overlay-background-color()));
+    color: blend-normal(rgba(v-valo-font-color(v-valo-overlay-background-color()), .7), v-valo-overlay-background-color());
   }
   
   .v-window-closebox,
@@ -79,6 +85,7 @@ $v-window-box-shadow: 0 4px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !default;
     top: 0;
     right: 0;
     width: $v-unit-size;
+    height: $v-unit-size - 1px;
     line-height: $v-unit-size - 1px;
     text-align: center;
     cursor: pointer;
@@ -178,13 +185,22 @@ $v-window-box-shadow: 0 4px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !default;
 
   .v-window-resizebox {
     position: absolute;
-    z-index: 2;
+    z-index: 1000;
     right: 0;
     bottom: 0;
     width: round($v-unit-size/2);
     height: round($v-unit-size/2);
-    cursor: se-resize;
     cursor: nwse-resize;
+
+    .v-ie8 & {
+      background: #000;
+      filter: alpha(opacity=0.1);
+    }
+
+    .v-ie8 &,
+    .v-ie9 & {
+      cursor: se-resize;
+    }
   }
 
   .v-window-resizebox-disabled {

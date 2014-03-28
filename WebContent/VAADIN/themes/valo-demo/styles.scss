@@ -1,6 +1,18 @@
 //@import "flat-style-vars";
-//$v-app-background-color: #5d73c0;
+//$v-app-background-color: #606060;
+//$v-calendar-event-colors: #fff, #7ad7ff, #7aff88, #ff7a7a;
+//$v-font-size: 12px;
 //$v-unit-size: 24px;
+//$v-border-width: 2px;
+$v-gradient-depth: 5%;
+//$v-bevel-depth: 0%;
+$v-bevel-style: none;
+$v-textfield-bevel-style: none;
+$v-border-radius: 3px;
+$v-window-border-radius: 0;
+$v-shadow-style: none;
+//$v-overlay-shadow-style: 0 0 0 1px shade;
+//$v-window-shadow-style: none;
 
 @import "../valo/valo";
 @import "addons";
@@ -61,7 +73,7 @@ body {
   //@include variants;
 
   .v-button-primary {
-    @include v-valo-button-style($background-color: $color3);
+    @include v-valo-button-style($background-color: v-valo-selection-color());
     padding: 0 round($v-unit-size/1.4);
   }
 
@@ -93,8 +105,16 @@ body {
     @include v-valo-panel-borderless-style;
   }
 
-  .v-formlayout.unified {
-    @include v-valo-formlayout-unified-style;
+  .v-formlayout.light {
+    @include v-valo-formlayout-light-style;
+
+    .v-caption-large {
+      line-height: round($v-unit-size * 1.2);
+    }
+  }
+
+  .v-textfield-large.v-textfield-large.v-textfield-large {
+    @include v-valo-textfield-size($unit-size: round($v-unit-size * 1.2));
   }
 
   

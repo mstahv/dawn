@@ -14,6 +14,10 @@
 	.#{$primary-stylename}-captioncell {
 		vertical-align: top;
 		line-height: $v-unit-size - 1px;
+
+		.v-caption {
+			padding-bottom: 0;
+		}
 	}
 
 	.#{$primary-stylename}-contentcell {
@@ -73,8 +77,8 @@
 
 
 
-@mixin v-valo-formlayout-unified-style ($primary-stylename: v-formlayout) {
-	> .#{$primary-stylename}-spacing > tbody > .#{$primary-stylename}-row {
+@mixin v-valo-formlayout-light-style ($primary-stylename: v-formlayout) {
+	> table > tbody > .#{$primary-stylename}-row {
 		> .#{$primary-stylename}-captioncell, 
 		> .#{$primary-stylename}-contentcell,
 		> .#{$primary-stylename}-errorcell {
@@ -94,49 +98,49 @@
 	> table > tbody > .#{$primary-stylename}-row > .#{$primary-stylename}-captioncell {
 		@include opacity(.7);
 		text-align: right;
+		padding-left: ceil($v-unit-size/3);
 	}
 
-	> table > tbody > .#{$primary-stylename}-row > .#{$primary-stylename}-contentcell {
-		.v-textfield,
-		.v-textarea,
-		.v-filterselect,
-		.v-datefield,
-		.v-filterselect-input,
-		.v-datefield-textfield {
-			width: 100%;
-		}
+	.v-textfield,
+	.v-textarea,
+	.v-filterselect,
+	.v-datefield,
+	.v-filterselect-input,
+	.v-datefield-textfield {
+		width: 100%;
+	}
 
-		.v-textfield,
-		.v-textarea,
-		.v-filterselect-input,
-		.v-datefield-textfield {
-			border: none;
-			box-shadow: none;
-			border-radius: 0;
-			@include v-valo-textfield-size($v-unit-size, 0);
-		}
+	.v-textfield,
+	.v-textarea,
+	.v-filterselect-input,
+	.v-datefield-textfield {
+		background: transparent;
+		border: none;
+		box-shadow: none;
+		border-radius: 0;
+		@include v-valo-textfield-size($v-unit-size, 0);
+	}
 
-		.v-textarea {
-			height: auto;
-		}
+	.v-textarea {
+		height: auto;
+	}
 
-		.v-filterselect-button,
-		.v-datefield-button {
-			border: none;
+	.v-filterselect-button,
+	.v-datefield-button {
+		border: none;
 
-			&:active:after {
-				display: none;
-			}
+		&:active:after {
+			display: none;
 		}
+	}
 
-		.v-datefield-button {
-			right: 0;
-			left: auto;
-		}
+	.v-datefield-button {
+		right: 0;
+		left: auto;
+	}
 
-		.v-checkbox {
-			margin-left: ceil($v-unit-size/6);
-		}
+	.v-checkbox {
+		margin-left: ceil($v-unit-size/6);
 	}
 }
 

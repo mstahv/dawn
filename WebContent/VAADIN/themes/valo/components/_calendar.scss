@@ -299,20 +299,7 @@ $v-calendar-event-colors: dodgerblue, seagreen, darkgoldenrod, firebrick, slateb
 		&:before {
 			content: "\25cf";
 			margin-right: .2em;
-			color: nth($v-calendar-event-colors, 1);
 		}
-	}
-
-	.#{$primary-stylename}-event-all-day,
-	.#{$primary-stylename}-week-wrapper .#{$primary-stylename}-event-content {
-		$_bg: blend-normal(rgba(nth($v-calendar-event-colors, 1), .2), $v-app-background-color);
-		background-color: $_bg;
-		background-color: rgba($_bg, .8);
-		color: nth($v-calendar-event-colors, 1);
-	}
-
-	.#{$primary-stylename}-week-wrapper .#{$primary-stylename}-event {
-		color: nth($v-calendar-event-colors, 1);
 	}
 
 	.#{$primary-stylename}-event-all-day {
@@ -400,23 +387,24 @@ $v-calendar-event-colors: dodgerblue, seagreen, darkgoldenrod, firebrick, slateb
 
 	// Custom event colors
 
-	// Skip the first color, since that is the default
-
-	@for $i from 2 through length($v-calendar-event-colors) {
+	@for $i from 1 through length($v-calendar-event-colors) {
 		$color: nth($v-calendar-event-colors, $i);
 		$bg: blend-normal(rgba($color, .2), $v-app-background-color);
 
-		.#{$primary-stylename}-event-month[class*="color#{$i}"]:before {
+		// First color is considered the default color (and stylename 'color1' will equal to that)
+		$stylename: if($i == 1, '', '[class*="color#{$i}"]');
+
+		.#{$primary-stylename}-event-month#{$stylename}:before {
 			color: $color;
 		}
 
-		.#{$primary-stylename}-event-all-day[class*="color#{$i}"] {
+		.#{$primary-stylename}-event-all-day#{$stylename} {
 			background-color: $bg;
 			background-color: rgba($bg, .8);
 			color: $color;
 		}
 
-		.#{$primary-stylename}-week-wrapper .#{$primary-stylename}-event[class*="color#{$i}"] {
+		.#{$primary-stylename}-week-wrapper .#{$primary-stylename}-event#{$stylename} {
 			color: $color;
 
 			.#{$primary-stylename}-event-content {

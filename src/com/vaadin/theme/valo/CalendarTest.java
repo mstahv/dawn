@@ -279,7 +279,7 @@ public class CalendarTest extends UI {
         calendar.add(GregorianCalendar.DATE, 3);
         start = calendar.getTime();
         end = start;
-        event = getNewEvent("Allday event", start, end);
+        event = getNewEvent("All-day event", start, end);
         event.setAllDay(true);
         event.setDescription("Some description.");
         event.setStyleName("color3");
@@ -289,7 +289,7 @@ public class CalendarTest extends UI {
         calendar.add(GregorianCalendar.DATE, 1);
         start = calendar.getTime();
         end = start;
-        event = getNewEvent("Second allday event", start, end);
+        event = getNewEvent("Second all-day event", start, end);
         event.setAllDay(true);
         event.setDescription("Some description.");
         event.setStyleName("color2");
@@ -552,6 +552,7 @@ public class CalendarTest extends UI {
 
         captionField = createTextField("Caption");
         captionField.setInputPrompt("Event name");
+        captionField.addStyleName("large");
         final TextField whereField = createTextField("Where");
         whereField.setInputPrompt("Address or location");
         final TextArea descriptionField = createTextArea("Description");
@@ -618,9 +619,9 @@ public class CalendarTest extends UI {
         s.addContainerProperty("c", String.class, "");
         s.setItemCaptionPropertyId("c");
         Item i = s.addItem("color1");
-        i.getItemProperty("c").setValue("Personal");
-        i = s.addItem("color2");
         i.getItemProperty("c").setValue("Work");
+        i = s.addItem("color2");
+        i.getItemProperty("c").setValue("Personal");
         i = s.addItem("color3");
         i.getItemProperty("c").setValue("Family");
         i = s.addItem("color4");
@@ -963,7 +964,7 @@ public class CalendarTest extends UI {
     /* Initializes a modal window to edit schedule event. */
     private void createCalendarEventPopup() {
         VerticalLayout layout = new VerticalLayout();
-        layout.setMargin(true);
+        // layout.setMargin(true);
         layout.setSpacing(true);
 
         scheduleEventPopup = new Window(null, layout);
@@ -971,6 +972,7 @@ public class CalendarTest extends UI {
         // scheduleEventPopup.setModal(true);
         scheduleEventPopup.center();
 
+        scheduleEventFieldLayout.addStyleName("light");
         scheduleEventFieldLayout.setMargin(false);
         layout.addComponent(scheduleEventFieldLayout);
 
@@ -1028,8 +1030,6 @@ public class CalendarTest extends UI {
         buttons.addComponent(cancel);
         layout.addComponent(buttons);
 
-        // scheduleEventPopup.setContent(scheduleEventFieldLayout);
-        scheduleEventFieldLayout.addStyleName("unified");
     }
 
     private void updateCalendarEventPopup(boolean newEvent) {
@@ -1065,7 +1065,6 @@ public class CalendarTest extends UI {
     }
 
     private CalendarEvent createNewEvent(Date startDate, Date endDate) {
-
         BasicEvent event = new BasicEvent();
         event.setCaption("");
         event.setStart(startDate);
