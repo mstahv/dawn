@@ -9,8 +9,6 @@ import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.Random;
 
-import javax.servlet.annotation.WebServlet;
-
 import org.vaadin.risto.mockupcontainer.BaconDataSet;
 import org.vaadin.risto.mockupcontainer.MockupContainer;
 import org.vaadin.risto.mockupcontainer.MockupDataSet;
@@ -18,7 +16,6 @@ import org.vaadin.risto.mockupcontainer.MockupFactory;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
-import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.IndexedContainer;
@@ -86,10 +83,11 @@ import com.vaadin.ui.Window;
 @Title("Valo Theme")
 public class ValoThemeUI extends UI implements Handler {
 
-    @WebServlet(value = "/*", asyncSupported = true)
-    @VaadinServletConfiguration(productionMode = false, ui = CalendarTest.class)
-    public static class Servlet extends ThemeServlet {
-    }
+    // @WebServlet(value = "/*", asyncSupported = true)
+    // @VaadinServletConfiguration(productionMode = false, ui =
+    // CalendarTest.class)
+    // public static class Servlet extends ThemeServlet {
+    // }
 
     CssLayout root = new CssLayout();
     CssLayout components = new CssLayout();

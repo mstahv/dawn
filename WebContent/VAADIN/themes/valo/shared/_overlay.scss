@@ -31,7 +31,6 @@ $v-selection-item-padding-horizontal: ceil($v-unit-size/4) !default;
 
 @mixin v-valo-ie8-shadow($shadow, $element: top) {
 	.#{$element} {
-		@debug $shadow;
 		$shadow-offset-x: nth($shadow, 1);
 		$shadow-offset-y: nth($shadow, 2);
 		$shadow-blur: nth($shadow, 3);

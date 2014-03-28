@@ -67,7 +67,6 @@ $v-datefield-hover-style-enabled: $v-hover-styles-enabled !default;
   .#{$primary-stylename}-button {
   	@include v-valo-datefield-button-style($unit-size: $unit-size, $bevel-style: $bevel-style, $bevel-depth: $bevel-depth,
 																		 			$background-color: $background-color);
-    display: block; // Needed for IE8
   }
 
   &.v-disabled {

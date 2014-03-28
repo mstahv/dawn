@@ -1,0 +1,24 @@
+$v-app-loading-text: "Loading Valo Demo App...";
+$v-app-background-color: #fff;
+$v-shadow-style: none;
+$v-bevel-style: none;
+
+@import "../valo/valo";
+
+
+.valo-demo-app {
+  @include v-valo;
+  @include v-valo-component-group;
+
+  .topbar {
+    //@include v-valo-panel-caption-style;
+    padding: $v-layout-spacing-vertical $v-layout-spacing-horizontal*2;
+    .h2 {
+      margin: 0;
+    }
+
+    //$v-app-background-color: v-valo-selection-color();
+    //@include v-valo-menubar;
+  }
+
+}

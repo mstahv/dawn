@@ -25,9 +25,9 @@ $v-splitpanel-splitter-size: round($v-unit-size/5) !default;
 		border-radius: 0;
 		position: absolute;
 		top: -$v-button-border-width;
-		right: -$v-button-border-width;
+		right: 0;
 		bottom: -$v-button-border-width;
-		left: -$v-button-border-width;
+		left: 0;
 		cursor: s-resize;
 		cursor: row-resize;
 
@@ -56,6 +56,10 @@ $v-splitpanel-splitter-size: round($v-unit-size/5) !default;
 	.#{$primary-stylename}-hsplitter div {
 		cursor: e-resize;
 		cursor: col-resize;
+		top: 0;
+		right: -$v-button-border-width;
+		bottom: 0;
+		left: -$v-button-border-width;
 		$color: $v-button-background-color or $v-app-background-color;
 		@include v-valo-gradient($color: $color, $direction: to right);
 
