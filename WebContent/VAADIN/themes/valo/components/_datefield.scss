@@ -261,6 +261,8 @@ $v-datefield-hover-style-enabled: $v-hover-styles-enabled !default;
 	    	left: 0;
 	    	color: mix($v-app-background-color, v-valo-font-color($v-app-background-color));
 	    	font-size: round($v-font-size * 1.3);
+        line-height: round($v-font-size * 1.5);
+
 	    	@if $v-animations-enabled {
 	    		@include transition(color 200ms);
 	    	}
@@ -311,6 +313,7 @@ $v-datefield-hover-style-enabled: $v-hover-styles-enabled !default;
 
   td.v-datefield-calendarpanel-time {
   	width: 100%;
+    font-size: ceil($v-font-size * 0.86);
     
     .v-label {
       display: inline-block;

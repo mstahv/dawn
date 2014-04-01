@@ -1,13 +1,13 @@
 package com.vaadin.theme.valo.demo;
 
-import javax.servlet.annotation.WebServlet;
-
 import com.vaadin.annotations.Theme;
-import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.annotations.Title;
 import com.vaadin.navigator.Navigator;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.theme.valo.ThemeServlet;
+import com.vaadin.theme.valo.demo.calendarview.CalendarView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
@@ -19,15 +19,17 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 @Theme("valo-demo-app")
+@Title("Valo Theme Demo")
 public class ValoDemoUI extends UI {
 
     private static final long serialVersionUID = 1L;
 
-    @WebServlet(value = "/*", asyncSupported = true)
-    @VaadinServletConfiguration(productionMode = false, ui = ValoDemoUI.class)
-    public static class Servlet extends ThemeServlet {
-        private static final long serialVersionUID = 1L;
-    }
+    // @WebServlet(value = "/*", asyncSupported = true)
+    // @VaadinServletConfiguration(productionMode = false, ui =
+    // ValoDemoUI.class)
+    // public static class Servlet extends ThemeServlet {
+    // private static final long serialVersionUID = 1L;
+    // }
 
     VerticalLayout root = new VerticalLayout();
     CssLayout content = new CssLayout();
@@ -37,6 +39,7 @@ public class ValoDemoUI extends UI {
 
     @Override
     protected void init(VaadinRequest request) {
+        Page.getCurrent().setTitle("Valo Theme Demo");
 
         initLayout();
         initNav();
@@ -50,7 +53,25 @@ public class ValoDemoUI extends UI {
         navigator.addView(CalendarView.NAME.toLowerCase(), new CalendarView());
         navigator.addView(TasksView.NAME.toLowerCase(), new TasksView());
 
-        navigateTo("Contacts");
+        navigator.addViewChangeListener(new ViewChangeListener() {
+
+            @Override
+            public boolean beforeViewChange(ViewChangeEvent event) {
+                // TODO Auto-generated method stub
+                return true;
+            }
+
+            @Override
+            public void afterViewChange(ViewChangeEvent event) {
+                if (event.getViewName() == null
+                        || event.getViewName().equals("")) {
+                    updateNavSelection("contacts");
+                } else {
+                    updateNavSelection(event.getViewName());
+                }
+            }
+        });
+
     }
 
     private void initLayout() {
@@ -67,9 +88,10 @@ public class ValoDemoUI extends UI {
         root.addComponent(content);
         root.setExpandRatio(content, 1);
 
-        Label title = new Label("Valo");
+        Label title = new Label("Tasku");
         title.setSizeUndefined();
         title.addStyleName("h2");
+        title.addStyleName("no-margin");
         topbar.addComponent(title);
         topbar.setComponentAlignment(title, Alignment.MIDDLE_LEFT);
 
@@ -99,20 +121,21 @@ public class ValoDemoUI extends UI {
     private Command navCommand = new Command() {
         @Override
         public void menuSelected(MenuItem selectedItem) {
-            for (MenuItem item : nav.getItems()) {
-                if (item != selectedItem) {
-                    item.setChecked(false);
-                } else {
-                    item.setChecked(true);
-                }
-            }
+            updateNavSelection(selectedItem.getText());
             navigator.navigateTo(selectedItem.getText().toLowerCase());
         }
     };
 
-    private void navigateTo(String menuItem) {
+    private void updateNavSelection(String selectedItem) {
         for (MenuItem item : nav.getItems()) {
-            if (item.getText().equals(menuItem)) {
+            item.setChecked(item.getText().toLowerCase()
+                    .equals(selectedItem.toLowerCase()));
+        }
+    }
+
+    void navigateTo(String menuItem) {
+        for (MenuItem item : nav.getItems()) {
+            if (item.getText().toLowerCase().equals(menuItem.toLowerCase())) {
                 navCommand.menuSelected(item);
                 return;
             }

@@ -77,13 +77,13 @@
 
 
 
-@mixin v-valo-formlayout-light-style ($primary-stylename: v-formlayout) {
+@mixin v-valo-formlayout-light-style ($primary-stylename: v-formlayout, $row-height: $v-unit-size) {
 	> table > tbody > .#{$primary-stylename}-row {
 		> .#{$primary-stylename}-captioncell, 
 		> .#{$primary-stylename}-contentcell,
 		> .#{$primary-stylename}-errorcell {
 			padding-top: 0;
-			height: $v-unit-size; // Effectively min-height
+			height: $row-height; // Effectively min-height
 		}
 	}
 
@@ -99,6 +99,7 @@
 		@include opacity(.7);
 		text-align: right;
 		padding-left: ceil($v-unit-size/3);
+		line-height: $row-height;
 	}
 
 	.v-textfield,
@@ -118,7 +119,7 @@
 		border: none;
 		box-shadow: none;
 		border-radius: 0;
-		@include v-valo-textfield-size($v-unit-size, 0);
+		@include v-valo-textfield-size($row-height, 0);
 	}
 
 	.v-textarea {

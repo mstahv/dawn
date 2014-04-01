@@ -137,6 +137,10 @@ $v-valo-shared-pathPrefix: null;
   .v-icon + .v-captiontext,
   .v-icon + span {
     margin-left: round($v-unit-size/5);
+
+    &:empty {
+      margin-left: 0;
+    }
   }
   
   .v-errorindicator {

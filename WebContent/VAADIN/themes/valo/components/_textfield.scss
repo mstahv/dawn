@@ -1,6 +1,6 @@
 $v-textfield-bevel-style: inset 0 1px 0 shade, 0 1px 0 hilite !default;
 $v-textfield-bevel-depth: $v-bevel-depth !default;
-$v-textfield-shadow-style: null !default;
+$v-textfield-shadow-style: none !default;
 $v-textfield-shadow-depth: $v-shadow-depth !default;
 $v-textfield-background-color: null !default;
 $v-textfield-unit-size: null !default;
@@ -115,6 +115,7 @@ $v-textfield-disabled-opacity: $v-disabled-opacity !default;
   @if is-dark-color($background-color) and saturation($background-color) > 50% {
     $font-color: scale-color($font-color, $lightness: 20%);
   }
+  $font-color: scale-color($font-color, $saturation: saturation($font-color));
   color: $font-color;
 }
 
@@ -157,4 +158,45 @@ $v-textfield-disabled-opacity: $v-disabled-opacity !default;
     @include v-valo-textfield-readonly-style;
   }
   
+}
+
+
+
+@mixin v-valo-textfield-borderless-style ($background-color: null) {
+  border: none;
+  border-radius: 0;
+  background: $background-color;
+  box-shadow: none;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+
+
+@mixin v-valo-textfield-inline-icon($stylename: inline-icon) {
+  .v-caption-#{$stylename} {
+    height: $v-unit-size;
+    line-height: $v-unit-size;
+    margin-bottom: -$v-unit-size;
+    padding: 0;
+
+    .v-captiontext {
+      display: none;
+    }
+
+    .v-icon {
+      position: relative;
+    }
+
+    // Font icons
+    span.v-icon {
+      width: $v-unit-size;
+      text-align: center;
+    }
+  }
+  .v-textfield-#{$stylename} {
+    padding-left: $v-unit-size;
+  }
 }

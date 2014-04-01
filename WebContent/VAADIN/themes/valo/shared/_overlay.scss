@@ -15,6 +15,7 @@ $v-selection-overlay-padding-horizontal: $v-selection-overlay-padding !default;
 $v-selection-item-border-radius: $v-border-radius - 1px !default;
 $v-selection-item-height: ceil($v-unit-size/1.4) !default;
 $v-selection-item-padding-horizontal: ceil($v-unit-size/4) !default;
+$v-selection-item-font-weight: max(400, $v-font-weight);
 
 
 @function v-valo-overlay-background-color ($context: $v-app-background-color) {
@@ -155,7 +156,7 @@ $v-selection-item-padding-horizontal: ceil($v-unit-size/4) !default;
 	@if $v-selection-item-border-radius > 0 {
 		border-radius: $v-selection-item-border-radius;
 	}
-	font-weight: $v-font-weight + 100;
+	font-weight: $v-selection-item-font-weight;
 	white-space: nowrap;
 
 	position: relative;
@@ -166,8 +167,8 @@ $v-selection-item-padding-horizontal: ceil($v-unit-size/4) !default;
 		right: 0;
 		bottom: 0;
 		left: 0;
-		background: #000;
-		@include opacity(.1);
+		background: scale-color(v-valo-selection-color(), $lightness: -30%, $saturation: 50%);
+		@include opacity(.15);
 		pointer-events: none;
 		border-radius: inherit;
 	}
@@ -184,7 +185,7 @@ $v-selection-item-padding-horizontal: ceil($v-unit-size/4) !default;
 @mixin v-valo-selection-item-selected-style ($parent-background-color: null) {
 	$selection-color: v-valo-selection-color($parent-background-color);
 	@include v-valo-gradient($selection-color);
-	color: v-valo-font-color($selection-color);
+	color: v-valo-font-color($selection-color, 0.9);
 }
 
 

@@ -22,6 +22,6 @@
 	}
 
 	.#{$primary-stylename}-node-open:before {
-	  @include v-valo-tree-expanded-icon-style;
+	  @include v-valo-tree-expanded-icon-style($force: true);
 	}
 }

@@ -180,6 +180,7 @@ $v-calendar-event-colors: dodgerblue, seagreen, darkgoldenrod, firebrick, slateb
 		width: $_times-column-width;
 		font-size: 0.77em;
 		line-height: 1;
+		white-space: nowrap;
 	}
 
 	.#{$primary-stylename}-time {
@@ -223,15 +224,15 @@ $v-calendar-event-colors: dodgerblue, seagreen, darkgoldenrod, firebrick, slateb
 
 	.#{$primary-stylename}-current-time {
 		background: v-valo-focus-color();
-		line-height: 0;
+		line-height: 1px;
 		pointer-events: none;
 		@include opacity(.5);
 
 		&:before {
 			content: "\2022";
 			color: v-valo-focus-color();
-			font-size: 29px;
-			margin-left: -4px;
+			font-size: 22px;
+			margin-left: -0.07em;
 		}
 	}
 

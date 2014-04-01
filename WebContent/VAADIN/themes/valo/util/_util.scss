@@ -27,3 +27,10 @@
   }
   @return $root;
 }
+
+
+
+
+@mixin v-valo-round {
+  border-radius: 50%;
+}

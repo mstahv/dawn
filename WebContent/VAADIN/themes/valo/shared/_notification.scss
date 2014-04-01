@@ -5,18 +5,20 @@
 
   // Positional offsets
 
+  // Can't match to "top: 0", since that would target "margin-top: 0" also, which all GWT PopupPanels have always
   .v-Notification[style*=" top: 0"] {
     margin-top: $v-layout-spacing-vertical !important;
   }
 
-  .v-Notification[style*=" right: 0"] {
+  .v-Notification[style*="right: 0"] {
     margin-right: $v-layout-spacing-horizontal;
   }
 
-  .v-Notification[style*=" bottom: 0"] {
+  .v-Notification[style*="bottom: 0"] {
     margin-bottom: $v-layout-spacing-vertical;
   }
 
+  // Can't match to "left: 0", since that would target "margin-left: 0" also, which all GWT PopupPanels have always
   .v-Notification[style*=" left: 0"] {
     margin-left: $v-layout-spacing-horizontal !important;
   }
@@ -27,19 +29,21 @@
   // Custom animations for positions
   // Left/right positions override top & bottom
 
+  // Can't match to "top: 0", since that would target "margin-top: 0" also, which all GWT PopupPanels have always
   @if $v-animations-enabled {
     .v-Notification[style*=" top: 0"] {
       @include v-valo-anim-slide-down(600ms);
     }
 
-    .v-Notification[style*=" bottom: 0"] {
+    .v-Notification[style*="bottom: 0"] {
       @include v-valo-anim-slide-up(600ms);
     }
 
-    .v-Notification[style*=" right: 0"] {
+    .v-Notification[style*="right: 0"] {
       @include v-valo-anim-slide-left(600ms);
     }
 
+    // Can't match to "left: 0", since that would target "margin-left: 0" also, which all GWT PopupPanels have always
     .v-Notification[style*=" left: 0"]:not(.v-Notification-system) {
       @include v-valo-anim-slide-right(600ms);
     }
@@ -69,6 +73,7 @@
       font-weight: inherit;
       line-height: inherit;
       white-space: nowrap;
+      letter-spacing: 0;
     }
     
     p {

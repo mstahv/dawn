@@ -4,13 +4,13 @@
 //$v-font-size: 12px;
 //$v-unit-size: 24px;
 //$v-border-width: 2px;
-$v-gradient-depth: 5%;
+//$v-gradient-depth: 5%;
 //$v-bevel-depth: 0%;
-$v-bevel-style: none;
-$v-textfield-bevel-style: none;
-$v-border-radius: 3px;
-$v-window-border-radius: 0;
-$v-shadow-style: none;
+//$v-bevel-style: none;
+//$v-textfield-bevel-style: none;
+//$v-border-radius: 3px;
+//$v-window-border-radius: 0;
+//$v-shadow-style: none;
 //$v-overlay-shadow-style: 0 0 0 1px shade;
 //$v-window-shadow-style: none;
 
@@ -20,7 +20,7 @@ $v-shadow-style: none;
 //@import "flat-style-mixins";
 
 $color1: $v-app-background-color;
-$color2: #606060;
+$color2: hsl(220, 5%, 38%);
 $color3: #5d73c0;
 $color4: #F45937;
 $color5: #d2f4f3;
@@ -69,13 +69,13 @@ body {
       overflow: visible;
     }
   }
-  
-  //@include variants;
 
   .v-button-primary {
     @include v-valo-button-style($background-color: v-valo-selection-color());
     padding: 0 round($v-unit-size/1.4);
   }
+  
+  @include variants;
 
   .v-button-frameless {
     @include v-valo-button-borderless-style;

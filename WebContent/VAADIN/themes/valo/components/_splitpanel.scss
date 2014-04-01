@@ -2,14 +2,18 @@ $v-splitpanel-splitter-size: round($v-unit-size/5) !default;
 
 
 @mixin v-valo-splitpanel($primary-stylename : v-splitpanel) {
+
+	// Disable splitter shadow (should most likely be a variable)
 	$copy: $v-shadow-depth;
 	$v-shadow-depth: 0%;
 
 	// Round to even number
 	$v-splitpanel-splitter-size: $v-splitpanel-splitter-size + $v-splitpanel-splitter-size%2;
 
-	.#{$primary-stylename} {
+	.#{$primary-stylename}-vertical,
+	.#{$primary-stylename}-horizontal {
 		overflow: hidden;
+		white-space: nowrap;
 	}
 
 	.#{$primary-stylename}-hsplitter {
@@ -24,9 +28,10 @@ $v-splitpanel-splitter-size: round($v-unit-size/5) !default;
 		padding: 0;
 		border-radius: 0;
 		position: absolute;
-		top: -$v-button-border-width;
+		z-index: 1;
+		top: 0;
 		right: 0;
-		bottom: -$v-button-border-width;
+		bottom: 0;
 		left: 0;
 		cursor: s-resize;
 		cursor: row-resize;
@@ -56,10 +61,6 @@ $v-splitpanel-splitter-size: round($v-unit-size/5) !default;
 	.#{$primary-stylename}-hsplitter div {
 		cursor: e-resize;
 		cursor: col-resize;
-		top: 0;
-		right: -$v-button-border-width;
-		bottom: 0;
-		left: -$v-button-border-width;
 		$color: $v-button-background-color or $v-app-background-color;
 		@include v-valo-gradient($color: $color, $direction: to right);
 
@@ -97,4 +98,80 @@ $v-splitpanel-splitter-size: round($v-unit-size/5) !default;
 
 	$v-shadow-depth: $copy;
 
+}
+
+
+
+
+
+
+@mixin v-valo-splitpanel-small ($primary-stylename: v-splitpanel, $stylename: small) {
+	.#{$primary-stylename}-vsplitter-#{$stylename},
+	.#{$primary-stylename}-hsplitter-#{$stylename} {
+		div {
+			@include opacity(0);
+			@include transition(opacity 200ms);
+		}
+
+		&:hover div {
+			@include opacity(1);
+		}
+	}
+
+	.#{$primary-stylename}-vsplitter-#{$stylename} {
+		div {
+			left: 40%;
+			right: 40%;
+			height: $v-splitpanel-splitter-size + 1px;
+			top: round($v-splitpanel-splitter-size/-2);
+
+			&:before {
+				width: 50%;
+				left: 25%;
+				margin-left: 0;
+			}
+		}
+
+		&:before {
+			content: "";
+			position: absolute;
+			height: 1px;
+			left: 0;
+			right: 0;
+			background: darken($v-app-background-color, max($v-bevel-depth/2, 10%));
+		}
+	}
+
+	.#{$primary-stylename}-hsplitter-#{$stylename} {
+		div {
+			top: 40%;
+			bottom: 40%;
+			width: $v-splitpanel-splitter-size + 1px;
+			left: round($v-splitpanel-splitter-size/-2);
+
+			&:before {
+				height: 50%;
+				top: 25%;
+				margin-top: 0;
+			}
+		}
+
+		&:before {
+			content: "";
+			position: absolute;
+			width: 1px;
+			top: 0;
+			bottom: 0;
+			background: darken($v-app-background-color, max($v-bevel-depth/2, 10%));
+		}
+	}
+
+	.#{$primary-stylename}-vertical .#{$primary-stylename}-second-container-#{$stylename} {
+		margin-top: 1px;
+		position: static !important;
+	}
+
+	.#{$primary-stylename}-horizontal .#{$primary-stylename}-second-container-#{$stylename} {
+		margin-left: 1px;
+	}
 }

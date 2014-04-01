@@ -11,6 +11,17 @@ $v-accordion-content-shadow-depth: $v-shadow-depth/2 !default;
 
 	.#{$primary-stylename}-item {
 		position: relative;
+		overflow: hidden;
+
+		@if $v-border-radius > 0 {
+			$_br: $v-border-radius - $v-border-width;
+			&:first-child {
+				border-radius: $_br $_br 0 0;
+			}
+			&:last-child {
+				border-radius: 0 0 $_br $_br;
+			}
+		}
 	}
 
 	.#{$primary-stylename}-item-caption .v-caption {
@@ -19,7 +30,6 @@ $v-accordion-content-shadow-depth: $v-shadow-depth/2 !default;
 		background: transparent;
 		border-bottom-color: v-valo-panel-border-color($background-color: v-valo-panel-background-color());
 		cursor: pointer;
-		position: relative;
 		@extend %no-selection;
 
 		&:hover:before,

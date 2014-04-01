@@ -1,22 +1,18 @@
 @mixin v-valo-orderedlayout {
   
-  .v-verticallayout.v-margin-top,
-  .v-horizontallayout.v-margin-top {
+  .v-margin-top {
   	padding-top: $v-layout-margin-top;
   }
   
-  .v-verticallayout.v-margin-right,
-  .v-horizontallayout.v-margin-right {
+  .v-margin-right {
   	padding-right: $v-layout-margin-right;
   }
   
-  .v-verticallayout.v-margin-bottom,
-  .v-horizontallayout.v-margin-bottom {
+  .v-margin-bottom {
   	padding-bottom: $v-layout-margin-bottom;
   }
   
-  .v-verticallayout.v-margin-left,
-  .v-horizontallayout.v-margin-left {
+  .v-margin-left {
   	padding-left: $v-layout-margin-left;
   }
   
@@ -33,7 +29,7 @@
     
     & > .v-spacing + .v-slot,
     & > .v-slot:first-child {
-      margin-bottom: $v-unit-size/2.5;
+      margin-bottom: $v-layout-spacing-vertical;
     }
     
     & > .v-slot:first-child:last-child {

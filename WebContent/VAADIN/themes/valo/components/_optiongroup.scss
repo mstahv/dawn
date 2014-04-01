@@ -3,11 +3,12 @@
   .v-radiobutton {
   	:root & > input {
       &:checked ~ label:after {
-        $size: $v-unit-size/6;
+        $size: ceil($v-unit-size/6);
+        $offset: round($v-unit-size/6);
         width: $size;
         height: $size;
-        top: $size;
-        left: $size;
+        top: $offset;
+        left: $offset;
         background: v-valo-selection-color($v-button-background-color);
       }
 

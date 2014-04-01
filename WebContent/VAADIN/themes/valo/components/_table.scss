@@ -11,18 +11,19 @@ $v-table-background-color: null !default;
 
 
 @function v-valo-table-background-color($context: $v-app-background-color) {
-	@return v-valo-textfield-background-color($context);
+	@return $context;
 }
 
 
 @mixin v-valo-table ($primary-stylename: v-table) {
 
 	$background-color: $v-table-background-color or v-valo-table-background-color();
-	$border-color: $v-table-border-color or darken($v-app-background-color, $v-bevel-depth/2);
+	$border-color: $v-table-border-color or darken($v-app-background-color, max(5%, $v-bevel-depth/3));
 
 	.#{$primary-stylename} {
 		// For scroll position indicator
 		position: relative;
+		background: $v-app-background-color;
 	}
 
 	.v-table-header table, 
@@ -135,14 +136,15 @@ $v-table-background-color: null !default;
 	}
 
 	.#{$primary-stylename}-row-odd {
-		background-color: mix($v-app-background-color, $background-color);
+		background-color: darken($background-color, 2%);
 	}
 
-	[class*="-row"].v-selected {
+	.#{$primary-stylename} [class*="-row"].v-selected {
 		$selected-border-color: darken(v-valo-selection-color(), 8%);
 
 		@include v-valo-gradient(v-valo-selection-color());
-		color: v-valo-font-color(v-valo-selection-color());
+		background-origin: border-box;
+		color: v-valo-font-color(v-valo-selection-color(), 0.9);
 		text-shadow: v-valo-button-text-shadow(v-valo-selection-color(), $v-bevel-depth);
 
 		+ .v-selected {
@@ -155,7 +157,12 @@ $v-table-background-color: null !default;
 		}
 		
 		.#{$primary-stylename}-cell-content {
-			border-color: $selected-border-color;
+			border-color: transparent;
+			border-left-color: $selected-border-color;
+
+			&:first-child {
+				border-left-color: transparent;
+			}
 		}
 	}
 
@@ -205,6 +212,7 @@ $v-table-background-color: null !default;
 		@include opacity(0.9);
 		margin-top: round($v-table-row-height/-2);
 		z-index: 30000;
+		line-height: 1;
 	}
 
 	.#{$primary-stylename}-focus-slot-right {
@@ -215,6 +223,7 @@ $v-table-background-color: null !default;
 		border-left: 2px solid rgba(v-valo-focus-color(), .5);
 		left: 0;
 		right: auto;
+		margin-left: 0 !important;
 	}
 
 	.#{$primary-stylename}-column-selector {
@@ -338,7 +347,7 @@ $v-table-background-color: null !default;
 		height: $v-table-row-height + $v-table-border-width;
 		left: 0;
 		right: 0;
-		background: v-valo-focus-color($background-color);
+		background: v-valo-focus-color($context: $background-color);
 		@include opacity(.2);
 	}
 
@@ -395,4 +404,48 @@ $v-table-background-color: null !default;
 @mixin v-valo-table-column-visible-icon-style {
 	content: "\f00c";
   font-family: FontAwesome;
+}
+
+
+
+
+@mixin v-valo-table-no-stripes ($primary-stylename: v-table) {
+	.#{$primary-stylename}-row,
+	.#{$primary-stylename}-row-odd {
+		background: transparent;
+	}
+}
+
+
+
+
+@mixin v-valo-table-no-vertical-lines ($primary-stylename: v-table) {
+	.#{$primary-stylename}-cell-content,
+	[class*="row"].v-selected .#{$primary-stylename}-cell-content {
+		border-left-color: transparent;
+		border-right-color: transparent;
+	}
+}
+
+@mixin v-valo-table-no-horizontal-lines ($primary-stylename: v-table) {
+	.#{$primary-stylename}-cell-content,
+	[class*="row"].v-selected .#{$primary-stylename}-cell-content {
+		border-top-color: transparent;
+		border-bottom-color: transparent;
+	}
+}
+
+@mixin v-valo-table-no-header ($primary-stylename: v-table) {
+	.#{$primary-stylename}-header-wrap {
+		display: none;
+	}
+}
+
+@mixin v-valo-table-borderless ($primary-stylename: v-table) {
+	.#{$primary-stylename}-header-wrap,
+	.#{$primary-stylename}-footer-wrap,
+	.#{$primary-stylename}-header-drag,
+	.#{$primary-stylename}-body {
+		border: none;
+	}
 }

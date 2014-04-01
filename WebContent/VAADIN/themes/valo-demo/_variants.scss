@@ -45,6 +45,8 @@ $large-size: ceil($v-unit-size*1.2);
 		    @include v-valo-panel-style;
 		    @include v-valo-panel-adjust-content-margins;
 		  }
+
+		  @include v-valo-splitpanel-small($stylename: small);
     	
     	@if length($variant) >= 4 {
 

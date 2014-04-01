@@ -21,7 +21,7 @@
 	}
 
 	.#{$primary-stylename} > .#{$primary-stylename}-menuitem-checked {
-		@include v-valo-gradient($color: scale-color($v-app-background-color, $lightness: -5%, $saturation: -5%), $depth: $v-gradient-depth/4, $direction: to top);
+		@include v-valo-menubar-menuitem-checked-style;
 	}
 
 	.v-disabled > .#{$primary-stylename}-menuitem:before {
@@ -193,4 +193,30 @@
 @mixin v-valo-menubar-checked-icon-style {
   content: "\f00c";
   font-family: FontAwesome;
+}
+
+
+@mixin v-valo-menubar-menuitem-checked-style ($background-color: scale-color($v-app-background-color, $lightness: -5%, $saturation: -5%)) {
+	@include v-valo-gradient($color: $background-color, $depth: $v-gradient-depth/4, $direction: to top);
+
+	@if color-luminance($background-color) < color-luminance($v-app-background-color) {
+		$border-color: v-valo-button-border-color($background-color: $background-color);
+		border-color: $border-color;
+
+		+ [class*="menuitem"] {
+			@if length($border-color) > 1 {
+				$border-color: nth($border-color, 2);
+			}
+			border-left-color: $border-color;
+		}
+	}
+
+	color: v-valo-font-color($background-color, 0.9);
+	text-shadow: v-valo-button-text-shadow($background-color: $background-color);
+}
+
+@mixin v-valo-menubar-menuitem-checked ($background-color, $primary-stylename: v-menubar) {
+	.#{$primary-stylename}-menuitem-checked {
+		@include v-valo-menubar-menuitem-checked-style($background-color: $background-color);
+	}
 }

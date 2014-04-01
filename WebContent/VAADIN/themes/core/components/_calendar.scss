@@ -5,6 +5,7 @@
   
   .#{$primary-stylename}-week-wrapper {
     position: relative;
+    overflow: hidden;
   }
   
   .#{$primary-stylename}-current-time {

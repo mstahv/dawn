@@ -97,6 +97,11 @@ $v-tree-expand-animation-enabled: false !default;
       display: inline-block;
       // Allow to click on the whole row (almost, at least the right side part)
       width: 100%;
+
+      // IE does strange things when the width is wider than the parent
+      .v-ie & {
+        width: auto;
+      }
     }
 
     .v-icon {
@@ -156,7 +161,7 @@ $v-tree-expand-animation-enabled: false !default;
   
   
   .#{$primary-stylename}-node-selected {
-    color: v-valo-font-color(v-valo-selection-color());
+    color: v-valo-font-color(v-valo-selection-color(), 0.9);
     text-shadow: v-valo-button-text-shadow(v-valo-selection-color(), $v-bevel-depth);
 
     &:after {
@@ -227,8 +232,8 @@ $v-tree-expand-animation-enabled: false !default;
     line-height: 1px;
   }
 
-  .v-ie & .#{$primary-stylename}-node-drag-top:before,
-  .v-ie & .#{$primary-stylename}-node-drag-bottom:after {
+  .v-ie8 & .#{$primary-stylename}-node-drag-top:before,
+  .v-ie8 & .#{$primary-stylename}-node-drag-bottom:after {
     line-height: 0;
   }
 }

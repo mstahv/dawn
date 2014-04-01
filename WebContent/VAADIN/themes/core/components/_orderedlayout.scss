@@ -1,10 +1,5 @@
 @mixin v-core-orderedlayout {
 
-  .v-verticallayout,
-  .v-horizontallayout {
-    line-height: 0;
-  }
-  
   div.v-layout.v-horizontal.v-widget {
   	white-space: nowrap;
   }
@@ -15,7 +10,7 @@
   	width: 100%;
   	height: 100%;
   	
-  	// TODO fixes extra white space issues in some cases, but causes some styles to clip
+  	// TODO fixes extra white space issues in some cases (can't remember what anymore), but causes some styles to clip
   	//overflow: hidden;
   }
   
@@ -24,6 +19,7 @@
   	display: inline-block;
   	white-space: normal;
   	vertical-align: top;
+    line-height: 0;
   }
   
   // Clear any floats inside the slot, to prevent unwanted collapsing
@@ -33,7 +29,6 @@
   	width: 0;
   	height: 0;
   	overflow: hidden;
-  	line-height: 0;
   }
   
   .v-vertical > .v-slot,
@@ -80,13 +75,13 @@
   .v-align-bottom > .v-widget {
   	display: inline-block;
   }
-  
-  .v-align-middle,
+
+  //.v-align-middle,
   .v-align-middle > .v-widget {
   	vertical-align: middle;
   }
   
-  .v-align-bottom,
+  //.v-align-bottom,
   .v-align-bottom > .v-widget {
   	vertical-align: bottom;
   }

@@ -106,6 +106,10 @@
   	border: none;
   }
 
+  .#{$primary-stylename} {
+    width: auto !important;
+  }
+
   .#{$primary-stylename}-button-color {
   	position: absolute;
   	top: round($v-unit-size/6);

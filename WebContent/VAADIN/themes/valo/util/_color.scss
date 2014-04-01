@@ -52,12 +52,12 @@ $v-luminance-threshold: 150 !default;
 
 // Returns a text color with enough contrast for the given background color
 //
-@function v-valo-font-color ($bg-color) {
+@function v-valo-font-color ($bg-color, $contrast: 0.8) {
   @if $bg-color {
     @if is-dark-color($bg-color) {
-      @return scale_color($bg-color, $lightness: 85%, $saturation: -50%);
+      @return scale_color($bg-color, $lightness: 100% * $contrast, $saturation: -50%);
     } @else {
-      @return scale_color($bg-color, $lightness: -70%, $saturation: -50%);
+      @return scale_color($bg-color, $lightness: -100% * $contrast * 0.9, $saturation: -50%);
     }
   }
   @return null;
@@ -76,39 +76,46 @@ $v-luminance-threshold: 150 !default;
 
 
 
-@function v-valo-focus-color ($color: null, $context: $v-app-background-color) {
-  $focus-color: $color or $v-focus-color;
-  @if luminance-diff($context, $focus-color) < 30 or (luminance-diff($context, $focus-color) < 10 and saturation-diff($context, $focus-color) < 20%) {
-    $focus-color: #fff;
+@function v-valo-focus-color ($color: null, $context: null) {
+  $context: $context or $v-app-background-color;
+
+  $fallback: $context;
+  @if is-dark-color($fallback) {
+    $fallback: scale-color($fallback, $lightness: 40%, $saturation: 80%);
+  } @else {
+    $fallback: scale-color($fallback, $lightness: -50%, $saturation: 80%);
   }
+
+  $focus-color: $color or $v-focus-color or $fallback;
+  //@if luminance-diff($context, $focus-color) < 30 or (luminance-diff($context, $focus-color) < 10 and saturation-diff($context, $focus-color) < 20%) {
+  //  $focus-color: #fff;
+  //}
   @return $focus-color;
 }
 
 
 
 @function v-valo-focus-box-shadow ($color: null, $focus-style: $v-focus-style) {
-  $focus-color: $color or v-valo-focus-color();
+  $focus-color: v-valo-focus-color($color: $color);
   @return replace($focus-style, focus-color, transparentize($focus-color, .5));
 }
 
 
 
 @function v-valo-selection-color ($color: null, $context: null) {
-  $context: $context or $v-app-background-color;
-  $selection-color: $color or $v-selection-color;
-  @if luminance-diff($context, $selection-color) < 30 or (luminance-diff($context, $selection-color) < 10 and saturation-diff($context, $selection-color) < 20%) {
-    $selection-color: #fff;
-  }
+  $selection-color: $color or $v-selection-color or v-valo-focus-color($color: $color, $context: $context);
+  //@if luminance-diff($context, $selection-color) < 30 or (luminance-diff($context, $selection-color) < 10 and saturation-diff($context, $selection-color) < 20%) {
+  //  $selection-color: #fff;
+  //}
   @return $selection-color;
 }
 
 
 
-@function v-valo-link-color ($context: null) {
-  $context: $context or $v-app-background-color;
-  $link-color: $v-link-color;
-  @if luminance-diff($context, $link-color) < 30 or (luminance-diff($context, $link-color) < 10 and saturation-diff($context, $link-color) < 20%) {
-    $link-color: #fff;
-  }
+@function v-valo-link-color ($color: null, $context: null) {
+  $link-color: $color or $v-link-color or v-valo-focus-color($color: $color, $context: $context);
+  //@if luminance-diff($context, $link-color) < 30 or (luminance-diff($context, $link-color) < 10 and saturation-diff($context, $link-color) < 20%) {
+  //  $link-color: #fff;
+  //}
   @return $link-color;
 }
