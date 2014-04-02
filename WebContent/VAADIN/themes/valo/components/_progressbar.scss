@@ -1,3 +1,6 @@
+$v-progressbar-border-radius: $v-border-radius !default;
+
+
 @mixin v-valo-progressbar ($primary-stylename: v-progressbar) {
 	
 	.#{$primary-stylename}-wrapper {
@@ -12,7 +15,7 @@
 
 
 @mixin v-valo-progressbar-track-style {
-	border-radius: $v-border-radius;
+	border-radius: $v-progressbar-border-radius;
 	height: round($v-unit-size/4);
 	min-width: $v-unit-size * 2;
 	@include v-valo-gradient($color: scale-color($v-app-background-color, $lightness: min($v-bevel-depth/-2, -10%), $saturation: $v-bevel-depth/-2), $style: linear-reverse);
@@ -22,7 +25,7 @@
 
 
 @mixin v-valo-progressbar-indicator-style {
-	border-radius: $v-border-radius;
+	border-radius: $v-progressbar-border-radius;
 	height: inherit;
 	min-width: max($v-border-radius*2, 3px);
 	@include v-valo-gradient($color: v-valo-selection-color());

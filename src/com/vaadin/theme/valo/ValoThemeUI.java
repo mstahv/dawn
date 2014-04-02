@@ -539,26 +539,26 @@ public class ValoThemeUI extends UI implements Handler {
         root.addStyleName("components");
         root.addStyleName("color-context" + num);
 
-        labels(root);
-        buttonsAndLinks(root);
-        textfields(root);
-        textareas(root);
-        comboboxes(root);
-        menubars(root);
+        // labels(root);
+        // buttonsAndLinks(root);
+        // textfields(root);
+        // textareas(root);
+        // comboboxes(root);
+        // menubars(root);
         // splitbuttons(root);
-        checkboxes(root);
-        optiongroups(root);
-        datefields(root);
-        panels(root);
-        trees(root);
-        tables(root);
-        treetables(root);
-        sliders(root);
-        splitpanels(root);
-        tabsheets(root);
-        colorpickers(root);
-        accordions(root);
-        nativeselects(root);
+        // checkboxes(root);
+        // optiongroups(root);
+        // datefields(root);
+        // panels(root);
+        // trees(root);
+        // tables(root);
+        // treetables(root);
+        // sliders(root);
+        // splitpanels(root);
+        // tabsheets(root);
+        // colorpickers(root);
+        // accordions(root);
+        // nativeselects(root);
 
         return root;
     }

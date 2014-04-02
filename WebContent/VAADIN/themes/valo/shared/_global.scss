@@ -144,15 +144,7 @@ $v-valo-shared-pathPrefix: null;
   }
   
   .v-errorindicator {
-    color: $v-error-indicator-color;
-    font-weight: 600;
-    width: ceil($v-unit-size/2);
-    border-radius: 50%;
-    text-align: center;
-    
-    &:before {
-      content: "!";
-    }
+    @include v-valo-error-indicator-icon-style;
   }
 
   .v-required-field-indicator {
@@ -188,4 +180,16 @@ $v-valo-shared-pathPrefix: null;
 
   @include v-valo-contextmenu;
 
+}
+
+
+@mixin v-valo-error-indicator-icon-style {
+  color: $v-error-indicator-color;
+  font-weight: 600;
+  width: ceil($v-unit-size/2);
+  text-align: center;
+  
+  &:before {
+    content: "!";
+  }
 }

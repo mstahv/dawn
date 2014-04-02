@@ -1,5 +1,5 @@
 $v-slider-track-size: round($v-unit-size/8) !default;
-$v-slider-track-border-radius: $v-border-radius !default;
+$v-slider-track-border-radius: null !default;
 $v-slider-handle-width: round($v-unit-size/1.8) !default;
 $v-slider-handle-height: round($v-unit-size/1.8) !default;
 $v-slider-handle-border-radius: ceil($v-slider-handle-width/2) !default;
@@ -46,7 +46,7 @@ $v-slider-handle-border-radius: ceil($v-slider-handle-width/2) !default;
 			min-width: 0;
 			content: "";
 			display: inline-block;
-			position: relative;
+			//position: relative;
 			margin-left: -100%;
 			width: 100%;
 			vertical-align: top;
