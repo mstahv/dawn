@@ -22,6 +22,8 @@ This project builds the yet to be released, but already amazing Valo theme as a 
 </dependency>
 ```
 
+# REST IS THE ORIGINAL README, NO NEED TO INSTALL ANYTHING
+
 
 Valo
 ====
