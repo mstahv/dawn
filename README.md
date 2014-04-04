@@ -22,6 +22,13 @@ This project builds the yet to be released, but already amazing Valo theme as a 
 </dependency>
 ```
 
+Also note, that you can get rid of vaadin-themes and don't need these goals in vaadin-maven-plugin (theme is already built):
+```
+<goal>update-theme</goal>
+<goal>compile-theme</goal>
+```
+
+
 # REST IS THE ORIGINAL README, NO NEED TO INSTALL ANYTHING
 
 
