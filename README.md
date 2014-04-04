@@ -44,8 +44,8 @@ Also note, that you can get rid of vaadin-themes and don't need these goals in v
         </dependency>
 ```
 
-
-# REST IS THE ORIGINAL README, NO NEED TO INSTALL ANYTHING
+# REST IS THE ORIGINAL README, NO NEED TO INSTALL ANYTHING OR USE ANY SPECIAL SERVLETS, JUST ADD THE DEPENDENCY/JAR AND USE THEME CALLED "dawn"
+# ##########
 
 
 Valo
