@@ -10,7 +10,7 @@ Sass based Vaadin theme
 Testing it out
 ====
 
-You need the Ruby Sass compiler to compile theme theme. Visit http://sass-lang.com/install and do the command line installation.
+You need the Ruby Sass compiler to compile the theme. Visit http://sass-lang.com/install and do the command line installation.
 
 Then use the ThemeServlet from this repo as your servlet implementation, which should handle on-the-fly Sass compilation using the command line Sass compiler (you need the Sass.java file from this repo as well).
 
