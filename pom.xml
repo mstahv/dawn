@@ -13,6 +13,9 @@
         <resources>
             <resource>
                 <directory>${basedir}/WebContent</directory>
+                <excludes>
+                    <exclude>**/*.scss</exclude>
+                </excludes>
             </resource>
         </resources>
         <plugins>
