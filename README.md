@@ -20,3 +20,5 @@ Then use the ThemeServlet from this repo as your servlet implementation, which s
 
 
 Once you have it up and running, check out the themes/valo/shared/variables.scss file for stuff to adjust initially. Later you can start checking out individual components as well, and see what mixins and functions you can override if necessary.
+
+The valo-demo and valo-test themes contain use examples as well, which you can also refer to.
