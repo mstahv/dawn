@@ -28,6 +28,22 @@ Also note, that you can get rid of vaadin-themes and don't need these goals in v
 <goal>compile-theme</goal>
 ```
 
+... and, you most probably don't ever need the "runtime theme compilation", not even with this sass theme, so get rid of theme-compiler as well, e.g.:
+
+```
+    <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-server</artifactId>
+            <version>${vaadin.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.vaadin</groupId>
+                    <artifactId>vaadin-theme-compiler</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+```
+
 
 # REST IS THE ORIGINAL README, NO NEED TO INSTALL ANYTHING
 
