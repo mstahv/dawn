@@ -1,3 +1,28 @@
+# Dawn
+
+This project builds the yet to be released, but already amazing Valo theme as a jar file that can easily tested in a project today. 
+
+####WARNING: You don't want to use Vaadin apps with the old default theme after applying this to one of your hobby projects
+
+##Usage instructions:
+
+ * check out this project
+ * (optional) parametrize your theme
+ * "mvn install"
+ * add the built artifact to your project
+ * Use dawn them in you UI: @Theme("dawn")
+
+##Pom dependency (once built)
+
+```
+<dependency>
+    <groupId>org.peimari</groupId>
+    <artifactId>dawn</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
+```
+
+
 Valo
 ====
 
