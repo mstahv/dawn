@@ -19,6 +19,15 @@ $v-app-loading-text: "Loading resources...";
 .dawn {
   @include v-valo;
   @include v-valo-component-group;
+  
+  .v-button-primary {
+    @include v-valo-button-style($background-color: v-valo-selection-color());
+  }
+  
+  .v-button-frameless {
+    @include v-valo-button-borderless-style;
+  }
+
 
   .topbar {
 
