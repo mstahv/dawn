@@ -5,7 +5,7 @@
 $fontawesome-pathPrefix: null;
   
 @if $relativePaths == false {
-  $fontawesome-pathPrefix: "../base/fonts/";
+  $fontawesome-pathPrefix: "../core/fonts/";
 }
 
 @mixin fonticons {
