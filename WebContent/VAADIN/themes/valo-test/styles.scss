@@ -1,0 +1,130 @@
+//@import "flat-style-vars";
+//$v-app-background-color: #606060;
+//$v-calendar-event-colors: #fff, #7ad7ff, #7aff88, #ff7a7a;
+//$v-font-size: 12px;
+//$v-unit-size: 24px;
+//$v-border-width: 2px;
+//$v-gradient-depth: 5%;
+//$v-bevel-depth: 0%;
+//$v-bevel-style: none;
+//$v-textfield-bevel-style: none;
+//$v-border-radius: 3px;
+//$v-window-border-radius: 0;
+//$v-shadow-style: none;
+//$v-overlay-shadow-style: 0 0 0 1px shade;
+//$v-window-shadow-style: none;
+
+@import "../valo/valo";
+@import "addons";
+
+
+
+//@import "flat-style-mixins";
+
+$color1: $v-app-background-color;
+$color2: hsl(220, 5%, 38%);
+$color3: #5d73c0;
+$color4: #F45937;
+$color5: #d2f4f3;
+$color6: #fe902a;
+$colors: $color1;//, $color2, $color3, $color4, $color5;
+
+
+$v-app-loading-text: "Loading Valo Test App...";
+
+
+
+@import "menu";
+@import "variants";
+
+//@include natural-page-scrolling;
+
+body {
+    // Fake height so that the browser scrollbar can be restored between reloads
+    //min-height: 6000px;
+}
+
+
+
+.valo-test {
+  @include v-valo;
+  @include v-valo-component-group;
+
+  @include valo-styleguide-menu;
+
+  .components-root {
+  	white-space: nowrap;
+  }
+  
+  .components {
+  	white-space: normal;
+    min-width: 320px;
+    max-width: 500px;
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+  }
+  
+  .wrapping {
+    @include v-valo-horizontallayout--wrapping;
+    .v-expand {
+      overflow: visible;
+    }
+  }
+
+  .v-button-primary {
+    @include v-valo-button-style($background-color: v-valo-selection-color());
+    padding: 0 round($v-unit-size/1.4);
+  }
+  
+  @include variants;
+
+  .v-button-frameless {
+    @include v-valo-button-borderless-style;
+  }
+
+  .v-tabsheet-centered-tabs {
+    @include v-valo-tabsheet-centered-tabs;
+  }
+
+  .v-tabsheet-equal-width-tabs {
+    @include v-valo-tabsheet-equal-width-tabs($flex: false);
+  }
+
+  .v-tabsheet-icons-on-top {
+    @include v-valo-tabsheet-icons-on-top;
+  }
+
+  .v-tabsheet-selected-closable {
+    @include v-valo-tabsheet-only-selected-closable;
+  }
+
+  .v-tabsheet-padded-tabbar {
+    @include v-valo-tabsheet-padded-tabbar;
+  }
+
+  .v-panel-borderless {
+    @include v-valo-panel-borderless-style;
+  }
+
+  .v-formlayout.light {
+    @include v-valo-formlayout-light-style;
+
+    .v-caption-large {
+      line-height: round($v-unit-size * 1.2);
+    }
+  }
+
+  .v-textfield-large.v-textfield-large.v-textfield-large {
+    @include v-valo-textfield-size($unit-size: round($v-unit-size * 1.2));
+  }
+
+  
+  //.v-filterselect-button {
+  //  @include v-valo-button-style;
+  //  width: $v-unit-size;
+  //  padding: 0;
+  //  border-width: 0 0 0 $v-button-border-width;
+  //}
+
+}

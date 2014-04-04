@@ -96,9 +96,6 @@ $v-window-shadow-style: 0 4px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !defaul
     	@include transition(all 140ms);
     }
     
-    &:before {
-    }
-    
     &:focus {
       outline: none;
     }
@@ -114,9 +111,7 @@ $v-window-shadow-style: 0 4px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !defaul
   }
   
   .v-window-closebox {
-    &:before {
-      content: "\00d7";
-    }
+    @include v-valo-window-close-icon-style;
   }
   
   .v-window-maximizebox,
@@ -130,15 +125,11 @@ $v-window-shadow-style: 0 4px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !defaul
 	}
 
   .v-window-maximizebox {
-    &:before {
-      content: "+";
-    }
+    @include v-valo-window-maximize-icon-style;
   }
   
   .v-window-restorebox {
-    &:before {
-      content: "\2013";
-    }
+    @include v-valo-window-restore-icon-style;
   }
   
   .v-window > .popupContent,
@@ -242,4 +233,25 @@ $v-window-shadow-style: 0 4px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !defaul
 		}
   }
 
+}
+
+
+@mixin v-valo-window-close-icon-style {
+  &:before {
+    // times cross
+    content: "\00d7";
+  }
+}
+
+@mixin v-valo-window-maximize-icon-style {
+  &:before {
+    content: "+";
+  }
+}
+
+@mixin v-valo-window-restore-icon-style {
+  &:before {
+    // en-dash
+    content: "\2013";
+  }
 }

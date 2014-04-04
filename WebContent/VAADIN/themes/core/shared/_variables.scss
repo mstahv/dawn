@@ -1,3 +1,13 @@
+// The Vaadin compiler parses URL paths differently than the regular Sass compiler (i.e. Vaadin modifies relative url paths).
+// This boolean is used to flag which compiler is used, so that paths are correct for different resources.
+// false == Ruby, true == Vaadin
+$relativePaths: false;
+
+
+// Should the Vaadin debug window styles be included
+$v-include-debug-styles: true !default;
+
+
 // List of components to include in the theme compilation
 $v-included-components: 
 		absolutelayout,

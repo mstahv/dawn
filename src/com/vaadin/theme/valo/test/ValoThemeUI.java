@@ -1,4 +1,4 @@
-package com.vaadin.theme.valo;
+package com.vaadin.theme.valo.test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,8 +12,6 @@ import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.Random;
 
-import javax.servlet.annotation.WebServlet;
-
 import org.vaadin.risto.mockupcontainer.BaconDataSet;
 import org.vaadin.risto.mockupcontainer.MockupContainer;
 import org.vaadin.risto.mockupcontainer.MockupDataSet;
@@ -21,7 +19,6 @@ import org.vaadin.risto.mockupcontainer.MockupFactory;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
-import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.IndexedContainer;
@@ -86,14 +83,9 @@ import com.vaadin.ui.VerticalSplitPanel;
 import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
-@Theme("valo-demo")
-@Title("Valo Theme")
+@Theme("valo-test")
+@Title("Valo Theme Test")
 public class ValoThemeUI extends UI implements Handler {
-
-    @WebServlet(value = "/*", asyncSupported = true)
-    @VaadinServletConfiguration(productionMode = false, ui = ValoThemeUI.class)
-    public static class Servlet extends ThemeServlet {
-    }
 
     CssLayout root = new CssLayout();
     CssLayout components = new CssLayout();
@@ -140,7 +132,7 @@ public class ValoThemeUI extends UI implements Handler {
                     .setValue(baconDataSet.nextValue());
         }
 
-        getPage().setTitle("Valo Theme");
+        getPage().setTitle("Valo Theme Test");
         setContent(root);
         root.setWidth("100%");
 

@@ -62,16 +62,6 @@ $v-letter-spacing--h4:    0.05em          !default;
     margin-top: 2.4em;
     margin-bottom: 0.8em;
   }
-  
-  h1, .h1,
-  h2, .h2,
-  h3, .h3,
-  h4, .h4 {
-    &.no-margin {
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-  }
 
   .v-csslayout {
    > h1,
@@ -95,6 +85,15 @@ $v-letter-spacing--h4:    0.05em          !default;
     h3, .h3
     h4, .h4 {
       margin-top: $v-font-size;
+    }
+  }
+  
+  h1, .h1,
+  h2, .h2,
+  h3, .h3,
+  h4, .h4 {
+    &.no-margin {
+      margin: 0 !important;
     }
   }
   

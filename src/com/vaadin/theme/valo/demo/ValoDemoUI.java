@@ -18,18 +18,11 @@ import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
-@Theme("valo-demo-app")
+@Theme("valo-demo")
 @Title("Valo Theme Demo")
 public class ValoDemoUI extends UI {
 
     private static final long serialVersionUID = 1L;
-
-    // @WebServlet(value = "/*", asyncSupported = true)
-    // @VaadinServletConfiguration(productionMode = false, ui =
-    // ValoDemoUI.class)
-    // public static class Servlet extends ThemeServlet {
-    // private static final long serialVersionUID = 1L;
-    // }
 
     VerticalLayout root = new VerticalLayout();
     CssLayout content = new CssLayout();

@@ -142,7 +142,7 @@ $v-button-disabled-opacity: $v-disabled-opacity !default;
   border-color: v-valo-button-border-color($bevel-style, $bevel-depth, $background-color);
 
   @include v-valo-gradient($background-color, $gradient-style, $gradient-depth);
-  color: v-valo-font-color($background-color);
+  color: v-valo-font-color($background-color, 0.9);
 
   box-shadow: v-valo-button-box-shadow($background-color, $bevel-style, $bevel-depth, $gradient-style, $gradient-depth);
   text-shadow: v-valo-button-text-shadow($background-color, $bevel-depth);

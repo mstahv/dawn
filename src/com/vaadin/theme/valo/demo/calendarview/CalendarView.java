@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.shared.ui.MarginInfo;
-import com.vaadin.theme.valo.CalendarTestEvent;
+import com.vaadin.theme.valo.test.CalendarTestEvent;
 import com.vaadin.ui.Calendar;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.components.calendar.CalendarComponentEvents.DateClickEvent;

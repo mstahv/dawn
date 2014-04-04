@@ -1,4 +1,4 @@
-package com.vaadin.theme.valo;
+package com.vaadin.theme.valo.test;
 
 import com.vaadin.server.ThemeResource;
 import com.vaadin.server.VaadinRequest;
