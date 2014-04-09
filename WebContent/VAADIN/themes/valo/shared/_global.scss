@@ -5,11 +5,116 @@
 @import "tooltip";
 
 
-$v-app-loading-text: "" !default;
+// Include global styles only once
+$v-valo-global-included: false !default;
+@mixin v-valo-global {
+  @if $v-valo-global-included == false {
+
+    // Core widget styles come before any other component (and are always included),
+    // so that it has the least specificity
+    @include v-valo-widget;
+
+    .v-generated-body {
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+    
+    .v-app {
+      height: 100%;
+      // Cancel tap highlight from all elements inside the app
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+    
+    .v-ui {
+      position: relative;
+    }
+    
+    // Prevent margin collapse
+    .v-ui.v-ui-embedded {
+      margin-top: -1px;
+      border-top: 1px solid transparent;
+    }
+    
+    .v-ui:focus {
+      outline: none;
+    }
+    
+    .v-overlay-container {
+      width: 0;
+      height: 0;
+    }
+    
+    // Removes clear button from input fields introduced by IE10
+    input::-ms-clear {
+      display: none;
+    }
+    
+    .v-drag-element {
+      z-index: 60000;
+      // Override any other position properties
+      position: absolute !important;
+      cursor: default;
+    }
+    
+    .v-clip {
+      overflow: hidden;
+    }
+    
+    .v-scrollable {
+      overflow: auto;
+      // Fix extra whitespace in IE
+      line-height: 0;
+    }
+    
+    .v-ios.v-webkit .v-scrollable {
+      -webkit-overflow-scrolling: touch; 
+    }
+    
+    // Disable native scrolling on iOS 5 due to issue #8792
+    .v-ios5.v-webkit .v-scrollable {
+      -webkit-overflow-scrolling: none;
+    }
+    
+    .v-assistive-device-only {
+      position: absolute;
+      top: -2000px;
+      left: -2000px;
+      width: 10px;
+      overflow: hidden;
+    }
+    
+    .v-icon,
+    .v-errorindicator,
+    .v-required-field-indicator {
+      display: inline-block;
+      line-height: inherit;
+    }
+
+    .v-caption,
+    .v-captiontext {
+      display: inline-block;
+      line-height: $v-line-height;
+    }
+
+    // Component global styles should also be included here
+    @include v-valo-orderedlayout-global;
+    @include v-valo-gridlayout-global;
+    @include v-valo-calendar-global;
+    @include v-valo-colorpicker-global;
+    @include v-valo-table-global;
+    @include v-valo-tabsheet-global;
+
+    $v-valo-global-included: true;
+  }
+}
+
+
 
 $v-valo-shared-pathPrefix: null;
   
-@if $relativePaths == false {
+@if $v-relative-paths == false {
   $v-valo-shared-pathPrefix: "../valo/shared/";
 }
 
@@ -29,8 +134,8 @@ $v-valo-shared-pathPrefix: null;
 }
 
 
-@mixin v-valo-global {
-  
+@mixin v-valo-common {
+
   //@if & != null {
   //  &,
   //  &.v-app-loading {
@@ -192,4 +297,48 @@ $v-valo-shared-pathPrefix: null;
   &:before {
     content: "!";
   }
+}
+
+
+
+// Make the BODY element scrollable instead of the .v-ui element. Scrolling the BODY works better on touch screens.
+// NOTE: breaks percentage sized overlay elements
+// @mixin v-valo-natural-page-scrolling
+// @usage
+// // Call without any parent selector somewhere in your theme
+// =v-valo-natural-page-scrolling;
+@mixin v-valo-natural-page-scrolling {
+  
+  html {
+    height: auto;
+  }
+  
+  .v-generated-body {
+    height: auto;
+    overflow: auto;
+  }
+  
+  .v-app,
+  .v-ui.v-scrollable {
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  
+  // Reposition loading indicator so that it doens't scroll with the page
+  .v-loading-indicator {
+    position: fixed !important;
+  }
+
+  .v-overlay-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  // Reposition notifications so that they don't scroll with the page
+  .v-Notification {
+    position: fixed !important;
+  }
+  
 }

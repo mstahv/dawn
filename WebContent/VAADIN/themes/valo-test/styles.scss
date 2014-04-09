@@ -1,18 +1,25 @@
 //@import "flat-style-vars";
-//$v-app-background-color: #606060;
+//$v-app-background-color: #fff;
+//$v-focus-color: blue;
 //$v-calendar-event-colors: #fff, #7ad7ff, #7aff88, #ff7a7a;
-//$v-font-size: 12px;
-//$v-unit-size: 24px;
+//$v-font-size: 16px;
+//$v-unit-size: 44px;
 //$v-border-width: 2px;
-//$v-gradient-depth: 5%;
+//$v-gradient-depth: 0%;
 //$v-bevel-depth: 0%;
 //$v-bevel-style: none;
+//$v-textfield-background-color: #eee;
+//$v-button-background-color: #ddd;
 //$v-textfield-bevel-style: none;
 //$v-border-radius: 3px;
 //$v-window-border-radius: 0;
 //$v-shadow-style: none;
 //$v-overlay-shadow-style: 0 0 0 1px shade;
 //$v-window-shadow-style: none;
+//$v-font-weight--header: bold;
+//$v-table-background-color: #fff;
+
+//$v-bevel-style: inset 0 4px 1px hilite, inset 0 -4px 1px shade;
 
 @import "../valo/valo";
 @import "addons";
@@ -67,9 +74,6 @@ body {
   
   .wrapping {
     @include v-valo-horizontallayout--wrapping;
-    .v-expand {
-      overflow: visible;
-    }
   }
 
   .v-button-primary {

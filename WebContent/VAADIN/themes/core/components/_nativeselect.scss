@@ -1,9 +1,0 @@
-@mixin v-core-nativeselect ($primary-stylename: v-select) {
-	.#{$primary-stylename}-select {
-  	display: block;
-
-  	+ .v-textfield {
-  		width: auto !important;
-  	}
-  }
-}

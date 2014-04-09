@@ -23,6 +23,10 @@
 
   :root & {
     padding-left: round($unit-size/1.5);
+
+    label {
+      @include v-valo-tappable;
+    }
   }
   
   :root & > input {
@@ -32,9 +36,9 @@
     top: .2em;
     z-index: 0;
     margin: 0;
-    
+
     &:focus ~ label:before {
-      @include v-valo-button-focus-style($background-color: $background-color);
+      @include v-valo-button-focus-style($background-color: $background-color, $border-fallback: null);
       box-shadow: v-valo-button-box-shadow($background-color), v-valo-focus-box-shadow();
     }
 
@@ -90,6 +94,7 @@
   & > .v-icon,
   & > label .v-icon  {
     margin: 0 round($unit-size/6) 0 round($unit-size/12);
+    min-width: 1em;
   }
 
 }

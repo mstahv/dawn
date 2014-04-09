@@ -1,10 +1,11 @@
-$v-tooltip-background-color: rgba(#333, .75) !default;
-$v-tooltip-font-color: #fff !default;
+$v-tooltip-background-color: rgba(adjust-color(invert($v-app-background-color), $saturation: -100%), .75) !default;
+$v-tooltip-font-color: v-valo-font-color($v-tooltip-background-color, 1) !default;
 $v-tooltip-font-size: max(12px, round($v-font-size * 0.86)) !default;
 $v-tooltip-box-shadow: 0 3px 9px rgba(#000, .3) !default;
 $v-tooltip-padding-vertical: round($v-unit-size/8) !default;
 $v-tooltip-padding-horizontal: round($v-unit-size/4) !default;
 $v-tooltip-error-message-background-color: $v-error-indicator-color !default;
+$v-tooltip-error-message-font-color: v-valo-font-color($v-tooltip-error-message-background-color, .9);
 
 
 @mixin v-valo-tooltip {
@@ -18,6 +19,7 @@ $v-tooltip-error-message-background-color: $v-error-indicator-color !default;
 		.v-errormessage {
 			background-color: opacify($v-tooltip-error-message-background-color, 1);
 			background-color: $v-tooltip-error-message-background-color;
+			color: $v-tooltip-error-message-font-color;
 			margin: -$v-tooltip-padding-vertical #{-$v-tooltip-padding-horizontal};
 			padding: $v-tooltip-padding-vertical $v-tooltip-padding-horizontal;
 			max-height: 10em;

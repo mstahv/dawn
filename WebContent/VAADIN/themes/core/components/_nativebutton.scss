@@ -1,5 +1,0 @@
-@mixin v-core-nativebutton ($primary-stylename: v-nativebutton) {
-  .#{$primary-stylename} {
-    -webkit-touch-callout: none;
-  }
-}

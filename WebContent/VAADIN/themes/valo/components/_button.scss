@@ -17,7 +17,10 @@ $v-button-disabled-opacity: $v-disabled-opacity !default;
 
 
 
-
+// The main mixin for Valo buttons
+// @mixin     v-valo-button
+// @param     $primary-stylename {String} the primary stylename to use for the output. Defaults to <code>v-button</code>
+// @category  Button
 @mixin v-valo-button ($primary-stylename: v-button) {
   .#{$primary-stylename} {
     @include v-valo-button-common-properties;
@@ -30,6 +33,7 @@ $v-button-disabled-opacity: $v-disabled-opacity !default;
 
 
 @mixin v-valo-button-common-properties {
+  @include v-valo-tappable;
   cursor: $v-button-cursor;
   font-weight: $v-button-font-weight;
   position: relative;
@@ -168,13 +172,13 @@ $v-button-disabled-opacity: $v-disabled-opacity !default;
 }
 
 
-@mixin v-valo-button-focus-style ($background-color: $v-app-background-color) {
+@mixin v-valo-button-focus-style ($background-color: $v-app-background-color, $border-fallback: inherit) {
   $focus-color: v-valo-focus-color();
   
   @if color-luminance($focus-color) + 50 < color-luminance($background-color) {
     border: $v-button-border-width solid $focus-color;
   } @else {
-    border: inherit;
+    border: $border-fallback or v-valo-button-border-color($background-color: $background-color);
   }
 
   box-shadow: v-valo-focus-box-shadow($color: $focus-color);

@@ -67,7 +67,7 @@ import com.vaadin.ui.components.calendar.handler.BasicDateClickHandler;
 import com.vaadin.ui.components.calendar.handler.BasicWeekClickHandler;
 
 /** Calendar component test application */
-@Theme("valo-demo")
+@Theme("valo-test")
 public class CalendarTest extends UI {
 
     private static final long serialVersionUID = -5436777475398410597L;

@@ -5,31 +5,33 @@ $v-datefield-hover-style-enabled: $v-hover-styles-enabled !default;
 
 	.#{$primary-stylename} {
     position: relative;
+    width: $v-default-field-width;
+    height: $v-unit-size;
     @include v-valo-datefield-style($primary-stylename: $primary-stylename);
   }
+
+  // Different widths for different resolutions
+  .#{$primary-stylename}-full {
+    width: round($v-font-size * 15);
+  }
   
+  .#{$primary-stylename}-day {
+    width: $v-default-field-width;
+  }
+  
+  .#{$primary-stylename}-month {
+    width: round($v-font-size * 7.5);
+  }
+  
+  .#{$primary-stylename}-year {
+    width: round($v-font-size * 6.5);
+  }
+
   .v-datefield-popup {
     @include v-valo-datefield-popup-style;
   }
 
   @include v-valo-datefield-calendarpanel-style;
-
-  // Different widths for different resolutions
-  .#{$primary-stylename}-full > .#{$primary-stylename}-textfield {
-    width: round($v-font-size * 15);
-  }
-  
-  .#{$primary-stylename}-day > .#{$primary-stylename}-textfield {
-    width: round($v-font-size * 10);
-  }
-  
-  .#{$primary-stylename}-month > .#{$primary-stylename}-textfield {
-    width: round($v-font-size * 7.5);
-  }
-  
-  .#{$primary-stylename}-year > .#{$primary-stylename}-textfield {
-    width: round($v-font-size * 6.5);
-  }
 
 }
 
@@ -58,6 +60,8 @@ $v-datefield-hover-style-enabled: $v-hover-styles-enabled !default;
                               			$unit-size: $unit-size, $border-radius: $border-radius,
                               			$background-color: $background-color) ;
   	padding-left: $unit-size * 1.2;
+    width: 100%;
+    height: 100%;
   }
   
   &.#{$primary-stylename}-prompt > .#{$primary-stylename}-textfield {
@@ -101,20 +105,23 @@ $v-datefield-hover-style-enabled: $v-hover-styles-enabled !default;
 
 @mixin v-valo-datefield-button-style ($unit-size: $v-unit-size, $bevel-style: $v-bevel-style, $bevel-depth: $v-bevel-depth,
 																		  $background-color: $v-textfield-background-color) {
-	-webkit-appearance: none;
+  @include v-valo-tappable;
+  -webkit-appearance: none;
 	background: transparent;
 	border: none;
+  padding: 0;
 	position: absolute;
 	top: $v-textfield-border-width;
+  bottom: $v-textfield-border-width;
 	left: $v-textfield-border-width;
 	width: $unit-size;
-	height: $unit-size - ($v-textfield-border-width*2);
 	line-height: $unit-size - ($v-textfield-border-width*2);
 	text-align: center;
 	cursor: pointer;
 	font: inherit;
 	border-right: $v-textfield-border-width solid blend-darken(black($bevel-depth/200%), $background-color);
 	outline: none;
+  margin: 0;
 
 	@if $v-border-radius > 0 {
 		$br: max(0, $v-border-radius - $v-textfield-border-width);
@@ -164,8 +171,11 @@ $v-datefield-hover-style-enabled: $v-hover-styles-enabled !default;
 
 	@include v-valo-overlay-style;
 
+  @include user-select(none);
+
  	margin-top: ceil($v-unit-size/8) !important;
  	cursor: default;
+  width: auto;
 
  	table {
  		border-collapse: collapse;

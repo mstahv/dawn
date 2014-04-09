@@ -9,9 +9,11 @@
 
 	$top-color: first(first($color-stops));
 	$bottom-color: first(last($color-stops));
+	@debug $bottom-color, $color;
 
-	$top-color: blend-softlight(scale-color($top-color, $lightness: $bevel-depth), scale-color($top-color, $lightness: $bevel-depth/4));
-  $bottom-color: blend-multiply(rgba(scale-color($bottom-color, $lightness: max(-30%, -$bevel-depth)), $bevel-depth/120%), scale-color($bottom-color, $lightness: $bevel-depth/3));
+	$top-color: blend-lighten(adjust-color($top-color, $lightness: $bevel-depth/4, $saturation: -$bevel-depth), scale-color($top-color, $lightness: $bevel-depth/4));
+  $bottom-color: blend-darken(rgba(scale-color($bottom-color, $lightness: max(-30%, -$bevel-depth/3), $saturation: -$bevel-depth), $bevel-depth/100%), $bottom-color);
+  @debug RESULT $bottom-color;
   
 	@return v-valo-replace-hilite-and-shade($bevel-style, $top-color, $bottom-color);
 }

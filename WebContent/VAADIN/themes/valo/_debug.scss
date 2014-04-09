@@ -1,14 +1,5 @@
-// Import global variable defaults
-@import "shared/variables";
-
-
-
-
-// TODO remove from this file, should come directly from the servlet
-
-// Debug console related styles. NOTE that these are global, and not really part
-// of a theme (the console is a sigleton). You can customize, but it will apply
-// globally, e.g in a portal environment.
+// TODO remove this file when debug window styles come directly from GWT module
+$v-include-debug-styles: true !default;
 
 @if $v-include-debug-styles {
 
@@ -312,43 +303,4 @@
 		}
 	}
 
-}
-
-
-
-
-
-// Import utilities
-@import "util/lists";
-@import "util/css3";
-@import "util/bourbon/bourbon";
-
-
-// Import global style mixins
-@import "shared/global";
-
-
-// Import component mixins
-@import "components/all";
-
-
-// Import fonts (font icons mainly)
-@import "fonts/fonts";
-
-
-// Only import and include these once per compilation
-// (someone might mix & match multiple themes together)
-
-$v-core-included: false !default;
-@if $v-core-included == false {
-  
-  // Include global styles
-  @include v-core-styles;
-  
-  // Include component styles
-  @include v-core-components;
-  
-  @include fonts;
-
-  $v-core-included: true;
 }

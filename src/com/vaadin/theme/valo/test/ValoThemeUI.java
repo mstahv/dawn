@@ -35,7 +35,6 @@ import com.vaadin.server.Resource;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.server.UserError;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinSession;
 import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -141,7 +140,7 @@ public class ValoThemeUI extends UI implements Handler {
         components.setWidth("100%");
         root.addComponent(components);
 
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 1; i++) {
             components.addComponent(components(i));
         }
         components.addStyleName("components-root");
@@ -316,7 +315,7 @@ public class ValoThemeUI extends UI implements Handler {
             public void buttonClick(ClickEvent event) {
                 notification2.setPosition(Position.TOP_LEFT);
                 notification2.setDelayMsec(-1);
-                notification2.setStyleName("humanized");
+                notification2.setStyleName("humanized closable");
                 notification2.show(getPage());
             }
         });
@@ -341,7 +340,7 @@ public class ValoThemeUI extends UI implements Handler {
             public void buttonClick(ClickEvent event) {
                 notification2.setPosition(Position.BOTTOM_RIGHT);
                 notification2.setDelayMsec(-1);
-                notification2.setStyleName("tray");
+                notification2.setStyleName("tray closable");
                 notification2.show(getPage());
             }
         });
@@ -366,7 +365,7 @@ public class ValoThemeUI extends UI implements Handler {
             public void buttonClick(ClickEvent event) {
                 notification2.setPosition(Position.TOP_CENTER);
                 notification2.setDelayMsec(-1);
-                notification2.setStyleName("warning");
+                notification2.setStyleName("warning closable");
                 notification2.show(getPage());
             }
         });
@@ -379,7 +378,7 @@ public class ValoThemeUI extends UI implements Handler {
                         "Just a simple description for this warning message.");
                 n3.setPosition(Position.TOP_CENTER);
                 n3.setDelayMsec(-1);
-                n3.setStyleName("warning");
+                n3.setStyleName("warning closable");
                 n3.show(getPage());
             }
         });
@@ -392,7 +391,7 @@ public class ValoThemeUI extends UI implements Handler {
             @Override
             public void buttonClick(ClickEvent event) {
                 notification.setPosition(Position.MIDDLE_CENTER);
-                notification.setDelayMsec(-1);
+                notification.setDelayMsec(2000);
                 notification.setStyleName("error");
                 notification.show(getPage());
             }
@@ -404,16 +403,22 @@ public class ValoThemeUI extends UI implements Handler {
             public void buttonClick(ClickEvent event) {
                 notification2.setPosition(Position.BOTTOM_CENTER);
                 notification2.setDelayMsec(-1);
-                notification2.setStyleName("error");
+                notification2.setStyleName("error closable");
                 notification2.show(getPage());
             }
         });
         group.addComponent(notify);
 
-        notify = new Button("Session Expired", new ClickListener() {
+        notify = new Button("System Message", new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                VaadinSession.getCurrent().close();
+                Notification n = new Notification(
+                        "Session Expired",
+                        "A really long description this time, to test how well this will wrap to new lines. Morbi fringilla convallis sapien, id pulvinar odio volutpat. Sed haec quis possit intrepidus aestimare tellus.");
+                n.setDelayMsec(-1);
+                n.setPosition(Position.TOP_LEFT);
+                n.setStyleName("system closable");
+                n.show(getPage());
             }
         });
         row.addComponent(notify);
@@ -535,12 +540,12 @@ public class ValoThemeUI extends UI implements Handler {
         // buttonsAndLinks(root);
         // textfields(root);
         // textareas(root);
-        // comboboxes(root);
+        comboboxes(root);
         // menubars(root);
         // splitbuttons(root);
         // checkboxes(root);
         // optiongroups(root);
-        // datefields(root);
+        datefields(root);
         // panels(root);
         // trees(root);
         // tables(root);
@@ -810,7 +815,7 @@ public class ValoThemeUI extends UI implements Handler {
         }
         tree.expandItem(firstItemId);
         tree.select(firstItemId);
-        // tree.setItemIcon(firstItemId, FontAwesome.CODE_FORK);
+        tree.setItemIcon(firstItemId, icon(false));
 
         tree.setDropHandler(new DropHandler() {
             @Override
@@ -893,7 +898,18 @@ public class ValoThemeUI extends UI implements Handler {
     void datefields(final VerticalLayout root) {
         HorizontalLayout row;
         row = addSection(root, "Date Fields", Category.Inputs, null);
-        DateField date = new DateField("Second resolution");
+
+        DateField date = new DateField("Default resolution");
+        date.setValue(new Date());
+        row.addComponent(date);
+
+        date = new DateField("Default resolution, explicit size");
+        date.setValue(new Date());
+        row.addComponent(date);
+        date.setWidth("300px");
+        date.setHeight("60px");
+
+        date = new DateField("Second resolution");
         date.setValue(new Date());
         date.setResolution(Resolution.SECOND);
         row.addComponent(date);
@@ -988,9 +1004,9 @@ public class ValoThemeUI extends UI implements Handler {
         options.addItem("Option Two");
         options.addItem("Option Three");
         options.select("Option One");
-        options.setItemIcon("Option One", FontAwesome.DESKTOP);
-        options.setItemIcon("Option Two", FontAwesome.KEYBOARD_O);
-        options.setItemIcon("Option Three", FontAwesome.GAMEPAD);
+        options.setItemIcon("Option One", icon(false));
+        options.setItemIcon("Option Two", icon(false));
+        options.setItemIcon("Option Three", icon(true));
         row.addComponent(options);
 
         options = new OptionGroup("Choose many");
@@ -999,9 +1015,9 @@ public class ValoThemeUI extends UI implements Handler {
         options.addItem("Option Two");
         options.addItem("Option Three");
         options.select("Option One");
-        options.setItemIcon("Option One", FontAwesome.DESKTOP);
-        options.setItemIcon("Option Two", FontAwesome.KEYBOARD_O);
-        options.setItemIcon("Option Three", FontAwesome.GAMEPAD);
+        options.setItemIcon("Option One", icon(false));
+        options.setItemIcon("Option Two", icon(false));
+        options.setItemIcon("Option Three", icon(true));
         row.addComponent(options);
     }
 
@@ -1025,15 +1041,15 @@ public class ValoThemeUI extends UI implements Handler {
 
         check = new CheckBox("Custom color", true);
         check.addStyleName("color2");
-        // check.setIcon(FontAwesome.DESKTOP);
+        check.setIcon(icon(false));
         row.addComponent(check);
 
         check = new CheckBox("With Icon", true);
-        // check.setIcon(FontAwesome.KEYBOARD_O);
+        check.setIcon(icon(false));
         row.addComponent(check);
 
         check = new CheckBox();
-        // check.setIcon(FontAwesome.GAMEPAD);
+        check.setIcon(icon(true));
         row.addComponent(check);
 
         check = new CheckBox("Small", true);
@@ -1077,7 +1093,16 @@ public class ValoThemeUI extends UI implements Handler {
         for (int i = 1; i <= 200; i++) {
             combo.addItem("Option " + i);
         }
-        combo.setItemIcon("Option 1", FontAwesome.FILM);
+        combo.setItemIcon("Option 1", icon(false));
+        row.addComponent(combo);
+
+        combo = new ComboBox("Explicit size");
+        combo.setInputPrompt("You can type here");
+        combo.addItem("Option One");
+        combo.addItem("Option Two");
+        combo.addItem("Option Three");
+        combo.setWidth("300px");
+        combo.setHeight("60px");
         row.addComponent(combo);
 
         combo = new ComboBox("Disabled");
@@ -1273,16 +1298,16 @@ public class ValoThemeUI extends UI implements Handler {
         row.addComponent(button);
 
         button = new Button("Photos");
-        button.setIcon(FontAwesome.CAMERA);
+        button.setIcon(icon(false));
         row.addComponent(button);
 
         button = new Button();
-        button.setIcon(FontAwesome.MICROPHONE);
+        button.setIcon(icon(false));
         button.addStyleName("icon");
         row.addComponent(button);
 
         button = new Button("Frameless");
-        button.setIcon(FontAwesome.CHEVRON_RIGHT);
+        button.setIcon(icon(false));
         button.addStyleName("frameless");
         row.addComponent(button);
 
@@ -1304,7 +1329,7 @@ public class ValoThemeUI extends UI implements Handler {
         link = new Link("Custom color", new ExternalResource(
                 "https://vaadin.com"));
         link.addStyleName("color3");
-        link.setIcon(FontAwesome.CHEVRON_CIRCLE_RIGHT);
+        link.setIcon(icon(false));
         row.addComponent(link);
 
         link = new Link("Small", new ExternalResource("https://vaadin.com"));
@@ -1316,7 +1341,7 @@ public class ValoThemeUI extends UI implements Handler {
         row.addComponent(link);
 
         link = new Link(null, new ExternalResource("https://vaadin.com"));
-        link.setIcon(FontAwesome.ANCHOR);
+        link.setIcon(icon(false));
         row.addComponent(link);
     }
 
@@ -1612,13 +1637,13 @@ public class ValoThemeUI extends UI implements Handler {
         view.addItem("Zoom Out", null);
 
         MenuItem fav = menubar.addItem("", check);
-        fav.setIcon(FontAwesome.HEART);
+        fav.setIcon(icon(false));
         fav.setStyleName("icon");
         fav.setCheckable(true);
         fav.setChecked(true);
 
         fav = menubar.addItem("", check);
-        fav.setIcon(FontAwesome.RETWEET);
+        fav.setIcon(icon(false));
         fav.setStyleName("icon");
         fav.setCheckable(true);
         fav.setCheckable(true);

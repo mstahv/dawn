@@ -1,5 +1,4 @@
-// Not designed for extending
-@mixin v-core-absolutelayout ($primary-stylename: v-absolutelayout) {
+@mixin v-valo-absolutelayout ($primary-stylename: v-absolutelayout) {
   
   .#{$primary-stylename}-wrapper {
     position: absolute;

@@ -1,5 +1,0 @@
-@mixin v-core-upload ($primary-stylename: v-upload) {
-  .#{$primary-stylename} .v-button {
-  	@extend %v-widget;
-  }
-}

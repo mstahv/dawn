@@ -18,7 +18,11 @@ $v-letter-spacing--h3:    0               !default;
 $v-letter-spacing--h4:    0.05em          !default;
 
 
-@mixin v-valo-label {
+@mixin v-valo-label ($primary-stylename: v-label) {
+
+  .#{$primary-stylename}-undef-w {
+    white-space: nowrap;
+  }
   
   h1, .h1, %h1,
   h2, .h2, %h2,
