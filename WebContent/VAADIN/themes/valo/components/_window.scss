@@ -66,7 +66,8 @@ $v-window-shadow-style: 0 4px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !defaul
       right: 0;
       left: 0;
       height: 1px;
-      background: adjust-color(v-valo-overlay-background-color(), $lightness: -5%, $saturation: -10%);
+      $_bg: v-valo-overlay-background-color();
+      background: adjust-color($_bg, $lightness: if(is-dark-color($_bg), 3%, -5%), $saturation: -10%);
     }
   }
 

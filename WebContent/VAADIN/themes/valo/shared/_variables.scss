@@ -76,7 +76,7 @@ $v-app-loading-text: "" !default;
 $v-line-height: 1.55 !default;
 
 
-$v-app-background-color:        hsl(200, 0%, 98%)               !default;
+$v-app-background-color:        hsl(210, 0%, 98%)               !default;
 
 $v-font-size:                   16px                            !default; // Should be specified in pixels
 $v-font-weight:                 300                             !default; // Must be specified as a numeric value (i.e. not 'normal' or 'bold')
@@ -120,7 +120,7 @@ $v-selection-color:             null                            !default;
 
 $v-default-field-width:         $v-unit-size * 5                !default;
 
-$v-error-indicator-color:       #FF6854                         !default;
+$v-error-indicator-color:       #ed473b                         !default;
 $v-required-field-indicator-color: $v-error-indicator-color     !default;
 
 

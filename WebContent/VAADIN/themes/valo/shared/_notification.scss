@@ -56,7 +56,6 @@
   // Default style (a.k.a. humanized)
 
   .v-Notification {
-    cursor: pointer;
     border-radius: $v-border-radius;
     text-align: center;
     position: fixed !important;
@@ -113,7 +112,7 @@
     @include v-valo-notification-system-style;
   }
 
-  // Need a more specific selector to override positional margins
+  // Needs a more specific selector to override positional margins
   .v-Notification-system.v-Notification-system {
     margin: 0 !important;
   }
@@ -123,7 +122,7 @@
 
   // Tray notification
 
-  .v-Notification-tray {
+  .v-Notification.tray {
     text-align: left;
     h1 {
       //display: block;      
@@ -133,53 +132,94 @@
       display: block;
       margin: .5em 0 0;
     }
-
     @include v-valo-notification-tray-style;
   }
   
-  .v-Notification-warning {
+  .v-Notification.warning {
     @include v-valo-notification-warning-style;
   }
   
-  .v-Notification-error {
-    padding-right: $v-unit-size + round($v-unit-size/1.7);
-    overflow: hidden;
-
-    &:before {
-      content: "";
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: $v-unit-size;
-      cursor: pointer;
-      background: #000;
-      @include opacity(.15);
-    }
-
-    &:after {
-      content: "\00d7";
-      font-size: 1.5em;
-      line-height: 1;
-      position: absolute;
-      top: 50%;
-      margin-top: -.5em;
-      right: 0;
-      width: $v-unit-size;
-      cursor: pointer;
-      color: #fff;
-      @include opacity(.5);
-    }
-
-    &:hover:after {
-      @include opacity(1);
-    }
-
+  .v-Notification.error {
     @include v-valo-notification-error-style;
+  }
+
+  .v-Notification.closable {
+    @include v-valo-notification-closable-style;
+
+    &.error,
+    &.system {
+      &:after {
+        color: #fff;
+        border-color: #fff;
+        border-color: rgba(255,255,255,.3);
+      }
+      &:active:after {
+        background-color: #fff;
+        color: #000;
+      }
+    }
+
+    &.tray:after {
+      top: round($v-unit-size/2.3);
+      margin-top: 0;
+    }
   }
 
 }
 
+
+
+
+
+
+@mixin v-valo-notification-closable-style {
+  padding-right: $v-unit-size + round($v-unit-size/1.7);
+  overflow: hidden !important; // Override GWT PopupPanel
+  cursor: pointer;
+
+  //&:before {
+  //  content: "";
+  //  position: absolute;
+  //  top: 0;
+  //  right: 0;
+  //  bottom: 0;
+  //  width: $v-unit-size;
+  //  cursor: pointer;
+  //  background: #000;
+  //  @include opacity(.15);
+  //}
+
+  &:after {
+    content: "\00d7";
+    font-size: 1.5em;
+    position: absolute;
+    top: 50%;
+    margin-top: round($v-unit-size/-3);
+    right: round($v-unit-size/3);
+    width: round($v-unit-size/1.5);
+    height: round($v-unit-size/1.5);
+    line-height: round($v-unit-size/1.5) - 1px;
+    cursor: pointer;
+    color: #000;
+    @include opacity(.5);
+    text-align: center;
+    border: $v-border-width solid #000;
+    border-color: rgba(0,0,0,.3);
+    border-radius: 50%;
+    @include transition(opacity 200ms);
+  }
+
+  &:hover:after {
+    @include opacity(1);
+  }
+
+  &:active:after {
+    background-color: #000;
+    color: #fff;
+    @include opacity(.3);
+    @include transition(none 200ms);
+  }
+}
 
 
 
@@ -243,15 +283,15 @@
 }
 
 @mixin v-valo-notification-error-style {
-  background: #BC3939;
+  background: $v-error-indicator-color;
   font-weight: $v-font-weight + 100;
   box-shadow: 0px 5px 15px 0px rgba(0,0,0,0.25);
 
   h1 {
-    color: #fff;
+    color: v-valo-font-color($v-error-indicator-color, 1);
   }
 
   p {
-    color: blend-normal(rgba(#BC3939, .2), #fff);
+    color: v-valo-font-color($v-error-indicator-color, .8);
   }
 }

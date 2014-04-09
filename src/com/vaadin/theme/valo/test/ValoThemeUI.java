@@ -35,7 +35,6 @@ import com.vaadin.server.Resource;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.server.UserError;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinSession;
 import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -316,7 +315,7 @@ public class ValoThemeUI extends UI implements Handler {
             public void buttonClick(ClickEvent event) {
                 notification2.setPosition(Position.TOP_LEFT);
                 notification2.setDelayMsec(-1);
-                notification2.setStyleName("humanized");
+                notification2.setStyleName("humanized closable");
                 notification2.show(getPage());
             }
         });
@@ -341,7 +340,7 @@ public class ValoThemeUI extends UI implements Handler {
             public void buttonClick(ClickEvent event) {
                 notification2.setPosition(Position.BOTTOM_RIGHT);
                 notification2.setDelayMsec(-1);
-                notification2.setStyleName("tray");
+                notification2.setStyleName("tray closable");
                 notification2.show(getPage());
             }
         });
@@ -366,7 +365,7 @@ public class ValoThemeUI extends UI implements Handler {
             public void buttonClick(ClickEvent event) {
                 notification2.setPosition(Position.TOP_CENTER);
                 notification2.setDelayMsec(-1);
-                notification2.setStyleName("warning");
+                notification2.setStyleName("warning closable");
                 notification2.show(getPage());
             }
         });
@@ -379,7 +378,7 @@ public class ValoThemeUI extends UI implements Handler {
                         "Just a simple description for this warning message.");
                 n3.setPosition(Position.TOP_CENTER);
                 n3.setDelayMsec(-1);
-                n3.setStyleName("warning");
+                n3.setStyleName("warning closable");
                 n3.show(getPage());
             }
         });
@@ -392,7 +391,7 @@ public class ValoThemeUI extends UI implements Handler {
             @Override
             public void buttonClick(ClickEvent event) {
                 notification.setPosition(Position.MIDDLE_CENTER);
-                notification.setDelayMsec(-1);
+                notification.setDelayMsec(2000);
                 notification.setStyleName("error");
                 notification.show(getPage());
             }
@@ -404,16 +403,22 @@ public class ValoThemeUI extends UI implements Handler {
             public void buttonClick(ClickEvent event) {
                 notification2.setPosition(Position.BOTTOM_CENTER);
                 notification2.setDelayMsec(-1);
-                notification2.setStyleName("error");
+                notification2.setStyleName("error closable");
                 notification2.show(getPage());
             }
         });
         group.addComponent(notify);
 
-        notify = new Button("Session Expired", new ClickListener() {
+        notify = new Button("System Message", new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                VaadinSession.getCurrent().close();
+                Notification n = new Notification(
+                        "Session Expired",
+                        "A really long description this time, to test how well this will wrap to new lines. Morbi fringilla convallis sapien, id pulvinar odio volutpat. Sed haec quis possit intrepidus aestimare tellus.");
+                n.setDelayMsec(-1);
+                n.setPosition(Position.TOP_LEFT);
+                n.setStyleName("system closable");
+                n.show(getPage());
             }
         });
         row.addComponent(notify);
@@ -531,26 +536,26 @@ public class ValoThemeUI extends UI implements Handler {
         root.addStyleName("components");
         root.addStyleName("color-context" + num);
 
-        labels(root);
-        buttonsAndLinks(root);
-        textfields(root);
-        textareas(root);
+        // labels(root);
+        // buttonsAndLinks(root);
+        // textfields(root);
+        // textareas(root);
         comboboxes(root);
-        menubars(root);
-        splitbuttons(root);
-        checkboxes(root);
-        optiongroups(root);
+        // menubars(root);
+        // splitbuttons(root);
+        // checkboxes(root);
+        // optiongroups(root);
         datefields(root);
-        panels(root);
-        trees(root);
-        tables(root);
-        treetables(root);
-        sliders(root);
-        splitpanels(root);
-        tabsheets(root);
-        colorpickers(root);
-        accordions(root);
-        nativeselects(root);
+        // panels(root);
+        // trees(root);
+        // tables(root);
+        // treetables(root);
+        // sliders(root);
+        // splitpanels(root);
+        // tabsheets(root);
+        // colorpickers(root);
+        // accordions(root);
+        // nativeselects(root);
 
         return root;
     }
@@ -893,7 +898,18 @@ public class ValoThemeUI extends UI implements Handler {
     void datefields(final VerticalLayout root) {
         HorizontalLayout row;
         row = addSection(root, "Date Fields", Category.Inputs, null);
-        DateField date = new DateField("Second resolution");
+
+        DateField date = new DateField("Default resolution");
+        date.setValue(new Date());
+        row.addComponent(date);
+
+        date = new DateField("Default resolution, explicit size");
+        date.setValue(new Date());
+        row.addComponent(date);
+        date.setWidth("300px");
+        date.setHeight("60px");
+
+        date = new DateField("Second resolution");
         date.setValue(new Date());
         date.setResolution(Resolution.SECOND);
         row.addComponent(date);
@@ -1078,6 +1094,15 @@ public class ValoThemeUI extends UI implements Handler {
             combo.addItem("Option " + i);
         }
         combo.setItemIcon("Option 1", icon(false));
+        row.addComponent(combo);
+
+        combo = new ComboBox("Explicit size");
+        combo.setInputPrompt("You can type here");
+        combo.addItem("Option One");
+        combo.addItem("Option Two");
+        combo.addItem("Option Three");
+        combo.setWidth("300px");
+        combo.setHeight("60px");
         row.addComponent(combo);
 
         combo = new ComboBox("Disabled");
