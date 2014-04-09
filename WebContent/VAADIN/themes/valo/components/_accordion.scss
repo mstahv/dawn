@@ -30,7 +30,7 @@ $v-accordion-content-shadow-depth: $v-shadow-depth/2 !default;
 		background: transparent;
 		border-bottom-color: v-valo-panel-border-color($background-color: v-valo-panel-background-color());
 		cursor: pointer;
-		@extend %no-selection;
+		@include user-select(none);;
 
 		&:hover:before,
 		&:active:before {
@@ -60,6 +60,7 @@ $v-accordion-content-shadow-depth: $v-shadow-depth/2 !default;
 
 	.#{$primary-stylename}-item-content {
 		position: absolute;
+		width: 100%;
 		bottom: 0;
 		right: 0;
 		box-shadow: v-valo-shadow($shadow-style: $v-accordion-content-shadow-style, $shadow-depth: $v-accordion-content-shadow-depth);

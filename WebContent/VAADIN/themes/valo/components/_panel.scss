@@ -20,6 +20,9 @@ $v-panel-caption-bevel-depth: $v-bevel-depth !default;
 	}
 
 	.#{$primary-stylename}-content {
+		@include box-sizing(border-box);
+  	width: 100%;
+  	height: 100%;
 		@include v-valo-panel-adjust-content-margins;
 	}
 

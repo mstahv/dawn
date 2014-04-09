@@ -1,3 +1,10 @@
+@mixin v-valo-csslayout ($primary-stylename: v-csslayout){
+  .#{$primary-stylename} {
+    display: block;
+  }
+}
+
+
 @mixin v-valo-component-group ($primary-stylename: v-csslayout) {
 	.#{$primary-stylename}-v-component-group {
 		white-space: nowrap;

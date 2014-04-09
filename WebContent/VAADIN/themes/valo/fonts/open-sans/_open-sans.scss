@@ -1,6 +1,6 @@
 $open-sans-pathPrefix: null;
   
-@if $relativePaths == false {
+@if $v-relative-paths == false {
   $open-sans-pathPrefix: "../valo/fonts/open-sans/";
 }
 

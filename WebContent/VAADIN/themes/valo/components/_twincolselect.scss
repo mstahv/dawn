@@ -28,10 +28,14 @@
   }
   
   .#{$primary-stylename}-buttons {
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: top;
     position: relative;
     min-width: 3.5em;
 
     .v-button {
+      @include v-valo-widget-style;
       position: absolute;
       left: round($v-unit-size/4);
       right: round($v-unit-size/4);

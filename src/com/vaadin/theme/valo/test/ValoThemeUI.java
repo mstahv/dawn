@@ -17,6 +17,7 @@ import org.vaadin.risto.mockupcontainer.MockupContainer;
 import org.vaadin.risto.mockupcontainer.MockupDataSet;
 import org.vaadin.risto.mockupcontainer.MockupFactory;
 
+import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -85,6 +86,7 @@ import com.vaadin.ui.Window;
 @SuppressWarnings("serial")
 @Theme("valo-test")
 @Title("Valo Theme Test")
+@JavaScript("fastclick.js")
 public class ValoThemeUI extends UI implements Handler {
 
     CssLayout root = new CssLayout();
@@ -141,7 +143,7 @@ public class ValoThemeUI extends UI implements Handler {
         components.setWidth("100%");
         root.addComponent(components);
 
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 1; i++) {
             components.addComponent(components(i));
         }
         components.addStyleName("components-root");
@@ -531,26 +533,26 @@ public class ValoThemeUI extends UI implements Handler {
         root.addStyleName("components");
         root.addStyleName("color-context" + num);
 
-        // labels(root);
-        // buttonsAndLinks(root);
-        // textfields(root);
-        // textareas(root);
-        // comboboxes(root);
-        // menubars(root);
-        // splitbuttons(root);
-        // checkboxes(root);
-        // optiongroups(root);
-        // datefields(root);
-        // panels(root);
-        // trees(root);
-        // tables(root);
-        // treetables(root);
-        // sliders(root);
-        // splitpanels(root);
-        // tabsheets(root);
-        // colorpickers(root);
-        // accordions(root);
-        // nativeselects(root);
+        labels(root);
+        buttonsAndLinks(root);
+        textfields(root);
+        textareas(root);
+        comboboxes(root);
+        menubars(root);
+        splitbuttons(root);
+        checkboxes(root);
+        optiongroups(root);
+        datefields(root);
+        panels(root);
+        trees(root);
+        tables(root);
+        treetables(root);
+        sliders(root);
+        splitpanels(root);
+        tabsheets(root);
+        colorpickers(root);
+        accordions(root);
+        nativeselects(root);
 
         return root;
     }
@@ -810,7 +812,7 @@ public class ValoThemeUI extends UI implements Handler {
         }
         tree.expandItem(firstItemId);
         tree.select(firstItemId);
-        // tree.setItemIcon(firstItemId, FontAwesome.CODE_FORK);
+        tree.setItemIcon(firstItemId, icon(false));
 
         tree.setDropHandler(new DropHandler() {
             @Override
@@ -988,9 +990,9 @@ public class ValoThemeUI extends UI implements Handler {
         options.addItem("Option Two");
         options.addItem("Option Three");
         options.select("Option One");
-        options.setItemIcon("Option One", FontAwesome.DESKTOP);
-        options.setItemIcon("Option Two", FontAwesome.KEYBOARD_O);
-        options.setItemIcon("Option Three", FontAwesome.GAMEPAD);
+        options.setItemIcon("Option One", icon(false));
+        options.setItemIcon("Option Two", icon(false));
+        options.setItemIcon("Option Three", icon(true));
         row.addComponent(options);
 
         options = new OptionGroup("Choose many");
@@ -999,9 +1001,9 @@ public class ValoThemeUI extends UI implements Handler {
         options.addItem("Option Two");
         options.addItem("Option Three");
         options.select("Option One");
-        options.setItemIcon("Option One", FontAwesome.DESKTOP);
-        options.setItemIcon("Option Two", FontAwesome.KEYBOARD_O);
-        options.setItemIcon("Option Three", FontAwesome.GAMEPAD);
+        options.setItemIcon("Option One", icon(false));
+        options.setItemIcon("Option Two", icon(false));
+        options.setItemIcon("Option Three", icon(true));
         row.addComponent(options);
     }
 
@@ -1025,15 +1027,15 @@ public class ValoThemeUI extends UI implements Handler {
 
         check = new CheckBox("Custom color", true);
         check.addStyleName("color2");
-        // check.setIcon(FontAwesome.DESKTOP);
+        check.setIcon(icon(false));
         row.addComponent(check);
 
         check = new CheckBox("With Icon", true);
-        // check.setIcon(FontAwesome.KEYBOARD_O);
+        check.setIcon(icon(false));
         row.addComponent(check);
 
         check = new CheckBox();
-        // check.setIcon(FontAwesome.GAMEPAD);
+        check.setIcon(icon(true));
         row.addComponent(check);
 
         check = new CheckBox("Small", true);
@@ -1077,7 +1079,7 @@ public class ValoThemeUI extends UI implements Handler {
         for (int i = 1; i <= 200; i++) {
             combo.addItem("Option " + i);
         }
-        combo.setItemIcon("Option 1", FontAwesome.FILM);
+        combo.setItemIcon("Option 1", icon(false));
         row.addComponent(combo);
 
         combo = new ComboBox("Disabled");
@@ -1273,16 +1275,16 @@ public class ValoThemeUI extends UI implements Handler {
         row.addComponent(button);
 
         button = new Button("Photos");
-        button.setIcon(FontAwesome.CAMERA);
+        button.setIcon(icon(false));
         row.addComponent(button);
 
         button = new Button();
-        button.setIcon(FontAwesome.MICROPHONE);
+        button.setIcon(icon(false));
         button.addStyleName("icon");
         row.addComponent(button);
 
         button = new Button("Frameless");
-        button.setIcon(FontAwesome.CHEVRON_RIGHT);
+        button.setIcon(icon(false));
         button.addStyleName("frameless");
         row.addComponent(button);
 
@@ -1304,7 +1306,7 @@ public class ValoThemeUI extends UI implements Handler {
         link = new Link("Custom color", new ExternalResource(
                 "https://vaadin.com"));
         link.addStyleName("color3");
-        link.setIcon(FontAwesome.CHEVRON_CIRCLE_RIGHT);
+        link.setIcon(icon(false));
         row.addComponent(link);
 
         link = new Link("Small", new ExternalResource("https://vaadin.com"));
@@ -1316,7 +1318,7 @@ public class ValoThemeUI extends UI implements Handler {
         row.addComponent(link);
 
         link = new Link(null, new ExternalResource("https://vaadin.com"));
-        link.setIcon(FontAwesome.ANCHOR);
+        link.setIcon(icon(false));
         row.addComponent(link);
     }
 
@@ -1612,13 +1614,13 @@ public class ValoThemeUI extends UI implements Handler {
         view.addItem("Zoom Out", null);
 
         MenuItem fav = menubar.addItem("", check);
-        fav.setIcon(FontAwesome.HEART);
+        fav.setIcon(icon(false));
         fav.setStyleName("icon");
         fav.setCheckable(true);
         fav.setChecked(true);
 
         fav = menubar.addItem("", check);
-        fav.setIcon(FontAwesome.RETWEET);
+        fav.setIcon(icon(false));
         fav.setStyleName("icon");
         fav.setCheckable(true);
         fav.setCheckable(true);

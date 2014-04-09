@@ -17,7 +17,10 @@ $v-button-disabled-opacity: $v-disabled-opacity !default;
 
 
 
-
+// The main mixin for Valo buttons
+// @mixin     v-valo-button
+// @param     $primary-stylename {String} the primary stylename to use for the output. Defaults to <code>v-button</code>
+// @category  Button
 @mixin v-valo-button ($primary-stylename: v-button) {
   .#{$primary-stylename} {
     @include v-valo-button-common-properties;
@@ -30,6 +33,9 @@ $v-button-disabled-opacity: $v-disabled-opacity !default;
 
 
 @mixin v-valo-button-common-properties {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-touch-callout: none;
+  @include user-select(none);
   cursor: $v-button-cursor;
   font-weight: $v-button-font-weight;
   position: relative;

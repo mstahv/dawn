@@ -24,6 +24,14 @@ $v-window-shadow-style: 0 4px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !defaul
 		padding: 0;
 	}
 
+  .#{$primary-stylename}-modalitycurtain {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
 	.v-window-draggingCurtain {
     position: fixed !important;
   }
@@ -41,9 +49,6 @@ $v-window-shadow-style: 0 4px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !defaul
     @include transition(none);
   }
 
-  .#{$primary-stylename} > .popupContent {
-  }
-  
   .v-window-outerheader {
   	position: absolute;
   	z-index: 2;
@@ -66,7 +71,7 @@ $v-window-shadow-style: 0 4px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !defaul
   }
 
   .v-window-header {
-  	@extend %no-selection;
+  	@include user-select(none);;
     cursor: move;
     line-height: $v-unit-size - 1px;
     padding-left: round($v-unit-size/3);

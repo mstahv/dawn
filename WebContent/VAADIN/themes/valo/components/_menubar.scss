@@ -70,7 +70,7 @@
 	border-color: inherit;
 	vertical-align: top;
 	line-height: $v-unit-size - $v-button-border-width*2 - 1px;
-	@extend %no-selection;
+	@include user-select(none);;
 
 	$br: $v-button-border-radius - $v-button-border-width;
 	&:first-child {

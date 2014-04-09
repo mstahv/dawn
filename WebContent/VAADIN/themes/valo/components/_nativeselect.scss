@@ -4,7 +4,10 @@
 	}
 
   .#{$primary-stylename}-select {
+    display: block;
+
   	+ .v-textfield {
+      width: auto !important;
   		margin-top: round($v-unit-size/4);
 
   		+ .v-nativebutton {

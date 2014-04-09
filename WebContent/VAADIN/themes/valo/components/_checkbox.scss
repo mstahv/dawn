@@ -90,6 +90,7 @@
   & > .v-icon,
   & > label .v-icon  {
     margin: 0 round($unit-size/6) 0 round($unit-size/12);
+    min-width: 1em;
   }
 
 }

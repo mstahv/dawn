@@ -1,6 +1,6 @@
 $source-sans-pro-pathPrefix: null;
   
-@if $relativePaths == false {
+@if $v-relative-paths == false {
   $source-sans-pro-pathPrefix: "../valo/fonts/source-sans-pro/";
 }
 

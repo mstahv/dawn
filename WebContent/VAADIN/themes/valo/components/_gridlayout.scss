@@ -1,3 +1,26 @@
+@mixin v-valo-gridlayout-global ($primary-stylename: v-gridlayout) {
+  .#{$primary-stylename} {
+    position: relative;
+    line-height: 0;
+  }
+  .#{$primary-stylename}-slot {
+    position: absolute;
+    line-height: $v-line-height;
+  }
+  .#{$primary-stylename}-spacing-on {
+    overflow: hidden;
+  }
+  .#{$primary-stylename}-spacing,
+  .#{$primary-stylename}-spacing-off {
+    padding-left: 0;
+    padding-top: 0;
+  }
+  .#{$primary-stylename}-spacing-off {
+    overflow: hidden;
+  }
+}
+
+
 @mixin v-valo-gridlayout($primary-stylename : v-gridlayout) {
 
 	.#{$primary-stylename}-margin-top {
