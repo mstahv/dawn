@@ -906,7 +906,7 @@ public class ValoThemeUI extends UI implements Handler {
         date = new DateField("Default resolution, explicit size");
         date.setValue(new Date());
         row.addComponent(date);
-        date.setWidth("300px");
+        date.setWidth("260px");
         date.setHeight("60px");
 
         date = new DateField("Second resolution");
@@ -1101,7 +1101,7 @@ public class ValoThemeUI extends UI implements Handler {
         combo.addItem("Option One");
         combo.addItem("Option Two");
         combo.addItem("Option Three");
-        combo.setWidth("300px");
+        combo.setWidth("260px");
         combo.setHeight("60px");
         row.addComponent(combo);
 

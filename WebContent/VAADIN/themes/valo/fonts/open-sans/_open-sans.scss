@@ -137,19 +137,19 @@ $open-sans-pathPrefix: null;
 
 
 @mixin font-open-sans ($italic: true, $light: false, $book: true, $medium: true, $bold: false, $black: false) {
-	@if $book {
-	  @include font-open-sans-book($italic);
-	}
-	@if $light {
-	  @include font-open-sans-light($italic);
-	}
-	@if $medium {
-	  @include font-open-sans-semibold($italic);
-	}
-	@if $bold {
-	  @include font-open-sans-bold($italic);
-	}
-	@if $black {
-	  @include font-open-sans-extrabold($italic);
-	}
+  @if $book {
+    @include font-open-sans-book($italic);
+  }
+  @if $light {
+    @include font-open-sans-light($italic);
+  }
+  @if $medium {
+    @include font-open-sans-semibold($italic);
+  }
+  @if $bold {
+    @include font-open-sans-bold($italic);
+  }
+  @if $black {
+    @include font-open-sans-extrabold($italic);
+  }
 }

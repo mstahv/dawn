@@ -4,19 +4,19 @@
 
 
 @mixin v-valo-fonts {
-	$v-valo-fonts-pathPrefix: null;
-	@if $v-relative-paths == false {
-	  $v-valo-fonts-pathPrefix: "../valo/fonts/";
-	}
+  $v-valo-fonts-pathPrefix: null;
+  @if $v-relative-paths == false {
+    $v-valo-fonts-pathPrefix: "../valo/fonts/";
+  }
 
-	// Font Awesome
-	@include v-valo-icon-font(FontAwesome, #{$v-valo-fonts-pathPrefix}font-awesome/fontawesome-webfont);
+  // Font Awesome
+  @include v-valo-icon-font(FontAwesome, #{$v-valo-fonts-pathPrefix}font-awesome/fontawesome-webfont);
 }
 
 
 
 @mixin v-valo-icon-font($font-family, $file-name) {
-	@include font-face($font-family, $file-name);
+  @include font-face($font-family, $file-name);
 
   .#{$font-family} {
       font-family: #{$font-family};

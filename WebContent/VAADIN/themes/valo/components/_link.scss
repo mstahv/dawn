@@ -4,29 +4,29 @@ $v-link-cursor: pointer !default;
 
 
 @mixin v-valo-link ($primary-stylename: v-link) {
-	.#{$primary-stylename} {
-		@include v-valo-link-style;
-	}
+  .#{$primary-stylename} {
+    @include v-valo-link-style;
+  }
 }
 
 
 @mixin v-valo-link-style {
-	cursor: $v-link-cursor;
+  cursor: $v-link-cursor;
 
-	a {
-		text-decoration: $v-link-text-decoration;
-		color: v-valo-link-font-color();
-		@include transition(color 140ms);
-		cursor: inherit;
+  a {
+    text-decoration: $v-link-text-decoration;
+    color: v-valo-link-font-color();
+    @include transition(color 140ms);
+    cursor: inherit;
 
-		&:hover {
-			color: lighten(v-valo-link-font-color(), 10%);
-		}
-	}
+    &:hover {
+      color: lighten(v-valo-link-font-color(), 10%);
+    }
+  }
 
-	.v-icon {
-		cursor: inherit;
-	}
+  .v-icon {
+    cursor: inherit;
+  }
 }
 
 
