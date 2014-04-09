@@ -163,22 +163,22 @@ $source-sans-pro-pathPrefix: null;
 
 
 @mixin font-source-sans-pro ($italic: true, $extralight: false, $light: false, $regular: true, $medium: true, $bold: false, $black: false) {
-	@if $regular {
-	  @include font-source-sans-pro-regular($italic);
-	}
-	@if $extralight {
-	  @include font-source-sans-pro-extralight($italic);
-	}
-	@if $light {
-	  @include font-source-sans-pro-light($italic);
-	}
-	@if $medium {
-	  @include font-source-sans-pro-semibold($italic);
-	}
-	@if $bold {
-	  @include font-source-sans-pro-bold($italic);
-	}
-	@if $black {
-	  @include font-source-sans-pro-black($italic);
-	}
+  @if $regular {
+    @include font-source-sans-pro-regular($italic);
+  }
+  @if $extralight {
+    @include font-source-sans-pro-extralight($italic);
+  }
+  @if $light {
+    @include font-source-sans-pro-light($italic);
+  }
+  @if $medium {
+    @include font-source-sans-pro-semibold($italic);
+  }
+  @if $bold {
+    @include font-source-sans-pro-bold($italic);
+  }
+  @if $black {
+    @include font-source-sans-pro-black($italic);
+  }
 }

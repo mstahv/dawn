@@ -127,9 +127,9 @@ $v-valo-shared-pathPrefix: null;
   
   // Default to Helvetica Neue on Macs instead of Helvetica, which has a slightly different baseline
   @if $v-font-family == sans-serif {
-  	.v-mac & {
+    .v-mac & {
         font-family: "Helvetica Neue", sans-serif;
-  	}
+    }
   }
 }
 

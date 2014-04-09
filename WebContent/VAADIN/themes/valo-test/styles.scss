@@ -60,11 +60,11 @@ body {
   @include valo-styleguide-menu;
 
   .components-root {
-  	white-space: nowrap;
+    white-space: nowrap;
   }
   
   .components {
-  	white-space: normal;
+    white-space: normal;
     min-width: 320px;
     max-width: 500px;
     display: inline-block;

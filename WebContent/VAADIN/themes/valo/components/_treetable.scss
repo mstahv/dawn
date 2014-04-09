@@ -1,9 +1,9 @@
 @mixin v-valo-treetable ($primary-stylename: v-treetable) {
-	.v-table-cell-wrapper {
-		//position: relative;
-	}
+  .v-table-cell-wrapper {
+    //position: relative;
+  }
 
-	.#{$primary-stylename}-treespacer {
+  .#{$primary-stylename}-treespacer {
     display: inline-block;
     background: transparent;
     width: round($v-unit-size/2);
@@ -13,15 +13,15 @@
     text-align: right;
 
     &:before {
-    	
+      
     }
-	}
+  }
 
-	.#{$primary-stylename}-node-closed:before {
-	  @include v-valo-tree-collapsed-icon-style;
-	}
+  .#{$primary-stylename}-node-closed:before {
+    @include v-valo-tree-collapsed-icon-style;
+  }
 
-	.#{$primary-stylename}-node-open:before {
-	  @include v-valo-tree-expanded-icon-style($force: true);
-	}
+  .#{$primary-stylename}-node-open:before {
+    @include v-valo-tree-expanded-icon-style($force: true);
+  }
 }

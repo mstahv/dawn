@@ -148,24 +148,24 @@
 @mixin v-valo-orderedlayout {
   
   .v-margin-top {
-  	padding-top: $v-layout-margin-top;
+    padding-top: $v-layout-margin-top;
   }
   
   .v-margin-right {
-  	padding-right: $v-layout-margin-right;
+    padding-right: $v-layout-margin-right;
   }
   
   .v-margin-bottom {
-  	padding-bottom: $v-layout-margin-bottom;
+    padding-bottom: $v-layout-margin-bottom;
   }
   
   .v-margin-left {
-  	padding-left: $v-layout-margin-left;
+    padding-left: $v-layout-margin-left;
   }
   
   .v-spacing {
-  	width: $v-layout-spacing-horizontal;
-  	height: $v-layout-spacing-vertical;
+    width: $v-layout-spacing-horizontal;
+    height: $v-layout-spacing-vertical;
   }
   
 }

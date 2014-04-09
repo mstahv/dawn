@@ -14,7 +14,7 @@
   }
   
   .jk-splitbutton {
-  	
+    
     & > .jk-splitbutton-secondary {
       display: block;
       margin-top: -$v-unit-size;
@@ -50,7 +50,7 @@
       }
       
       &:before {
-      	content: "\f0d7";
+        content: "\f0d7";
         font-family: FontAwesome;
         pointer-events: none;
         width: $v-unit-size - 2px;

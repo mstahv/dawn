@@ -9,56 +9,56 @@ $v-tooltip-error-message-font-color: v-valo-font-color($v-tooltip-error-message-
 
 
 @mixin v-valo-tooltip {
-	.v-tooltip {
-		@include v-valo-tooltip-style;
+  .v-tooltip {
+    @include v-valo-tooltip-style;
 
-		div[style*="width"] {
-			width: auto !important;
-		}
+    div[style*="width"] {
+      width: auto !important;
+    }
 
-		.v-errormessage {
-			background-color: opacify($v-tooltip-error-message-background-color, 1);
-			background-color: $v-tooltip-error-message-background-color;
-			color: $v-tooltip-error-message-font-color;
-			margin: -$v-tooltip-padding-vertical #{-$v-tooltip-padding-horizontal};
-			padding: $v-tooltip-padding-vertical $v-tooltip-padding-horizontal;
-			max-height: 10em;
-			overflow: auto;
-			font-weight: $v-font-weight + 100;
-		}
+    .v-errormessage {
+      background-color: opacify($v-tooltip-error-message-background-color, 1);
+      background-color: $v-tooltip-error-message-background-color;
+      color: $v-tooltip-error-message-font-color;
+      margin: -$v-tooltip-padding-vertical #{-$v-tooltip-padding-horizontal};
+      padding: $v-tooltip-padding-vertical $v-tooltip-padding-horizontal;
+      max-height: 10em;
+      overflow: auto;
+      font-weight: $v-font-weight + 100;
+    }
 
-		.v-tooltip-text {
-			max-height: 10em;
-			overflow: auto;
-			margin-top: $v-tooltip-padding-vertical * 2;
-		}
+    .v-tooltip-text {
+      max-height: 10em;
+      overflow: auto;
+      margin-top: $v-tooltip-padding-vertical * 2;
+    }
 
-		.v-errormessage[aria-hidden="true"] + .v-tooltip-text {
-			margin-top: 0;
-		}
+    .v-errormessage[aria-hidden="true"] + .v-tooltip-text {
+      margin-top: 0;
+    }
 
-		h1,
-		h2,
-		h3,
-		h4 {
-			color: inherit;
-		}
-	}
+    h1,
+    h2,
+    h3,
+    h4 {
+      color: inherit;
+    }
+  }
 }
 
 
 @mixin v-valo-tooltip-style {
-	background-color: opacify($v-tooltip-background-color, 1);  // For IE8
-	background-color: $v-tooltip-background-color;
-	box-shadow: $v-tooltip-box-shadow;
-	color: $v-tooltip-font-color;
-	padding: $v-tooltip-padding-vertical $v-tooltip-padding-horizontal;
-	border-radius: $v-border-radius;
-	max-width: 35em;
-	overflow: hidden !important;
-	font-size: $v-tooltip-font-size;
+  background-color: opacify($v-tooltip-background-color, 1);  // For IE8
+  background-color: $v-tooltip-background-color;
+  box-shadow: $v-tooltip-box-shadow;
+  color: $v-tooltip-font-color;
+  padding: $v-tooltip-padding-vertical $v-tooltip-padding-horizontal;
+  border-radius: $v-border-radius;
+  max-width: 35em;
+  overflow: hidden !important;
+  font-size: $v-tooltip-font-size;
 
-	@if $v-animations-enabled {
-		//@include v-valo-anim-fade-in;
-	}
+  @if $v-animations-enabled {
+    //@include v-valo-anim-fade-in;
+  }
 }
