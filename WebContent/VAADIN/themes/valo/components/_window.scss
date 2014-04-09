@@ -41,7 +41,7 @@ $v-window-shadow-style: 0 4px 12px 6px rgba(0,0,0, $v-shadow-depth/100%) !defaul
     min-height: $v-unit-size !important;
     overflow: hidden !important;
     white-space: nowrap;
-    @include transition(all 200ms);
+    @include transition(width 200ms, height 200ms, top 200ms, left 200ms);
   }
 
   .v-window-resizingCurtain + .v-window,
