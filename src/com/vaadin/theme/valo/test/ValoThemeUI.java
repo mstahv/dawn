@@ -17,7 +17,6 @@ import org.vaadin.risto.mockupcontainer.MockupContainer;
 import org.vaadin.risto.mockupcontainer.MockupDataSet;
 import org.vaadin.risto.mockupcontainer.MockupFactory;
 
-import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -86,7 +85,6 @@ import com.vaadin.ui.Window;
 @SuppressWarnings("serial")
 @Theme("valo-test")
 @Title("Valo Theme Test")
-@JavaScript("fastclick.js")
 public class ValoThemeUI extends UI implements Handler {
 
     CssLayout root = new CssLayout();

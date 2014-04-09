@@ -53,7 +53,10 @@ $v-table-background-color: null !default;
 
 
 @function v-valo-table-background-color($context: $v-app-background-color) {
-	@return $context;
+	@if is-dark-color($context) {
+		@return darken($context, 2%);
+	}
+	@return lighten($context, 2%);
 }
 
 
@@ -389,7 +392,7 @@ $v-table-background-color: null !default;
 		height: $v-table-row-height + $v-table-border-width;
 		left: 0;
 		right: 0;
-		background: v-valo-focus-color($context: $background-color);
+		background: v-valo-focus-color();
 		@include opacity(.2);
 	}
 

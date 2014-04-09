@@ -23,6 +23,8 @@ $v-valo-global-included: false !default;
     
     .v-app {
       height: 100%;
+      // Cancel tap highlight from all elements inside the app
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
     }
     
     .v-ui {

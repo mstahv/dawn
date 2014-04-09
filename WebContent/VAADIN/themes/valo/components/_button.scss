@@ -33,9 +33,7 @@ $v-button-disabled-opacity: $v-disabled-opacity !default;
 
 
 @mixin v-valo-button-common-properties {
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-  -webkit-touch-callout: none;
-  @include user-select(none);
+  @include v-valo-tappable;
   cursor: $v-button-cursor;
   font-weight: $v-button-font-weight;
   position: relative;

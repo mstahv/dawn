@@ -41,6 +41,7 @@
       right: round($v-unit-size/4);
       top: $v-unit-size - $v-button-border-width;
       padding: 0;
+      text-align: center;
 
       &:first-child {
         top: 0;

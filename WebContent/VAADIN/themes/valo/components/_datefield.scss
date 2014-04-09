@@ -101,9 +101,11 @@ $v-datefield-hover-style-enabled: $v-hover-styles-enabled !default;
 
 @mixin v-valo-datefield-button-style ($unit-size: $v-unit-size, $bevel-style: $v-bevel-style, $bevel-depth: $v-bevel-depth,
 																		  $background-color: $v-textfield-background-color) {
-	-webkit-appearance: none;
+  @include v-valo-tappable;
+  -webkit-appearance: none;
 	background: transparent;
 	border: none;
+  padding: 0;
 	position: absolute;
 	top: $v-textfield-border-width;
 	left: $v-textfield-border-width;

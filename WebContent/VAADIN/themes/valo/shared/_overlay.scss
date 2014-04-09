@@ -207,4 +207,7 @@ $v-selection-item-font-weight: max(400, $v-font-weight);
 	border-radius: $v-border-radius;
 	overflow: hidden;
 	@include opacity(.5);
+
+	// This has the unfortunate side-effect of selecting an the table row where the drag is dropped
+	//pointer-events: none;
 }

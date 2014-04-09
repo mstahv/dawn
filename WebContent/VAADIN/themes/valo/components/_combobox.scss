@@ -126,7 +126,8 @@ $v-combobox-hover-style-enabled: $v-hover-styles-enabled !default;
 
 @mixin v-valo-combobox-button-style ($unit-size: $v-unit-size, $bevel-style: $v-bevel-style, $bevel-depth: $v-bevel-depth,
 																		 $background-color: $v-textfield-background-color) {
-	position: absolute;
+	@include v-valo-tappable;
+  position: absolute;
 	top: $v-textfield-border-width;
 	right: $v-textfield-border-width;
 	width: $unit-size;
