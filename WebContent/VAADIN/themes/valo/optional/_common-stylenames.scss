@@ -16,10 +16,11 @@
 	.v-button-primary {
 	  @include v-valo-button-style($background-color: v-valo-selection-color());
 	  padding: 0 round($v-unit-size/1.4);
+	  font-weight: bold;
 	}
 
 	.v-button-friendly {
-	  @include v-valo-button-style($background-color: #3da206);
+	  @include v-valo-button-style($background-color: #2c9720);
 	}
 
 	.v-button-danger {

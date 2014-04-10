@@ -1214,6 +1214,7 @@ public class ValoThemeUI extends UI implements Handler {
 
         TextField tf = new TextField("Normal");
         tf.setInputPrompt("First name");
+        tf.setIcon(icon(false));
         row.addComponent(tf);
 
         tf = new TextField("Focused");
@@ -1250,6 +1251,13 @@ public class ValoThemeUI extends UI implements Handler {
         tf = new TextField("Large");
         tf.setValue("Field value");
         tf.addStyleName("large");
+        tf.setIcon(icon(true));
+        row.addComponent(tf);
+
+        tf = new TextField("Icon inside");
+        tf.setValue("I have an icon in here!");
+        tf.addStyleName("inline-icon");
+        tf.setIcon(icon(false));
         row.addComponent(tf);
 
         CssLayout group = new CssLayout();
@@ -1261,6 +1269,7 @@ public class ValoThemeUI extends UI implements Handler {
         group.addComponent(tf);
 
         Button button = new Button("Do It");
+        button.addStyleName("primary");
         group.addComponent(button);
     }
 
@@ -1296,32 +1305,44 @@ public class ValoThemeUI extends UI implements Handler {
         button.addStyleName("danger");
         row.addComponent(button);
 
-        button = new Button("Custom");
-        button.addStyleName("color2");
-        row.addComponent(button);
-
-        button = new Button("User Color");
-        button.addStyleName("color3");
-        row.addComponent(button);
-
-        button = new Button("Themed");
-        button.addStyleName("color4");
-        row.addComponent(button);
-
-        button = new Button("Alternate");
-        button.addStyleName("color5");
-        row.addComponent(button);
-
-        button = new Button("Other");
-        button.addStyleName("color6");
-        row.addComponent(button);
+        // button = new Button("Custom");
+        // button.addStyleName("color2");
+        // row.addComponent(button);
+        //
+        // button = new Button("User Color");
+        // button.addStyleName("color3");
+        // row.addComponent(button);
+        //
+        // button = new Button("Themed");
+        // button.addStyleName("color4");
+        // row.addComponent(button);
+        //
+        // button = new Button("Alternate");
+        // button.addStyleName("color5");
+        // row.addComponent(button);
+        //
+        // button = new Button("Other");
+        // button.addStyleName("color6");
+        // row.addComponent(button);
 
         button = new Button("Small");
         button.addStyleName("small");
+        button.setIcon(icon(false));
         row.addComponent(button);
 
         button = new Button("Large");
         button.addStyleName("large");
+        button.addStyleName("icon-align-right");
+        button.setIcon(icon(false));
+        row.addComponent(button);
+
+        button = new Button("Image icon");
+        button.setIcon(icon(true));
+        row.addComponent(button);
+
+        button = new Button("Image icon");
+        button.addStyleName("icon-align-right");
+        button.setIcon(icon(true));
         row.addComponent(button);
 
         button = new Button("Photos");

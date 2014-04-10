@@ -80,7 +80,7 @@ $v-app-background-color:        hsl(210, 0%, 98%)               !default;
 $v-font-size:                   16px                            !default; // Should be specified in pixels
 $v-font-weight:                 300                             !default; // Must be specified as a numeric value (i.e. not 'normal' or 'bold')
 $v-font-color:                  v-valo-font-color($v-app-background-color) !default;
-$v-font-family:                 "Lato", sans-serif         !default;
+$v-font-family:                 "Open Sans", sans-serif         !default;
 
 $v-caption-font-size:           round($v-font-size * 0.9)       !default; // Should be a pixel value
 $v-caption-font-weight:         max(400, $v-font-weight)        !default;
