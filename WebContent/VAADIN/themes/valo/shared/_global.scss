@@ -213,7 +213,7 @@ $v-valo-shared-pathPrefix: null;
       }
     }
 
-    .v-loading-indicator-wait{
+    .v-loading-indicator-wait {
       filter: alpha(opacity=100);
     }
   }
@@ -229,14 +229,14 @@ $v-valo-shared-pathPrefix: null;
     vertical-align: middle;
   }
   
-  %v-caption,
   .v-caption {
-    font-size: $v-caption-font-size;
-    font-weight: $v-caption-font-weight;
-    padding-bottom: .3em;
-    @if $v-border-radius > 0 {
-      padding-left: round($v-border-radius/4);
-    }
+    @include v-valo-caption-style;
+  }
+
+  .v-caption-on-left .v-caption,
+  .v-caption-on-right .v-caption {
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   .v-icon + .v-captiontext,
@@ -249,7 +249,7 @@ $v-valo-shared-pathPrefix: null;
   }
   
   .v-errorindicator {
-    @include v-valo-error-indicator-icon-style;
+    @include v-valo-error-indicator-style;
   }
 
   .v-required-field-indicator {
@@ -288,15 +288,32 @@ $v-valo-shared-pathPrefix: null;
 }
 
 
-@mixin v-valo-error-indicator-icon-style {
+
+
+@mixin v-valo-caption-style {
+  font-size: $v-caption-font-size;
+  font-weight: $v-caption-font-weight;
+  padding-bottom: .3em;
+  @if $v-border-radius > 0 {
+    padding-left: round($v-border-radius/4);
+  }
+}
+
+
+
+@mixin v-valo-error-indicator-style {
   color: $v-error-indicator-color;
   font-weight: 600;
   width: ceil($v-unit-size/2);
   text-align: center;
-  
+
   &:before {
-    content: "!";
+    @include v-valo-error-indicator-icon-style;
   }
+}
+
+@mixin v-valo-error-indicator-icon-style {
+  content: "!";
 }
 
 

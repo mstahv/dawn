@@ -46,6 +46,8 @@ $v-window-animations-enabled: $v-animations-enabled !default;
     right: 0;
     bottom: 0;
     left: 0;
+    background: $v-app-background-color;
+    @include opacity(.3);
   }
 
   .#{$primary-stylename}-draggingCurtain {
@@ -100,7 +102,7 @@ $v-window-animations-enabled: $v-animations-enabled !default;
     right: 0;
     width: $v-unit-size;
     height: $v-unit-size - 1px;
-    line-height: $v-unit-size - 1px;
+    line-height: $v-unit-size - 3px;
     text-align: center;
     cursor: pointer;
     font-family: FontAwesome;

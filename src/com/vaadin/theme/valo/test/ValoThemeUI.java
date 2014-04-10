@@ -83,7 +83,7 @@ import com.vaadin.ui.VerticalSplitPanel;
 import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
-@Theme("valo-test")
+@Theme("valo")
 @Title("Valo Theme Test")
 public class ValoThemeUI extends UI implements Handler {
 
@@ -514,15 +514,19 @@ public class ValoThemeUI extends UI implements Handler {
         label.setDescription("<div><h1>Ut enim ad minim veniam, quis nostrud exercitation</h1><p><span>Morbi fringilla convallis sapien, id pulvinar odio volutpat.</span> <span>Vivamus sagittis lacus vel augue laoreet rutrum faucibus.</span> <span>Donec sed odio operae, eu vulputate felis rhoncus.</span> <span>At nos hinc posthac, sitientis piros Afros.</span> <span>Tu quoque, Brute, fili mi, nihil timor populi, nihil!</span></p><p><span>Gallia est omnis divisa in partes tres, quarum.</span> <span>Praeterea iter est quasdam res quas ex communi.</span> <span>Cum ceteris in veneratione tui montes, nascetur mus.</span> <span>Quam temere in vitiis, legem sancimus haerentia.</span> <span>Idque Caesaris facere voluntate liceret: sese habere.</span></p></div>");
         row.addComponent(label);
 
-        label = new Label("w/ Error Message");
+        label = new Label("w/ Error message");
         label.setDescription("Simple tooltip message");
         label.setComponentError(new UserError("Something terrible has happened"));
         row.addComponent(label);
 
-        label = new Label("w/ Long Error Message");
+        label = new Label("w/ Long error message");
         label.setDescription("Simple tooltip message");
         label.setComponentError(new UserError(
                 "<div><h1>Contra legem facit qui id facit quod lex prohibet</h1><p><span>Tityre, tu patulae recubans sub tegmine fagi  dolor.</span> <span>Tityre, tu patulae recubans sub tegmine fagi  dolor.</span> <span>Prima luce, cum quibus mons aliud  consensu ab eo.</span> <span>Quid securi etiam tamquam eu fugiat nulla pariatur.</span> <span>Fabio vel iudice vincam, sunt in culpa qui officia.</span> <span>Nihil hic munitissimus habendi senatus locus, nihil horum?</span></p><p><span>Plura mihi bona sunt, inclinet, amari petere vellent.</span> <span>Integer legentibus erat a ante historiarum dapibus.</span> <span>Quam diu etiam furor iste tuus nos eludet?</span> <span>Nec dubitamus multa iter quae et nos invenerat.</span> <span>Quisque ut dolor gravida, placerat libero vel, euismod.</span> <span>Quae vero auctorem tractata ab fiducia dicuntur.</span></p></div>"));
+        row.addComponent(label);
+
+        label = new Label("Error message only");
+        label.setComponentError(new UserError("Something terrible has happened"));
         row.addComponent(label);
 
         return root;
@@ -537,16 +541,16 @@ public class ValoThemeUI extends UI implements Handler {
         root.addStyleName("components");
         root.addStyleName("color-context" + num);
 
-        // labels(root);
-        // buttonsAndLinks(root);
-        // textfields(root);
+        labels(root);
+        buttonsAndLinks(root);
+        textfields(root);
         // textareas(root);
         // comboboxes(root);
-        // menubars(root);
+        menubars(root);
         // splitbuttons(root);
         checkboxes(root);
         optiongroups(root);
-        // datefields(root);
+        datefields(root);
         // panels(root);
         // trees(root);
         // tables(root);
@@ -1280,6 +1284,18 @@ public class ValoThemeUI extends UI implements Handler {
         button.setEnabled(false);
         row.addComponent(button);
 
+        button = new Button("Primary");
+        button.addStyleName("primary");
+        row.addComponent(button);
+
+        button = new Button("Friendly");
+        button.addStyleName("friendly");
+        row.addComponent(button);
+
+        button = new Button("Danger");
+        button.addStyleName("danger");
+        row.addComponent(button);
+
         button = new Button("Custom");
         button.addStyleName("color2");
         row.addComponent(button);
@@ -1317,9 +1333,19 @@ public class ValoThemeUI extends UI implements Handler {
         button.addStyleName("icon");
         row.addComponent(button);
 
-        button = new Button("Frameless");
+        button = new Button("Borderless");
         button.setIcon(icon(false));
-        button.addStyleName("frameless");
+        button.addStyleName("borderless");
+        row.addComponent(button);
+
+        button = new Button("Link style");
+        button.setIcon(icon(false));
+        button.addStyleName("link");
+        row.addComponent(button);
+
+        button = new Button("Icon on right");
+        button.setIcon(icon(false));
+        button.addStyleName("icon-align-right");
         row.addComponent(button);
 
         CssLayout group = new CssLayout();
@@ -1649,13 +1675,13 @@ public class ValoThemeUI extends UI implements Handler {
 
         MenuItem fav = menubar.addItem("", check);
         fav.setIcon(icon(false));
-        fav.setStyleName("icon");
+        fav.setStyleName("icon-only");
         fav.setCheckable(true);
         fav.setChecked(true);
 
         fav = menubar.addItem("", check);
         fav.setIcon(icon(false));
-        fav.setStyleName("icon");
+        fav.setStyleName("icon-only");
         fav.setCheckable(true);
         fav.setCheckable(true);
 

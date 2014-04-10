@@ -1,3 +1,5 @@
+// @category  Button
+
 // Values default to global values (evaluated when the mixins are called)
 $v-button-background-color: null !default;
 $v-button-bevel-style: null !default;
@@ -20,7 +22,6 @@ $v-button-disabled-opacity: $v-disabled-opacity !default;
 // The main mixin for Valo buttons
 // @mixin     v-valo-button
 // @param     $primary-stylename {String} the primary stylename to use for the output. Defaults to <code>v-button</code>
-// @category  Button
 @mixin v-valo-button ($primary-stylename: v-button) {
   .#{$primary-stylename} {
     @include v-valo-button-common-properties;
@@ -225,6 +226,23 @@ $v-button-disabled-opacity: $v-disabled-opacity !default;
   box-shadow: none;
   background: transparent;
   color: inherit;
+}
+
+
+@mixin v-valo-button-icon-align-right-style ($primary-stylename: v-button) {
+  .#{$primary-stylename}-wrap {
+    display: inline-block;
+  }
+
+  .v-icon {
+    float: right;
+    $padding-width: ceil($v-unit-size/2.4);
+    margin-left: $padding-width + ceil($padding-width/-5);
+
+    + span:not(:empty) {
+      margin-left: 0;
+    }
+  }
 }
 
 

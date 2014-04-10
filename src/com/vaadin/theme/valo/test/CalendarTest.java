@@ -969,7 +969,7 @@ public class CalendarTest extends UI {
 
         scheduleEventPopup = new Window(null, layout);
         // scheduleEventPopup.setWidth("400px");
-        // scheduleEventPopup.setModal(true);
+        scheduleEventPopup.setModal(true);
         scheduleEventPopup.center();
 
         scheduleEventFieldLayout.addStyleName("light");
