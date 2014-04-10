@@ -19,8 +19,9 @@
                                   $shadow-style: $shadow-style, $shadow-depth: $shadow-depth,
                                   $unit-size: $unit-size, $border-radius: $border-radius, 
                                   $background-color: $background-color);
+  display: block;
   height: auto;
   resize: none;
-  padding-top: round($unit-size/8);
-  padding-bottom: round($unit-size/8);
+  //padding-top: round($unit-size/8);
+  //padding-bottom: round($unit-size/8);
 }

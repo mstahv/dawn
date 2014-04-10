@@ -544,7 +544,7 @@ public class ValoThemeUI extends UI implements Handler {
         labels(root);
         buttonsAndLinks(root);
         textfields(root);
-        // textareas(root);
+        textareas(root);
         // comboboxes(root);
         menubars(root);
         // splitbuttons(root);
@@ -1192,9 +1192,11 @@ public class ValoThemeUI extends UI implements Handler {
         ta.setInputPrompt("Write your comment…");
         row.addComponent(ta);
 
-        ta = new TextArea("Custom color");
+        ta = new TextArea("Custom color, inline icon");
         ta.addStyleName("color3");
-        ta.setInputPrompt("Write your comment…");
+        ta.setValue("Inline icon not really working…");
+        ta.addStyleName("inline-icon");
+        ta.setIcon(icon(false));
         row.addComponent(ta);
 
         ta = new TextArea("Small");
@@ -1204,6 +1206,11 @@ public class ValoThemeUI extends UI implements Handler {
 
         ta = new TextArea("Large");
         ta.addStyleName("large");
+        ta.setInputPrompt("Write your comment…");
+        row.addComponent(ta);
+
+        ta = new TextArea("Borderless");
+        ta.addStyleName("borderless");
         ta.setInputPrompt("Write your comment…");
         row.addComponent(ta);
     }
@@ -1255,9 +1262,27 @@ public class ValoThemeUI extends UI implements Handler {
         row.addComponent(tf);
 
         tf = new TextField("Icon inside");
-        tf.setValue("I have an icon in here!");
+        tf.setInputPrompt("Ooh, an icon");
         tf.addStyleName("inline-icon");
         tf.setIcon(icon(false));
+        row.addComponent(tf);
+
+        tf = new TextField("16px supported by default");
+        tf.setInputPrompt("Image icon");
+        tf.addStyleName("inline-icon");
+        tf.setIcon(icon(true, 16));
+        row.addComponent(tf);
+
+        tf = new TextField();
+        tf.setValue("Font, no caption");
+        tf.addStyleName("inline-icon");
+        tf.setIcon(icon(false));
+        row.addComponent(tf);
+
+        tf = new TextField();
+        tf.setValue("Image, no caption");
+        tf.addStyleName("inline-icon");
+        tf.setIcon(icon(true, 16));
         row.addComponent(tf);
 
         CssLayout group = new CssLayout();
@@ -1266,11 +1291,21 @@ public class ValoThemeUI extends UI implements Handler {
 
         tf = new TextField();
         tf.setInputPrompt("Grouped with a button");
+        tf.addStyleName("inline-icon");
+        tf.setIcon(icon(false));
+        tf.setWidth("260px");
         group.addComponent(tf);
 
         Button button = new Button("Do It");
-        button.addStyleName("primary");
+        // button.addStyleName("primary");
         group.addComponent(button);
+
+        tf = new TextField("Borderless");
+        tf.setInputPrompt("Write here…");
+        tf.addStyleName("inline-icon");
+        tf.addStyleName("borderless");
+        tf.setIcon(icon(false));
+        row.addComponent(tf);
     }
 
     void buttonsAndLinks(final VerticalLayout root) {
@@ -1337,7 +1372,7 @@ public class ValoThemeUI extends UI implements Handler {
         row.addComponent(button);
 
         button = new Button("Image icon");
-        button.setIcon(icon(true));
+        button.setIcon(icon(true, 16));
         row.addComponent(button);
 
         button = new Button("Image icon");
@@ -1715,10 +1750,14 @@ public class ValoThemeUI extends UI implements Handler {
     }
 
     public static Resource icon(boolean image) {
+        return icon(image, 32);
+    }
+
+    public static Resource icon(boolean image, int imageSize) {
         if (!image) {
             return ICONS.get(RANDOM.nextInt(SIZE));
         }
-        return new ThemeResource("../runo/icons/32/document.png");
+        return new ThemeResource("../runo/icons/" + imageSize + "/document.png");
     }
 
     static List<FontAwesome> ICONS = Collections.unmodifiableList(Arrays

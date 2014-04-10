@@ -70,7 +70,8 @@
 	  @include v-valo-formlayout-light-style;
 	}
 
-	.v-textfield-borderless {
+	.v-textfield-borderless,
+	.v-textarea-borderless {
 	  @include v-valo-textfield-borderless-style;
 	}
 

@@ -5,6 +5,7 @@ $v-textfield-shadow-depth: $v-shadow-depth !default;
 $v-textfield-background-color: null !default;
 $v-textfield-unit-size: null !default;
 $v-textfield-font-weight: 400 !default;
+$v-textfield-font-size: $v-font-size !default;
 $v-textfield-border-width: $v-border-width !default;
 $v-textfield-border-radius: $v-border-radius !default;
 $v-textfield-disabled-opacity: $v-disabled-opacity !default;
@@ -80,6 +81,7 @@ $v-textfield-disabled-opacity: $v-disabled-opacity !default;
   @include appearance(none);
   margin: 0;
   font: inherit;
+  font-size: if($v-textfield-font-size != $v-font-size, $v-textfield-font-size, null);
   font-weight: $v-textfield-font-weight;
   @include v-valo-textfield-size($unit-size, $border-radius);
   border-radius: $border-radius;
@@ -162,7 +164,7 @@ $v-textfield-disabled-opacity: $v-disabled-opacity !default;
 
 
 
-@mixin v-valo-textfield-borderless-style ($background-color: null) {
+@mixin v-valo-textfield-borderless-style ($background-color: transparent) {
   border: none;
   border-radius: 0;
   background: $background-color;
@@ -175,28 +177,43 @@ $v-textfield-disabled-opacity: $v-disabled-opacity !default;
 
 
 
-@mixin v-valo-textfield-inline-icon($stylename: inline-icon) {
+@mixin v-valo-textfield-inline-icon($primary-stylename: v-textfield, $stylename: inline-icon, $unit-size: $v-unit-size, $font-size: $v-textfield-font-size, $image-icon-size: 16px) {
+  .v-slot-#{$stylename} {
+    position: relative;
+  }
+
   .v-caption-#{$stylename} {
-    height: $v-unit-size;
-    line-height: $v-unit-size;
-    margin-bottom: -$v-unit-size;
     padding: 0;
 
     .v-captiontext {
-      display: none;
+      @include v-valo-caption-style;
+      margin: 0;
     }
 
     .v-icon {
-      position: relative;
+      position: absolute;
+      z-index: 10;
     }
 
     // Font icons
     span.v-icon {
-      width: $v-unit-size;
+      left: $v-textfield-border-width;
+      bottom: $v-textfield-border-width;
+      width: $unit-size;
+      line-height: $unit-size - $v-textfield-border-width*2;
       text-align: center;
+      font-size: $font-size;
+    }
+
+    // Image icons
+    img.v-icon {
+      left: round(($unit-size - $image-icon-size)/2);
+      bottom: round(($unit-size - $image-icon-size)/2);
     }
   }
-  .v-textfield-#{$stylename} {
-    padding-left: $v-unit-size;
+
+  .#{$primary-stylename}-#{$stylename},
+  .v-textarea-#{$stylename} {
+    padding-left: $unit-size;
   }
 }

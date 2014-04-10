@@ -6,20 +6,22 @@
 @mixin v-valo-component-group ($primary-stylename: v-csslayout) {
   .#{$primary-stylename}-v-component-group {
     white-space: nowrap;
+    position: relative;
 
     @if $v-border-radius > 0 {
-      .v-widget:not(:first-child):not(:last-child) {
+      .v-widget ~ .v-widget:not(:last-child) {
         border-radius: 0;
-      }
-
-      .v-widget:first-child {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
       }
 
       .v-widget:last-child {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
+      }
+
+      .v-widget:first-child,
+      .v-caption:first-child + .v-widget {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
       }
     }
 
@@ -42,14 +44,8 @@
       &:focus,
       [class*="focus"] {
         position: relative;
-        z-index: 2;
+        z-index: 1;
       }
-    }
-
-    // Text fields assume higher order than others (darker borders by default)
-    .v-textfield {
-      position: relative;
-      z-index: 1;
     }
 
   }
