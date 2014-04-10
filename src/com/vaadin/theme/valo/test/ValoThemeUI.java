@@ -19,6 +19,7 @@ import org.vaadin.risto.mockupcontainer.MockupFactory;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
+import com.vaadin.data.Item;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.IndexedContainer;
@@ -540,12 +541,12 @@ public class ValoThemeUI extends UI implements Handler {
         // buttonsAndLinks(root);
         // textfields(root);
         // textareas(root);
-        comboboxes(root);
+        // comboboxes(root);
         // menubars(root);
         // splitbuttons(root);
-        // checkboxes(root);
-        // optiongroups(root);
-        datefields(root);
+        checkboxes(root);
+        optiongroups(root);
+        // datefields(root);
         // panels(root);
         // trees(root);
         // tables(root);
@@ -999,24 +1000,28 @@ public class ValoThemeUI extends UI implements Handler {
         row = addSection(root, "Option Groups", Category.Selection_Components,
                 null);
 
-        OptionGroup options = new OptionGroup("Choose one");
+        OptionGroup options = new OptionGroup("Choose one, explicit width");
+        options.setWidth("200px");
         options.addItem("Option One");
-        options.addItem("Option Two");
+        Item two = options
+                .addItem("Option Two, with a longer caption that should wrap when the components width is explicitly set.");
         options.addItem("Option Three");
         options.select("Option One");
         options.setItemIcon("Option One", icon(false));
-        options.setItemIcon("Option Two", icon(false));
+        options.setItemIcon(two, icon(false));
         options.setItemIcon("Option Three", icon(true));
         row.addComponent(options);
 
-        options = new OptionGroup("Choose many");
+        options = new OptionGroup("Choose many, explicit width");
         options.setMultiSelect(true);
+        options.setWidth("200px");
         options.addItem("Option One");
-        options.addItem("Option Two");
+        two = options
+                .addItem("Option Two, with a longer caption that should wrap when the components width is explicitly set.");
         options.addItem("Option Three");
         options.select("Option One");
         options.setItemIcon("Option One", icon(false));
-        options.setItemIcon("Option Two", icon(false));
+        options.setItemIcon(two, icon(false));
         options.setItemIcon("Option Three", icon(true));
         row.addComponent(options);
     }
@@ -1027,6 +1032,12 @@ public class ValoThemeUI extends UI implements Handler {
 
         CheckBox check = new CheckBox("Checked", true);
         row.addComponent(check);
+
+        check = new CheckBox(
+                "Checked, explicit width, so that the caption should wrap",
+                true);
+        row.addComponent(check);
+        check.setWidth("150px");
 
         check = new CheckBox("Not checked");
         row.addComponent(check);

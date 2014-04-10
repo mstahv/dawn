@@ -21,6 +21,10 @@
   line-height: round($unit-size/2);
   white-space: nowrap;
 
+  &.v-has-width label {
+    white-space: normal;
+  }
+
   :root & {
     padding-left: round($unit-size/1.5);
 
@@ -50,6 +54,7 @@
       width: round($unit-size/2);
       height: round($unit-size/2);
       position: absolute;
+      top: 0;
       left: 0;
       border-radius: min(round($unit-size/6), $v-border-radius);
       font-size: round($v-font-size * 0.8 * ($unit-size/$v-unit-size));
