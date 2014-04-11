@@ -1187,9 +1187,10 @@ public class ValoThemeUI extends UI implements Handler {
         ta.setInputPrompt("Write your comment…");
         row.addComponent(ta);
 
-        ta = new TextArea("Custom color");
+        ta = new TextArea("Custom color, read-only");
         ta.addStyleName("color2");
-        ta.setInputPrompt("Write your comment…");
+        ta.setValue("Field value, spanning multiple lines of text");
+        ta.setReadOnly(true);
         row.addComponent(ta);
 
         ta = new TextArea("Custom color, inline icon");
