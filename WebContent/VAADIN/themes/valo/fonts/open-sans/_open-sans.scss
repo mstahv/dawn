@@ -136,12 +136,12 @@ $open-sans-pathPrefix: null;
 
 
 
-@mixin font-open-sans ($italic: true, $light: false, $book: true, $medium: true, $bold: false, $black: false) {
-  @if $book {
-    @include font-open-sans-book($italic);
-  }
+@mixin font-open-sans ($italic: false, $light: false, $regular: true, $medium: false, $bold: false, $black: false) {
   @if $light {
     @include font-open-sans-light($italic);
+  }
+  @if $regular {
+    @include font-open-sans-book($italic);
   }
   @if $medium {
     @include font-open-sans-semibold($italic);

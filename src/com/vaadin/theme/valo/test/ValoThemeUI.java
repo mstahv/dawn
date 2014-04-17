@@ -19,6 +19,7 @@ import org.vaadin.risto.mockupcontainer.MockupFactory;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
+import com.vaadin.data.Item;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.IndexedContainer;
@@ -82,7 +83,7 @@ import com.vaadin.ui.VerticalSplitPanel;
 import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
-@Theme("valo-test")
+@Theme("valo")
 @Title("Valo Theme Test")
 public class ValoThemeUI extends UI implements Handler {
 
@@ -513,15 +514,19 @@ public class ValoThemeUI extends UI implements Handler {
         label.setDescription("<div><h1>Ut enim ad minim veniam, quis nostrud exercitation</h1><p><span>Morbi fringilla convallis sapien, id pulvinar odio volutpat.</span> <span>Vivamus sagittis lacus vel augue laoreet rutrum faucibus.</span> <span>Donec sed odio operae, eu vulputate felis rhoncus.</span> <span>At nos hinc posthac, sitientis piros Afros.</span> <span>Tu quoque, Brute, fili mi, nihil timor populi, nihil!</span></p><p><span>Gallia est omnis divisa in partes tres, quarum.</span> <span>Praeterea iter est quasdam res quas ex communi.</span> <span>Cum ceteris in veneratione tui montes, nascetur mus.</span> <span>Quam temere in vitiis, legem sancimus haerentia.</span> <span>Idque Caesaris facere voluntate liceret: sese habere.</span></p></div>");
         row.addComponent(label);
 
-        label = new Label("w/ Error Message");
+        label = new Label("w/ Error message");
         label.setDescription("Simple tooltip message");
         label.setComponentError(new UserError("Something terrible has happened"));
         row.addComponent(label);
 
-        label = new Label("w/ Long Error Message");
+        label = new Label("w/ Long error message");
         label.setDescription("Simple tooltip message");
         label.setComponentError(new UserError(
                 "<div><h1>Contra legem facit qui id facit quod lex prohibet</h1><p><span>Tityre, tu patulae recubans sub tegmine fagi  dolor.</span> <span>Tityre, tu patulae recubans sub tegmine fagi  dolor.</span> <span>Prima luce, cum quibus mons aliud  consensu ab eo.</span> <span>Quid securi etiam tamquam eu fugiat nulla pariatur.</span> <span>Fabio vel iudice vincam, sunt in culpa qui officia.</span> <span>Nihil hic munitissimus habendi senatus locus, nihil horum?</span></p><p><span>Plura mihi bona sunt, inclinet, amari petere vellent.</span> <span>Integer legentibus erat a ante historiarum dapibus.</span> <span>Quam diu etiam furor iste tuus nos eludet?</span> <span>Nec dubitamus multa iter quae et nos invenerat.</span> <span>Quisque ut dolor gravida, placerat libero vel, euismod.</span> <span>Quae vero auctorem tractata ab fiducia dicuntur.</span></p></div>"));
+        row.addComponent(label);
+
+        label = new Label("Error message only");
+        label.setComponentError(new UserError("Something terrible has happened"));
         row.addComponent(label);
 
         return root;
@@ -536,15 +541,15 @@ public class ValoThemeUI extends UI implements Handler {
         root.addStyleName("components");
         root.addStyleName("color-context" + num);
 
-        // labels(root);
-        // buttonsAndLinks(root);
-        // textfields(root);
-        // textareas(root);
-        comboboxes(root);
-        // menubars(root);
+        labels(root);
+        buttonsAndLinks(root);
+        textfields(root);
+        textareas(root);
+        // comboboxes(root);
+        menubars(root);
         // splitbuttons(root);
-        // checkboxes(root);
-        // optiongroups(root);
+        checkboxes(root);
+        optiongroups(root);
         datefields(root);
         // panels(root);
         // trees(root);
@@ -999,24 +1004,28 @@ public class ValoThemeUI extends UI implements Handler {
         row = addSection(root, "Option Groups", Category.Selection_Components,
                 null);
 
-        OptionGroup options = new OptionGroup("Choose one");
+        OptionGroup options = new OptionGroup("Choose one, explicit width");
+        options.setWidth("200px");
         options.addItem("Option One");
-        options.addItem("Option Two");
+        Item two = options
+                .addItem("Option Two, with a longer caption that should wrap when the components width is explicitly set.");
         options.addItem("Option Three");
         options.select("Option One");
         options.setItemIcon("Option One", icon(false));
-        options.setItemIcon("Option Two", icon(false));
+        options.setItemIcon(two, icon(false));
         options.setItemIcon("Option Three", icon(true));
         row.addComponent(options);
 
-        options = new OptionGroup("Choose many");
+        options = new OptionGroup("Choose many, explicit width");
         options.setMultiSelect(true);
+        options.setWidth("200px");
         options.addItem("Option One");
-        options.addItem("Option Two");
+        two = options
+                .addItem("Option Two, with a longer caption that should wrap when the components width is explicitly set.");
         options.addItem("Option Three");
         options.select("Option One");
         options.setItemIcon("Option One", icon(false));
-        options.setItemIcon("Option Two", icon(false));
+        options.setItemIcon(two, icon(false));
         options.setItemIcon("Option Three", icon(true));
         row.addComponent(options);
     }
@@ -1027,6 +1036,12 @@ public class ValoThemeUI extends UI implements Handler {
 
         CheckBox check = new CheckBox("Checked", true);
         row.addComponent(check);
+
+        check = new CheckBox(
+                "Checked, explicit width, so that the caption should wrap",
+                true);
+        row.addComponent(check);
+        check.setWidth("150px");
 
         check = new CheckBox("Not checked");
         row.addComponent(check);
@@ -1172,14 +1187,17 @@ public class ValoThemeUI extends UI implements Handler {
         ta.setInputPrompt("Write your comment…");
         row.addComponent(ta);
 
-        ta = new TextArea("Custom color");
+        ta = new TextArea("Custom color, read-only");
         ta.addStyleName("color2");
-        ta.setInputPrompt("Write your comment…");
+        ta.setValue("Field value, spanning multiple lines of text");
+        ta.setReadOnly(true);
         row.addComponent(ta);
 
-        ta = new TextArea("Custom color");
+        ta = new TextArea("Custom color, inline icon");
         ta.addStyleName("color3");
-        ta.setInputPrompt("Write your comment…");
+        ta.setValue("Inline icon not really working…");
+        ta.addStyleName("inline-icon");
+        ta.setIcon(icon(false));
         row.addComponent(ta);
 
         ta = new TextArea("Small");
@@ -1191,6 +1209,11 @@ public class ValoThemeUI extends UI implements Handler {
         ta.addStyleName("large");
         ta.setInputPrompt("Write your comment…");
         row.addComponent(ta);
+
+        ta = new TextArea("Borderless");
+        ta.addStyleName("borderless");
+        ta.setInputPrompt("Write your comment…");
+        row.addComponent(ta);
     }
 
     void textfields(final VerticalLayout root) {
@@ -1199,6 +1222,7 @@ public class ValoThemeUI extends UI implements Handler {
 
         TextField tf = new TextField("Normal");
         tf.setInputPrompt("First name");
+        tf.setIcon(icon(false));
         row.addComponent(tf);
 
         tf = new TextField("Focused");
@@ -1235,6 +1259,31 @@ public class ValoThemeUI extends UI implements Handler {
         tf = new TextField("Large");
         tf.setValue("Field value");
         tf.addStyleName("large");
+        tf.setIcon(icon(true));
+        row.addComponent(tf);
+
+        tf = new TextField("Icon inside");
+        tf.setInputPrompt("Ooh, an icon");
+        tf.addStyleName("inline-icon");
+        tf.setIcon(icon(false));
+        row.addComponent(tf);
+
+        tf = new TextField("16px supported by default");
+        tf.setInputPrompt("Image icon");
+        tf.addStyleName("inline-icon");
+        tf.setIcon(icon(true, 16));
+        row.addComponent(tf);
+
+        tf = new TextField();
+        tf.setValue("Font, no caption");
+        tf.addStyleName("inline-icon");
+        tf.setIcon(icon(false));
+        row.addComponent(tf);
+
+        tf = new TextField();
+        tf.setValue("Image, no caption");
+        tf.addStyleName("inline-icon");
+        tf.setIcon(icon(true, 16));
         row.addComponent(tf);
 
         CssLayout group = new CssLayout();
@@ -1243,10 +1292,21 @@ public class ValoThemeUI extends UI implements Handler {
 
         tf = new TextField();
         tf.setInputPrompt("Grouped with a button");
+        tf.addStyleName("inline-icon");
+        tf.setIcon(icon(false));
+        tf.setWidth("260px");
         group.addComponent(tf);
 
         Button button = new Button("Do It");
+        // button.addStyleName("primary");
         group.addComponent(button);
+
+        tf = new TextField("Borderless");
+        tf.setInputPrompt("Write here…");
+        tf.addStyleName("inline-icon");
+        tf.addStyleName("borderless");
+        tf.setIcon(icon(false));
+        row.addComponent(tf);
     }
 
     void buttonsAndLinks(final VerticalLayout root) {
@@ -1269,32 +1329,56 @@ public class ValoThemeUI extends UI implements Handler {
         button.setEnabled(false);
         row.addComponent(button);
 
-        button = new Button("Custom");
-        button.addStyleName("color2");
+        button = new Button("Primary");
+        button.addStyleName("primary");
         row.addComponent(button);
 
-        button = new Button("User Color");
-        button.addStyleName("color3");
+        button = new Button("Friendly");
+        button.addStyleName("friendly");
         row.addComponent(button);
 
-        button = new Button("Themed");
-        button.addStyleName("color4");
+        button = new Button("Danger");
+        button.addStyleName("danger");
         row.addComponent(button);
 
-        button = new Button("Alternate");
-        button.addStyleName("color5");
-        row.addComponent(button);
-
-        button = new Button("Other");
-        button.addStyleName("color6");
-        row.addComponent(button);
+        // button = new Button("Custom");
+        // button.addStyleName("color2");
+        // row.addComponent(button);
+        //
+        // button = new Button("User Color");
+        // button.addStyleName("color3");
+        // row.addComponent(button);
+        //
+        // button = new Button("Themed");
+        // button.addStyleName("color4");
+        // row.addComponent(button);
+        //
+        // button = new Button("Alternate");
+        // button.addStyleName("color5");
+        // row.addComponent(button);
+        //
+        // button = new Button("Other");
+        // button.addStyleName("color6");
+        // row.addComponent(button);
 
         button = new Button("Small");
         button.addStyleName("small");
+        button.setIcon(icon(false));
         row.addComponent(button);
 
         button = new Button("Large");
         button.addStyleName("large");
+        button.addStyleName("icon-align-right");
+        button.setIcon(icon(false));
+        row.addComponent(button);
+
+        button = new Button("Image icon");
+        button.setIcon(icon(true, 16));
+        row.addComponent(button);
+
+        button = new Button("Image icon");
+        button.addStyleName("icon-align-right");
+        button.setIcon(icon(true));
         row.addComponent(button);
 
         button = new Button("Photos");
@@ -1306,9 +1390,19 @@ public class ValoThemeUI extends UI implements Handler {
         button.addStyleName("icon");
         row.addComponent(button);
 
-        button = new Button("Frameless");
+        button = new Button("Borderless");
         button.setIcon(icon(false));
-        button.addStyleName("frameless");
+        button.addStyleName("borderless");
+        row.addComponent(button);
+
+        button = new Button("Link style");
+        button.setIcon(icon(false));
+        button.addStyleName("link");
+        row.addComponent(button);
+
+        button = new Button("Icon on right");
+        button.setIcon(icon(false));
+        button.addStyleName("icon-align-right");
         row.addComponent(button);
 
         CssLayout group = new CssLayout();
@@ -1638,13 +1732,13 @@ public class ValoThemeUI extends UI implements Handler {
 
         MenuItem fav = menubar.addItem("", check);
         fav.setIcon(icon(false));
-        fav.setStyleName("icon");
+        fav.setStyleName("icon-only");
         fav.setCheckable(true);
         fav.setChecked(true);
 
         fav = menubar.addItem("", check);
         fav.setIcon(icon(false));
-        fav.setStyleName("icon");
+        fav.setStyleName("icon-only");
         fav.setCheckable(true);
         fav.setCheckable(true);
 
@@ -1657,10 +1751,14 @@ public class ValoThemeUI extends UI implements Handler {
     }
 
     public static Resource icon(boolean image) {
+        return icon(image, 32);
+    }
+
+    public static Resource icon(boolean image, int imageSize) {
         if (!image) {
             return ICONS.get(RANDOM.nextInt(SIZE));
         }
-        return new ThemeResource("../runo/icons/32/document.png");
+        return new ThemeResource("../runo/icons/" + imageSize + "/document.png");
     }
 
     static List<FontAwesome> ICONS = Collections.unmodifiableList(Arrays

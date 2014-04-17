@@ -112,7 +112,7 @@
     margin: 0 $margin-width 0 #{-$margin-width};
   }
 
-  &[class*="-icon"] .v-icon {
+  &[class*="-icon-only"] .v-icon {
     margin: 0 #{-$margin-width};
   }
 }

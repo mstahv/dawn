@@ -281,7 +281,7 @@ $v-datefield-hover-style-enabled: $v-hover-styles-enabled !default;
       &:hover {
         @include opacity(1);
         &:before {
-          color: v-valo-link-color();
+          color: v-valo-link-font-color();
         }
       }
     }

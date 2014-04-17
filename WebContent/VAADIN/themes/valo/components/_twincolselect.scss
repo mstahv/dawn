@@ -24,7 +24,7 @@
 
   .#{$primary-stylename}-caption-left,
   .#{$primary-stylename}-caption-right {
-    @extend %v-caption;
+    @include v-valo-caption-style;
   }
   
   .#{$primary-stylename}-buttons {

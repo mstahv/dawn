@@ -31,6 +31,10 @@
         margin-top: round($v-unit-size/6);
       }
     }
+
+    &.v-has-width label {
+      white-space: normal;
+    }
   
   }
   

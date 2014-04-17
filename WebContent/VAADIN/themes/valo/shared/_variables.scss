@@ -1,3 +1,5 @@
+// @category  Common
+
 // Color functions are used to calculate default font color
 @import "../util/color";
 
@@ -5,7 +7,6 @@
 // List of components to include in the theme compilation. The list can be modified to make 
 // the compiled theme smaller by removing unused components from the list.
 // @variable v-included-components
-// @category Common
 // @usage
 // // Remove the Calendar component styles from the output
 // $v-included-components: remove($v-included-components, calendar);
@@ -65,14 +66,12 @@ $v-included-components:
 // A static text that is shown while the application JavaScript is loaded and started
 // @variable    v-app-loading-text
 // @default     ""
-// @category    Common
 $v-app-loading-text: "" !default;
 
 
 // Base line height used for all widgets
 // @variable     v-line-height
 // @default     1.55 !default
-// @category    Common
 $v-line-height: 1.55 !default;
 
 
@@ -103,7 +102,7 @@ $v-gradient-style:              linear                          !default;
 $v-gradient-depth:              8%                              !default;
 
 $v-bevel-style:                 inset 0 1px 0 hilite, inset 0 -1px 0 shade !default;
-$v-bevel-depth:                 20%                             !default;
+$v-bevel-depth:                 25%                             !default;
 
 $v-shadow-style:                0 2px 3px shade                 !default;
 $v-shadow-depth:                5%                              !default;
@@ -126,12 +125,16 @@ $v-required-field-indicator-color: $v-error-indicator-color     !default;
 
 
 
+$v-valo-include-common-stylenames: true                         !default;
+
+
+
+
 // A flag to note whether relative URL paths are relative to the currently parsed SCSS file or to the compilation root file.
 // The Vaadin compiler parses URL paths differently than the regular Sass compiler (i.e. Vaadin modifies relative url paths).
 // This boolean is used to flag which compiler is used, so that paths are correct for different resources.
 // false == Ruby, true == Vaadin
 // @private
-// @variable  v-relative-path
+// @variable  v-relative-paths
 // @default   false
-// @category  Common
 $v-relative-paths: false !default;

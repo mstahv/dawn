@@ -176,6 +176,7 @@ $v-selection-item-font-weight: max(400, $v-font-weight);
   .v-icon {
     max-height: $v-selection-item-height;
     margin-right: round($v-selection-item-padding-horizontal/2);
+    min-width: 1em;
   }
 }
 
