@@ -11,6 +11,16 @@ This project builds the yet to be released, but already amazing Valo theme as a 
  * "mvn install"
  * add the built artifact to your project
  * Use dawn them in you UI: @Theme("dawn")
+ 
+## Another, bit more advanced setup:
+
+ * fork this repository, so that you can make your own customizations
+ * Use git submodule to add it to your multimodule Maven setup
+  * `git submodule add https://github.com/YOUR_ACCOUNT_FOR_FORK/dawn.git dawn`
+  * add dawn to list of sub modules like in [this example](https://github.com/peterl1084/cdiexample/blob/master/pom.xml#L23)
+  * add dependency to your web app module
+ * Use dawn them in you UI: @Theme("dawn")
+ * do full build, enjoy, no extra setup needed for your co-workers/contributors
 
 ##Pom dependency (once built)
 
