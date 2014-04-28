@@ -4,6 +4,10 @@ Valo
 Sass based Vaadin theme
 
 
+***The development of the Valo theme continues in the main Vaadin git repository, still repo will not receive direct updates anymore***
+ * Once there's a stable build ready, it will be synced to GitHub as well 
+ * You can still report issues you find here in this GitHub repository
+
 *This is a development version of the Valo theme, not suitable for production yet.*
 
 
