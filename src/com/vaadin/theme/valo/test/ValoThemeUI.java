@@ -1475,7 +1475,8 @@ public class ValoThemeUI extends UI implements Handler {
         root.addComponent(h2);
 
         Label normal = new Label(
-                "Normal type for plain text. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu.");
+                "Normal type for plain text, with a <a href=\"https://vaadin.com\">regular link</a>. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu.",
+                ContentMode.HTML);
         root.addComponent(normal);
 
         Label h3 = new Label("Small Title");

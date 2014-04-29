@@ -275,6 +275,10 @@ $v-valo-shared-pathPrefix: null;
     line-height: $v-line-height;
   }
 
+  a {
+    @include v-valo-link-style;
+  }
+
   .v-disabled {
     cursor: default !important;
   }
