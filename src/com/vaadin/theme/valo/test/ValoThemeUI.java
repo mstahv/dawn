@@ -63,6 +63,7 @@ import com.vaadin.ui.ListSelect;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
+import com.vaadin.ui.NativeButton;
 import com.vaadin.ui.NativeSelect;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.OptionGroup;
@@ -1418,6 +1419,9 @@ public class ValoThemeUI extends UI implements Handler {
         group.addComponent(button);
         button = new Button("Three");
         group.addComponent(button);
+
+        NativeButton nbutton = new NativeButton("Native");
+        row.addComponent(nbutton);
 
         Link link = new Link("Link to vaadin.com", new ExternalResource(
                 "https://vaadin.com"));
