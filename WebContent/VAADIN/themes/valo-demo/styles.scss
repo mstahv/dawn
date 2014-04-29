@@ -7,7 +7,7 @@ $v-app-loading-text: "Loading Valo Demo App...";
 //$v-font-size: 18px;
 //$v-unit-size: 39px;
 //$v-font-weight: 400;
-//$v-border-radius: 18px;
+$v-border-radius: 18px;
 //$v-selection-color: orange;
 //$v-bevel-style: inset 0 -2px 0 shade;
 
@@ -41,7 +41,7 @@ $v-app-loading-text: "Loading Valo Demo App...";
   @include v-valo-splitpanel-small($stylename: contacts);
 
   .contacts {
-    background: #fff;
+    //background: #fff;
 
     .v-splitpanel-first-container {
       .v-textfield {
