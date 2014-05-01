@@ -108,6 +108,8 @@ $v-splitpanel-splitter-size: round($v-unit-size/5) !default;
 @mixin v-valo-splitpanel-small ($primary-stylename: v-splitpanel, $stylename: small) {
   .#{$primary-stylename}-vsplitter-#{$stylename},
   .#{$primary-stylename}-hsplitter-#{$stylename} {
+    width: 1px;
+    
     div {
       @include opacity(0);
       @include transition(opacity 200ms);
@@ -119,6 +121,9 @@ $v-splitpanel-splitter-size: round($v-unit-size/5) !default;
   }
 
   .#{$primary-stylename}-vsplitter-#{$stylename} {
+    width: auto;
+    height: 1px;
+
     div {
       left: 40%;
       right: 40%;

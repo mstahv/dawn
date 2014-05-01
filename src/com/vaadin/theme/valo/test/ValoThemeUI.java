@@ -29,6 +29,8 @@ import com.vaadin.event.dd.DragAndDropEvent;
 import com.vaadin.event.dd.DropHandler;
 import com.vaadin.event.dd.acceptcriteria.AcceptAll;
 import com.vaadin.event.dd.acceptcriteria.AcceptCriterion;
+import com.vaadin.server.AbstractErrorMessage;
+import com.vaadin.server.ErrorMessage.ErrorLevel;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
@@ -61,6 +63,7 @@ import com.vaadin.ui.ListSelect;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
+import com.vaadin.ui.NativeButton;
 import com.vaadin.ui.NativeSelect;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.OptionGroup;
@@ -522,7 +525,8 @@ public class ValoThemeUI extends UI implements Handler {
         label = new Label("w/ Long error message");
         label.setDescription("Simple tooltip message");
         label.setComponentError(new UserError(
-                "<div><h1>Contra legem facit qui id facit quod lex prohibet</h1><p><span>Tityre, tu patulae recubans sub tegmine fagi  dolor.</span> <span>Tityre, tu patulae recubans sub tegmine fagi  dolor.</span> <span>Prima luce, cum quibus mons aliud  consensu ab eo.</span> <span>Quid securi etiam tamquam eu fugiat nulla pariatur.</span> <span>Fabio vel iudice vincam, sunt in culpa qui officia.</span> <span>Nihil hic munitissimus habendi senatus locus, nihil horum?</span></p><p><span>Plura mihi bona sunt, inclinet, amari petere vellent.</span> <span>Integer legentibus erat a ante historiarum dapibus.</span> <span>Quam diu etiam furor iste tuus nos eludet?</span> <span>Nec dubitamus multa iter quae et nos invenerat.</span> <span>Quisque ut dolor gravida, placerat libero vel, euismod.</span> <span>Quae vero auctorem tractata ab fiducia dicuntur.</span></p></div>"));
+                "<h2>Contra legem facit qui id facit quod lex prohibet <span>Tityre, tu patulae recubans sub tegmine fagi  dolor.</span> <span>Tityre, tu patulae recubans sub tegmine fagi  dolor.</span> <span>Prima luce, cum quibus mons aliud  consensu ab eo.</span> <span>Quid securi etiam tamquam eu fugiat nulla pariatur.</span> <span>Fabio vel iudice vincam, sunt in culpa qui officia.</span> <span>Nihil hic munitissimus habendi senatus locus, nihil horum?</span></p><p><span>Plura mihi bona sunt, inclinet, amari petere vellent.</span> <span>Integer legentibus erat a ante historiarum dapibus.</span> <span>Quam diu etiam furor iste tuus nos eludet?</span> <span>Nec dubitamus multa iter quae et nos invenerat.</span> <span>Quisque ut dolor gravida, placerat libero vel, euismod.</span> <span>Quae vero auctorem tractata ab fiducia dicuntur.</span></h2>",
+                AbstractErrorMessage.ContentMode.HTML, ErrorLevel.CRITICAL));
         row.addComponent(label);
 
         label = new Label("Error message only");
@@ -545,7 +549,7 @@ public class ValoThemeUI extends UI implements Handler {
         buttonsAndLinks(root);
         textfields(root);
         textareas(root);
-        // comboboxes(root);
+        comboboxes(root);
         menubars(root);
         // splitbuttons(root);
         checkboxes(root);
@@ -1416,6 +1420,9 @@ public class ValoThemeUI extends UI implements Handler {
         button = new Button("Three");
         group.addComponent(button);
 
+        NativeButton nbutton = new NativeButton("Native");
+        row.addComponent(nbutton);
+
         Link link = new Link("Link to vaadin.com", new ExternalResource(
                 "https://vaadin.com"));
         row.addComponent(link);
@@ -1468,7 +1475,8 @@ public class ValoThemeUI extends UI implements Handler {
         root.addComponent(h2);
 
         Label normal = new Label(
-                "Normal type for plain text. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu.");
+                "Normal type for plain text, with a <a href=\"https://vaadin.com\">regular link</a>. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu.",
+                ContentMode.HTML);
         root.addComponent(normal);
 
         Label h3 = new Label("Small Title");
