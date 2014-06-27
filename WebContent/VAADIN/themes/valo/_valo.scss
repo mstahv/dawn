@@ -1,15 +1,11 @@
-// TODO remove once debug window styles are bundled to the GWT module
-@import "_debug.scss";
-
-
 // Import global variables
 @import "shared/variables";
 
 
 // Import all utility mixins and functions
+@import "util/bourbon/bourbon";
 @import "util/lists";
 @import "util/css3";
-@import "util/bourbon/bourbon";
 @import "util/color";
 @import "util/anim";
 @import "util/gradient";
@@ -53,16 +49,19 @@
 
 
 // Include global styles directly, without a theme name prefix (this is done only once)
-@include v-valo-global;
+@include valo-global;
 
 
 // The main theme mixin
-@mixin v-valo {
-  @include v-valo-common;
-  @include v-valo-components;
-  @include v-valo-notification;
+@mixin valo {
+  @include valo-common;
+  @include valo-components;
 
-  @if $v-valo-include-common-stylenames {
-  	@include v-valo-common-stylenames;
+  @if v-is-included(notification) {
+    @include valo-notification;
+  }
+
+  @if $valo-include-common-stylenames {
+  	@include valo-common-stylenames;
   }
 }

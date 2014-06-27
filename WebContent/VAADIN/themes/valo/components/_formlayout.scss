@@ -1,10 +1,17 @@
-@mixin v-valo-formlayout ($primary-stylename: v-formlayout) {
-  
-  @include v-valo-formlayout-spacing;
-  @include v-valo-formlayout-margins;
+@mixin valo-formlayout ($primary-stylename: v-formlayout) {
+
+  @include valo-formlayout-spacing;
+  @include valo-formlayout-margins;
 
   .#{$primary-stylename} > table {
     border-spacing: 0;
+    position: relative;
+    padding: 0 $v-layout-spacing-horizontal;
+  }
+
+  .#{$primary-stylename}.v-has-width > table,
+  .#{$primary-stylename}.v-has-width .#{$primary-stylename}-contentcell {
+    width: 100%;
   }
 
   .#{$primary-stylename}-error-indicator {
@@ -18,18 +25,37 @@
     .v-caption {
       padding-bottom: 0;
     }
+
+    .v-caption-h2,
+    .v-caption-h3,
+    .v-caption-h4 {
+      height: 3em;
+    }
   }
 
   .#{$primary-stylename}-contentcell {
-    .v-checkbox {
+    .v-checkbox,
+    .v-radiobutton {
       font-weight: $v-font-weight + 100;
     }
+
+    > .v-label-h2,
+    > .v-label-h3,
+    > .v-label-h4 {
+      position: absolute;
+      left: 0;
+      margin-top: -0.5em;
+      padding-bottom: 0.5em;
+      border-bottom: valo-border($color: $v-app-background-color, $strength: 0.5);
+    }
   }
+
+
 
 }
 
 
-@mixin v-valo-formlayout-margins ($primary-stylename: v-formlayout, $all: null, $top: $v-layout-margin-top, $right: $v-layout-margin-right, $bottom: $v-layout-margin-bottom, $left: $v-layout-margin-left) {
+@mixin valo-formlayout-margins ($primary-stylename: v-formlayout, $all: null, $top: $v-layout-margin-top, $right: $v-layout-margin-right, $bottom: $v-layout-margin-bottom, $left: $v-layout-margin-left) {
   @if $all != null {
     $top: $all;
     $right: $all;
@@ -38,7 +64,7 @@
   }
 
   .#{$primary-stylename}-margin-top > tbody > .#{$primary-stylename}-firstrow {
-    > .#{$primary-stylename}-captioncell, 
+    > .#{$primary-stylename}-captioncell,
     > .#{$primary-stylename}-contentcell,
     > .#{$primary-stylename}-errorcell {
       padding-top: $top;
@@ -63,9 +89,9 @@
 }
 
 
-@mixin v-valo-formlayout-spacing ($primary-stylename: v-formlayout, $vertical: $v-layout-spacing-vertical) {
+@mixin valo-formlayout-spacing ($primary-stylename: v-formlayout, $vertical: $v-layout-spacing-vertical) {
   .#{$primary-stylename}-spacing > tbody > .#{$primary-stylename}-row {
-    > .#{$primary-stylename}-captioncell, 
+    > .#{$primary-stylename}-captioncell,
     > .#{$primary-stylename}-contentcell,
     > .#{$primary-stylename}-errorcell {
       padding-top: $vertical;
@@ -77,9 +103,13 @@
 
 
 
-@mixin v-valo-formlayout-light-style ($primary-stylename: v-formlayout, $row-height: $v-unit-size) {
+@mixin valo-formlayout-light-style ($primary-stylename: v-formlayout, $row-height: $v-unit-size) {
+  > table {
+    padding: 0;
+  }
+
   > table > tbody > .#{$primary-stylename}-row {
-    > .#{$primary-stylename}-captioncell, 
+    > .#{$primary-stylename}-captioncell,
     > .#{$primary-stylename}-contentcell,
     > .#{$primary-stylename}-errorcell {
       padding-top: 0;
@@ -88,7 +118,7 @@
   }
 
   > table > tbody > .#{$primary-stylename}-row td {
-    border-bottom: $v-border-width solid darken($v-app-background-color, 5%);
+    border-bottom: valo-border($color: $v-app-background-color, $strength: 0.3);
   }
 
   > table > tbody > .#{$primary-stylename}-lastrow td {
@@ -96,34 +126,48 @@
   }
 
   > table > tbody > .#{$primary-stylename}-row > .#{$primary-stylename}-captioncell {
-    @include opacity(.7);
+    color: valo-font-color($v-background-color, .5);
     text-align: right;
     padding-left: ceil($v-unit-size/3);
     line-height: $row-height;
   }
 
-  .v-textfield,
-  .v-textarea,
-  .v-filterselect,
-  .v-datefield,
-  .v-filterselect-input,
-  .v-datefield-textfield {
-    width: 100%;
+  .#{$primary-stylename}-contentcell {
+    > .v-textfield,
+    > .v-textarea,
+    > .v-filterselect,
+    > .v-datefield,
+    > .v-filterselect-input,
+    > .v-datefield-textfield {
+      width: 100%;
+    }
+
+    > .v-textfield,
+    > .v-textarea,
+    > .v-filterselect input,
+    > .v-datefield input,
+    > .v-richtextarea {
+      @include valo-textfield-style($unit-size: $row-height, $border-radius: 0, $border: null, $bevel: none, $shadow: none, $background-color: null);
+      background: transparent;
+      border: none;
+      color: inherit;
+    }
+
+    > .v-textfield-prompt,
+    > .v-textarea-prompt,
+    > .v-filterselect-prompt input,
+    > .v-datefield-prompt input {
+      @include valo-textfield-prompt-style;
+    }
+
+    > .v-textarea,
+    > .v-richtextarea {
+      height: auto;
+    }
   }
 
-  .v-textfield,
-  .v-textarea,
-  .v-filterselect-input,
-  .v-datefield-textfield {
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    border-radius: 0;
-    @include v-valo-textfield-size($row-height, 0);
-  }
-
-  .v-textarea {
-    height: auto;
+  .v-richtextarea {
+    margin: round($v-unit-size/8) 0;
   }
 
   .v-filterselect-button,
@@ -143,5 +187,18 @@
   .v-checkbox {
     margin-left: ceil($v-unit-size/6);
   }
-}
 
+  > table > tbody > .#{$primary-stylename}-row > .#{$primary-stylename}-contentcell {
+    > .v-label-h2,
+    > .v-label-h3,
+    > .v-label-h4 {
+      border-bottom: none;
+      color: $v-selection-color;
+    }
+
+    > .v-label-h3,
+    > .v-label-h4 {
+      margin-top: 0;
+    }
+  }
+}

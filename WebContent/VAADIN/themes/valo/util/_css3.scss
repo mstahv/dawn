@@ -1,28 +1,15 @@
-@mixin opacity ($o, $important: false) {
-  $imp: "";
-  
-  @if $important {
-    $imp: "!important";
-  }
-  
-  opacity: $o #{unquote($imp)};
-  
-  @if $o < 1 {
-    filter: alpha(opacity=$o*100) #{unquote($imp)};
+@mixin opacity ($o) {
+  opacity: $o;
+
+  $value: first-number($o);
+  @if $value < 1 {
+    filter: alpha(opacity=$value*100) remove-nth($o, 1);
   } @else {
-    filter: none #{unquote($imp)};
+    filter: none remove-nth($o, 1);
   }
 }
 
-
-@mixin border-radius ($br) {
-  -webkit-border-radius: $br;
-  border-radius: $br;
-}
-
-
-@mixin width-breakpoint ($point) {
-  @media (max-width: $point) {
-    @content;
-  }
+// -webkit-box-shadow still needed for Android 2.3 and 3.0, as well as iOS 5
+@mixin box-shadow ($shadows...) {
+  @include prefixer(box-shadow, $shadows, webkit spec);
 }

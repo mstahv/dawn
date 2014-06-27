@@ -1,34 +1,75 @@
-$v-accordion-content-shadow-style: join(inset, $v-shadow-style) !default;
-$v-accordion-content-shadow-depth: $v-shadow-depth/2 !default;
-
-
-@mixin v-valo-accordion ($primary-stylename: v-accordion) {
+@mixin valo-accordion ($primary-stylename: v-accordion) {
   .#{$primary-stylename} {
-    @include v-valo-panel-style;
-    @include v-valo-gradient($color: $v-app-background-color, $depth: $v-gradient-depth/2);
-    overflow: hidden;
+    @include valo-accordion-style;
   }
 
   .#{$primary-stylename}-item {
-    position: relative;
-    overflow: hidden;
+    @include valo-accordion-item-style;
+  }
 
-    @if $v-border-radius > 0 {
-      $_br: $v-border-radius - $v-border-width;
-      &:first-child {
-        border-radius: $_br $_br 0 0;
+  .#{$primary-stylename}-item-caption {
+    @include valo-accordion-item-caption-style;
+  }
+
+  .#{$primary-stylename}-item-content {
+    @include valo-accordion-item-content-style;
+  }
+}
+
+
+
+@mixin valo-accordion-style {
+  @include valo-panel-style;
+  $grad-style: valo-gradient-style($v-gradient);
+  $grad-opacity: valo-gradient-opacity($v-gradient);
+  @include valo-gradient($color: $v-background-color, $gradient: ($grad-style $grad-opacity/2));
+  overflow: hidden;
+}
+
+
+@mixin valo-accordion-item-style {
+  position: relative;
+  overflow: hidden;
+
+  @if $v-border-radius > 0 {
+    $_br: $v-border-radius - first-number($v-border);
+
+    &:first-child {
+      border-radius: $_br $_br 0 0;
+
+      .v-caption {
+        border-radius: inherit;
       }
-      &:last-child {
-        border-radius: 0 0 $_br $_br;
+    }
+
+    &:last-child {
+      border-radius: 0 0 $_br $_br;
+
+      .v-caption {
+        border-radius: 0;
       }
     }
   }
 
-  .#{$primary-stylename}-item-caption .v-caption {
-    @include v-valo-panel-caption-style;
+  &:last-child:not([class*="item-open"]) .v-caption {
+    border-bottom: none;
+  }
+
+  &[class*="item-open"] + [class*="item"] {
+    border-top: valo-border($color: $v-panel-background-color, $strength: 0.7);
+  }
+}
+
+
+
+@mixin valo-accordion-item-caption-style ($background-color: null) {
+  .v-caption {
+    @include valo-panel-caption-style($background-color: $background-color or $v-background-color);
     display: block;
-    background: transparent;
-    border-bottom-color: v-valo-panel-border-color($background-color: v-valo-panel-background-color());
+    @if $background-color == null {
+      background: transparent;
+    }
+    border-bottom-color: first-color(valo-border($color: $v-panel-background-color));
     cursor: pointer;
     @include user-select(none);;
 
@@ -44,32 +85,25 @@ $v-accordion-content-shadow-depth: $v-shadow-depth/2 !default;
 
     @if $v-hover-styles-enabled {
       &:hover:before {
-        @include v-valo-button-hover-style;
+        @include valo-button-hover-style;
         border: none;
       }
     }
 
     &:active:before {
-      @include v-valo-button-active-style;
+      @include valo-button-active-style;
     }
   }
+}
 
-  .#{$primary-stylename}-item:last-child:not(.#{$primary-stylename}-item-open) .v-caption {
-    border-bottom: none;
-  }
 
-  .#{$primary-stylename}-item-content {
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    right: 0;
-    box-shadow: v-valo-shadow($shadow-style: $v-accordion-content-shadow-style, $shadow-depth: $v-accordion-content-shadow-depth);
-    background-color: v-valo-panel-background-color();
-    @include box-sizing(border-box);
-    @include v-valo-panel-adjust-content-margins;
-  }
-
-  .#{$primary-stylename}-item-open + .#{$primary-stylename}-item {
-    border-top: $v-panel-border-width solid v-valo-panel-border-color($background-color: v-valo-panel-background-color());
-  }
+@mixin valo-accordion-item-content-style {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  right: 0;
+  @include box-shadow(valo-bevel-and-shadow($shadow: join(inset, $v-shadow), $shadow-opacity: $v-shadow-opacity/2));
+  background-color: $v-panel-background-color;
+  @include box-sizing(border-box);
+  @include valo-panel-adjust-content-margins;
 }

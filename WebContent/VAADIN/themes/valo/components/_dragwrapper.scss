@@ -1,4 +1,4 @@
-@mixin v-valo-dragwrapper ($primary-stylename: v-ddwrapper) {
+@mixin valo-dragwrapper ($primary-stylename: v-ddwrapper) {
 
   [draggable=true] {
     -khtml-user-drag: element;
@@ -6,8 +6,8 @@
     @include user-select(none);
   }
 
-  .v-active-drag-source {
-    @include opacity(0);
+  .#{$primary-stylename}.v-active-drag-source {
+    visibility: hidden;
   }
 
   .#{$primary-stylename} {
@@ -19,11 +19,11 @@
     content: "";
     position: absolute;
     z-index: 10;
-    border: 0 solid v-valo-focus-color();
     top: -1px;
     right: -1px;
     bottom: -1px;
     left: -1px;
+    border: 0 solid $v-focus-color;
   }
 
   .#{$primary-stylename}-over-top:before {
@@ -110,7 +110,7 @@
   border-radius: $v-border-radius;
   @include opacity(.3);
 
-  $focus-color: v-valo-focus-color();
+  $focus-color: $v-focus-color;
   @if is-dark-color($focus-color) {
     background: scale-color($focus-color, $lightness: 50%);
   } @else {

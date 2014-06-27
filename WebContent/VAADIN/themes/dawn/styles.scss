@@ -17,64 +17,6 @@ $v-app-loading-text: "Loading resources...";
 
 
 .dawn {
-  @include v-valo;
-  @include v-valo-component-group;
-  
-  .v-button-primary {
-    @include v-valo-button-style($background-color: v-valo-selection-color());
-  }
-  
-  .v-button-frameless {
-    @include v-valo-button-borderless-style;
-  }
-
-
-  .topbar {
-
-    //$v-app-background-color: v-valo-selection-color();
-    @include v-valo-menubar;
-
-    .v-menubar {
-      @include v-valo-menubar-menuitem-checked($background-color: v-valo-selection-color());
-    }
-
-    @include v-valo-panel-caption-style;
-    font-size: $v-font-size;
-    padding: $v-layout-spacing-vertical $v-layout-spacing-horizontal*2;
-    height: auto;
-    position: relative;
-    z-index: 2;
-
-  }
-
-  @include v-valo-splitpanel-small($stylename: contacts);
-
-  .contacts {
-    background: #fff;
-
-    .v-splitpanel-first-container {
-      .v-textfield {
-        @include v-valo-textfield-borderless-style;
-        border-bottom: 1px solid v-valo-textfield-border-color();
-      }
-
-      @include v-valo-textfield-inline-icon;
-
-      @include v-valo-table;
-      .v-table {
-        //@include v-valo-table-no-stripes;
-        @include v-valo-table-no-vertical-lines;
-        //@include v-valo-table-no-horizontal-lines;
-        @include v-valo-table-no-header;
-        @include v-valo-table-borderless;
-      }
-    }
-
-    .v-splitpanel-second-container {
-      .v-formlayout.light {
-        @include v-valo-formlayout-light-style;
-      }
-    }
-  }
+  @include valo;
 
 }

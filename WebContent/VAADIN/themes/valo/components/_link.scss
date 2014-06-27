@@ -1,11 +1,11 @@
-$v-link-font-color: null !default;
+$v-link-font-color: $v-focus-color !default;
 $v-link-text-decoration: underline !default;
 $v-link-cursor: pointer !default;
 
 
-@mixin v-valo-link ($primary-stylename: v-link) {
+@mixin valo-link ($primary-stylename: v-link) {
   .#{$primary-stylename} {
-    @include v-valo-link-style;
+    @include valo-link-style;
 
     a {
       cursor: inherit;
@@ -23,9 +23,9 @@ $v-link-cursor: pointer !default;
 }
 
 
-@mixin v-valo-link-style {
+@mixin valo-link-style {
   cursor: $v-link-cursor;
-  color: v-valo-link-font-color();
+  color: $v-link-font-color;
   text-decoration: $v-link-text-decoration;
   font-weight: inherit;
 
@@ -34,13 +34,6 @@ $v-link-cursor: pointer !default;
   }
 
   &:hover {
-    color: lighten(v-valo-link-font-color(), 10%);
+    color: lighten($v-link-font-color, 10%);
   }
-}
-
-
-
-@function v-valo-link-font-color ($color: null, $context: null) {
-  $link-color: $color or $v-link-font-color or v-valo-focus-color($color: $color, $context: $context);
-  @return $link-color;
 }

@@ -1,44 +1,57 @@
-@mixin v-valo-menubar ($primary-stylename: v-menubar) {
-
-  $copy: $v-button-hover-style-enabled;
-  $v-button-hover-style-enabled: false;
+@mixin valo-menubar ($primary-stylename: v-menubar) {
 
   .#{$primary-stylename} {
-    @include v-valo-button-common-properties;
-    @include v-valo-button-style;
+    @include valo-button-static-style($states: normal, $vertical-centering: false);
+    @include valo-button-style($states: normal, $cursor: default);
     padding: 0;
     text-align: left;
-  }
+    overflow: hidden;
 
-  $v-button-hover-style-enabled: $copy;
+    &:focus:not(.v-disabled) {
+      @include valo-button-focus-style($border-fallback: none, $include-box-shadow: false);
+      $box-shadow: valo-bevel-and-shadow($bevel: $v-bevel, $shadow: $v-shadow, $gradient: $v-gradient);
+      @if type-of($v-focus-style) == list {
+        $box-shadow: $box-shadow, $v-focus-style;
+      }
+      @include box-shadow($box-shadow);
+    }
+
+    &.v-disabled {
+      @include opacity($v-disabled-opacity);
+    }
+  }
 
   .#{$primary-stylename}:active:after {
     background: transparent;
   }
 
   .#{$primary-stylename} > .#{$primary-stylename}-menuitem {
-    @include v-valo-menubar-menuitem-style;
+    @include valo-menubar-menuitem-style;
   }
 
   .#{$primary-stylename} > .#{$primary-stylename}-menuitem-checked {
-    @include v-valo-menubar-menuitem-checked-style;
+    @include valo-menubar-menuitem-checked-style;
   }
 
-  .v-disabled > .#{$primary-stylename}-menuitem:before {
-    display: none;
+  .v-disabled > .#{$primary-stylename}-menuitem,
+  .#{$primary-stylename} > .#{$primary-stylename}-menuitem-disabled {
+    cursor: default;
+
+    &:before {
+      display: none;
+    }
+  }
+
+  .#{$primary-stylename}-menuitem-disabled {
+    @include opacity($v-disabled-opacity);
   }
 
   .#{$primary-stylename} > .#{$primary-stylename}-menuitem-selected {
-    @include v-valo-gradient($color: v-valo-selection-color());
-    box-shadow: v-valo-button-box-shadow($background-color: v-valo-selection-color());
-    text-shadow: v-valo-button-text-shadow($background-color: v-valo-selection-color());
-    color: v-valo-font-color(v-valo-selection-color());
-    $bc: v-valo-button-border-color($background-color: v-valo-selection-color());
-    border-color: $bc;
-
-    + .#{$primary-stylename}-menuitem {
-      border-color: $bc;
-    }
+    @include valo-button-style($states: normal, $background-color: $v-selection-color, $border-radius: 0, $shadow: null, $unit-size: null, $font-weight: null);
+    border-top-width: 0;
+    border-left-width: 0;
+    border-bottom-width: 0;
+    z-index: 2;
 
     &:hover:before {
       background: none;
@@ -50,9 +63,11 @@
   }
 
   .#{$primary-stylename}-popup {
-    @include v-valo-menubar-popup-style($primary-stylename);
-    //margin-top: -$v-selection-overlay-padding-vertical !important;
-    //margin-left: $v-selection-overlay-padding-horizontal !important;
+    @include valo-menubar-popup-style($primary-stylename);
+
+    &.#{$primary-stylename}-popup-animate-out {
+      @include animation(none);
+    }
   }
 
 }
@@ -60,34 +75,42 @@
 
 
 
-@mixin v-valo-menubar-menuitem-style {
+@mixin valo-menubar-menuitem-style {
+  $border-width: first-number($v-border);
   position: relative;
   z-index: 1;
   display: inline-block;
-  @include v-valo-button-size($v-unit-size, $v-border-radius);
-  height: $v-unit-size - $v-button-border-width*2;
-  border-left: $v-button-border-width solid;
-  border-color: inherit;
+  @include box-sizing(border-box);
+  @include valo-button-style($states: normal, $border-radius: 0, $shadow: null, $font-color: inherit, $cursor: pointer);
+  background: transparent;
+  border-width: 0 $border-width 0 0;
+  height: 100%;
   vertical-align: top;
-  line-height: $v-unit-size - $v-button-border-width*2 - 1px;
-  @include user-select(none);;
+  line-height: $v-unit-size - $border-width*2 - 1px;
+  text-align: center;
 
-  $br: $v-button-border-radius - $v-button-border-width;
+  @if $border-width == 0 {
+    margin-right: 1px;
+  }
+
+  $br: $v-border-radius - $border-width - 1px;
   &:first-child {
-    border-left: none;
+    border-left-width: 0;
     border-radius: $br 0 0 $br;
   }
 
   &:last-child {
     border-radius: 0 $br $br 0;
+    margin-right: -$border-width;
   }
 
   &:first-child:last-child {
     border-radius: $br;
+    border-right-width: 0;
+    margin-right: 0;
   }
 
   &:before {
-    content: "";
     content: "";
     position: absolute;
     top: 0;
@@ -97,24 +120,35 @@
     border-radius: inherit;
   }
 
-  @if $v-button-hover-style-enabled {
-    &:hover:before {
-      @include v-valo-button-hover-style;
-      border: none;
+  @if $v-hover-styles-enabled {
+    &:hover {
+      // IE needs some nudging to show the :before element
+      zoom: 1;
+
+      &:before {
+        @include valo-button-hover-style;
+        border: none;
+      }
     }
   }
 
   &:active:before {
-    @include v-valo-button-active-style;
+    @include valo-button-active-style;
   }
 
   $margin-width: ceil($v-unit-size/2.4/5);
   .v-icon {
     margin: 0 $margin-width 0 #{-$margin-width};
+    cursor: inherit;
   }
 
-  &[class*="-icon-only"] .v-icon {
-    margin: 0 #{-$margin-width};
+  &[class*="-icon-only"] {
+    width: $v-unit-size;
+    padding: 0;
+
+    .v-icon {
+      margin: 0;
+    }
   }
 }
 
@@ -122,12 +156,8 @@
 
 
 
-@mixin v-valo-menubar-popup-style ($primary-stylename: v-menubar, $context: $v-app-background-color) {
-
-  $copy: $v-app-background-color;
-  $v-app-background-color: $context;
-
-  @include v-valo-selection-overlay-style;
+@mixin valo-menubar-popup-style ($primary-stylename: v-menubar) {
+  @include valo-selection-overlay-style;
 
   margin: ceil($v-unit-size/8) 0 0 1px !important;
 
@@ -137,7 +167,7 @@
 
   .#{$primary-stylename}-menuitem {
     display: block;
-    @include v-valo-selection-item-style;
+    @include valo-selection-item-style;
     padding-left: $v-selection-item-height + round($v-selection-item-padding-horizontal/2); // Make room for checkable icon
     padding-right: $v-unit-size;
     position: relative;
@@ -149,12 +179,12 @@
     + .#{$primary-stylename}-menuitem-caption:after {
       position: absolute;
       right: $v-selection-item-padding-horizontal;
-      @include v-valo-menubar-submenu-indicator-style;
+      @include valo-menubar-submenu-indicator-style;
     }
   }
 
   .#{$primary-stylename}-menuitem-selected {
-    @include v-valo-selection-item-selected-style;
+    @include valo-selection-item-selected-style;
   }
 
   .#{$primary-stylename}-separator {
@@ -162,11 +192,14 @@
     margin: $v-selection-overlay-padding-vertical 0;
     height: 0;
     overflow: hidden;
-    border-bottom: 1px solid darken(v-valo-overlay-background-color(), 5%);
+    border-bottom: valo-border($color: $v-overlay-background-color, $strength: 0.5);
+    @if first-number($v-border) == 0 {
+      border-bottom-width: 1px;
+    }
   }
 
   [class*="checked"] .#{$primary-stylename}-menuitem-caption:before {
-    @include v-valo-menubar-checked-icon-style;
+    @include valo-menubar-checked-icon-style;
     position: absolute;
     left: $v-selection-item-padding-horizontal;
   }
@@ -177,47 +210,118 @@
 
   [class*="disabled"] {
     cursor: default;
-    @include opacity($v-disabled-opacity);
   }
-
-  $v-app-background-color: $copy;
 }
 
 
 
-@mixin v-valo-menubar-submenu-indicator-style {
+@mixin valo-menubar-submenu-indicator-style {
   font-family: FontAwesome;
   content: "\f054";
   line-height: $v-selection-item-height + 2px;
 }
 
-@mixin v-valo-menubar-checked-icon-style {
+@mixin valo-menubar-checked-icon-style {
   content: "\f00c";
   font-family: FontAwesome;
 }
 
 
-@mixin v-valo-menubar-menuitem-checked-style ($background-color: scale-color($v-app-background-color, $lightness: -5%, $saturation: -5%)) {
-  @include v-valo-gradient($color: $background-color, $depth: $v-gradient-depth/4, $direction: to top);
+@mixin valo-menubar-menuitem-checked-style ($background-color: if(color-luminance($v-background-color) < 10, scale-color($v-background-color, $lightness: 10%, $saturation: -5%), scale-color($v-background-color, $lightness: -5%, $saturation: -5%))) {
+  $grad: valo-gradient-style($v-gradient) valo-gradient-opacity($v-gradient)/4;
+  @include box-shadow(none);
+  @include valo-gradient($color: $background-color, $gradient: $grad, $direction: to top);
+  color: valo-font-color($background-color, 0.9);
+}
 
-  @if color-luminance($background-color) < color-luminance($v-app-background-color) {
-    $border-color: v-valo-button-border-color($background-color: $background-color);
-    border-color: $border-color;
+@mixin valo-menubar-menuitem-checked ($background-color, $primary-stylename: v-menubar) {
+  .#{$primary-stylename}-menuitem-checked {
+    @include valo-menubar-menuitem-checked-style($background-color: $background-color);
+  }
+}
 
-    + [class*="menuitem"] {
-      @if length($border-color) > 1 {
-        $border-color: nth($border-color, 2);
-      }
-      border-left-color: $border-color;
+
+
+@mixin valo-menubar-small-style ($primary-stylename: v-menubar, $unit-size: round($v-unit-size * 0.8)) {
+  height: $unit-size;
+
+  .#{$primary-stylename}-menuitem {
+    line-height: $unit-size - first-number($v-border)*2;
+    padding: 0 round($unit-size/2.5);
+
+    &[class*="-icon-only"] {
+      width: $unit-size;
+    }
+  }
+}
+
+@mixin valo-menubar-borderless-style ($primary-stylename: v-menubar) {
+  border: none;
+  border-radius: 0;
+  padding: first-number($v-border);
+  @include box-shadow(none);
+  background: transparent;
+  color: inherit;
+
+  &:not(.v-disabled):focus {
+    border: none;
+    @include box-shadow(none);
+  }
+
+  .#{$primary-stylename}-menuitem {
+    @include box-shadow(none);
+    border: none;
+    margin-right: max(1px, first-number($v-border));
+    border-radius: $v-border-radius;
+    color: $v-selection-color;
+    text-shadow: valo-text-shadow($font-color: $v-selection-color, $offset: -1px);
+    padding: 0 round($v-unit-size/3);
+
+    @if $v-animations-enabled {
+      @include transition(color 140ms);
+    }
+
+    &:first-child,
+    &:last-child {
+      border-radius: $v-border-radius;
+    }
+
+    &:before {
+      content: none;
+    }
+
+    &:hover {
+      color: lighten($v-selection-color, 10%);
+    }
+
+    &:active {
+      color: inherit;
     }
   }
 
-  color: v-valo-font-color($background-color, 0.9);
-  text-shadow: v-valo-button-text-shadow($background-color: $background-color);
-}
+  .#{$primary-stylename}-menuitem-checked,
+  .#{$primary-stylename}-menuitem-checked:first-child {
+    border: valo-border();
+    color: $v-selection-color;
 
-@mixin v-valo-menubar-menuitem-checked ($background-color, $primary-stylename: v-menubar) {
-  .#{$primary-stylename}-menuitem-checked {
-    @include v-valo-menubar-menuitem-checked-style($background-color: $background-color);
+    .#{$primary-stylename}-menuitem-caption {
+      position: relative;
+      top: first-number($v-border)*-1;
+    }
+  }
+
+  .#{$primary-stylename}-menuitem-selected {
+    $font-color: valo-font-color($v-selection-color, 0.9);
+    color: $font-color;
+    text-shadow: valo-text-shadow($background-color: $v-selection-color, $font-color: $font-color);
+
+    &:hover {
+      color: $font-color;
+    }
+  }
+
+  .#{$primary-stylename}-menuitem-disabled,
+  .#{$primary-stylename}-menuitem-disabled:hover {
+    color: inherit;
   }
 }
