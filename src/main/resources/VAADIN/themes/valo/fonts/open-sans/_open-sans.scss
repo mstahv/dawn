@@ -1,0 +1,8 @@
+$open-sans-pathPrefix: null;
+  
+@if $v-relative-paths == false {
+  $open-sans-pathPrefix: "../valo/fonts/open-sans/";
+}
+
+@mixin font-open-sans ($italic: false, $light: false, $regular: true, $medium: false, $bold: false, $black: false) {
+}

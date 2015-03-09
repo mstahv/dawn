@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.peimari</groupId>
     <artifactId>dawn</artifactId>
-    <version>2-SNAPSHOT</version>
+    <version>4-SNAPSHOT</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -13,16 +13,49 @@
         <Vaadin-License-Title>Apache License 2.0</Vaadin-License-Title>
     </properties>
     
+    <dependencies>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-server</artifactId>
+            <version>7.3.10</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    
     <build>
-        <resources>
-            <resource>
-                <directory>${basedir}/WebContent</directory>
-                <excludes>
-                    <exclude>**/*.scss</exclude>
-                </excludes>
-            </resource>
-        </resources>
         <plugins>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.vaadin</groupId>
+                                    <artifactId>vaadin-themes</artifactId>
+                                    <version>7.4.1</version>
+                                    <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                            <includes>VAADIN\/**\/*</includes>
+                            <excludes>**\/base\/styles.scss</excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -40,26 +73,52 @@
                             <Vaadin-License-Title>${Vaadin-License-Title}</Vaadin-License-Title>
                         </manifestEntries>
                     </archive>
+                    <excludes>
+                        <exclude>**/*.eot</exclude>
+                        <exclude>**/*.ttf</exclude>
+                        <exclude>**/*.woff</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
-
+            
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <executable>sass</executable>
+                    <arguments>
+                        <argument>target/classes/VAADIN/themes/valo/styles.scss</argument>
+                        <argument>target/classes/VAADIN/themes/valo/styles.css</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+            <!--
             <plugin>
                 <groupId>org.jasig.maven</groupId>
                 <artifactId>sass-maven-plugin</artifactId>
                 <version>1.1.1</version>
                 <configuration>
-                    <sassSourceDirectory>${basedir}/WebContent/VAADIN/themes/dawn</sassSourceDirectory>
-                    <destination>${basedir}/target/classes/VAADIN/themes/dawn</destination>
+                    <sassSourceDirectory>${project.build.directory}/classes</sassSourceDirectory>
+                    <destination>${project.build.directory}/classes</destination>
                 </configuration>
                 <executions>
                     <execution>
                         <goals>
                             <goal>update-stylesheets</goal>
                         </goals>
-                        <phase>generate-resources</phase>
+                        <phase>compile</phase>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 </project>
