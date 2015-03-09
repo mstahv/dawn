@@ -9,8 +9,9 @@ Relevant changes to the basic Valo theme:
  * Loads Open Sans font from Google Fonts
   * loads faster (most likely cached by your browsers) and spends less bandwidth on your server
  * Leaves out heavy font files from the jar file
-  * saves ~ 6 MB of your war file size
+  * saves ~ 7 MB of your war file size
   * deploys faster
+ * Leaves out older legacy themes
 
 ##Pom dependency
 
@@ -18,7 +19,7 @@ Relevant changes to the basic Valo theme:
 <dependency>
     <groupId>org.peimari</groupId>
     <artifactId>dawn</artifactId>
-    <version>3</version>
+    <version>4</version>
 </dependency>
 ```
 
