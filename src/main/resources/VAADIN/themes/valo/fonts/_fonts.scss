@@ -7,16 +7,11 @@
 
 
 $fontawesome-pathPrefix: null;
-  
-@if $v-relative-paths == true {
-  $fontawesome-pathPrefix: "../../../";
-}
 
 @mixin valo-fonts {
   // Font Awesome icons from bootstrapcdn
   @include v-font(FontAwesome, "http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont");
 }
-
 
 @mixin v-font($font-family, $file-name) {
   @include font-face($font-family, $file-name);
