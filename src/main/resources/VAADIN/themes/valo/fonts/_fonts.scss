@@ -10,11 +10,21 @@ $fontawesome-pathPrefix: null;
 
 @mixin valo-fonts {
   // Font Awesome icons from bootstrapcdn
-  @include v-font(FontAwesome, "http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont");
+  @include font-face(FontAwesome, "http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont");
+
+  .#{FontAwesome} {
+      font-family: #{FontAwesome};
+      font-style: normal;
+      font-weight: normal;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      display: inline-block;
+      text-align: center;
+  }
 }
 
 @mixin v-font($font-family, $file-name) {
-  @include font-face($font-family, $file-name);
+/*  @include font-face($font-family, $file-name);
 
   .#{$font-family} {
       font-family: #{$font-family};
@@ -24,7 +34,7 @@ $fontawesome-pathPrefix: null;
       -moz-osx-font-smoothing: grayscale;
       display: inline-block;
       text-align: center;
-  }
+  }*/
 }
 
 

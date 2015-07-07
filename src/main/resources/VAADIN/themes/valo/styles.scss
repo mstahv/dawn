@@ -1,0 +1,8 @@
+// Defined an undefined property (in 7.5-SNAPSHOT)
+$v-grid-cell-horizontal-border: 1px;
+
+@import "valo";
+
+.valo {
+  @include valo;
+}

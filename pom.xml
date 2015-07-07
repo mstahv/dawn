@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.peimari</groupId>
     <artifactId>dawn</artifactId>
-    <version>6-SNAPSHOT</version>
+    <version>7</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -13,11 +13,24 @@
         <Vaadin-License-Title>Apache License 2.0</Vaadin-License-Title>
     </properties>
     
+    <repositories>
+        <repository>
+            <id>vaadin-snapshots</id>
+            <url>http://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+  
     <dependencies>
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-server</artifactId>
-            <version>7.3.10</version>
+            <version>7.5.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -46,7 +59,7 @@
                                 <artifactItem>
                                     <groupId>com.vaadin</groupId>
                                     <artifactId>vaadin-themes</artifactId>
-                                    <version>7.4.3</version>
+                                    <version>7.5-SNAPSHOT</version>
                                     <outputDirectory>${project.build.directory}/classes</outputDirectory>
                                 </artifactItem>
                             </artifactItems>
@@ -91,19 +104,53 @@
                 <version>1.3.2</version>
                 <executions>
                     <execution>
+                        <id>valo</id>
                         <phase>compile</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
+                        <configuration>
+                            <arguments>
+                                <argument>target/classes/VAADIN/themes/valo/styles.scss</argument>
+                                <argument>target/classes/VAADIN/themes/valo/styles.css</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>dawn-pro</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>
+                                <argument>target/classes/VAADIN/themes/dawn-pro/styles.scss</argument>
+                                <argument>target/classes/VAADIN/themes/dawn-pro/styles.css</argument>
+                            </arguments>
+                        </configuration>
                     </execution>
                 </executions>
                 <configuration>
                     <executable>sass</executable>
-                    <arguments>
-                        <argument>target/classes/VAADIN/themes/valo/styles.scss</argument>
-                        <argument>target/classes/VAADIN/themes/valo/styles.css</argument>
-                    </arguments>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>yuicompressor-maven-plugin</artifactId>
+                <version>1.5.1</version>
+                <configuration>
+                    <nosuffix>true</nosuffix>
+                    <gzip>true</gzip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jslint</goal>
+                            <goal>compress</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <!--
             <plugin>
