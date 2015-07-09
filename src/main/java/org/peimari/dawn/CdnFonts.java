@@ -40,7 +40,7 @@ public class CdnFonts implements javax.servlet.http.HttpSessionListener {
                 // Update the bootstrap page
                     Document document = response.getDocument();
                     Element link = document.getElementsByTag("link").last();
-                    link.attr("href", "http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
+                    link.attr("href", "//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
                     link.attr("rel", "stylesheet");
                     link.attr("type", "text/css");
                     document.getElementsByTag("head").get(0).appendChild(link);
