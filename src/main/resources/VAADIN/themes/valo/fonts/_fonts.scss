@@ -10,7 +10,7 @@ $fontawesome-pathPrefix: null;
 
 @mixin valo-fonts {
   // Font Awesome icons from bootstrapcdn
-  @include font-face(FontAwesome, "http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont");
+  @include font-face(FontAwesome, "//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont");
 
   .#{FontAwesome} {
       font-family: #{FontAwesome};

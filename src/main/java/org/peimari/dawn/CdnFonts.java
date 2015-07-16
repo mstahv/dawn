@@ -39,11 +39,17 @@ public class CdnFonts implements javax.servlet.http.HttpSessionListener {
                 public void modifyBootstrapPage(BootstrapPageResponse response) {
                 // Update the bootstrap page
                     Document document = response.getDocument();
-                    Element link = document.getElementsByTag("link").last();
+                    Element head = document.getElementsByTag("head").first();
+                    Element link = document.createElement("link");
                     link.attr("href", "//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
                     link.attr("rel", "stylesheet");
                     link.attr("type", "text/css");
-                    document.getElementsByTag("head").get(0).appendChild(link);
+                    head.appendChild(link);
+                    link = document.createElement("link");
+                    link.attr("href", "//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
+                    link.attr("rel", "stylesheet");
+                    link.attr("type", "text/css");
+                    head.appendChild(link);
                 }
             });
             inited = true;
