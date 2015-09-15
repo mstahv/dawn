@@ -16,6 +16,7 @@ $v-layout-margin-top: 20px;
 $v-layout-margin-bottom: 10px;
 
 $v-focus-color: #50a2f5;
+$v-app-background-color: #ffffff;
 
 // For more information, see: https://vaadin.com/book/-/page/themes.valo.html
 // Example variants can be copy/pasted from https://vaadin.com/wiki/-/wiki/Main/Valo+Examples
@@ -25,10 +26,6 @@ $v-focus-color: #50a2f5;
 $v-grid-cell-horizontal-border: 1px;
 
 @import "../valo/valo.scss";
-
-.v-app {
-      background-color: #fff !important;
-}
 
 @mixin ray {
   @include valo;
