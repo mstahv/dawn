@@ -10,7 +10,7 @@ $fontawesome-pathPrefix: null;
 
 @mixin valo-fonts {
   // Font Awesome icons from bootstrapcdn
-  @include font-face(FontAwesome, "//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont");
+  //@include font-face(FontAwesome, "//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont");
 
   .#{FontAwesome} {
       font-family: #{FontAwesome};
@@ -24,7 +24,7 @@ $fontawesome-pathPrefix: null;
 }
 
 @mixin v-font($font-family, $file-name) {
-/*  @include font-face($font-family, $file-name);
+  //@include font-face($font-family, $file-name);
 
   .#{$font-family} {
       font-family: #{$font-family};
@@ -34,13 +34,13 @@ $fontawesome-pathPrefix: null;
       -moz-osx-font-smoothing: grayscale;
       display: inline-block;
       text-align: center;
-  }*/
+  }
 }
 
 
 @mixin font($font-family, $file-name) {
   @warn "The 'font' mixin is DEPRECATED. You should use the corresponding 'v-font' mixin instead.";
-  @include v-font($font-family, $file-name);
+  //@include v-font($font-family, $file-name);
 }
 
 

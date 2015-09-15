@@ -1,0 +1,53 @@
+// Global variable overrides. Must be declared before importing Valo.
+
+// These variables and special rules makes the Valo theme fit with
+// the default theme in Liferay 6.2
+
+$v-font-family: inherit;
+$v-font-size: 15px;
+
+$v-border-radius: 2px;
+$v-unit-size: 30px;
+$v-layout-spacing-horizontal: 15px;
+$v-layout-spacing-vertical: 15px;
+$v-layout-margin-right: 10px;
+$v-layout-margin-left: 10px;
+$v-layout-margin-top: 20px;
+$v-layout-margin-bottom: 10px;
+
+$v-focus-color: #50a2f5;
+
+// For more information, see: https://vaadin.com/book/-/page/themes.valo.html
+// Example variants can be copy/pasted from https://vaadin.com/wiki/-/wiki/Main/Valo+Examples
+
+
+// Defined an undefined property (in 7.5-SNAPSHOT)
+$v-grid-cell-horizontal-border: 1px;
+
+@import "../valo/valo.scss";
+
+.v-app {
+      background-color: #fff !important;
+}
+
+@mixin ray {
+  @include valo;
+    
+  /* Insert your theme rules here */
+  .v-caption  {
+  	font-weight: inherit;
+  }
+  
+  .v-textfield {
+    /* Override nasty strong Liferay selectors, border-box vs. non-borderbox collision */
+  	height: 30px !important;
+  }
+
+}
+
+// This file prefixes all rules with the theme name to avoid causing conflicts with other themes.
+// The actual styles should be defined in mytheme.scss
+
+.ray {
+  @include ray;
+}

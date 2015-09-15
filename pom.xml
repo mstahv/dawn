@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.peimari</groupId>
     <artifactId>dawn</artifactId>
-    <version>9</version>
+    <version>12-SNAPSHOT</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -50,7 +50,7 @@
                 <executions>
                     <execution>
                         <id>unpack</id>
-                        <phase>generate-sources</phase>
+                        <phase>initialize</phase>
                         <goals>
                             <goal>unpack</goal>
                         </goals>
@@ -64,7 +64,7 @@
                                 </artifactItem>
                             </artifactItems>
                             <includes>VAADIN\/**\/*</includes>
-                            <excludes>**\/base\/styles.scss</excludes>
+                            <excludes>**\/base\/styles.scss,**\/valo\/styles.css,**\/valo\/fonts\/open-sans\/_open-sans.scss,**\/valo\/styles.css.gz</excludes>
                         </configuration>
                     </execution>
                 </executions>
@@ -113,6 +113,8 @@
                             <arguments>
                                 <argument>target/classes/VAADIN/themes/valo/styles.scss</argument>
                                 <argument>target/classes/VAADIN/themes/valo/styles.css</argument>
+                                <argument>--style</argument>
+                                <argument>compressed</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -126,6 +128,23 @@
                             <arguments>
                                 <argument>target/classes/VAADIN/themes/dawn-pro/styles.scss</argument>
                                 <argument>target/classes/VAADIN/themes/dawn-pro/styles.css</argument>
+                                <argument>--style</argument>
+                                <argument>compressed</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>ray</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>
+                                <argument>target/classes/VAADIN/themes/ray/styles.scss</argument>
+                                <argument>target/classes/VAADIN/themes/ray/styles.css</argument>
+                                <argument>--style</argument>
+                                <argument>compressed</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -135,10 +154,80 @@
                 </configuration>
             </plugin>
             <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <configuration>
+                            <target>
+                                <gzip src="target/classes/VAADIN/themes/valo/styles.css" destfile="target/classes/VAADIN/themes/valo/styles.css.gz"/>
+                                <gzip src="target/classes/VAADIN/themes/dawn-pro/styles.css" destfile="target/classes/VAADIN/themes/dawn-pro/styles.css.gz"/>
+                                <gzip src="target/classes/VAADIN/themes/ray/styles.css" destfile="target/classes/VAADIN/themes/ray/styles.css.gz"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>copytocdn</id>
+                        <phase>install</phase>
+                        <configuration>
+                            <target>
+                                <!-- Add the sshexec and scp task -->
+                                <taskdef name="sshexec"
+                                         classname="org.apache.tools.ant.taskdefs.optional.ssh.SSHExec"
+                                         classpathref="maven.plugin.classpath" />
+                                <taskdef name="scp"
+                                         classname="org.apache.tools.ant.taskdefs.optional.ssh.Scp"
+                                         classpathref="maven.plugin.classpath" />
+
+                                <scp todir="dev@virit.in:/opt/jetty/webapps/ROOT/dawn/${project.version}/VAADIN"
+                                    keyfile="/Users/mattitahvonenitmill/.ssh/id_dsa"
+                                >
+                                    <fileset dir="target/classes/VAADIN">
+                                        <include name="**/*.css.gz"/>
+                                        <include name="**/*.gif"/>
+                                    </fileset>                                
+                                </scp>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <!-- Include Ant-Contrib tasks -->
+                    <dependency>
+                        <groupId>ant-contrib</groupId>
+                        <artifactId>ant-contrib</artifactId>
+                        <version>20020829</version>
+                    </dependency>
+                    <!-- Include sshexec task -->
+                    <dependency>
+                        <groupId>org.apache.ant</groupId>
+                        <artifactId>ant-jsch</artifactId>
+                        <version>1.9.2</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.jcraft</groupId>
+                        <artifactId>jsch</artifactId>
+                        <version>0.1.50</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>yuicompressor-maven-plugin</artifactId>
                 <version>1.5.1</version>
                 <configuration>
+                    <includes>
+                        <include>target/classes/**/*</include>
+                    </includes>
+                    <warSourceDirectory>target/classes</warSourceDirectory>
+                    <outputDirectory>target/classes</outputDirectory>
                     <nosuffix>true</nosuffix>
                     <gzip>true</gzip>
                 </configuration>
