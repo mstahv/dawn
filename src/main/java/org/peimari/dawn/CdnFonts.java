@@ -57,7 +57,7 @@ public class CdnFonts implements javax.servlet.http.HttpSessionListener {
                                 head.appendChild(link);
                                 link = document.createElement("link");
                                 link.attr("href",
-                                        "//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
+                                        "//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css");
                                 link.attr("rel", "stylesheet");
                                 link.attr("type", "text/css");
                                 head.appendChild(link);
