@@ -1,3 +1,6 @@
+[![Published on Vaadin  Directory](https://img.shields.io/badge/Vaadin%20Directory-published-00b4f0.svg)](https://vaadin.com/directory/component/dawn)
+[![Stars on vaadin.com/directory](https://img.shields.io/vaadin-directory/star/dawn.svg)](https://vaadin.com/directory/component/dawn)
+
 # Dawn
 
 This is an "alternative build" of the awesome Valo theme introduced in Vaadin 7.3. It can be used as a direct replacement in your Vaadin app for the artifact *com.vaadin:vaadin-themes*.
